@@ -38,6 +38,6 @@ Capitão/Programação | Programação | Mecânica
 |---|---|---|
 [Pedro](https://github.com/PhmMartos)|[Caldo](https://github.com/CaldoO-O)|[Samara](https://github.com/SasaLimaa)|
 
-
+</div>
 <div align="center">
 <img width="150" src="https://ilegra.com/wp-content/uploads/2020/12/IMAGEM-6.gif"/>
