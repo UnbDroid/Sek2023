@@ -38,5 +38,8 @@ Capitão/Programação | Programação | Mecânica
 |---|---|---|
 [Pedro](https://github.com/PhmMartos)|[Caldo](https://github.com/CaldoO-O)|[Samara](https://github.com/SasaLimaa)|
 
+<div align="center">
 
 ![Alt text](IMAGEM-6.gif)
+
+</div>
