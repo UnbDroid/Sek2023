@@ -1,6 +1,7 @@
 <h1 align="center"> Equipe CamburãoDroid </h1>
 
-<h2 align="center"> :construction: Projeto em construção :construction:
+<h2 align="center"> :construction: Projeto em construção :construction: 
+
 
 <div align="center">
 <img width="400" src="https://i.imgur.com/VD4oaip.png"/>
