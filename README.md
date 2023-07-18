@@ -20,6 +20,8 @@
 
 - Documentação do [EV3](https://pybricks.com/ev3-micropython/ev3devices.html) 
 
+- Documentação do [PYTHON](https://aprendacompy.readthedocs.io/pt/latest/prefacio.html)
+
 - Intagram da [Droid](https://www.instagram.com/droidunb/)
 
 ## Autores ✍️
