@@ -15,14 +15,19 @@
 - Equipe: Camburão Da Droid
 - Robô: (A definir)
 
+## Boas práticas 😉
+- Commits devem ter o comentário dizendo quais foram as mudanças.
+- Separe em modulos!
+- Sempre nos mantenha atualizados no discord.
+
 ## Links 🤠
 - Aprenda a configurar o [README](https://www.alura.com.br/artigos/escrever-bom-readme?gclid=CjwKCAjw4ZWkBhA4EiwAVJXwqSmx_ruq6fui_RZhkUbbNQ51mIECNh9F75Hc7ccTYrz_YpUlE8N_5BoCNlUQAvD_BwE)
 
-- Documentação do [EV3](https://pybricks.com/ev3-micropython/ev3devices.html) 
+- Documentação [EV3](https://pybricks.com/ev3-micropython/ev3devices.html) 
 
-- Documentação do [PYTHON](https://aprendacompy.readthedocs.io/pt/latest/prefacio.html)
+- Documentação [PYTHON](https://aprendacompy.readthedocs.io/pt/latest/prefacio.html)
 
-- Intagram da [Droid](https://www.instagram.com/droidunb/)
+- Intagram [Droid](https://www.instagram.com/droidunb/)
 
 ## Autores ✍️
 Capitão/Programação | Programação | Mecânica 
