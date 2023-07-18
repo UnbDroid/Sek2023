@@ -7,7 +7,7 @@
 </div>
 <h2 align="center"> :construction: Projeto em construção :construction: 
 
-</div>
+
 
 ## Competição interna de 2023
 
