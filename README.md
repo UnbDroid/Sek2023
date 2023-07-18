@@ -11,7 +11,7 @@
 
 ## Competição interna de 2023 😎
 
-- ![Language](https://img.shields.io/badge/Python-219ebc) ![EV3](https://img.shields.io/badge/EV3-d90429)
+   ![Language](https://img.shields.io/badge/Python-219ebc) ![EV3](https://img.shields.io/badge/EV3-d90429)
 - Equipe: Camburão Da Droid
 - Robô: (A definir)
 
