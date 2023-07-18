@@ -3,9 +3,14 @@
 <div align="center">
 <img width="400" src="https://i.imgur.com/VD4oaip.png"/>
 
+
+</div>
+<h2 align="center"> :construction: Projeto em construção :construction: 
+
 </div>
 
 ## Competição interna de 2023
+
 - Equipe: Camburão Da Droid
 - Robô: (A definir)
 
