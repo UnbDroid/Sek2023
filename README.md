@@ -3,7 +3,7 @@
 <h2 align="center"> :construction: Projeto em construção :construction:
 
 <div align="center">
-<img width="200" src="https://i.imgur.com/VD4oaip.png"/>
+<img width="400" src="https://i.imgur.com/VD4oaip.png"/>
 
 </div>
 
