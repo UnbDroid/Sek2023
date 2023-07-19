@@ -29,7 +29,7 @@
 
 - Documentação [PYTHON](https://aprendacompy.readthedocs.io/pt/latest/prefacio.html)
 
-- Intagram [Droid](https://www.instagram.com/droidunb/)
+- Instagram [Droid](https://www.instagram.com/droidunb/)
 
 - Tutorial [GIT](https://ilegra.com/blog/do-zero-git-github-como-criar-primeiro-repositorio-e-subir-seu-primeiro-projeto/)
 
