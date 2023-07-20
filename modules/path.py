@@ -50,10 +50,12 @@ def scan():
     pointed_to = 0
     while not is_tube_of_15() and not is_tube_of_10():
         motors.drive(100, 0)
+        
     if is_tube_of_15():
         size_of_tube = 15
     if is_tube_of_10():
         size_of_tube = 10
+        
     if is_red_tube():
         color_of_tube = "RED"
     if is_green_tube():
