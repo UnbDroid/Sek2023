@@ -16,255 +16,324 @@ def tube_library():
     #Abre garra
     # retorna para a área de coleta
     
-def tubo_city_hall():
+def tube_city_hall():
     
     go_to_check_point()
     
-    move_foward(1)
+    move_forward(3)
     turn_left()
-    move_foward() # Está indo em direção ao objeto J
+    move_forward(1) # Está indo em direção ao objeto J
     
-    if #sensor identificou objeto "J":
+    if has_obstacle(): #sensor identificou objeto "J":
         move_backward(1)
         turn_right()
-        move_foward(2)
+        move_forward(3)
         turn_left()
-        move_foward()
+        move_forward(2)
         turn_left()
-        move_foward()
+        move_forward(2)
         #Abre a garra
         #retorna para a área de coleta
+        move_backward(2)
+        turn_left()
+        move_forward(3)
     
     else:
-        move_foward()#Distancia pequena
+        move_forward(2)#Distancia pequena
         turn_right()
-        move_foward()
+        move_forward(2)
         #Abre a garra
         #retorna para a área de coleta
+        move_backward(2)
+        turn_right()
+        move_forward(3)
         
 
     
-def tubo_school():
+def tube_school():
     go_to_check_point()
     
-    move_foward()
+    move_forward(8)
     turn_left()
-    move_foward()
+    move_forward(1)
     
-    if #sensor identificou objeto "i":
-        move_backward()
+    if has_obstacle(): #sensor identificou objeto "i":
+        move_backward(1)
         turn_left()
-        move_foward()
+        move_forward(4)
         turn_right()
-        move_foward()
+        move_forward(4)
         turn_right()
         #while not is_red():
-        #    move_foward(): sugestão, bater no vermelho e dai voltar
-        move_foward()
+        #    move_forward(): sugestão, bater no vermelho e dai voltar
+        move_forward(6)
         turn_right()
-        move_foward()
+        move_forward(2)
         #abre e retorna
+        move_backward(2)
+        turn_right()
+        move_forward(6)
+        turn_left()
+        move_forward(4)
+    else:
+        move_forward(1)
+        move_right()
+        move_forward(2)
+        #abre e retorna
+        move_backward(2)
+        turn_right()
+        move_forward(2)
         
-def tubo_museum():
+def tube_museum():
     go_to_check_point()
     
-    move_foward()
-    turn_right()
-    move_foward()
-    
-    if #sensor identificou objeto "j":
-        move_backward()
-        turn_right()
-        move_foward()
-        turn_left()
-        move_foward()
-        turn_left()
-        move_foward()
-        if #sensor identificou objeto G:
-            move_backward()
-            turn_right()
-            move_foward()
-            turn_left()
-            move_foward()
-            turn_left()
-            move_foward()
-            turn_right()
-            move_foward()
-            #abre e retorna
-            
-        move_foward()
-        turn_right()
-        move_foward()
-        #abre e retorna 
-        
-    
-    move_foward()
+    move_forward(4)
     turn_left()
-    move_foward()
     
-    if #Objeto "H":
-        move_backward()
+    if has_obstacle(): #sensor identificou objeto "j":
         turn_right()
-        move_foward()
+        move_forward(4)
         turn_left()
-        move_foward()
+        move_forward(4)
+        turn_left()
+        move_forward(2)
+        if has_obstacle(): #sensor identificou objeto G:
+            move_backward(2)
+            turn_right()
+            move_forward(4)
+            turn_left()
+            move_forward(4)
+            turn_left()
+            move_forward(4)
+            turn_right()
+            move_forward(2)
+            #abre e retorna
+            move_backward(2)
+            turn_right()
+            move_forward(4)
+            turn_right()
+            move_forward(4)
+            turn_right()
+            move_forward(8)
+        else:
+            move_forward(6)
+            turn_right()
+            move_forward(2)
+            #abre e retorna
+            move_backward(2)
+            turn_right()
+            move_forward(2)
+            turn_right()
+            move_forward(4) 
+    else:
+        move_forward(4)
+        turn_left()
+    
+    if has_obstacle(): #Objeto "H":
+        turn_right()
+        move_forward(2)
+        turn_left()
+        move_forward(2)
         # Abre e retorna
-        
-    move_foward()
-    turn_right()
-    move_foward()
-    # abre e retorna
+        move_backward(2)
+        turn_left()
+        move_forward(6)
+    else:
+        move_forward(2)
+        turn_right()
+        move_forward(2)
+        # abre e retorna
+        move_backward(2)
+        turn_right()
+        move_forward(2)
+        turn_right()
+        move_forward(6)
                 
-def tube_drogstore():
+def tube_drugstore():
     go_to_check_point()
     
-    move_foward()
+    move_forward(3)
     turn_left()
-    move_foward()
     
-    if #Objeto "J":
-        move_backward()
+    if has_obstacle(): #Objeto "J":
         turn_right()
-        move_foward()
+        move_forward(4)
         turn_left()
-        move_foward()
+        move_forward(4)
         turn_left()
-        move_foward()
         
-        if #Objeto "G":
-            move_backward()
+        if has_obstacle(): #Objeto "G":
             turn_right()
-            move_foward()
+            move_forward(4)
             turn_left()
-            move_foward()
+            move_forward(2)
             turn_left()
-            move_foward()
+            move_forward(2)
             #abre e retorna
-            
-        move_foward()
-        turn_right()
-        move_foward()
-        #Abre e retorna
-    move_foward()
-    turn_right()
-    move_foward()
-    
-    if #Objeto "G":
-        move_backward()
-        turn_left
-        move_foward()
-        if #Objeto "E":
-            move_backward()
+            move_backward(2)
+            turn_left()
+            move_forward(3)
             turn_right()
-            move_foward()
-            turn_left()
-            move_foward()
-            turn_left()
-            move_foward()
-            turn_left()
-            move_foward()
-            #Abre e solta 
-            
-        move_foward()
+            move_forward(8)
+        else:    
+            move_forward(2)
+            turn_right()
+            move_forward(2)
+            #Abre e retorna
+            move_backward(2)
+            turn_right()
+            move_forward(3)
+            turn_right()
+            move_forward(4)
+    else:
+        move_forward(4)
         turn_right()
-        move_foward()
-        turn_right()
-        move_foward()
-        #Abre e retorna
-        
-    move_foward()
-    turn_left()
-    move_foward()
-    # Abre e retorna
+    
+    if has_obstacle(): #Objeto "G":
+        turn_left()
+        if has_obstacle(): #Objeto "E":
+            move_backward(5)
+            turn_right()
+            move_forward(4)
+            turn_left()
+            move_forward(9)
+            turn_left()
+            move_forward(3)
+            turn_left()
+            move_forward(2)
+            #Abre e solta
+            move_backward(2)
+            turn_left()
+            move_forward(3)
+            turn_right()
+            move_forward(9) 
+        else:
+            move_forward(4)
+            turn_right()
+            move_forward(2)
+            turn_right()
+            move_forward(2)
+            #Abre e retorna
+            move_backward(2)
+            turn_right()
+            move_forward(3)
+            turn_left()
+            move_forward(8)
+    else:
+        move_forward(2)
+        turn_left()
+        move_forward(2)
+        # Abre e retorna
+        move_backward(2)
+        turn_left()
+        move_forward(2)
+        turn_left()
+        move_forward(5)
     
 
 def tube_bakery()
     go_to_check_point()
     
-    move_foward()
+    move_forward(7)
     turn_left()
-    move_foward()
     
-    if #Objeto "I":
-        back_foward()
+    if has_obstacle(): #Objeto "I":
         turn_left()
-        move_foward()
+        move_forward(5)
         turn_right()
-        move_foward()
-        
-        if #objeto "E":
-            back_foward()
+        move_forward(4)
+        if has_obstacle(): #objeto "E":
             turn_right()
-            move_foward()
+            move_forward(4)
             turn_left()
-            move_foward()
+            move_forward(2)
             turn_right()
-            move_foward()
+            move_forward(2)
             #Abre e retorna
-            
-        move_foward()
-        turn_right()
-        move_foward()
+            move_backward(2)
+            turn_right()
+            move_forward(3)
+            turn_right()
+            move_forward(4)
+            turn_left()
+            move_forward(4)
+        else:
+            move_forward(4)
+            turn_right()
         
-        if #OBJETO B"
-            move_back()
+        if has_obstacle(): #OBJETO B"
             turn_right()
-            move_foward()
+            move_forward(5)
             turn_left()
-            move_foward()
+            move_forward(4)
             turn_left()
-            move_foward()
+            move_forward(2)
             turn_right()
-            move_foward()
+            move_forward(2)
             #abre e retorna
+            move_backward(2)
+            turn_right()
+            move_forward(3)
+            turn_right()
+            move_forward(4)
+            turn_left()
+            move_forward(4)
+        else:
+            move_forward(4)
+        if has_obstacle(): #objeto "A":
+            turn_right()
+            move_forward(3)
+            turn_left()
+            move_forward(2)
+            #Abre e retorna
+            move_backward(2)
+            turn_right()
+            move_forward(2)
+            turn_right()
+            move_forward(5)
+            turn_left()
+            move_forward(4)
+        else:
+            move_forward(2)
+            turn_right()
+            move_forward(2)
+            #Abre e retorna
+            move_backward(2)
+            turn_right()
+            move_forward(6)
+            turn_left()
+            move_forward(8)
+    else:
+        move_forward(4)
+    
+    if has_obstacle(): #Objeto "D":
+        turn_left()
+        move_forward(1)
+        if has_obstacle(): #Objeto "G":
+            turn_left()
+            move_forward(4)
+            turn_right()
+            move_forward(4)
+            turn_right()
+            move_forward(8)
+            
         
-        move_foward()
-        if #objeto "A":
+        if has_obstacle(): #objeto "A":
             move_back()
             turn_right()
-            move_foward()
+            move_forward()
             turn_left()
-            move_foward()
-            #Abre e retorna
-        move_foward()
-        turn_right()
-        mov_foward()
-        #Abre e retorna            
-        
-    
-    move_foward()
-    
-    if #Objeto "D":
-        move_backward()
-        turn_left()
-        move_foward()
-        if #Objeto "G":
-        
-        move_foward()
-        turn_right()
-        move_foward()
-        turn_right()
-        move_foward()
-        
-        if #objeto "A":
-            move_back()
-            turn_right()
-            move_foward()
-            turn_left()
-            move_foward()
+            move_forward()
             #Abre e retorna
         
         move_backward()
         turn_right()
-        move_foward()
+        move_forward()
         turn_left()
-        move_foward()        
+        move_forward()        
         #Abre e retorna
     
-    move_foward()
+    move_forward()
     turn_right()
-    move_foward()
+    move_forward()
     #Abre e retorna
-
-        
-    

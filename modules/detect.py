@@ -8,6 +8,10 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 
 color_sensor_right_lower = ColorSensor(Port.S2)
 color_sensor_right_upper = ColorSensor(Port.S3)
+ultrasound_sensor = UltrasonicSensor(Port.S4)
+
+def has_obstacle():
+    return ultrasound_sensor.distance() < 200
 
 def is_tube_of_15():
     return color_sensor_right_lower.reflection() > 1 and color_sensor_right_upper.reflection() > 1
