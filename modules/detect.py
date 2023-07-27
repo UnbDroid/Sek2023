@@ -6,8 +6,6 @@ from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 
-color_sensor_right_lower = ColorSensor(Port.S2)
-color_sensor_right_upper = ColorSensor(Port.S3)
 ultrasound_sensor = UltrasonicSensor(Port.S4)
 
 def has_obstacle():
