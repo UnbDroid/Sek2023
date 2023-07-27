@@ -17,4 +17,4 @@ align_to_begin_scan()
 #     wait(1000)
 
 # while True:
-#     motors.drive(100, 0):
+#     print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())

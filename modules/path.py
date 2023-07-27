@@ -13,30 +13,35 @@ current_path = [0, 0, 0, 0]
 
 def find_blue_line():
     cronometer.reset()
-    while not is_blue() and not is_black() and not is_yellow() and not is_red():
-        motors.drive(100, 0)
+    while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
+        motors.drive(100,0)
     motors.stop()
+    time_forward = cronometer.time()
+    ajust_color()
+    if not is_blue() and not is_red() and not is_black() and not is_yellow():
+        while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
+            motors.drive(-40,0)
+        motors.stop()
     if is_red():
         print("Achou vermelho")
         move_backward(2.5)
         turn_left()
-        while not is_blue() and not is_black() and not is_yellow() and not is_red():
-            motors.drive(100, 0)
-        if is_black() or is_yellow():
+        while not is_blue() and not is_black():
+            motors.drive(100,0)
+        if is_black():
             print("Achou parede")
             turn_right()
             turn_right()
-            while not is_blue() and not is_black() and not is_yellow() and not is_red():
-                motors.drive(100, 0)
+            while not is_blue():
+                motors.drive(100,0)
         motors.stop()
-    if is_black() or is_yellow():
+    elif is_black() or is_yellow():
         print("Achou parede")
-        time_forward = cronometer.time()
         cronometer.reset()
         print("Resetou cronometro")
         print("Voltando...")
         while cronometer.time() < time_forward:
-            motors.drive(-100, 0)
+            motors.drive(-100,0)
         turn_right()
         find_blue_line()
     print(color_sensor_floor_left.rgb())
@@ -44,15 +49,16 @@ def find_blue_line():
 def align_to_begin_scan():
     move_backward(0.1)
     turn_right()
+    motors.stop()
     while not is_red():
-        motors.drive(100, 0)
+        motors.drive(100,0)
     turn_left()
     turn_left()
 
 def scan():
     pointed_to = 0
     while not is_tube_of_15() and not is_tube_of_10():
-        motors.drive(100, 0)
+        motors.drive(100,0)
         
     if is_tube_of_15():
         size_of_tube = 15
@@ -71,7 +77,7 @@ def scan():
 def align_to_begin_deliver():
     pointed_to = 0
     while not is_red():
-        motors.drive(100, 0)
+        motors.drive(100,0)
     move_backward(4)
 
 def set_path():
