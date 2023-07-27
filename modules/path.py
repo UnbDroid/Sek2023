@@ -75,16 +75,16 @@ def set_path():
     if size_of_tube == 15:
         if color_of_tube == "RED": #Farmacia
             initial_path = [0, 0, 0, 0]
-        if color_of_tube == "GREEN": #Prefeitura
+        # if color_of_tube == "GREEN": #Prefeitura
             
-        if color_of_tube == "BLUE": #Museu
+        # if color_of_tube == "BLUE": #Museu
             
-        if color_of_tube == "BROWN": #Padaria
+        # if color_of_tube == "BROWN": #Padaria
             
-    else:
-        if color_of_tube == "GREEN": #Parque
+    # else:
+    #     if color_of_tube == "GREEN": #Parque
+    #         print('oi'')
+        # if color_of_tube == "BLUE": #Escola
             
-        if color_of_tube == "BLUE": #Escola
-            
-        if color_of_tube == "BROWN": #Biblioteca
+        # if color_of_tube == "BROWN": #Biblioteca
             
