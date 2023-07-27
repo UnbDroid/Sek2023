@@ -1,13 +1,7 @@
 from modules.motors import *
 from modules.colors import *
 from modules.detect import *
-from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
-                                 InfraredSensor, UltrasonicSensor, GyroSensor)
-from pybricks.parameters import Port, Stop, Direction, Button, Color
-from pybricks.tools import wait, StopWatch, DataLog
-from pybricks.robotics import DriveBase
-from pybricks.media.ev3dev import SoundFile, ImageFile
+from pybricks.tools import StopWatch
 
 pointed_to = 1
 cardinal_points = ["N", "E", "S", "W"]
@@ -21,25 +15,34 @@ def find_blue_line():
     cronometer.reset()
     while not is_blue() and not is_black() and not is_yellow() and not is_red():
         motors.drive(100, 0)
+    motors.stop()
     if is_red():
-        move_backward(2)
+        print("Achou vermelho")
+        move_backward(2.5)
         turn_left()
         while not is_blue() and not is_black() and not is_yellow() and not is_red():
             motors.drive(100, 0)
         if is_black() or is_yellow():
+            print("Achou parede")
             turn_right()
             turn_right()
             while not is_blue() and not is_black() and not is_yellow() and not is_red():
                 motors.drive(100, 0)
+        motors.stop()
     if is_black() or is_yellow():
+        print("Achou parede")
         time_forward = cronometer.time()
         cronometer.reset()
+        print("Resetou cronometro")
+        print("Voltando...")
         while cronometer.time() < time_forward:
             motors.drive(-100, 0)
         turn_right()
         find_blue_line()
+    print(color_sensor_floor_left.rgb())
         
 def align_to_begin_scan():
+    move_backward(0.1)
     turn_right()
     while not is_red():
         motors.drive(100, 0)

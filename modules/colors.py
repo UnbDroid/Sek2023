@@ -1,10 +1,10 @@
-from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
-                                 InfraredSensor, UltrasonicSensor, GyroSensor)
-from pybricks.parameters import Port, Stop, Direction, Button, Color
-from pybricks.tools import wait, StopWatch, DataLog
-from pybricks.robotics import DriveBase
-from pybricks.media.ev3dev import SoundFile, ImageFile
+
+from pybricks.ev3devices import ColorSensor
+                                 
+from pybricks.parameters import Port
+
+
+
 
 color_sensor_floor_left = ColorSensor(Port.S1)
 color_sensor_floor_right = ColorSensor(Port.S2)
@@ -31,10 +31,10 @@ def is_black():
     return (red_left() < 18 and green_left() < 18 and blue_left() < 18) or (red_right() < 18 and green_right() < 18 and blue_right() < 18)
 
 def is_yellow():
-    return (red_left() > 18 and green_left() > 18 and blue_left() < 18) or (red_right() > 18 and green_right() > 18 and blue_right() < 18)
+    return (red_left() > 70 and green_left() > 70 and blue_left() < 45) or (red_right() > 70 and green_right() > 70 and blue_right() < 45)
 
 def is_blue():
-    return (red_left() < 18 and green_left() < 18 and blue_left() > 18) or (red_right() < 18 and green_right() < 18 and blue_right() > 18)
+    return (red_left() < 35 and green_left() < 35 and blue_left() > 75) or (red_right() < 35 and green_right() < 35 and blue_right() > 75)
 
 def is_red():
-    return (red_left() > 18 and green_left() < 18 and blue_left() < 18) or (red_right() > 18 and green_right() < 18 and blue_right() < 18)
+    return (red_left() > 65 and green_left() < 25 and blue_left() < 25) or (red_right() > 65 and green_right() < 25 and blue_right() < 25)

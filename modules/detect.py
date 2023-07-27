@@ -1,30 +1,27 @@
-from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
-                                 InfraredSensor, UltrasonicSensor, GyroSensor)
-from pybricks.parameters import Port, Stop, Direction, Button, Color
-from pybricks.tools import wait, StopWatch, DataLog
-from pybricks.robotics import DriveBase
-from pybricks.media.ev3dev import SoundFile, ImageFile
 
-ultrasound_sensor = UltrasonicSensor(Port.S4)
+# from pybricks.ev3devices import UltrasonicSensor
+# from pybricks.parameters import Port
+# from modules.colors import *
 
-def has_obstacle():
-    return ultrasound_sensor.distance() < 200
+# ultrasound_sensor = UltrasonicSensor(Port.S4)
 
-def is_tube_of_15():
-    return color_sensor_right_lower.reflection() > 1 and color_sensor_right_upper.reflection() > 1
+# def has_obstacle():
+#     return ultrasound_sensor.distance() < 200
 
-def is_tube_of_10():
-    return color_sensor_right_lower.reflection() > 1 and color_sensor_right_upper.reflection() < 1
+# def is_tube_of_15():
+#     return color_sensor_right_lower.reflection() > 1 and color_sensor_right_upper.reflection() > 1
 
-def is_red_tube():
-    return color_sensor_right_lower.rgb()[0] > 10 and color_sensor_right_lower.rgb()[1] < 10 and color_sensor_right_lower.rgb()[2] < 10
+# def is_tube_of_10():
+#     return color_sensor_right_lower.reflection() > 1 and color_sensor_right_upper.reflection() < 1
 
-def is_green_tube():
-    return color_sensor_right_lower.rgb()[0] < 10 and color_sensor_right_lower.rgb()[1] > 10 and color_sensor_right_lower.rgb()[2] < 10
+# def is_red_tube():
+#     return color_sensor_right_lower.rgb()[0] > 10 and color_sensor_right_lower.rgb()[1] < 10 and color_sensor_right_lower.rgb()[2] < 10
 
-def is_blue_tube():
-    return color_sensor_right_lower.rgb()[0] < 10 and color_sensor_right_lower.rgb()[1] < 10 and color_sensor_right_lower.rgb()[2] > 10
+# def is_green_tube():
+#     return color_sensor_right_lower.rgb()[0] < 10 and color_sensor_right_lower.rgb()[1] > 10 and color_sensor_right_lower.rgb()[2] < 10
 
-def is_brown_tube():
-    return color_sensor_right_lower.rgb()[0] > 10 and color_sensor_right_lower.rgb()[1] > 10 and color_sensor_right_lower.rgb()[2] < 10
+# def is_blue_tube():
+#     return color_sensor_right_lower.rgb()[0] < 10 and color_sensor_right_lower.rgb()[1] < 10 and color_sensor_right_lower.rgb()[2] > 10
+
+# def is_brown_tube():
+#     return color_sensor_right_lower.rgb()[0] > 10 and color_sensor_right_lower.rgb()[1] > 10 and color_sensor_right_lower.rgb()[2] < 10
