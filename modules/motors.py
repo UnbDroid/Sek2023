@@ -14,12 +14,21 @@ from modules.path import *
 left_motor = Motor(Port.A) 
 right_motor = Motor(Port.B)
 
-motors = DriveBase(left_motor, right_motor, 42.1, 144.9)
+motors = DriveBase(left_motor, right_motor, 42.1, 141.0) # 140.88
+
+def andar_reto(velo):
+    kp = 0.010 #0.001
+    delta = (left_motor.angle() - right_motor.angle())/360
+    erro = delta * kp
+    
+    # right_motor.dc(velo - erro)
+    
+    right_motor.dc(velo + erro) #dc
+    left_motor.dc(velo - erro) #dc
 
 def go_forward(x):
     left_motor.run(x)
     right_motor.run(x)
-    print(left_motor.speed(), right_motor.speed())
     pass
     
 def go_backward(x):

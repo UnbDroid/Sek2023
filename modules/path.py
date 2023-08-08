@@ -44,7 +44,7 @@ def find_blue_line():
             motors.drive(-100,0)
         turn_right()
         find_blue_line()
-    print(color_sensor_floor_left.rgb())
+    
         
 def align_to_begin_scan():
     move_backward(0.1)

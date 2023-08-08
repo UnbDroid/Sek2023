@@ -337,3 +337,7 @@ def tube_bakery()
     turn_right()
     move_forward()
     #Abre e retorna
+    
+def tube_park():
+    go_to_check_point()
+    

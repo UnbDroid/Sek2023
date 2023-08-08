@@ -8,8 +8,22 @@ from pybricks.tools import wait
 
 ev3 = EV3Brick()
 
-find_blue_line()
-align_to_begin_scan()
+# print(motors.heading_control.pid())
+# print(motors.distance_control.pid())
+
+# find_blue_line()
+# align_to_begin_scan()
+
+# left_motor.run(50)
+# right_motor.run(50)
+
+while True:
+    andar_reto(50)
+
+
+# while True:
+#     left_motor.run(50)
+#     print(left_motor.speed())
 
 # while True:
 #     motors.turn(360)
