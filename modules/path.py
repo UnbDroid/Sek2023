@@ -27,7 +27,7 @@ def find_blue_line():
     
     if not is_blue() and not is_red() and not is_black() and not is_yellow():
         while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-            andar_reto(-20)
+            andar_reto_tras(20)
         motors.stop()
         
         
@@ -54,7 +54,7 @@ def find_blue_line():
         print("Resetou cronometro")
         print("Voltando...")
         while cronometer.time() < time_forward:
-            andar_reto(-50)
+            andar_reto_tras(50)
         turn_right()
         find_blue_line()
     
