@@ -17,6 +17,7 @@ current_path = [0, 0, 0, 0]
 
 def find_blue_line():
     cronometer.reset()
+<<<<<<< HEAD
     motors.stop()
     
     print("procurando")
@@ -26,6 +27,15 @@ def find_blue_line():
     
     time_forward = cronometer.time()
     # ajust_color()
+=======
+    
+    while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
+        andar_reto(50)   
+    motors.stop()
+    
+    time_forward = cronometer.time()
+    ajust_color()
+>>>>>>> e63e9c509e5b75fe81746932f935d5f7bc2b8f7e
     
     if not is_blue() and not is_red() and not is_black() and not is_yellow():
         while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
@@ -37,8 +47,12 @@ def find_blue_line():
         
         print("Achou vermelho")
         move_backward(2.5) #Ajuste para ver como lida com o "andar reto"
+<<<<<<< HEAD
         turn_left(90)
         motors.stop()
+=======
+        turn_left()
+>>>>>>> e63e9c509e5b75fe81746932f935d5f7bc2b8f7e
         
         while not is_blue() and not is_black():
             andar_reto(50)
@@ -58,6 +72,7 @@ def find_blue_line():
         cronometer.reset()
         print("Voltando...")
         while cronometer.time() < time_forward:
+<<<<<<< HEAD
             andar_reto(-50)
             
         motors.stop()
@@ -65,6 +80,10 @@ def find_blue_line():
         
         
         
+=======
+            andar_reto_tras(50)
+        turn_right()
+>>>>>>> e63e9c509e5b75fe81746932f935d5f7bc2b8f7e
         find_blue_line()
     
         
@@ -75,8 +94,13 @@ def align_to_begin_scan():
     motors.stop()
     while not is_red():
         andar_reto(50)
+<<<<<<< HEAD
     turn_left(190)
     
+=======
+    turn_left()
+    turn_left()
+>>>>>>> e63e9c509e5b75fe81746932f935d5f7bc2b8f7e
 
 def scan():
     pointed_to = 0
