@@ -46,11 +46,13 @@ def move_forward(n):
 def move_backward(n):
     motors.straight(-150*n)
     
-def turn_left():
-    motors.turn(-90)
+def turn_left(x):
+    motors.turn(-x)
+    motors.stop()
 
-def turn_right():
-    motors.turn(90)
+def turn_right(x):
+    motors.turn(x)
+    motors.stop()
     
 def ajust_color():
     print("Ajustando cor...")

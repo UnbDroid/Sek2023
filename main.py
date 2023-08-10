@@ -11,14 +11,13 @@ ev3 = EV3Brick()
 # print(motors.heading_control.pid())
 # print(motors.distance_control.pid())
 
-# find_blue_line()
-# align_to_begin_scan()
+# while True:
+#     find_blue_line()
+#     align_to_begin_scan()
 
-# left_motor.run(50)
-# right_motor.run(50)
 
-while True:
-    andar_reto(50)
+# while True:
+#     andar_reto(50)
 
 
 # while True:
@@ -30,5 +29,5 @@ while True:
 #     motors.stop()
 #     wait(1000)
 
-# while True:
-#     print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())
+while True:
+    print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())

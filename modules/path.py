@@ -11,54 +11,77 @@ color_of_tube = ""
 initial_path = [0, 0, 0, 0]
 current_path = [0, 0, 0, 0]
 
+# Testes para fazer! Verificar se o move_backward e o move_forward estão funcionando corretamente, juntamento com o turn_left e turn_right.
+# Recalibras as cores !
+
+
 def find_blue_line():
     cronometer.reset()
-    while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-        motors.drive(100,0)
     motors.stop()
+    
+    print("procurando")
+    while not is_blue() and not is_red() and not is_black() and not is_yellow():
+        andar_reto(50)   
+    motors.stop()
+    
     time_forward = cronometer.time()
-    ajust_color()
+    # ajust_color()
+    
     if not is_blue() and not is_red() and not is_black() and not is_yellow():
         while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-            motors.drive(-40,0)
+            andar_reto_tras(20)
         motors.stop()
+        
+        
     if is_red():
+        
         print("Achou vermelho")
-        move_backward(2.5)
-        turn_left()
+        move_backward(2.5) #Ajuste para ver como lida com o "andar reto"
+        turn_left(90)
+        motors.stop()
+        
         while not is_blue() and not is_black():
-            motors.drive(100,0)
+            andar_reto(50)
         if is_black():
             print("Achou parede")
-            turn_right()
-            turn_right()
+            move_backward(2.5)
+            turn_left(90)
+            motors.stop()
+            
             while not is_blue():
-                motors.drive(100,0)
+                andar_reto(50)
         motors.stop()
+        
+        
     elif is_black() or is_yellow():
         print("Achou parede")
         cronometer.reset()
-        print("Resetou cronometro")
         print("Voltando...")
         while cronometer.time() < time_forward:
-            motors.drive(-100,0)
-        turn_right()
+            andar_reto(-50)
+            
+        motors.stop()
+        turn_right(190)
+        
+        
+        
         find_blue_line()
     
         
 def align_to_begin_scan():
+    print("Achei o azul")
     move_backward(0.1)
-    turn_right()
+    turn_right(90)
     motors.stop()
     while not is_red():
-        motors.drive(100,0)
-    turn_left()
-    turn_left()
+        andar_reto(50)
+    turn_left(190)
+    
 
 def scan():
     pointed_to = 0
     while not is_tube_of_15() and not is_tube_of_10():
-        motors.drive(100,0)
+        andar_reto(50)
         
     if is_tube_of_15():
         size_of_tube = 15
@@ -77,7 +100,7 @@ def scan():
 def align_to_begin_deliver():
     pointed_to = 0
     while not is_red():
-        motors.drive(100,0)
+        andar_reto(50)
     move_backward(4)
 
 def set_path():
