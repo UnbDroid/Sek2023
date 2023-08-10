@@ -64,14 +64,14 @@ def align_to_begin_scan():
     turn_right()
     motors.stop()
     while not is_red():
-        motors.drive(100,0)
+        andar_reto(50)
     turn_left()
     turn_left()
 
 def scan():
     pointed_to = 0
     while not is_tube_of_15() and not is_tube_of_10():
-        motors.drive(100,0)
+        andar_reto(50)
         
     if is_tube_of_15():
         size_of_tube = 15
@@ -90,7 +90,7 @@ def scan():
 def align_to_begin_deliver():
     pointed_to = 0
     while not is_red():
-        motors.drive(100,0)
+        andar_reto(50)
     move_backward(4)
 
 def set_path():
