@@ -1,21 +1,34 @@
 #!/usr/bin/env pybricks-micropython
-from pybricks.hubs import EV3Brick
-from pybricks.parameters import Port
-from pybricks.nxtdevices import ColorSensor
 
+# Before running this program, make sure the client and server EV3 bricks are
+# paired using Bluetooth, but do NOT connect them. The program will take care
+# of establishing the connection.
 
+from pybricks.messaging import BluetoothMailboxClient, TextMailbox
 
-# Defininindo as portas
-ev3 = EV3Brick()
-color_upper = ColorSensor(Port.S4)
-color_lower = ColorSensor(Port.S3)
+# O nome do servidor deve ser o mesmo que o nome do servidor no programa do servidor.
+SERVER = 'ev3dev'
 
-# Programando
-while True:
-    if color_lower.reflection() > 10 and color_upper.reflection() > 7:
-        print("Tubo de 15 :) ")
-        
-    if  color_lower.reflection() > 10 and color_upper.reflection () < 7:
-        print("Tubo de 10 :) ") 
-        
-        
+client = BluetoothMailboxClient()
+mbox = TextMailbox('greeting', client)
+
+# Testes para vermos se realmente está conectando.
+print('establishing connection...')
+client.connect(SERVER)
+print('connected!')
+
+# In this program, the client sends the first message and then waits for the
+# server to reply.
+mbox.send('hello!')
+mbox.wait()
+print(mbox.read())
+
+send_code = ''
+
+if red_tube() = True:
+    send_code = 'red '
+
+if hight_tube() = True:
+    send_code = send_code + hight_tube()
+    
+print(send_code)
