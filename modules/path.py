@@ -52,7 +52,7 @@ def find_blue_line():
         motors.stop()
         
         
-    elif is_black() or is_yellow():
+    elif is_black() or is_yellow() or is_wall():
         
         # erro !!!
         # Mudar quando ele está no C olhando para o amarelo, e pensar de um jeito de deixar mais simples quando encontra o vermelho direto. Ele fica em um loop infinito virando 180° 
@@ -69,9 +69,6 @@ def find_blue_line():
         
         # while not is_black() and not is_yellow():
         #     andar_reto(-50)
-        
-        
-        
         
         find_blue_line()
     

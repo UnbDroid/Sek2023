@@ -89,3 +89,8 @@ def is_red_right():
 
 def is_red():
     return is_red_left() and is_red_right()
+
+# -------------------------------------------------------------
+
+def is_wall():
+    return (is_black_left() and is_yellow_right()) or (is_yellow_left() and is_black_right())

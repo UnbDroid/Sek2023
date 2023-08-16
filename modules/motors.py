@@ -2,7 +2,6 @@ from pybricks.ev3devices import Motor
 from pybricks.parameters import Port, Stop
 from pybricks.robotics import DriveBase
 
-
 from pybricks.robotics import DriveBase
 
 
@@ -43,25 +42,31 @@ def andar_reto(velo):
     right_motor.dc(velo + control_output)
     left_motor.dc(velo - control_output)    
     
-def andar_reto_tras(x):
-    kp = 0.010 #0.001
-    delta = (left_motor.angle() - right_motor.angle())/360
-    erro = delta * kp
+# def andar_reto_tras(x):
+#     kp = 0.010 #0.001
+#     delta = (left_motor.angle() - right_motor.angle())/360
+#     erro = delta * kp
     
-    # right_motor.dc(velo - erro)
+#     # right_motor.dc(velo - erro)
     
-    right_motor.dc(-(velo + erro)) #dc
-    left_motor.dc(-(velo - erro)) #dc
+#     right_motor.dc(-(velo + erro)) #dc
+#     left_motor.dc(-(velo - erro)) #dc
     
 def break_motors():
     left_motor.brake()
     right_motor.brake()
 
 def move_forward(n):
-    motors.straight(150*n)
+    cronometer.reset()
+    while cronometer.time() < n:
+        andar_reto(50)
+    break_motors()
     
 def move_backward(n):
-    motors.straight(-150*n)
+    cronometer.reset()
+    while cronometer.time() < n:
+        andar_reto(-50)
+    break_motors()
     
 def turn_left(x):
     motors.turn(-x)
