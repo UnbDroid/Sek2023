@@ -359,6 +359,15 @@ def tube_park():
                 turn_right(90)
                 move_forward(2)
                 #Abre e retorna
+                move_backward(2)
+                turn_right(90)
+                move_forward(4)
+                turn_right(90)
+                move_forward(4)
+                turn_left(90)
+                move_forward(4)
+                turn_right(90)
+                move_forward(2)
             else:
                 move_forward(4)
                 turn_left(90)

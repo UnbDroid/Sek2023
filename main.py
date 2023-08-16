@@ -38,12 +38,13 @@ mbox = TextMailbox('greeting', server)
 # print(motors.distance_control.pid())
 
 while True:
-    find_blue_line()
-    align_to_begin_scan()
+    # find_blue_line()
+    # align_to_begin_scan()
+    scan()
 
-
-# while True:
+# while not is_red():
 #     andar_reto(50)
+# print("Achou vermelho", cronometer.time())
 
 
 # while True:
@@ -54,6 +55,14 @@ while True:
 #     motors.turn(360)
 #     motors.stop()
 #     wait(1000)
+
+# cout=0
+# while cronometer.time() < 5000:
+#     andar_reto(40)
+#     print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())
+#     cout+=1
+    
+# print(cout)
 
 # while True:
 #     print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())

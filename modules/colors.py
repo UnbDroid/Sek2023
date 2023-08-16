@@ -3,6 +3,7 @@ from pybricks.parameters import Port
 
 color_sensor_floor_left = ColorSensor(Port.S1)
 color_sensor_floor_right = ColorSensor(Port.S2)
+cor_vista = "BRANCO"
 
 def red_left():
     return color_sensor_floor_left.rgb()[0]
@@ -41,11 +42,11 @@ def is_black():
 
 # -------------------------------------------------------------
 
-range_max_yellow_left = [106, 102, 48]
-range_min_yellow_left = [76, 72, 18]
+range_max_yellow_left = [86, 85, 42]
+range_min_yellow_left = [56, 55, 12]
 
-range_max_yellow_right = [97, 94, 63]
-range_min_yellow_right = [67, 64 , 33]
+range_max_yellow_right = [85, 85, 58]
+range_min_yellow_right = [55, 55, 28]
 
 def is_yellow_left():
     return range_min_yellow_left[0] < red_left() < range_max_yellow_left[0] and range_min_yellow_left[1] < green_left() < range_max_yellow_left[1] and range_min_yellow_left[2] < blue_left() < range_max_yellow_left[2]
@@ -58,11 +59,11 @@ def is_yellow():
 
 # -------------------------------------------------------------
 
-range_max_blue_left = [30, 45, 110]
-range_min_blue_left = [0, 15, 80]
+range_max_blue_left = [30, 41, 95]
+range_min_blue_left = [0, 11, 65]
 
-range_max_blue_right = [36, 54, 110]
-range_min_blue_right = [6, 24, 80]
+range_max_blue_right = [32, 45, 110]
+range_min_blue_right = [2, 15, 80]
 
 def is_blue_left():
     return range_min_blue_left[0] < red_left() < range_max_blue_left[0] and range_min_blue_left[1] < green_left() < range_max_blue_left[1] and range_min_blue_left[2] < blue_left() < range_max_blue_left[2]
@@ -75,11 +76,11 @@ def is_blue():
 
 # -------------------------------------------------------------
 
-range_max_red_left = [85, 32, 20]
-range_min_red_left = [55, 2, 0]
+range_max_red_left = [77, 33, 26]
+range_min_red_left = [47, 3, 0]
 
-range_max_red_right = [95, 40, 35]
-range_min_red_right = [65, 10, 5]
+range_max_red_right = [90, 32, 33]
+range_min_red_right = [60, 2, 3]
 
 def is_red_left():
     return range_min_red_left[0] < red_left() < range_max_red_left[0] and range_min_red_left[1] < green_left() < range_max_red_left[1] and range_min_red_left[2] < blue_left() < range_max_red_left[2]
