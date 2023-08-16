@@ -93,33 +93,21 @@ def find_blue_line():
     
 
 def scan():
-    turn_left(90)
     pointed_to = 0
     branco = 68
     azul = 12
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     chegou_no_fim = False
-    integral = 0
-    prev_error = 0
-    while True:  # not is_tube_of_15() and not is_tube_of_10():
-        red_reading = red_right()
-        delta = red_reading - threshold
-        kp = 1.2
-        ki = 0.001  # Tune as needed
-        kd = 0.01   # Tune as needed
-        error = delta * kp
-        integral += error
-        integral = max(min(integral, 100), -100)  # Anti-windup
-        derivative = error - prev_error
-        control_output = error * kp + integral * ki + derivative * kd
-        prev_error = error
-        if chegou_no_fim:
-            motors.drive(-vel, -control_output)
-        else:
-            motors.drive(vel, control_output)
-            if is_red_left():
-                chegou_no_fim = True
+    delta = red_right() - threshold
+    kp = 1.2
+    erro = delta * kp
+    if chegou_no_fim:
+        motors.drive(-vel, -erro)
+    else:
+        motors.drive(vel, erro)
+        if is_red_left():
+            chegou_no_fim = True
         
     # if is_tube_of_15():
     #     size_of_tube = 15

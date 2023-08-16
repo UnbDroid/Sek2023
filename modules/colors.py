@@ -1,8 +1,9 @@
-from pybricks.ev3devices import ColorSensor                                 
+from pybricks.ev3devices import ColorSensor
 from pybricks.parameters import Port
 
 color_sensor_floor_left = ColorSensor(Port.S1)
 color_sensor_floor_right = ColorSensor(Port.S2)
+
 cor_vista = "BRANCO"
 
 def red_left():

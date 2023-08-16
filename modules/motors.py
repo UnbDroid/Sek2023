@@ -39,7 +39,7 @@ def andar_reto(velo):
     
     control_output = erro + integral + derivative
     
-    prev_delta.append(delta)
+    prev_delta = delta
     
     right_motor.dc(velo + control_output)
     left_motor.dc(velo - control_output)    

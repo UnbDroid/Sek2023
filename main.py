@@ -2,6 +2,7 @@
 from modules.colors import *
 from modules.path import *
 from modules.motors import *
+from modules.detect import *
 
 from pybricks.hubs import EV3Brick
 from pybricks.tools import wait
@@ -37,10 +38,10 @@ mbox = TextMailbox('greeting', server)
 # print(motors.heading_control.pid())
 # print(motors.distance_control.pid())
 
-while True:
-    # find_blue_line()
-    # align_to_begin_scan()
-    scan()
+# while True:
+#     # find_blue_line()
+#     # align_to_begin_scan()
+#     scan()
 
 # while not is_red():
 #     andar_reto(50)
@@ -67,3 +68,9 @@ while True:
 # while True:
 #     print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())
 
+# tube_presence = tube_verificator.reflection()
+# while tube_presence == 0: 
+#     tube_presence = tube_verificator.reflection()
+#     scan()
+
+turn_right(90)

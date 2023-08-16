@@ -1,9 +1,11 @@
-
+from pybricks.ev3devices import ColorSensor
 # from pybricks.ev3devices import UltrasonicSensor
-# from pybricks.parameters import Port
+from pybricks.parameters import Port
 # from modules.colors import *
 
-# ultrasound_sensor = UltrasonicSensor(Port.S4)
+tube_verificator = ColorSensor(Port.S4)
+
+# ultrasound_sensor = UltrasonicSensor(Port.S3)
 
 # def has_obstacle():
 #     return ultrasound_sensor.distance() < 200
