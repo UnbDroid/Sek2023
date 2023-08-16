@@ -16,15 +16,32 @@ right_motor = Motor(Port.B)
 
 motors = DriveBase(left_motor, right_motor, 42.1, 141.0) # 140.88
 
+integral = 0
+prev_delta = 0
+
 def andar_reto(velo):
-    kp = 0.010 #0.001
-    delta = (left_motor.angle() - right_motor.angle())/360
+    print("Angulo Esquerda: ", left_motor.angle(), "- Angulo Direita: ", right_motor.angle(), "- Diferença: ", left_motor.angle() - right_motor.angle())
+    global integral
+    global prev_delta
+    kp = 110
+    ki = 1.002
+    kd = 0.9955
+    
+    delta = (left_motor.angle() - right_motor.angle()) / 360
     erro = delta * kp
     
-    # right_motor.dc(velo - erro)
+    integral += delta
+    integral *= ki
     
-    right_motor.dc(velo + erro) #dc
-    left_motor.dc(velo - erro) #dc
+    derivative = delta - prev_delta
+    derivative *= kd
+    
+    control_output = erro + integral + derivative
+    
+    prev_delta = delta
+    
+    right_motor.dc(velo + control_output)
+    left_motor.dc(velo - control_output)    
     
 def andar_reto_tras(x):
     kp = 0.010 #0.001

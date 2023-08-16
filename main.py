@@ -37,13 +37,13 @@ mbox = TextMailbox('greeting', server)
 # print(motors.heading_control.pid())
 # print(motors.distance_control.pid())
 
-while True:
-    find_blue_line()
-    align_to_begin_scan()
-
-
 # while True:
-#     andar_reto(50)
+#     find_blue_line()
+#     align_to_begin_scan()
+
+
+while True:
+    andar_reto(50)
 
 
 # while True:
