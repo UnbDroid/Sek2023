@@ -38,10 +38,10 @@ mbox = TextMailbox('greeting', server)
 # print(motors.heading_control.pid())
 # print(motors.distance_control.pid())
 
-# while True:
-#     # find_blue_line()
-#     # align_to_begin_scan()
-#     scan()
+while True:
+    find_blue_line()
+    align_to_begin_scan()
+    scan()
 
 # while not is_red():
 #     andar_reto(50)
@@ -73,4 +73,4 @@ mbox = TextMailbox('greeting', server)
 #     tube_presence = tube_verificator.reflection()
 #     scan()
 
-turn_right(90)
+# turn_right(90)

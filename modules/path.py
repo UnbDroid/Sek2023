@@ -82,14 +82,24 @@ def find_blue_line():
         find_blue_line()
     
         
-# def align_to_begin_scan():
-#     print("Achei o azul")
-#     move_backward(0.1)
-#     turn_right(90)
-#     break_motors()
-#     while not is_red():
-#         andar_reto(50)
-#     turn_left(190)
+def align_to_begin_scan():
+    print("Achei o azul")
+    turn_right(90)
+    break_motors()
+    branco = 52
+    azul = 9
+    threshold = (branco + azul) / 2  # = 40
+    vel = 100
+    chegou_no_fim = False
+    delta = red_left() - threshold
+    kp = 1.2
+    erro = delta * kp
+    motors.drive(vel, erro)
+    if is_red_right():
+        chegou_no_fim = True
+    turn_left(90)
+    move_forward(1000)
+    turn_left(90)
     
 
 def scan():
