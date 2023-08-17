@@ -86,6 +86,7 @@ def find_blue_line():
     
         
 def align_to_begin_scan():
+    break_motors()
     print("Achei o azul")
     turn_right(90)
     break_motors()
@@ -137,9 +138,12 @@ def scan():
     # if is_tube_of_10():
     #     size_of_tube = 10
     
+    break_motors()
+    
     cronometer.reset()
     while cronometer.time() < tempo:
         andar_reto(-30)
+    break_motors()
         
         
 def align_to_begin_deliver():
