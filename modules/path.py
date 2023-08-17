@@ -1,3 +1,4 @@
+from pybricks.messaging import BluetoothMailboxClient, TextMailbox
 from modules.motors import *
 from modules.colors import *
 from modules.detect import *
@@ -13,7 +14,14 @@ color_of_tube = ""
 initial_path = [0, 0, 0, 0]
 current_path = [0, 0, 0, 0]
 
+SERVER = 'ev3dev'
 
+client = BluetoothMailboxClient()
+mbox = TextMailbox('greeting', client)
+
+print('establishing connection...')
+client.connect(SERVER)
+print('connected!')
 
 
 def find_blue_line():
@@ -23,7 +31,7 @@ def find_blue_line():
     print("procurando")
     while not is_blue() and not is_red() and not is_black() and not is_yellow() and not is_wall():
         andar_reto(50)   
-        print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
+        #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
         if is_blue():
             cor_vista = "AZUL"
         elif is_red():
@@ -116,6 +124,12 @@ def scan():
     break_motors()
     Close()
     
+    # Após fechar a garra
+    mbox.send('chave')
+    mbox.wait()
+
+    size_of_tube = int(mbox.read())
+    
     if is_red_tube():
         color_of_tube = "RED"
     elif is_green_tube():
@@ -125,12 +139,7 @@ def scan():
     else:
         color_of_tube = "BROWN"
         
-    print("Achou o tubo de cor", color_of_tube)
-    
-    #Aqui é o momento que o Brick Auxiliar faz a leitura do tamanho do tubo
-    #num primeiro momento, pra testar, todos os tubos vão ser considerados de 10 :)
-    
-    size_of_tube = 10
+    print("Achou o tubo de cor", color_of_tube, "e de tamanho", size_of_tube)
     
     # if is_tube_of_15():
     #     size_of_tube = 15

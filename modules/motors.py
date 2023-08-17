@@ -21,7 +21,7 @@ integral = 0
 prev_delta = 0
 
 def andar_reto(velo):
-    print("Angulo Esquerda: ", left_motor.angle(), "- Angulo Direita: ", right_motor.angle(), "- Diferença: ", left_motor.angle() - right_motor.angle())
+    #print("Angulo Esquerda: ", left_motor.angle(), "- Angulo Direita: ", right_motor.angle(), "- Diferença: ", left_motor.angle() - right_motor.angle())
     global integral
     global prev_delta
     kp = 110
