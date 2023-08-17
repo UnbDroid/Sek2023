@@ -8,19 +8,19 @@ from pybricks.hubs import EV3Brick
 from pybricks.tools import wait
 
 ev3 = EV3Brick()
-Open()
+# Open()
 
 
-# find_blue_line()
-# ev3.speaker.beep(444, 1000)
-# align_to_begin_scan()
-# ev3.speaker.beep(444, 1000)
-# scan()
-# ev3.speaker.beep(444, 1000)
-# go_to_check_point()
-# ev3.speaker.beep(444, 1000)
-# set_path()
-# ev3.speaker.beep(444, 1000)
+find_blue_line()
+ev3.speaker.beep(444, 1000)
+align_to_begin_scan()
+ev3.speaker.beep(444, 1000)
+scan()
+ev3.speaker.beep(444, 1000)
+go_to_check_point()
+ev3.speaker.beep(444, 1000)
+set_path()
+ev3.speaker.beep(444, 1000)
 
 # while True:
 #     print(tube_is_detected())

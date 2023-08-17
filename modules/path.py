@@ -56,7 +56,7 @@ def find_blue_line():
     if is_red():
         
         print("Achou vermelho")
-        move_backward(3500) #Ajuste para ver como lida com o "andar reto"
+        move_backward(3500) 
         turn_left(90)
         break_motors()
         
@@ -74,10 +74,6 @@ def find_blue_line():
         
     elif is_black() or is_yellow() or is_wall():
         
-        # erro !!!
-        # Mudar quando ele está no C olhando para o amarelo, e pensar de um jeito de deixar mais simples quando encontra o vermelho direto. Ele fica em um loop infinito virando 180° 
-        # Mudar a condicional de vermelho
-        
         print("Achou parede")
         cronometer.reset()
         print("Voltando...")
@@ -86,9 +82,6 @@ def find_blue_line():
             
         break_motors()
         turn_right(90)
-        
-        # while not is_black() and not is_yellow():
-        #     andar_reto(-50)
         
         find_blue_line()
     
@@ -103,10 +96,12 @@ def align_to_begin_scan():
     vel = 100
     chegou_no_fim = False
     while not chegou_no_fim:
+        
         delta = threshold - red_left()
         kp = 0.8
         erro = delta * kp
         motors.drive(vel, erro)
+        
         if is_red_right():
             chegou_no_fim = True
     turn_left(90)
@@ -116,8 +111,10 @@ def align_to_begin_scan():
 
 def scan():
     cronometer.reset()
+    print("Procurando tubo...")
+    
     while not tube_is_detected():
-        print("Procurando tubo...")
+        #print("Procurando tubo...")
         andar_reto(30)
     tempo = cronometer.time()
     
@@ -140,11 +137,6 @@ def scan():
         color_of_tube = "BROWN"
         
     print("Achou o tubo de cor", color_of_tube, "e de tamanho", size_of_tube)
-    
-    # if is_tube_of_15():
-    #     size_of_tube = 15
-    # if is_tube_of_10():
-    #     size_of_tube = 10
     
     cronometer.reset()
     while cronometer.time() < tempo:
