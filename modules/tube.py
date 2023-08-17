@@ -1,14 +1,11 @@
+from modules.motors import *
+
 def go_to_check_point():
-     #Descendo pro SUL até a linha vermelha
-    while not is_red():
-        move_forward(1) # Ajustar!
-        
-    #Manobra
     turn_right(90)
-    turn_right(90)
+    move_backward(1200)
+    turn_left(90)
 
 def tube_library():
-    go_to_check_point()
     
     move_forward(1)    
     turn_left(90)
@@ -17,8 +14,6 @@ def tube_library():
     # retorna para a área de coleta
     
 def tube_city_hall():
-    
-    go_to_check_point()
     
     move_forward(3)
     turn_left(90)
@@ -51,7 +46,6 @@ def tube_city_hall():
 
     
 def tube_school():
-    go_to_check_point()
     
     move_forward(8)
     turn_left(90)
@@ -85,7 +79,6 @@ def tube_school():
         move_forward(2)
         
 def tube_museum():
-    go_to_check_point()
     
     move_forward(4)
     turn_left(90)
@@ -150,7 +143,6 @@ def tube_museum():
         move_forward(6)
                 
 def tube_drugstore():
-    go_to_check_point()
     
     move_forward(3)
     turn_left(90)
@@ -231,9 +223,7 @@ def tube_drugstore():
         move_forward(5)
     
 
-def tube_bakery()
-    go_to_check_point()
-    
+def tube_bakery():
     move_forward(7)
     turn_left(90)
     
@@ -339,8 +329,7 @@ def tube_bakery()
     #Abre e retorna
     
 def tube_park():
-    go_to_check_point()
-    move_forward(2)
+    move_forward(3500)
     turn_left(90)
     if has_obstacle(): #objeto "J":
         turn_right(90)
@@ -388,7 +377,7 @@ def tube_park():
                 move_forward(2)
                 #Abre e retorna
     else:
-        move_forward(4)
+        move_forward(4750)
         if has_obstacle(): #objeto "E":
             turn_right(90)
             move_forward(4)
@@ -407,7 +396,7 @@ def tube_park():
                 move_forward(2)
                 #Abre e retorna
         else:
-            move_forward(4)
+            move_forward(7000)
             turn_right(90)
             if has_obstacle(): #objeto "B":
                 turn_180()
@@ -416,7 +405,7 @@ def tube_park():
                 move_forward(2)
                 #Abre e retorna
             else:
-                move_forward(4)
+                move_forward(3500)
                 turn_left(90)
-                move_forward(2)
+                move_forward(1750)
                 #Abre e retorna

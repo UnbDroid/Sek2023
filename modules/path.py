@@ -1,6 +1,8 @@
 from modules.motors import *
 from modules.colors import *
 from modules.detect import *
+from modules.claw import *
+from modules.tube import *
 from pybricks.tools import StopWatch
 
 pointed_to = 1
@@ -20,7 +22,8 @@ def find_blue_line():
     
     print("procurando")
     while not is_blue() and not is_red() and not is_black() and not is_yellow() and not is_wall():
-        andar_reto(40)   
+        andar_reto(50)   
+        print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
         if is_blue():
             cor_vista = "AZUL"
         elif is_red():
@@ -71,7 +74,7 @@ def find_blue_line():
         cronometer.reset()
         print("Voltando...")
         while cronometer.time() < time_forward:
-            andar_reto(-40)
+            andar_reto(-50)
             
         break_motors()
         turn_right(90)
@@ -86,73 +89,78 @@ def align_to_begin_scan():
     print("Achei o azul")
     turn_right(90)
     break_motors()
-    branco = 52
-    azul = 9
+    branco = 99
+    azul = 22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     chegou_no_fim = False
-    delta = red_left() - threshold
-    kp = 1.2
-    erro = delta * kp
-    motors.drive(vel, erro)
-    if is_red_right():
-        chegou_no_fim = True
+    while not chegou_no_fim:
+        delta = threshold - red_left()
+        kp = 0.8
+        erro = delta * kp
+        motors.drive(vel, erro)
+        if is_red_right():
+            chegou_no_fim = True
     turn_left(90)
-    move_forward(1000)
+    move_forward(1200)
     turn_left(90)
     
 
 def scan():
-    pointed_to = 0
-    branco = 68
-    azul = 12
-    threshold = (branco + azul) / 2  # = 40
-    vel = 100
-    chegou_no_fim = False
-    delta = red_right() - threshold
-    kp = 1.2
-    erro = delta * kp
-    if chegou_no_fim:
-        motors.drive(-vel, -erro)
+    cronometer.reset()
+    while not tube_is_detected():
+        print("Procurando tubo...")
+        andar_reto(30)
+    tempo = cronometer.time()
+    
+    break_motors()
+    Close()
+    
+    if is_red_tube():
+        color_of_tube = "RED"
+    elif is_green_tube():
+        color_of_tube = "GREEN"
+    elif is_blue_tube():
+        color_of_tube = "BLUE"
     else:
-        motors.drive(vel, erro)
-        if is_red_left():
-            chegou_no_fim = True
+        color_of_tube = "BROWN"
         
+    print("Achou o tubo de cor", color_of_tube)
+    
+    #Aqui é o momento que o Brick Auxiliar faz a leitura do tamanho do tubo
+    #num primeiro momento, pra testar, todos os tubos vão ser considerados de 10 :)
+    
+    size_of_tube = 10
+    
     # if is_tube_of_15():
     #     size_of_tube = 15
     # if is_tube_of_10():
     #     size_of_tube = 10
+    
+    cronometer.reset()
+    while cronometer.time() < tempo:
+        andar_reto(-30)
         
-    # if is_red_tube():
-    #     color_of_tube = "RED"
-    # if is_green_tube():
-    #     color_of_tube = "GREEN"
-    # if is_blue_tube():
-    #     color_of_tube = "BLUE"
-    # if is_brown_tube():
-    #     color_of_tube = "BROWN"
         
 def align_to_begin_deliver():
-    pointed_to = 0
-    while not is_red():
-        andar_reto(50)
-    move_backward(4)
+    turn_right(90)
+    move_backward(1200)
+    turn_left(90)
 
 def set_path():
     if size_of_tube == 15:
         if color_of_tube == "RED": #Farmacia
-            initial_path = [0, 0, 0, 0]
-        # if color_of_tube == "GREEN": #Prefeitura
-            
-        # if color_of_tube == "BLUE": #Museu
-            
-        # if color_of_tube == "BROWN": #Padaria
-            
-    # else:
-    #     if color_of_tube == "GREEN": #Parque
-    #         print('oi'')
-        # if color_of_tube == "BLUE": #Escola
-            
-        # if color_of_tube == "BROWN": #Biblioteca
-            
+            tube_pharmacy()
+        if color_of_tube == "GREEN": #Prefeitura
+            tube_city_hall()
+        if color_of_tube == "BLUE": #Museu
+            tube_museum()
+        if color_of_tube == "BROWN": #Padaria
+            tube_bakery()
+    else:
+        if color_of_tube == "GREEN": #Parque
+            tube_park()
+        if color_of_tube == "BLUE": #Escola
+            tube_school()
+        if color_of_tube == "BROWN": #Biblioteca
+            tube_library()

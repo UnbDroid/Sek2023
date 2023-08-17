@@ -3,6 +3,8 @@ from modules.colors import *
 from modules.path import *
 from modules.motors import *
 from modules.detect import *
+from modules.claw import *
+
 
 from pybricks.hubs import EV3Brick
 from pybricks.tools import wait
@@ -23,7 +25,7 @@ mbox = TextMailbox('greeting', server)
 # print(mbox.read())
 # mbox.send('hello to you!')
 
-# ev3 = EV3Brick()
+ev3 = EV3Brick()
 
 
 
@@ -38,12 +40,21 @@ mbox = TextMailbox('greeting', server)
 # print(motors.heading_control.pid())
 # print(motors.distance_control.pid())
 
-while True:
-    find_blue_line()
-    align_to_begin_scan()
-    scan()
+# Open()
 
-# while not is_red():
+find_blue_line()
+ev3.speaker.beep(444, 1000)
+align_to_begin_scan()
+ev3.speaker.beep(444, 1000)
+scan()
+ev3.speaker.beep(444, 1000)
+go_to_check_point()
+ev3.speaker.beep(444, 1000)
+set_path()
+ev3.speaker.beep(444, 1000)
+
+# while True:
+#     print(tube_is_detected())
 #     andar_reto(50)
 # print("Achou vermelho", cronometer.time())
 
