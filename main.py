@@ -30,5 +30,8 @@ if red_tube() = True:
 
 if hight_tube() = True:
     send_code = send_code + hight_tube()
-    
+
 print(send_code)
+mbox.send('send_code')
+mbox.wait()
+print(mbox.read())
