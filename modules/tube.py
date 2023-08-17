@@ -1,16 +1,15 @@
 from pybricks.nxtdevices import ColorSensor                                
 from pybricks.parameters import Port
 
-tube_sensor_verification = ColorSensor(Port.S2)
+tube_sensor_verification = ColorSensor(Port.S4)
 
 def tube():
-    tube_sensor_verification.reflection()
-    
-    if tube_sensor_verification.reflection() >= (50/100):
-        print("Tube is hight 15")
+    verification = tube_sensor_verification.reflection()
+    if verification > 0:
+        print("Tube is 15cm high")
         return True
     else:
-        print("Tube is low 10")
+        print("Tube is 10cm high")
         return False
     
 def hight_tube():
