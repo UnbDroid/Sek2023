@@ -1,3 +1,4 @@
+from pybricks.messaging import BluetoothMailboxClient, TextMailbox
 from modules.motors import *
 from modules.colors import *
 from modules.detect import *
@@ -13,7 +14,14 @@ color_of_tube = ""
 initial_path = [0, 0, 0, 0]
 current_path = [0, 0, 0, 0]
 
+SERVER = 'ev3dev'
 
+client = BluetoothMailboxClient()
+mbox = TextMailbox('greeting', client)
+
+print('establishing connection...')
+client.connect(SERVER)
+print('connected!')
 
 
 def find_blue_line():
@@ -23,7 +31,7 @@ def find_blue_line():
     print("procurando")
     while not is_blue() and not is_red() and not is_black() and not is_yellow() and not is_wall():
         andar_reto(50)   
-        print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
+        #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
         if is_blue():
             cor_vista = "AZUL"
         elif is_red():
@@ -48,7 +56,7 @@ def find_blue_line():
     if is_red():
         
         print("Achou vermelho")
-        move_backward(3500) #Ajuste para ver como lida com o "andar reto"
+        move_backward(3500) 
         turn_left(90)
         break_motors()
         
@@ -66,10 +74,6 @@ def find_blue_line():
         
     elif is_black() or is_yellow() or is_wall():
         
-        # erro !!!
-        # Mudar quando ele está no C olhando para o amarelo, e pensar de um jeito de deixar mais simples quando encontra o vermelho direto. Ele fica em um loop infinito virando 180° 
-        # Mudar a condicional de vermelho
-        
         print("Achou parede")
         cronometer.reset()
         print("Voltando...")
@@ -78,9 +82,6 @@ def find_blue_line():
             
         break_motors()
         turn_right(90)
-        
-        # while not is_black() and not is_yellow():
-        #     andar_reto(-50)
         
         find_blue_line()
     
@@ -96,10 +97,12 @@ def align_to_begin_scan():
     vel = 100
     chegou_no_fim = False
     while not chegou_no_fim:
+        
         delta = threshold - red_left()
         kp = 0.8
         erro = delta * kp
         motors.drive(vel, erro)
+        
         if is_red_right():
             chegou_no_fim = True
     turn_left(90)
@@ -109,13 +112,20 @@ def align_to_begin_scan():
 
 def scan():
     cronometer.reset()
+    print("Procurando tubo...")
+    
     while not tube_is_detected():
-        print("Procurando tubo...")
         andar_reto(30)
     tempo = cronometer.time()
     
     break_motors()
     Close()
+    
+    # Após fechar a garra
+    mbox.send('chave')
+    mbox.wait()
+
+    size_of_tube = int(mbox.read())
     
     if is_red_tube():
         color_of_tube = "RED"
@@ -126,7 +136,7 @@ def scan():
     else:
         color_of_tube = "BROWN"
         
-    print("Achou o tubo de cor", color_of_tube)
+    
     
     #Aqui é o momento que o Brick Auxiliar faz a leitura do tamanho do tubo
     #num primeiro momento, pra testar, todos os tubos vão ser considerados de 10 :)
@@ -138,9 +148,8 @@ def scan():
     # if is_tube_of_10():
     #     size_of_tube = 10
     
-    break_motors()
-    
     cronometer.reset()
+    
     while cronometer.time() < tempo:
         andar_reto(-30)
     break_motors()

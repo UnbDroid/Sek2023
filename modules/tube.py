@@ -10,7 +10,7 @@ def tube_library():
     move_forward(1)    
     turn_left(90)
     move_forward(1)
-    #Abre garra
+    Open()
     # retorna para a área de coleta
     
 def tube_city_hall():
@@ -27,7 +27,7 @@ def tube_city_hall():
         move_forward(2)
         turn_left(90)
         move_forward(2)
-        #Abre a garra
+        Open()
         #retorna para a área de coleta
         move_backward(2)
         turn_left(90)
@@ -37,7 +37,7 @@ def tube_city_hall():
         move_forward(2)#Distancia pequena
         turn_right(90)
         move_forward(2)
-        #Abre a garra
+        Open()
         #retorna para a área de coleta
         move_backward(2)
         turn_right(90)
@@ -64,6 +64,7 @@ def tube_school():
         turn_right(90)
         move_forward(2)
         #abre e retorna
+        Open()
         move_backward(2)
         turn_right(90)
         move_forward(6)
@@ -74,6 +75,7 @@ def tube_school():
         move_right()
         move_forward(2)
         #abre e retorna
+        Open()
         move_backward(2)
         turn_right(90)
         move_forward(2)

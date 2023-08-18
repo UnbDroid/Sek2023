@@ -25,21 +25,8 @@ print('connected!')
 # mbox.send('hello to you!')
 
 ev3 = EV3Brick()
-
-
-
-# Mudar quando ele está no C olhando para o amarelo, e pensar de um jeito de deixar mais simples quando encontra o vermelho direto. Ele fica em um loop infinito virando 180° 
-# Mudar a condicional de vermelho
-
-
-
-
-
-
-# print(motors.heading_control.pid())
-# print(motors.distance_control.pid())
-
 # Open()
+
 
 find_blue_line()
 ev3.speaker.beep(444, 1000)
