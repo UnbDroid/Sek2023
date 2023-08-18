@@ -22,10 +22,11 @@ print('establishing connection...')
 client.connect(SERVER)
 print('connected!')
 
-mbox.wait()
-msg = mbox.read()
-if msg == "chave":
-    if tube() == True:
-        mbox.send('15')
-    else:
-        mbox.send('10')
+while True:
+    mbox.wait()
+    msg = mbox.read()
+    if msg == "chave":
+        if tube() == True:
+            mbox.send('15')
+        else:
+            mbox.send('10')
