@@ -114,7 +114,6 @@ def scan():
     print("Procurando tubo...")
     
     while not tube_is_detected():
-        #print("Procurando tubo...")
         andar_reto(30)
     tempo = cronometer.time()
     
@@ -137,8 +136,8 @@ def scan():
         color_of_tube = "BROWN"
         
     print("Achou o tubo de cor", color_of_tube, "e de tamanho", size_of_tube)
-    
     cronometer.reset()
+    
     while cronometer.time() < tempo:
         andar_reto(-30)
         
