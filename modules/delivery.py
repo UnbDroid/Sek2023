@@ -13,7 +13,16 @@ def go_to_check_point():
 
 def tube_library():
     
-    move_forward(500)    
+    crono.reset()
+    branco = 100
+    azul = 22
+    threshold = (branco + azul) / 2  # = 40
+    vel = 100
+    while crono.time() < 600:
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(vel, erro)  
     turn_left(90)
     
     crono.reset()
@@ -25,32 +34,31 @@ def tube_library():
     
     move_forward(300) # Indo para a entrega
     Open()
-    move_backward(300) # Volta para a área de coleta a msm distância de ir
+    move_backward(600) # Volta para a área de coleta a msm distância de ir
     
-    crono.reset()
-    while crono.time() < tempo:
-        andar_reto(-50)
-    break_motors()
+    turn_left(200)
     
-    turn_left(90)
-    
-    # Tentando se alinhar na área de coleta
-    while not is_red_right():
-        andar_reto(50)
-    turn_left(90)
-    # Fim da tentativa de alinhamento
     while not is_blue():
         andar_reto(50)
-    move_forward(1200)
-    turn_left(90)
-    # Chegou a área de coleta
+    break_motors()
+    
         
     
 def tube_city_hall():
-    
-    move_forward(3)
+    crono.reset()
+    branco = 100
+    azul = 22
+    threshold = (branco + azul) / 2  # = 40
+    vel = 100
+    while crono.time() < 4000:
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(vel, erro)
+
+    break_motors()
     turn_left(90)
-    move_forward(1) # Está indo em direção ao objeto J
+    move_forward(1000) # Está indo em direção ao objeto J
     
     if has_obstacle(): #sensor identificou objeto "J":
         move_backward(1)
@@ -68,27 +76,42 @@ def tube_city_hall():
     
     else:
         #objeto J não existe
-        move_forward(2)#Distancia pequena
+        move_forward(2750)#Distancia pequena 3500
         turn_right(90)
         
         #tentativa de se alinhar
-        while not is_yellow():
+        while not is_yellow_left() and not is_yellow_right():
             andar_reto(50)
+        break_motors()
         
-        move_forward(2)
+        move_forward(1000)
         Open()
         #retorna para a área de coleta
-        move_backward(2)
+        move_backward(1500)
         turn_right(90)
-        move_forward(3)
+        
+        while not is_blue():
+            andar_reto(50)
+        break_motors()
         
 
     
 def tube_school():
     
-    move_forward(8)
+    crono.reset()
+    branco = 100
+    azul = 22
+    threshold = (branco + azul) / 2  # = 40
+    vel = 100
+    while crono.time() < 10000:
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(vel, erro)
+
+    break_motors()
     turn_left(90)
-    move_forward(1)
+    move_forward(1000)
     
     if has_obstacle(): #sensor identificou objeto "i":
         move_backward(1)
@@ -110,14 +133,23 @@ def tube_school():
         turn_left(90)
         move_forward(4)
     else:
-        move_forward(1)
-        move_right()
-        move_forward(2)
-        #abre e retorna
-        Open()
-        move_backward(2)
+        move_forward(2750)#Distancia pequena 3500
         turn_right(90)
-        move_forward(2)
+        
+        #tentativa de se alinhar
+        while not is_yellow_left() and not is_yellow_right():
+            andar_reto(50)
+        break_motors()
+        
+        move_forward(1000)
+        Open()
+        #retorna para a área de coleta
+        move_backward(1500)
+        turn_right(90)
+        
+        while not is_blue():
+            andar_reto(50)
+        break_motors()
         
 def tube_museum():
     

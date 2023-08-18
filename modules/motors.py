@@ -45,8 +45,7 @@ def andar_reto(velo):
     
 
 def break_motors():
-    left_motor.brake()
-    right_motor.brake()
+    motors.stop()
 
 def move_forward(n):
     cronometer.reset()
@@ -65,7 +64,7 @@ def turn_left(x):
     motors.stop()
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
-
+    
 def turn_right(x):
     motors.turn(x)
     motors.stop()

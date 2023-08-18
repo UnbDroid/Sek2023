@@ -86,8 +86,14 @@ def find_blue_line():
 def align_to_begin_scan():
     break_motors()
     print("Achei o azul")
-    turn_right(90)
-    break_motors()
+    if size_of_tube != 10 and color_of_tube != "BROWN":
+        while is_blue():
+            andar_reto(-50)   
+        break_motors()
+    if size_of_tube == 10 and color_of_tube == "BROWN":
+        turn_right(110)
+    else:
+        turn_right(90)
     branco = 85
     azul = 12
     threshold = (branco + azul) / 2  # = 40
@@ -102,6 +108,7 @@ def align_to_begin_scan():
         
         if is_red_right():
             chegou_no_fim = True
+    break_motors()
     turn_left(90)
     move_forward(1200)
     turn_left(90)
@@ -111,10 +118,16 @@ def scan():
     global color_of_tube
     global size_of_tube
     cronometer.reset()
+    valor_giro = 1
     print("Procurando tubo...")
-    
+    metrica = 2000
     while not tube_is_detected():
         andar_reto(30)
+        if cronometer.time() > metrica:
+            if metrica % 6000 == 0 and metrica < 14000:
+                valor_giro += 1
+            metrica += 2000
+            turn_left(valor_giro)
     tempo = cronometer.time()
     
     break_motors()
@@ -127,6 +140,7 @@ def scan():
     size_of_tube = mbox.read()
     size_of_tube = int(size_of_tube)
     
+
     if is_red_tube():
         color_of_tube = "RED"
     elif is_green_tube():
