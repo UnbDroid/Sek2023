@@ -5,18 +5,23 @@
 # of establishing the connection.
 
 # The server must be started before the client!
+from pybricks.hubs import EV3Brick
+from pybricks.tools import wait
+
 print('1')
-from pybricks.messaging import BluetoothMailboxServer, TextMailbox
+from pybricks.messaging import BluetoothMailboxClient, TextMailbox
 print("2")
 from modules.tube import *
 
 SERVER = 'ev3dev'
 print("3")
-server = BluetoothMailboxServer()
-mbox = TextMailbox('greeting', server)
+client = BluetoothMailboxClient()
+mbox = TextMailbox('greeting', client)
 
-print('waiting for connection...')
-server.wait_for_connection()
+wait(5000)
+
+print('establishing connection...')
+client.connect(SERVER)
 print('connected!')
 
 mbox.wait()
