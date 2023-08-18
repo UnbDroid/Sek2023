@@ -1,4 +1,3 @@
-from pybricks.messaging import BluetoothMailboxClient, TextMailbox
 from modules.motors import *
 from modules.colors import *
 from modules.detect import *
@@ -14,15 +13,15 @@ color_of_tube = ""
 initial_path = [0, 0, 0, 0]
 current_path = [0, 0, 0, 0]
 
-SERVER = 'ev3dev'
+# server 
+from pybricks.messaging import BluetoothMailboxServer, TextMailbox
+server = BluetoothMailboxServer()
+mbox = TextMailbox('greeting', server)
 
-client = BluetoothMailboxClient()
-mbox = TextMailbox('greeting', client)
-
-print('establishing connection...')
-client.connect(SERVER)
+# The server must be started before the client!
+print('waiting for connection...')
+server.wait_for_connection()
 print('connected!')
-
 
 def find_blue_line():
     cronometer.reset()

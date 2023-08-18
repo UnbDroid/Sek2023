@@ -8,16 +8,6 @@ from modules.claw import *
 from pybricks.hubs import EV3Brick
 from pybricks.tools import wait
 
-# server 
-from pybricks.messaging import BluetoothMailboxServer, TextMailbox
-server = BluetoothMailboxServer()
-mbox = TextMailbox('greeting', server)
-
-# The server must be started before the client!
-print('waiting for connection...')
-server.wait_for_connection()
-print('connected!')
-
 # # In this program, the server waits for the client to send the first message
 # # and then sends a reply.
 # mbox.wait()
@@ -25,19 +15,19 @@ print('connected!')
 # mbox.send('hello to you!')
 
 ev3 = EV3Brick()
-# Open()
+Open()
 
 
-find_blue_line()
-ev3.speaker.beep(444, 1000)
-align_to_begin_scan()
-ev3.speaker.beep(444, 1000)
-scan()
-ev3.speaker.beep(444, 1000)
-go_to_check_point()
-ev3.speaker.beep(444, 1000)
-set_path()
-ev3.speaker.beep(444, 1000)
+# find_blue_line()
+# ev3.speaker.beep(444, 1000)
+# align_to_begin_scan()
+# ev3.speaker.beep(444, 1000)
+# scan()
+# ev3.speaker.beep(444, 1000)
+# go_to_check_point()
+# ev3.speaker.beep(444, 1000)
+# set_path()
+# ev3.speaker.beep(444, 1000)
 
 # while True:
 #     print(tube_is_detected())
