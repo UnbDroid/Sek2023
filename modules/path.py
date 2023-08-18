@@ -2,7 +2,7 @@ from modules.motors import *
 from modules.colors import *
 from modules.detect import *
 from modules.claw import *
-from modules.tube import *
+from modules.delivery import *
 from pybricks.tools import StopWatch
 
 pointed_to = 1
@@ -28,40 +28,38 @@ def find_blue_line():
     break_motors()
     
     print("procurando")
-    while not is_blue() and not is_red() and not is_black() and not is_yellow() and not is_wall():
+    while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
         andar_reto(50)   
         #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
         if is_blue():
             cor_vista = "AZUL"
-        elif is_red():
+        elif is_red_left() or is_red_right():
             cor_vista = "VERMELHO"
-        elif is_black():
-            cor_vista = "PRETO"
-        elif is_yellow():
-            cor_vista = "AMARELO"
-        elif is_wall():
+        elif is_black_left() or is_black_right():
+            cor_vista = "PAREDE"
+        elif is_yellow_left() or is_yellow_right():
             cor_vista = "PAREDE"
     break_motors()
     
     
     time_forward = cronometer.time()
     ajust_color()
-    if not is_blue() and not is_red() and not is_black() and not is_yellow():
+    if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()):
         while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
             andar_reto(-20)
         break_motors()
         
         
-    if is_red():
+    if (is_red_left() or is_red_right()):
         
         print("Achou vermelho")
         move_backward(3500) 
         turn_left(90)
         break_motors()
         
-        while not is_blue() and not is_black() and not is_yellow() and not is_wall():
+        while not is_blue() and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not is_wall():
             andar_reto(50)
-        if is_black() or is_yellow() or is_wall():
+        if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
             print("Achou parede")
             turn_left(190)
             break_motors()
@@ -71,7 +69,7 @@ def find_blue_line():
         break_motors()
         
         
-    elif is_black() or is_yellow() or is_wall():
+    elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
         
         print("Achou parede")
         cronometer.reset()
@@ -90,8 +88,8 @@ def align_to_begin_scan():
     print("Achei o azul")
     turn_right(90)
     break_motors()
-    branco = 99
-    azul = 22
+    branco = 85
+    azul = 12
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     chegou_no_fim = False
@@ -110,6 +108,8 @@ def align_to_begin_scan():
     
 
 def scan():
+    global color_of_tube
+    global size_of_tube
     cronometer.reset()
     print("Procurando tubo...")
     
@@ -124,7 +124,8 @@ def scan():
     mbox.send('chave')
     mbox.wait()
 
-    size_of_tube = int(mbox.read())
+    size_of_tube = mbox.read()
+    size_of_tube = int(size_of_tube)
     
     if is_red_tube():
         color_of_tube = "RED"
@@ -135,17 +136,7 @@ def scan():
     else:
         color_of_tube = "BROWN"
         
-    
-    
-    #Aqui é o momento que o Brick Auxiliar faz a leitura do tamanho do tubo
-    #num primeiro momento, pra testar, todos os tubos vão ser considerados de 10 :)
-    
-    size_of_tube = 10
-    
-    # if is_tube_of_15():
-    #     size_of_tube = 15
-    # if is_tube_of_10():
-    #     size_of_tube = 10
+    print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
     
     cronometer.reset()
     
@@ -160,7 +151,12 @@ def align_to_begin_deliver():
     turn_left(90)
 
 def set_path():
+    global color_of_tube
+    global size_of_tube
+    
+    print("Entrei")
     if size_of_tube == 15:
+        print("Tem 15 cm")#$%¨&*(
         if color_of_tube == "RED": #Farmacia
             tube_pharmacy()
         if color_of_tube == "GREEN": #Prefeitura
@@ -170,9 +166,12 @@ def set_path():
         if color_of_tube == "BROWN": #Padaria
             tube_bakery()
     else:
+        print("Entrei no else")#$%¨&*(
+        
         if color_of_tube == "GREEN": #Parque
             tube_park()
         if color_of_tube == "BLUE": #Escola
             tube_school()
         if color_of_tube == "BROWN": #Biblioteca
+            print("Entrei na biblioteca")#$%¨&*(
             tube_library()

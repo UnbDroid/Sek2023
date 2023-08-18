@@ -6,7 +6,6 @@ from pybricks.robotics import DriveBase
 
 
 from modules.colors import *
-from modules.delivery import *
 from modules.detect import *
 from modules.path import *
 

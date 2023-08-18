@@ -3,6 +3,7 @@ from modules.colors import *
 from modules.path import *
 from modules.motors import *
 from modules.detect import *
+from modules.delivery import *
 from modules.claw import *
 
 from pybricks.hubs import EV3Brick
@@ -17,17 +18,24 @@ from pybricks.tools import wait
 ev3 = EV3Brick()
 Open()
 
+#teste
+# cronometer.reset()
+# while cronometer.time() < 10000:
+#     andar_reto(50)
 
 # find_blue_line()
+# print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
 # ev3.speaker.beep(444, 1000)
 # align_to_begin_scan()
 # ev3.speaker.beep(444, 1000)
-# scan()
-# ev3.speaker.beep(444, 1000)
-# go_to_check_point()
-# ev3.speaker.beep(444, 1000)
-# set_path()
-# ev3.speaker.beep(444, 1000)
+# while True:
+#     scan()
+#     ev3.speaker.beep(444, 1000)
+#     go_to_check_point()
+#     ev3.speaker.beep(444, 1000)
+#     set_path()
+#     ev3.speaker.beep(444, 1000)
+# Open()
 
 # while True:
 #     print(tube_is_detected())
