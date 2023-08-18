@@ -18,8 +18,6 @@ print("3")
 client = BluetoothMailboxClient()
 mbox = TextMailbox('greeting', client)
 
-wait(5000)
-
 print('establishing connection...')
 client.connect(SERVER)
 print('connected!')
