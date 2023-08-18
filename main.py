@@ -1,13 +1,10 @@
 #!/usr/bin/env pybricks-micropython
 
 
-<<<<<<< HEAD
-=======
 # The server must be started before the client!
 from pybricks.hubs import EV3Brick
 from pybricks.tools import wait
 
->>>>>>> 650fa7e5dd036a27c7e6f25bee8ad96864b45593
 print('1')
 from pybricks.messaging import BluetoothMailboxClient, TextMailbox
 print("2")
