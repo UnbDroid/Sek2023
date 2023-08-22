@@ -1,13 +1,13 @@
 #!/usr/bin/env pybricks-micropython
 
+# Before running this program, make sure the client and server EV3 bricks are
+# paired using Bluetooth, but do NOT connect them. The program will take care
+# of establishing the connection.
 
-<<<<<<< HEAD
-=======
 # The server must be started before the client!
 from pybricks.hubs import EV3Brick
 from pybricks.tools import wait
 
->>>>>>> 650fa7e5dd036a27c7e6f25bee8ad96864b45593
 print('1')
 from pybricks.messaging import BluetoothMailboxClient, TextMailbox
 print("2")
