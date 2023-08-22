@@ -5,7 +5,7 @@ tube_sensor_verification = ColorSensor(Port.S4)
 
 def tube():
     verification = tube_sensor_verification.reflection()
-    if verification > 20:
+    if verification > 10:
         print("Tube is 15cm tall")
         return True
     else:
