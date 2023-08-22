@@ -153,8 +153,20 @@ def tube_school():
         
 def tube_museum():
     
-    move_forward(4)
+    crono.reset()
+    branco = 100
+    azul = 22
+    threshold = (branco + azul) / 2  # = 40
+    vel = 100
+    while crono.time() < 4000:
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(vel, erro)
+
+    break_motors()
     turn_left(90)
+    move_forward(1000) # Está indo em direção ao objeto J
     
     if has_obstacle(): #sensor identificou objeto "j":
         turn_right(90)
@@ -191,8 +203,9 @@ def tube_museum():
             move_forward(2)
             turn_right(90)
             move_forward(4) 
-    else:
-        move_forward(4)
+            
+    else: # objeto J não existe
+        move_forward(3000)
         turn_left(90)
     
     if has_obstacle(): #Objeto "H":
@@ -204,20 +217,39 @@ def tube_museum():
         move_backward(2)
         turn_left(90)
         move_forward(6)
-    else:
-        move_forward(2)
+        
+    else: #Objeto "H" não existe
+        move_forward(1000)
         turn_right(90)
-        move_forward(2)
-        # abre e retorna
-        move_backward(2)
+        move_forward(1000)
+        
+        Open()
+        
+        #retorna para a área de coleta
+        move_backward(1000)
         turn_right(90)
-        move_forward(2)
+        move_forward(1000)
         turn_right(90)
-        move_forward(6)
+        # No futuro, tentar ver a mudança do J
+        while not is_blue():
+            andar_reto(50)
+        break_motors()
+        
                 
 def tube_drugstore():
     
-    move_forward(3)
+    crono.reset()
+    branco = 100
+    azul = 22
+    threshold = (branco + azul) / 2  # = 40
+    vel = 100
+    while crono.time() < 4000:
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(vel, erro)
+
+    break_motors()
     turn_left(90)
     
     if has_obstacle(): #Objeto "J":
@@ -251,7 +283,7 @@ def tube_drugstore():
             turn_right(90)
             move_forward(4)
     else:
-        move_forward(4)
+        move_forward(4) # Mesmo valor do museum
         turn_right(90)
     
     if has_obstacle(): #Objeto "G":
@@ -285,20 +317,38 @@ def tube_drugstore():
             turn_left(90)
             move_forward(8)
     else:
-        move_forward(2)
+        move_forward(2000)
         turn_left(90)
-        move_forward(2)
-        # Abre e retorna
-        move_backward(2)
+        move_forward(1000)
+        
+        
+        Open() #Entregou
+        
+        move_backward(1000)
         turn_left(90)
-        move_forward(2)
+        move_forward(2000)
         turn_left(90)
-        move_forward(5)
-    
-
+        
+        # Voltando para área de coleta
+        while not is_blue():
+            andar_reto(50)
+        break_motors()
+        
 def tube_bakery():
-    move_forward(7)
+    crono.reset()
+    branco = 100
+    azul = 22
+    threshold = (branco + azul) / 2  # = 40
+    vel = 100
+    while crono.time() < 10000:
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(vel, erro)
+
+    break_motors()
     turn_left(90)
+    move_forward(1000)
     
     if has_obstacle(): #Objeto "I":
         turn_left(90)
@@ -367,7 +417,7 @@ def tube_bakery():
             turn_left(90)
             move_forward(8)
     else:
-        move_forward(4)
+        move_forward(3000)
     
     if has_obstacle(): #Objeto "D":
         turn_left(90)
@@ -395,11 +445,22 @@ def tube_bakery():
         turn_left(90)
         move_forward()        
         #Abre e retorna
-    
-    move_forward()
-    turn_right(90)
-    move_forward()
-    #Abre e retorna
+    else:
+        
+        move_forward(1000)
+        turn_right(90)
+        move_forward(1000)
+        
+        
+        Open() #Entregou
+        
+        move_backward(1000)
+        turn_right(90)
+        
+        while not is_blue():
+            andar_reto(50)
+        break_motors()
+        
     
 def tube_park():
     move_forward(3500)
