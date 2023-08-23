@@ -14,8 +14,8 @@ def go_to_check_point():
 def tube_library():
     
     crono.reset()
-    branco = 55 
-    azul = 8 #22
+    branco = 100 
+    azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     while crono.time() < 600:
@@ -46,8 +46,8 @@ def tube_library():
     
 def tube_city_hall():
     crono.reset()
-    branco = 55 
-    azul = 8 #22
+    branco = 100 
+    azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     while crono.time() < 4000:
@@ -99,8 +99,8 @@ def tube_city_hall():
 def tube_school():
     
     crono.reset()
-    branco = 55 
-    azul = 8 #22 
+    branco = 100 
+    azul = 14 #22 
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     while crono.time() < 10000:
@@ -154,8 +154,8 @@ def tube_school():
 def tube_museum():
     
     crono.reset()
-    branco = 55 
-    azul = 8 #22
+    branco = 100 
+    azul = 14 #22
     threshold = (branco + azul) / 2  
     vel = 100
     while crono.time() < 3500: #4000
@@ -252,8 +252,8 @@ def tube_museum():
 def tube_drugstore():
     
     crono.reset()
-    branco = 55 
-    azul = 8 #22
+    branco = 100 
+    azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     while crono.time() < 4000:
@@ -349,8 +349,8 @@ def tube_drugstore():
         
 def tube_bakery():
     crono.reset()
-    branco = 56 
-    azul = 8 #22
+    branco = 100 
+    azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     while crono.time() < 10000:

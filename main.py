@@ -16,7 +16,7 @@ from pybricks.tools import wait
 # mbox.send('hello to you!')
 
 ev3 = EV3Brick()
-# Open()
+Open()
 # Close()
 
 #teste
@@ -24,20 +24,20 @@ ev3 = EV3Brick()
 # while cronometer.time() < 10000:
 #     andar_reto(50)
 
+#Codigo
 
-
-find_blue_line()
-print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
-ev3.speaker.beep(444, 1000)
-while True:
-    align_to_begin_scan()
-    ev3.speaker.beep(444, 1000)
-    scan()
-    ev3.speaker.beep(444, 1000)
-    go_to_check_point()
-    ev3.speaker.beep(444, 1000)
-    set_path()
-    ev3.speaker.beep(444, 1000)
+# find_blue_line()
+# print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
+# ev3.speaker.beep(444, 1000)
+# while True:
+#     align_to_begin_scan()
+#     ev3.speaker.beep(444, 1000)
+#     scan()
+#     ev3.speaker.beep(444, 1000)
+#     go_to_check_point()
+#     ev3.speaker.beep(444, 1000)
+#     set_path()
+#     ev3.speaker.beep(444, 1000)
 
 
 

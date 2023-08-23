@@ -95,8 +95,8 @@ def align_to_begin_scan():
     else:
         turn_right(90)
         
-    branco = 54
-    azul = 8
+    branco = 98
+    azul = 15
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     chegou_no_fim = False
@@ -159,10 +159,10 @@ def scan():
         andar_reto(-30)
     break_motors()
     
-    if not tube_is_detected():
-        print("Entrei de novo no scan")
-        Open()
-        scan()
+    # if not tube_is_detected():
+    #     print("Entrei de novo no scan")
+    #     Open()
+    #     scan()
         
     print("Sai do scan")
         
