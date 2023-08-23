@@ -29,7 +29,7 @@ def find_blue_line():
     
     print("procurando")
     while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-        andar_reto(50)   
+        andar_reto(300)   
         #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
         if is_blue():
             cor_vista = "AZUL"
@@ -46,7 +46,7 @@ def find_blue_line():
     ajust_color()
     if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()):
         while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-            andar_reto(-20)
+            andar_reto(-200)
         break_motors()
         
         
@@ -58,14 +58,14 @@ def find_blue_line():
         break_motors()
         
         while not is_blue() and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not is_wall():
-            andar_reto(50)
+            andar_reto(300)
         if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
             print("Achou parede")
             turn_left(190)
             break_motors()
             
             while not is_blue():
-                andar_reto(50)
+                andar_reto(300)
         break_motors()
         
         
@@ -75,10 +75,10 @@ def find_blue_line():
         cronometer.reset()
         print("Voltando...")
         while cronometer.time() < time_forward:
-            andar_reto(-50)
+            andar_reto(-300)
             
         break_motors()
-        turn_right(90)
+        turn_right(93)
         
         find_blue_line()
     
@@ -88,15 +88,15 @@ def align_to_begin_scan():
     print("Achei o azul")
     if size_of_tube != 10 and color_of_tube != "BROWN":
         while is_blue():
-            andar_reto(-50)   
+            andar_reto(-300)   
         break_motors()
     if size_of_tube == 10 and color_of_tube == "BROWN":
         turn_right(110)
     else:
         turn_right(90)
         
-    branco = 98
-    azul = 15
+    branco = 80
+    azul = 10
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     chegou_no_fim = False
@@ -109,9 +109,22 @@ def align_to_begin_scan():
         
         if is_red_right():
             chegou_no_fim = True
+            break_motors()
+            move_backward(1500)
+    branco = 80
+    azul = 10
+    threshold = (branco + azul) / 2  # = 40
+    vel = 100
+    chegou_no_fim = False
+    cronometer.reset()
+    while cronometer.time() < 1450:
+        delta = threshold - red_left()
+        kp = 0.8
+        erro = delta * kp
+        motors.drive(vel, erro)
     break_motors()
     turn_left(90)
-    move_forward(1200)
+    move_forward(1500)
     turn_left(90)
     
 
@@ -119,27 +132,27 @@ def scan():
     global color_of_tube
     global size_of_tube
     cronometer.reset()
-    valor_giro = 1
+    valor_giro = 3
     print("Procurando tubo...")
-    metrica = 2000
+    metrica = 6000
     while not tube_is_detected():
-        andar_reto(30)
+        andar_reto(300)
         if cronometer.time() > metrica:
-            if metrica % 6000 == 0 and metrica < 14000:
-                valor_giro += 1
-            metrica += 2000
             turn_left(valor_giro)
+            metrica += 6000
     tempo = cronometer.time()
     
     break_motors()
-    Close()
-    
-    # Após fechar a garra
     mbox.send('chave')
     mbox.wait()
 
     size_of_tube = mbox.read()
     size_of_tube = int(size_of_tube)
+    
+    
+    Close()
+    
+    # Após fechar a garra
     
 
     if is_red_tube():
@@ -155,9 +168,15 @@ def scan():
     
     cronometer.reset()
     
+    valor_giro = -3
+    metrica = 6000
     while cronometer.time() < tempo:
-        andar_reto(-30)
+        andar_reto(-300)
+        if cronometer.time() > metrica:
+            turn_left(valor_giro)
+            metrica += 6000
     break_motors()
+    
     
     # if not tube_is_detected():
     #     print("Entrei de novo no scan")
@@ -180,7 +199,7 @@ def set_path():
     if size_of_tube == 15:
         print("Tem 15 cm")#$%¨&*(
         if color_of_tube == "RED": #Farmacia
-            tube_pharmacy()
+            tube_drugstore()
         if color_of_tube == "GREEN": #Prefeitura
             tube_city_hall()
         if color_of_tube == "BLUE": #Museu

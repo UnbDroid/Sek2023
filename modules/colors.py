@@ -43,11 +43,11 @@ def is_black():
 
 # -------------------------------------------------------------
 
-range_max_yellow_left = [107, 95, 55]
-range_min_yellow_left = [77, 62, 25]
+range_max_yellow_left = [85, 82, 44]
+range_min_yellow_left = [55, 52, 14]
 
-range_max_yellow_right = [110, 115, 70]
-range_min_yellow_right = [85, 90, 40]
+range_max_yellow_right = [87, 83, 55]
+range_min_yellow_right = [57, 53, 25]
 
 def is_yellow_left():
     return range_min_yellow_left[0] <= red_left() <= range_max_yellow_left[0] and range_min_yellow_left[1] <= green_left() <= range_max_yellow_left[1] and range_min_yellow_left[2] <= blue_left() <= range_max_yellow_left[2]
@@ -60,8 +60,8 @@ def is_yellow():
 
 # -------------------------------------------------------------
 
-range_max_blue_left = [30, 45, 115]
-range_min_blue_left = [0, 15, 85]
+range_max_blue_left = [30, 45, 99]
+range_min_blue_left = [0, 15, 69]
 
 range_max_blue_right = [30, 45, 115]
 range_min_blue_right = [0, 15, 85]
@@ -77,8 +77,8 @@ def is_blue():
 
 # -------------------------------------------------------------
 
-range_max_red_left = [105, 32, 35]
-range_min_red_left = [75, 2, 5]
+range_max_red_left = [84, 32, 35]
+range_min_red_left = [54, 2, 5]
 
 range_max_red_right = [106, 30, 45]
 range_min_red_right = [76, 0, 15]

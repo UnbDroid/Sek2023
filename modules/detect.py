@@ -4,7 +4,7 @@ from modules.colors import *
 tube_verificator = ColorSensor(Port.S4)
 
 def tube_is_detected():
-    if tube_verificator.reflection() > 4:
+    if tube_verificator.reflection() > 10 or tube_verificator.rgb()[2] > 5:
         return True
     else:
         return False

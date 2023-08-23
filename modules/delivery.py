@@ -14,7 +14,7 @@ def go_to_check_point():
 def tube_library():
     
     crono.reset()
-    branco = 100 
+    branco = 88 
     azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
@@ -27,7 +27,7 @@ def tube_library():
     
     crono.reset()
     while not is_yellow_left() and not is_yellow_right():
-        andar_reto(50)
+        andar_reto(300)
     tempo = crono.time()
     break_motors()
     found_door()
@@ -39,14 +39,14 @@ def tube_library():
     turn_left(200)
     
     while not is_blue():
-        andar_reto(50)
+        andar_reto(300)
     break_motors()
     
         
     
 def tube_city_hall():
     crono.reset()
-    branco = 100 
+    branco = 88 
     azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
@@ -81,7 +81,7 @@ def tube_city_hall():
         
         #tentativa de se alinhar
         while not is_yellow_left() and not is_yellow_right():
-            andar_reto(50)
+            andar_reto(300)
         break_motors()
         
         move_forward(1000)
@@ -91,7 +91,7 @@ def tube_city_hall():
         turn_right(90)
         
         while not is_blue():
-            andar_reto(50)
+            andar_reto(300)
         break_motors()
         
 
@@ -99,7 +99,7 @@ def tube_city_hall():
 def tube_school():
     
     crono.reset()
-    branco = 100 
+    branco = 88 
     azul = 14 #22 
     threshold = (branco + azul) / 2  # = 40
     vel = 100
@@ -138,7 +138,7 @@ def tube_school():
         
         #tentativa de se alinhar
         while not is_yellow_left() and not is_yellow_right():
-            andar_reto(50)
+            andar_reto(300)
         break_motors()
         
         move_forward(1000)
@@ -148,13 +148,13 @@ def tube_school():
         turn_right(90)
         
         while not is_blue():
-            andar_reto(50)
+            andar_reto(300)
         break_motors()
         
 def tube_museum():
     
     crono.reset()
-    branco = 100 
+    branco = 88 
     azul = 14 #22
     threshold = (branco + azul) / 2  
     vel = 100
@@ -206,7 +206,7 @@ def tube_museum():
             
     else: # objeto J não existe
         print("Não existe J")
-        move_forward(5000)
+        move_forward(6000)
         turn_left(90)
         move_forward(1000)
     
@@ -223,7 +223,7 @@ def tube_museum():
     else: #Objeto "H" não existe
         print("Não existe H")
         while not is_red_left() and not is_red_right():
-            andar_reto(50)
+            andar_reto(300)
         break_motors()
         
         print("Achou vermelho")
@@ -233,30 +233,30 @@ def tube_museum():
         move_backward(500)
         
         turn_right(90)
-        move_forward(1500)
+        move_forward(2000)
         
         Open()
         
         #retorna para a área de coleta
-        move_backward(1500)
+        move_backward(2000)
         turn_right(90)
         move_forward(2500)
         turn_right(90)
         
         # No futuro, tentar ver a mudança do J
         while not is_blue():
-            andar_reto(50)
+            andar_reto(300)
         break_motors()
         
                 
 def tube_drugstore():
     
     crono.reset()
-    branco = 100 
+    branco = 88 
     azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
-    while crono.time() < 4000:
+    while crono.time() < 3250:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -264,6 +264,7 @@ def tube_drugstore():
 
     break_motors()
     turn_left(90)
+    move_forward(1000)
     
     if has_obstacle(): #Objeto "J":
         turn_right(90)
@@ -296,7 +297,7 @@ def tube_drugstore():
             turn_right(90)
             move_forward(4)
     else:
-        move_forward(4) # Mesmo valor do museum
+        move_forward(6000) # Mesmo valor do museum
         turn_right(90)
     
     if has_obstacle(): #Objeto "G":
@@ -330,30 +331,30 @@ def tube_drugstore():
             turn_left(90)
             move_forward(8)
     else:
-        move_forward(2000)
+        move_forward(2500)
         turn_left(90)
-        move_forward(1000)
+        move_forward(2500)
         
         
         Open() #Entregou
         
-        move_backward(1000)
+        move_backward(2500)
         turn_left(90)
-        move_forward(2000)
+        move_forward(2500)
         turn_left(90)
         
         # Voltando para área de coleta
         while not is_blue():
-            andar_reto(50)
+            andar_reto(300)
         break_motors()
         
 def tube_bakery():
     crono.reset()
-    branco = 100 
+    branco = 88 
     azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
-    while crono.time() < 10000:
+    while crono.time() < 9000:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -430,7 +431,7 @@ def tube_bakery():
             turn_left(90)
             move_forward(8)
     else:
-        move_forward(3000)
+        move_forward(9500)
     
     if has_obstacle(): #Objeto "D":
         turn_left(90)
@@ -459,19 +460,17 @@ def tube_bakery():
         move_forward()        
         #Abre e retorna
     else:
-        
-        move_forward(1000)
         turn_right(90)
-        move_forward(1000)
+        move_forward(2500)
         
         
         Open() #Entregou
         
-        move_backward(1000)
+        move_backward(2500)
         turn_right(90)
         
         while not is_blue():
-            andar_reto(50)
+            andar_reto(90)
         break_motors()
         
     
