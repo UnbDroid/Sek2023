@@ -94,8 +94,9 @@ def align_to_begin_scan():
         turn_right(110)
     else:
         turn_right(90)
-    branco = 85
-    azul = 12
+        
+    branco = 54
+    azul = 8
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     chegou_no_fim = False
@@ -157,6 +158,13 @@ def scan():
     while cronometer.time() < tempo:
         andar_reto(-30)
     break_motors()
+    
+    if not tube_is_detected():
+        print("Entrei de novo no scan")
+        Open()
+        scan()
+        
+    print("Sai do scan")
         
         
 def align_to_begin_deliver():
@@ -187,5 +195,4 @@ def set_path():
         if color_of_tube == "BLUE": #Escola
             tube_school()
         if color_of_tube == "BROWN": #Biblioteca
-            print("Entrei na biblioteca")#$%¨&*(
             tube_library()

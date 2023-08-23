@@ -24,6 +24,8 @@ ev3 = EV3Brick()
 # while cronometer.time() < 10000:
 #     andar_reto(50)
 
+
+
 find_blue_line()
 print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
 ev3.speaker.beep(444, 1000)
@@ -36,7 +38,8 @@ while True:
     ev3.speaker.beep(444, 1000)
     set_path()
     ev3.speaker.beep(444, 1000)
-# Open()
+
+
 
 # while True:
 #     print(tube_verificator.rgb())
