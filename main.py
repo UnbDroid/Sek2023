@@ -4,34 +4,29 @@
 # paired using Bluetooth, but do NOT connect them. The program will take care
 # of establishing the connection.
 
+# The server must be started before the client!
+from pybricks.hubs import EV3Brick
+from pybricks.tools import wait
+
+print('1')
 from pybricks.messaging import BluetoothMailboxClient, TextMailbox
+print("2")
+from modules.tube import *
 
-# O nome do servidor deve ser o mesmo que o nome do servidor no programa do servidor.
 SERVER = 'ev3dev'
-
+print("3")
 client = BluetoothMailboxClient()
 mbox = TextMailbox('greeting', client)
 
-# Testes para vermos se realmente está conectando.
 print('establishing connection...')
 client.connect(SERVER)
 print('connected!')
 
-# In this program, the client sends the first message and then waits for the
-# server to reply.
-mbox.send('hello!')
-mbox.wait()
-print(mbox.read())
-
-send_code = ''
-
-if red_tube() = True:
-    send_code = 'red '
-
-if hight_tube() = True:
-    send_code = send_code + hight_tube()
-
-print(send_code)
-mbox.send('send_code')
-mbox.wait()
-print(mbox.read())
+while True:
+    mbox.wait()
+    msg = mbox.read()
+    if msg == "chave":
+        if tube() == True:
+            mbox.send('15')
+        else:
+            mbox.send('10')

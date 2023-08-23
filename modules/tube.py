@@ -9,14 +9,5 @@ def tube():
         print("Tube is 15cm high")
         return True
     else:
-        print("Tube is 10cm high")
+        print("Tube is 10cm tall")
         return False
-    
-def hight_tube():
-    key = ''
-    
-    if tube() == True:
-        return key = '15'
-    
-    else:
-        return key = '10'
