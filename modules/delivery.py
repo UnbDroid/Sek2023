@@ -27,7 +27,7 @@ def tube_library():
     
     crono.reset()
     while not is_yellow_left() and not is_yellow_right():
-        andar_reto(300)
+        andar_reto(250)
     tempo = crono.time()
     break_motors()
     found_door()
@@ -39,7 +39,7 @@ def tube_library():
     turn_left(200)
     
     while not is_blue():
-        andar_reto(300)
+        andar_reto(250)
     break_motors()
     
         
@@ -223,7 +223,7 @@ def tube_museum():
     else: #Objeto "H" não existe
         print("Não existe H")
         while not is_red_left() and not is_red_right():
-            andar_reto(300)
+            andar_reto(250)
         break_motors()
         
         print("Achou vermelho")
@@ -470,7 +470,7 @@ def tube_bakery():
         turn_right(90)
         
         while not is_blue():
-            andar_reto(90)
+            andar_reto(300)
         break_motors()
         
     

@@ -80,13 +80,13 @@ def break_motors():
 def move_forward(n):
     cronometer.reset()
     while cronometer.time() < n:
-        andar_reto(300)
+        andar_reto(250)
     break_motors()
     
 def move_backward(n):
     cronometer.reset()
     while cronometer.time() < n:
-        andar_reto(-300)
+        andar_reto(-250)
     break_motors()
     
 def turn_left(x):
