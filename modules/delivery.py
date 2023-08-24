@@ -137,6 +137,8 @@ def tube_school():
         while not is_blue():
             andar_reto(360)
         brake_motors()
+        
+        
         while is_blue():
             andar_reto(-360)
         brake_motors()
@@ -146,6 +148,8 @@ def tube_school():
         threshold = (branco + azul) / 2  # = 40
         vel = 100
         crono.reset()
+        
+        
         while crono.time() < 6500:
             delta = threshold - red_left()
             kp = 0.8
@@ -166,17 +170,19 @@ def tube_school():
             cor_vista = "PAREDE"
             brake_motors()
             ajust_color()
-            move_backward(1000)
-            turn_right(90)
+            move_backward(500)
+            turn_right(90)#
+            
+            
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
             brake_motors()
             cor_visita = "VERMELHO"
             ajust_color()
             print("Bati no vermelho")
-            move_backward(3500)
+            move_backward(2800)
             turn_right(90)
-            move_forward(4000)
+            move_forward(6500)
             turn_left(90)
             
             
@@ -187,11 +193,11 @@ def tube_school():
             ajust_color()
             print("Bati no vermelho 2")
             
-            move_backward(1500)
+            move_backward(500)
             turn_right(90)
-            move_forward(2000)
+            move_forward(1000)
             Open()
-            move_backward(2000)
+            move_backward(1000)
             turn_right(90)
             
             #começa caminho de volta
