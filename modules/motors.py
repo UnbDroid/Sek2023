@@ -77,16 +77,16 @@ def break_motors():
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
 
-def move_forward(n):
+def move_forward(tempo, vel=50):
     cronometer.reset()
-    while cronometer.time() < n:
-        andar_reto(50)
+    while cronometer.time() < tempo:
+        andar_reto(vel)
     break_motors()
     
-def move_backward(n):
+def move_backward(tempo, vel=50):
     cronometer.reset()
-    while cronometer.time() < n:
-        andar_reto(-50)
+    while cronometer.time() < tempo:
+        andar_reto(-vel)
     break_motors()
     
 def turn_left(x):
