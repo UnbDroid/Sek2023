@@ -29,7 +29,7 @@ def find_blue_line():
     
     print("procurando")
     while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-        andar_reto(250)   
+        andar_reto(50)   
         #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
         if is_blue():
             cor_vista = "AZUL"
@@ -46,26 +46,25 @@ def find_blue_line():
     ajust_color()
     if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()):
         while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-            andar_reto(-200)
+            andar_reto(-20)
         break_motors()
         
         
     if (is_red_left() or is_red_right()):
-        
         print("Achou vermelho")
         move_backward(3500) 
         turn_left(90)
         break_motors()
         
         while not is_blue() and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not is_wall():
-            andar_reto(250)
+            andar_reto(50)
         if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
             print("Achou parede")
             turn_left(190)
             break_motors()
             
             while not is_blue():
-                andar_reto(250)
+                andar_reto(50)
         break_motors()
         
         
@@ -75,7 +74,7 @@ def find_blue_line():
         cronometer.reset()
         print("Voltando...")
         while cronometer.time() < time_forward:
-            andar_reto(-250)
+            andar_reto(-50)
             
         break_motors()
         turn_right(93)
@@ -88,7 +87,7 @@ def align_to_begin_scan():
     print("Achei o azul")
     if size_of_tube != 10 and color_of_tube != "BROWN":
         while is_blue():
-            andar_reto(-250)   
+            andar_reto(-50)   
         break_motors()
     if size_of_tube == 10 and color_of_tube == "BROWN":
         turn_right(110)
@@ -124,7 +123,7 @@ def align_to_begin_scan():
         motors.drive(vel, erro)
     break_motors()
     turn_left(90)
-    move_forward(1500)
+    move_forward(1200)
     turn_left(90)
     
 
@@ -136,7 +135,7 @@ def scan():
     print("Procurando tubo...")
     metrica = 6000
     while not tube_is_detected():
-        andar_reto(250)
+        andar_reto(30)
         if cronometer.time() > metrica:
             turn_left(valor_giro)
             metrica += 6000
@@ -171,10 +170,7 @@ def scan():
     valor_giro = -3
     metrica = 6000
     while cronometer.time() < tempo:
-        andar_reto(-250)
-        if cronometer.time() > metrica:
-            turn_left(valor_giro)
-            metrica += 6000
+        andar_reto(-30)
     break_motors()
     
     

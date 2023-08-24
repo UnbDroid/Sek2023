@@ -14,7 +14,7 @@ right_motor = Motor(Port.B)
 
 cronometer = StopWatch()
 
-motors = DriveBase(left_motor, right_motor, 42.1, 141.0) # 140.88
+motors = DriveBase(left_motor, right_motor, 42.1, 142.3) # 140.88
 
 integral = 0
 prev_delta = 0
@@ -68,8 +68,8 @@ def andar_reto(velo):
     prev_delta = delta
     
     # Ajustar os motores com base no controle calculado
-    right_motor.run_angle(velo + control_output, 360, wait = False)
-    left_motor.run_angle(velo - control_output, 360, wait = False)
+    right_motor.run_angle(((velo + control_output)/100) * 720, 360, wait = False)
+    left_motor.run_angle(((velo - control_output)/100) * 720, 360, wait = False)
     
 
 def break_motors():
@@ -80,13 +80,13 @@ def break_motors():
 def move_forward(n):
     cronometer.reset()
     while cronometer.time() < n:
-        andar_reto(250)
+        andar_reto(50)
     break_motors()
     
 def move_backward(n):
     cronometer.reset()
     while cronometer.time() < n:
-        andar_reto(-250)
+        andar_reto(-50)
     break_motors()
     
 def turn_left(x):
