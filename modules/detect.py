@@ -1,5 +1,6 @@
 from pybricks.ev3devices import UltrasonicSensor
 from modules.colors import *
+from modules.beeps import *
 
 tube_verificator = ColorSensor(Port.S4)
 
@@ -12,11 +13,13 @@ def tube_is_detected():
 ultrasound_sensor = UltrasonicSensor(Port.S3)
 
 def has_obstacle():
-    if ultrasound_sensor.distance() <= 110:
+    if ultrasound_sensor.distance() <= 300:
         print("Obstáculo detectado")
+        found_wall()
         return True
     else:
         print("Obstáculo não detectado")
+        not_found_wall()
         return False
 
 # def is_tube_of_15():

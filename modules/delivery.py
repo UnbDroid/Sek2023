@@ -27,9 +27,9 @@ def tube_library():
     
     crono.reset()
     while not is_yellow_left() and not is_yellow_right():
-        andar_reto(50)
+        andar_reto(360)
     tempo = crono.time()
-    break_motors()
+    brake_motors()
     found_door()
     
     move_forward(300) # Indo para a entrega
@@ -39,8 +39,8 @@ def tube_library():
     turn_left(200)
     
     while not is_blue():
-        andar_reto(50)
-    break_motors()
+        andar_reto(360)
+    brake_motors()
     
         
     
@@ -50,39 +50,57 @@ def tube_city_hall():
     azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
-    while crono.time() < 4000:
+    while crono.time() < 3200: # Tenho que olhar isso
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
         motors.drive(vel, erro)
 
-    break_motors()
+    brake_motors()
     turn_left(90)
     move_forward(1000) # Está indo em direção ao objeto J
     
     if has_obstacle(): #sensor identificou objeto "J":
-        move_backward(1)
-        turn_right(90)
-        move_forward(3)
+        move_backward(1000)
+        turn_right(180)
+        while not is_blue():
+            andar_reto(360)
+        brake_motors()
+        while is_blue():
+            andar_reto(-360)
         turn_left(90)
-        move_forward(2)
+        branco = 88 
+        azul = 14 #22
+        threshold = (branco + azul) / 2  # = 40
+        vel = 100
+        crono.reset()
+        while crono.time() < 6500: # Tenho que olhar isso
+            delta = red_right() - threshold
+            kp = 0.5
+            erro = delta * kp
+            motors.drive(vel, erro)
+            
         turn_left(90)
-        move_forward(2)
+        move_forward(3000)
+        turn_left(90)
+        move_forward(2000)
         Open()
         #retorna para a área de coleta
-        move_backward(2)
+        move_backward(2000)
         turn_left(90)
-        move_forward(3)
+        while not is_blue():
+            andar_reto(360)
+        brake_motors()
     
     else:
         #objeto J não existe
-        move_forward(2750)#Distancia pequena 3500
+        move_forward(2500)#Distancia pequena 3500
         turn_right(90)
         
         #tentativa de se alinhar
         while not is_yellow_left() and not is_yellow_right():
-            andar_reto(50)
-        break_motors()
+            andar_reto(360)
+        brake_motors()
         
         move_forward(1000)
         Open()
@@ -91,8 +109,8 @@ def tube_city_hall():
         turn_right(90)
         
         while not is_blue():
-            andar_reto(50)
-        break_motors()
+            andar_reto(360)
+        brake_motors()
         
 
     
@@ -103,43 +121,116 @@ def tube_school():
     azul = 14 #22 
     threshold = (branco + azul) / 2  # = 40
     vel = 100
-    while crono.time() < 10000:
+    while crono.time() < 9500:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
         motors.drive(vel, erro)
 
-    break_motors()
+    brake_motors()
     turn_left(90)
     move_forward(1000)
     
     if has_obstacle(): #sensor identificou objeto "i":
-        move_backward(1)
-        turn_left(90)
-        move_forward(4)
+        move_backward(1000)
+        turn_left(180)
+        while not is_blue():
+            andar_reto(360)
+        brake_motors()
+        while is_blue():
+            andar_reto(-360)
+        brake_motors()
         turn_right(90)
-        move_forward(4)
+        branco = 80
+        azul = 10
+        threshold = (branco + azul) / 2  # = 40
+        vel = 100
+        crono.reset()
+        while crono.time() < 6500:
+            delta = threshold - red_left()
+            kp = 0.8
+            erro = delta * kp
+            motors.drive(vel, erro)
         turn_right(90)
-        #while not is_red():
-        #    move_forward(): sugestão, bater no vermelho e dai voltar
-        move_forward(6)
+        #De frente para o J
+        move_forward(6000)
+        
+        #G
         turn_right(90)
-        move_forward(2)
-        #abre e retorna
-        Open()
-        move_backward(2)
-        turn_right(90)
-        move_forward(6)
-        turn_left(90)
-        move_forward(4)
+        move_forward(1000)
+        if has_obstacle(): #Objeto "G":
+            move_backward(1000)
+            turn_left(90)
+            while not is_black_left() and not is_black_right():
+                andar_reto(360)
+            cor_vista = "PAREDE"
+            brake_motors()
+            ajust_color()
+            move_backward(1000)
+            turn_right(90)
+            while not is_red_left() and not is_red_right():
+                andar_reto(360)
+            brake_motors()
+            cor_visita = "VERMELHO"
+            ajust_color()
+            print("Bati no vermelho")
+            move_backward(3500)
+            turn_right(90)
+            move_forward(4000)
+            turn_left(90)
+            
+            
+            while not is_red_left() and not is_red_right():
+                andar_reto(360)
+            brake_motors()
+            cor_visita = "VERMELHO"
+            ajust_color()
+            print("Bati no vermelho 2")
+            
+            move_backward(1500)
+            turn_right(90)
+            move_forward(2000)
+            Open()
+            move_backward(2000)
+            turn_right(90)
+            
+            #começa caminho de volta
+            
+            move_forward(3000)
+            turn_right(90)
+            while not is_black_left() and not is_black_right():
+                andar_reto(360)
+            brake_motors()
+            cor_vista = "PAREDE"
+            ajust_color()
+            move_backward(1000)
+            turn_left(90)
+            while not is_red_left() and not is_red_right():
+                andar_reto(360)
+            brake_motors()
+            cor_visita = "VERMELHO"
+            ajust_color()
+            print("Bati no vermelho")
+            move_backward(3500)
+            turn_left(90)
+            while not is_blue():
+                andar_reto(540)
+        else:
+            #abre e retorna
+            Open()
+            move_backward(2)
+            turn_right(90)
+            move_forward(6)
+            turn_left(90)
+            move_forward(4)
     else:
-        move_forward(2750)#Distancia pequena 3500
+        move_forward(2500)#Distancia pequena 3500
         turn_right(90)
         
         #tentativa de se alinhar
         while not is_yellow_left() and not is_yellow_right():
-            andar_reto(50)
-        break_motors()
+            andar_reto(360)
+        brake_motors()
         
         move_forward(1000)
         Open()
@@ -148,8 +239,8 @@ def tube_school():
         turn_right(90)
         
         while not is_blue():
-            andar_reto(50)
-        break_motors()
+            andar_reto(360)
+        brake_motors()
         
 def tube_museum():
     
@@ -164,7 +255,7 @@ def tube_museum():
         erro = delta * kp
         motors.drive(vel, erro)
 
-    break_motors()
+    brake_motors()
     turn_left(90)
     move_forward(1000) # Está indo em direção ao objeto J
     
@@ -206,7 +297,7 @@ def tube_museum():
             
     else: # objeto J não existe
         print("Não existe J")
-        move_forward(5000)
+        move_forward(3000, 540)
         turn_left(90)
         move_forward(1000)
     
@@ -223,8 +314,8 @@ def tube_museum():
     else: #Objeto "H" não existe
         print("Não existe H")
         while not is_red_left() and not is_red_right():
-            andar_reto(50)
-        break_motors()
+            andar_reto(360)
+        brake_motors()
         
         print("Achou vermelho")
         cor_vista = "VERMELHO"
@@ -233,20 +324,20 @@ def tube_museum():
         move_backward(500)
         
         turn_right(90)
-        move_forward(2000)
+        move_forward(1300)
         
         Open()
         
         #retorna para a área de coleta
-        move_backward(2000)
+        move_backward(1500)
         turn_right(90)
-        move_forward(2500)
+        move_forward(3000)
         turn_right(90)
         
         # No futuro, tentar ver a mudança do J
         while not is_blue():
-            andar_reto(0)
-        break_motors()
+            andar_reto(360)
+        brake_motors()
         
                 
 def tube_drugstore():
@@ -262,7 +353,7 @@ def tube_drugstore():
         erro = delta * kp
         motors.drive(vel, erro)
 
-    break_motors()
+    brake_motors()
     turn_left(90)
     move_forward(1000)
     
@@ -297,7 +388,7 @@ def tube_drugstore():
             turn_right(90)
             move_forward(4)
     else:
-        move_forward(5000) # Mesmo valor do museum
+        move_forward(4000) # Mesmo valor do museum
         turn_right(90)
     
     if has_obstacle(): #Objeto "G":
@@ -331,7 +422,7 @@ def tube_drugstore():
             turn_left(90)
             move_forward(8)
     else:
-        move_forward(2000)
+        move_forward(2500)
         turn_left(90)
         move_forward(1000)
         
@@ -345,8 +436,8 @@ def tube_drugstore():
         
         # Voltando para área de coleta
         while not is_blue():
-            andar_reto(50)
-        break_motors()
+            andar_reto(360)
+        brake_motors()
         
 def tube_bakery():
     crono.reset()
@@ -354,14 +445,14 @@ def tube_bakery():
     azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
-    while crono.time() < 10000:
+    while crono.time() < 9500:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
         motors.drive(vel, erro)
 
-    break_motors()
-    turn_left(90)
+    brake_motors()
+    turn_left(95)
     move_forward(1000)
     
     if has_obstacle(): #Objeto "I":
@@ -431,7 +522,7 @@ def tube_bakery():
             turn_left(90)
             move_forward(8)
     else:
-        move_forward(9500)
+        move_forward(7200)
     
     if has_obstacle(): #Objeto "D":
         turn_left(90)
@@ -461,17 +552,17 @@ def tube_bakery():
         #Abre e retorna
     else:
         turn_right(90)
-        move_forward(1000)
+        move_forward(2500)
         
         
         Open() #Entregou
         
-        move_backward(1000)
+        move_backward(2500)
         turn_right(90)
         
         while not is_blue():
-            andar_reto(50)
-        break_motors()
+            andar_reto(360)
+        brake_motors()
         
     
 def tube_park():
