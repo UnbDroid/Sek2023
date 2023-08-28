@@ -101,7 +101,7 @@ def turn_right(x):
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     
-def ajust_color():
+def ajust_color(cor_vista):
     print("Ajustando cor...")
     
     if cor_vista == "PRETO":
@@ -122,12 +122,12 @@ def ajust_color():
     if cor_vista == "VERMELHO":
         if is_red_left() and not is_red_right():
             while not is_red_right():
-                right_motor.run_angle(20, 360 )
+                right_motor.run_angle(20, 360)
             brake_motors()
             motors.turn(-5)
         elif not is_red_left() and is_red_right():
             while not is_red_left():
-                left_motor.run_angle(20, 360 )
+                left_motor.run_angle(20, 360)
             brake_motors()
             motors.turn(5)
     
@@ -141,7 +141,7 @@ def ajust_color():
             motors.turn(-5)
         elif not is_blue_left() and is_blue_right():
             while not is_blue_left():
-                left_motor.run_angle(20, 360 )
+                left_motor.run_angle(20, 360)
             brake_motors()
             motors.turn(5)
 
@@ -150,7 +150,7 @@ def ajust_color():
     if cor_vista == "AMARELO":
         if is_yellow_left() and not is_yellow_right():
             while not is_yellow_right() and not is_black_right():
-                right_motor.run_angle(20, 360 )
+                right_motor.run_angle(20, 360)
             motors.turn(-5)
         elif not is_yellow_left() and not is_black_left():
             while not is_yellow_left():
@@ -162,12 +162,12 @@ def ajust_color():
     if cor_vista == "PAREDE":
         if (is_black_left() or is_yellow_left()) and not (is_black_right() or is_yellow_right()):
             while not (is_black_right() or is_yellow_right()):
-                right_motor.run_angle(20, 360 )
+                right_motor.run_angle(20, 360)
             brake_motors()
             motors.turn(-5)
         elif not (is_black_left() or is_yellow_left()) and (is_black_right() or is_yellow_right()):
             while not (is_black_left() or is_yellow_left()):
-                left_motor.run_angle(20, 360 )
+                left_motor.run_angle(20, 360)
             brake_motors()
             motors.turn(5)
             

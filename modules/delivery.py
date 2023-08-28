@@ -169,7 +169,7 @@ def tube_school():
                 andar_reto(360)
             cor_vista = "PAREDE"
             brake_motors()
-            ajust_color()
+            ajust_color(cor_vista)
             move_backward(500)
             turn_right(90)#
             
@@ -178,7 +178,7 @@ def tube_school():
                 andar_reto(360)
             brake_motors()
             cor_visita = "VERMELHO"
-            ajust_color()
+            ajust_color(cor_vista)
             print("Bati no vermelho")
             move_backward(2800)
             turn_right(90)
@@ -190,7 +190,7 @@ def tube_school():
                 andar_reto(360)
             brake_motors()
             cor_visita = "VERMELHO"
-            ajust_color()
+            ajust_color(cor_vista)
             print("Bati no vermelho 2")
             
             move_backward(500)
@@ -208,14 +208,14 @@ def tube_school():
                 andar_reto(360)
             brake_motors()
             cor_vista = "PAREDE"
-            ajust_color()
+            ajust_color(cor_vista)
             move_backward(1000)
             turn_left(90)
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
             brake_motors()
             cor_visita = "VERMELHO"
-            ajust_color()
+            ajust_color(cor_vista)
             print("Bati no vermelho")
             move_backward(3500)
             turn_left(90)
@@ -325,7 +325,7 @@ def tube_museum():
         
         print("Achou vermelho")
         cor_vista = "VERMELHO"
-        ajust_color()
+        ajust_color(cor_vista)
         
         move_backward(500)
         

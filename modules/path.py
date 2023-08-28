@@ -43,7 +43,7 @@ def find_blue_line():
     
     
     time_forward = cronometer.time()
-    ajust_color()
+    ajust_color(cor_vista)
     if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()):
         while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
             andar_reto(-120)
