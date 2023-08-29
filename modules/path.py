@@ -118,14 +118,14 @@ def align_to_begin_scan():
     vel = 100
     chegou_no_fim = False
     cronometer.reset()
-    while cronometer.time() < 1500:
+    while cronometer.time() < 1600:
         delta = threshold - red_left()
         kp = 0.8
         erro = delta * kp
         motors.drive(vel, erro)
     brake_motors()
     turn_left(90)
-    move_forward(1200)
+    move_forward(1400)
     turn_left(90)
     
 
@@ -133,14 +133,14 @@ def scan():
     global color_of_tube
     global size_of_tube
     cronometer.reset()
-    valor_giro = 3
     print("Procurando tubo...")
-    metrica = 6000
+    # valor_giro = 3
+    # metrica = 6000
     while not tube_is_detected():
         andar_reto(150)
-        if cronometer.time() > metrica:
-            turn_left(valor_giro)
-            metrica += 6000
+        # if cronometer.time() > metrica:
+        #     turn_left(valor_giro)
+        #     metrica += 6000
     tempo = cronometer.time()
     
     brake_motors()
