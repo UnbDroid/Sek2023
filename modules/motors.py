@@ -107,13 +107,13 @@ def ajust_color(cor_vista):
     if cor_vista == "PRETO":
         if is_black_left() and not is_black_right():
             while not is_black_right():
-                right_motor.run_angle(20, 360)
-            brake_motors()
+                right_motor.run_angle(20, 360, wait = False)
+            # brake_motors()
             motors.turn(-5)
         elif not is_black_left() and is_black_right():
             while not is_black_left():
-                left_motor.run_angle(20, 360)
-            brake_motors()
+                left_motor.run_angle(20, 360, wait = False)
+            # brake_motors()
             motors.turn(5)
         
         
@@ -122,13 +122,15 @@ def ajust_color(cor_vista):
     if cor_vista == "VERMELHO":
         if is_red_left() and not is_red_right():
             while not is_red_right():
-                right_motor.run_angle(20, 360)
-            brake_motors()
+                right_motor.run_angle(20, 360, wait = False)
+            # brake_motors()
+            
+            
             motors.turn(-5)
         elif not is_red_left() and is_red_right():
             while not is_red_left():
-                left_motor.run_angle(20, 360)
-            brake_motors()
+                left_motor.run_angle(20, 360, wait = False)
+            # brake_motors()
             motors.turn(5)
     
 # ---------------------------------
@@ -136,13 +138,13 @@ def ajust_color(cor_vista):
     if cor_vista == "AZUL":
         if is_blue_left() and not is_blue_right():
             while not is_blue_right():
-                right_motor.run_angle(20, 360)
-            brake_motors()
+                right_motor.run_angle(20, 360, wait = False)
+            # brake_motors()
             motors.turn(-5)
         elif not is_blue_left() and is_blue_right():
             while not is_blue_left():
-                left_motor.run_angle(20, 360)
-            brake_motors()
+                left_motor.run_angle(20, 360, wait = False)
+            # brake_motors()
             motors.turn(5)
 
 # ---------------------------------
@@ -150,7 +152,7 @@ def ajust_color(cor_vista):
     if cor_vista == "AMARELO":
         if is_yellow_left() and not is_yellow_right():
             while not is_yellow_right() and not is_black_right():
-                right_motor.run_angle(20, 360)
+                right_motor.run_angle(20, 360, wait = False)
             motors.turn(-5)
         elif not is_yellow_left() and not is_black_left():
             while not is_yellow_left():
@@ -162,16 +164,17 @@ def ajust_color(cor_vista):
     if cor_vista == "PAREDE":
         if (is_black_left() or is_yellow_left()) and not (is_black_right() or is_yellow_right()):
             while not (is_black_right() or is_yellow_right()):
-                right_motor.run_angle(20, 360)
-            brake_motors()
+                right_motor.run_angle(20, 360, wait = False)
+            # brake_motors()
             motors.turn(-5)
         elif not (is_black_left() or is_yellow_left()) and (is_black_right() or is_yellow_right()):
             while not (is_black_left() or is_yellow_left()):
-                left_motor.run_angle(20, 360)
-            brake_motors()
+                left_motor.run_angle(20, 360, wait = False)
+            # brake_motors()
             motors.turn(5)
             
 # ---------------------------------
 
-    left_motor.reset_angle(0)
-    right_motor.reset_angle(0)
+    # left_motor.reset_angle(0,0)
+    # right_motor.reset_angle(0,0)
+    brake_motors()
