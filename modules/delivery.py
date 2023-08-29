@@ -177,7 +177,7 @@ def tube_school():
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
             brake_motors()
-            cor_visita = "VERMELHO"
+            cor_vista = "VERMELHO"
             ajust_color(cor_vista)
             print("Bati no vermelho")
             move_backward(2800)
@@ -189,7 +189,7 @@ def tube_school():
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
             brake_motors()
-            cor_visita = "VERMELHO"
+            cor_vista = "VERMELHO"
             ajust_color(cor_vista)
             print("Bati no vermelho 2")
             
@@ -214,7 +214,7 @@ def tube_school():
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
             brake_motors()
-            cor_visita = "VERMELHO"
+            cor_vista = "VERMELHO"
             ajust_color(cor_vista)
             print("Bati no vermelho")
             move_backward(3500)
@@ -222,13 +222,29 @@ def tube_school():
             while not is_blue():
                 andar_reto(540)
         else:
+            while not is_red_left() and not is_red_right():
+                andar_reto(360)
+            brake_motors()
+            cor_vista = "VERMELHO"
+            ajust_color(cor_vista)
+            print("Bati no vermelho")
+            move_backward(500)
+            turn_right(90)
+            move_forward(1500)
             #abre e retorna
             Open()
-            move_backward(2)
+            move_backward(1500)
             turn_right(90)
-            move_forward(6)
+            while not is_red_left() and not is_red_right():
+                andar_reto(360)
+            brake_motors()
+            cor_vista = "VERMELHO"
+            ajust_color(cor_vista)
+            move_backward(3500)
             turn_left(90)
-            move_forward(4)
+            while not is_blue():
+                andar_reto(540)
+            brake_motors()
     else:
         move_forward(2500)#Distancia pequena 3500
         turn_right(90)
@@ -266,84 +282,147 @@ def tube_museum():
     move_forward(1000) # Está indo em direção ao objeto J
     
     if has_obstacle(): #sensor identificou objeto "j":
-        turn_right(90)
-        move_forward(4)
-        turn_left(90)
-        move_forward(4)
-        turn_left(90)
-        move_forward(2)
-        if has_obstacle(): #sensor identificou objeto G:
-            move_backward(2)
-            turn_right(90)
-            move_forward(4)
-            turn_left(90)
-            move_forward(4)
-            turn_left(90)
-            move_forward(4)
-            turn_right(90)
-            move_forward(2)
-            #abre e retorna
-            move_backward(2)
-            turn_right(90)
-            move_forward(4)
-            turn_right(90)
-            move_forward(4)
-            turn_right(90)
-            move_forward(8)
-        else:
-            move_forward(6)
-            turn_right(90)
-            move_forward(2)
-            #abre e retorna
-            move_backward(2)
-            turn_right(90)
-            move_forward(2)
-            turn_right(90)
-            move_forward(4) 
-            
-    else: # objeto J não existe
-        print("Não existe J")
-        move_forward(3000, 540)
-        turn_left(90)
-        move_forward(1000)
-    
-    if has_obstacle(): #Objeto "H":
-        turn_right(90)
-        move_forward(2)
-        turn_left(90)
-        move_forward(2)
-        # Abre e retorna
-        move_backward(2)
-        turn_left(90)
-        move_forward(6)
-        
-    else: #Objeto "H" não existe
-        print("Não existe H")
-        while not is_red_left() and not is_red_right():
-            andar_reto(360)
-        brake_motors()
-        
-        print("Achou vermelho")
-        cor_vista = "VERMELHO"
-        ajust_color(cor_vista)
-        
-        move_backward(500)
-        
-        turn_right(90)
-        move_forward(1300)
-        
-        Open()
-        
-        #retorna para a área de coleta
-        move_backward(1500)
-        turn_right(90)
-        move_forward(3000)
-        turn_right(90)
-        
-        # No futuro, tentar ver a mudança do J
+        move_backward(1000)
+        turn_right(180)
         while not is_blue():
             andar_reto(360)
         brake_motors()
+        while is_blue():
+            andar_reto(-360)
+        turn_left(90)
+        branco = 88 
+        azul = 14 #22
+        threshold = (branco + azul) / 2  # = 40
+        vel = 100
+        crono.reset()
+        while crono.time() < 6500: # Tenho que olhar isso
+            delta = red_right() - threshold
+            kp = 0.5
+            erro = delta * kp
+            motors.drive(vel, erro)
+            
+        turn_left(90)
+        move_forward(6000)
+        turn_left(90)
+        move_forward(1000)
+        if has_obstacle(): #sensor identificou objeto G:
+            move_backward(1000)
+            turn_right(90)
+            while not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
+                andar_reto(360)
+            brake_motors()
+            cor_vista = "PAREDE"
+            ajust_color(cor_vista)
+            turn_left(90)
+            while not is_red_left() and not is_red_right():
+                andar_reto(360)
+            brake_motors()
+            cor_vista = "VERMELHO"
+            ajust_color(cor_vista)
+            print("Bati no vermelho")
+            move_backward(3500)
+            turn_left(90)
+            move_forward(4000)
+            turn_right(90)
+            move_forward(1500)
+            #abre e retorna
+            Open()
+            move_backward(1500)
+            turn_right(90)
+            while not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
+                andar_reto(360)
+            brake_motors()
+            cor_vista = "PAREDE"
+            ajust_color(cor_vista)
+            turn_right(90)
+            move_forward(6000)
+            turn_right(90)
+            while not is_blue():
+                andar_reto(540)
+            brake_motors()
+        else:
+            move_forward(6000)
+            if has_obstacle(): #sensor identificou objeto H:
+                turn_right(90)
+                move_forward(2000)
+                turn_left(90)
+                move_forward(1500)
+                #abre e retorna
+                Open()
+                move_backward(1500)
+                turn_left(90)
+                move_forward(2000)
+                turn_left(90)
+                move_forward(6000)
+                turn_right(90)
+                while not is_blue():
+                    andar_reto(540)
+                brake_motors()
+            else:
+                while not is_red_left() and not is_red_right():
+                    andar_reto(360)
+                brake_motors()
+                cor_vista = "VERMELHO"
+                ajust_color(cor_vista)
+                print("Bati no vermelho")
+                move_backward(500)
+                turn_right(90)
+                move_forward(1500)
+                #abre e retorna
+                Open()
+                move_backward(1500)
+                turn_right(90)
+                move_forward(8000)
+                turn_right(90)
+                while not is_blue():
+                    andar_reto(540)
+                brake_motors()
+                
+    else: # objeto J não existe
+        print("Não existe J")
+        move_forward(5000)
+        turn_left(90)
+        move_forward(1000)
+    
+        if has_obstacle(): #Objeto "H":
+            move_backward(1000)
+            turn_right(90)
+            move_forward(2000)
+            turn_left(90)
+            move_forward(1500)
+            #abre e retorna
+            Open()
+            move_backward(1500)
+            turn_left(90)
+            while not is_blue():
+                andar_reto(540)
+            brake_motors()
+            
+        else: #Objeto "H" não existe
+            print("Não existe H")
+            while not is_red_left() and not is_red_right():
+                andar_reto(360)
+            brake_motors()
+            
+            print("Achou vermelho")
+            cor_vista = "VERMELHO"
+            ajust_color(cor_vista)
+            
+            move_backward(500)
+            
+            turn_right(90)
+            move_forward(1500)
+            
+            Open()
+            
+            #retorna para a área de coleta
+            move_backward(1500)
+            turn_right(90)
+            move_forward(3000)
+            turn_right(90)
+            while not is_blue():
+                andar_reto(360)
+            brake_motors()
         
                 
 def tube_drugstore():

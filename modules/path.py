@@ -27,6 +27,8 @@ def find_blue_line():
     cronometer.reset()
     brake_motors()
     
+    cor_vista = ""
+    
     print("procurando")
     while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
         andar_reto(360)   
