@@ -7,10 +7,9 @@ from modules.delivery import *
 from modules.claw import *
 
 from pybricks.hubs import EV3Brick
-from pybricks.tools import wait
+
 
 ev3 = EV3Brick()
-
 
 
 
@@ -33,6 +32,12 @@ while True:
 #-----------------------------------------------------------------------------------------------
 
 
+
+# Ajustar curva de 90 graus --------------------------------------------------------------------
+
+# motors.turn(180)
+# print(left_motor.angle(), right_motor.angle())
+# brake_motors()
 
 # Ajustar axle_track ---------------------------------------------------------------------------
 

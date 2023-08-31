@@ -50,7 +50,7 @@ def tube_city_hall():
     azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
-    while crono.time() < 36 00: # Tenho que olhar isso
+    while crono.time() < 3600: # Tenho que olhar isso
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp

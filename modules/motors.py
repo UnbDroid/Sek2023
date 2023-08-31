@@ -4,7 +4,7 @@ from pybricks.robotics import DriveBase
 from pybricks.tools import StopWatch
 from pybricks.robotics import DriveBase
 
-
+from pybricks.tools import wait
 from modules.colors import *
 from modules.detect import *
 from modules.path import *
@@ -20,36 +20,13 @@ integral = 0
 prev_delta = 0
 
 def andar_reto(velo):
-    # global integral
-    # global prev_delta
-    # kp = 110
-    # ki = 1.002
-    # kd = 0.9955
-    
-    # delta = (left_motor.angle() - right_motor.angle()) / 360
-    # erro = delta * kp
-    
-    # integral += delta
-    # integral *= ki
-    
-    # derivative = delta - prev_delta
-    # derivative *= kd
-    
-    # control_output = erro + integral + derivative
-    
-    # prev_delta = delta
-    
-    # right_motor.dc(velo + control_output)
-    # left_motor.dc(velo - control_output)    
-    
-    
-    # TESTE -------------------------
     
     global integral
     global prev_delta
-    kp = 110
-    ki = 1.002
-    kd = 0.9955
+    kp = 4.89 #5.05
+    ki = 1.0
+    
+    #kd = 0.9955
     
     angulo_esquerda = left_motor.angle()
     angulo_direita = right_motor.angle()
@@ -61,18 +38,16 @@ def andar_reto(velo):
     integral *= ki
     
     derivative = delta - prev_delta
-    derivative *= kd
+    #derivative *= kd
     
     control_output = erro + integral + derivative
     
     prev_delta = delta
     
-    print("Delta:", (angulo_esquerda - angulo_direita))
     
     # Ajustar os motores com base no controle calculado
     right_motor.run_angle((velo + control_output), 360, wait = False)
     left_motor.run_angle((velo - control_output), 360, wait = False)
-    
 
 def brake_motors():
     motors.stop()
@@ -92,14 +67,34 @@ def move_backward(tempo, vel=360):
     brake_motors()
     
 def turn_left(x):
-    motors.turn(-x)
+    wait(200)
+    valor_a_girar = 321 * (x / 90)
+    left_motor.reset_angle(0)
+    right_motor.reset_angle(0)
+    left_motor.run_angle(200, -valor_a_girar + 20, wait = False)
+    right_motor.run_angle(200, valor_a_girar - 20, wait = True)
     motors.stop()
+    left_motor.reset_angle(0)
+    right_motor.reset_angle(0)
+    while left_motor.angle() > -20:
+        left_motor.run_angle(50, -1, wait = False)
+        right_motor.run_angle(50, 1, wait = True)
+        motors.stop()
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     
 def turn_right(x):
-    motors.turn(x)
+    wait(200)
+    valor_a_girar = 321 * (x / 90)
+    left_motor.run_angle(200, valor_a_girar - 20, wait = False)
+    right_motor.run_angle(200, -valor_a_girar + 20, wait = True)
     motors.stop()
+    left_motor.reset_angle(0)
+    right_motor.reset_angle(0)
+    while right_motor.angle() > -20:
+        left_motor.run_angle(50, 1, wait = False)
+        right_motor.run_angle(50, -1, wait = True)
+        motors.stop()
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     
