@@ -42,13 +42,11 @@ def find_blue_line():
         elif is_yellow_left() or is_yellow_right():
             cor_vista = "PAREDE"
     brake_motors()
-    
-    
     time_forward = cronometer.time()
     ajust_color(cor_vista)
     if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()):
         while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-            andar_reto(-120)
+            andar_reto(-360)
         brake_motors()
         
         
@@ -62,7 +60,7 @@ def find_blue_line():
             andar_reto(360)
         if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
             print("Achou parede")
-            turn_left(190)
+            turn_left(180)
             brake_motors()
             
             while not is_blue():
@@ -92,7 +90,7 @@ def align_to_begin_scan():
             andar_reto(-360)   
         brake_motors()
     if size_of_tube == 10 and color_of_tube == "BROWN":
-        turn_right(110)
+        turn_right(360)
     else:
         turn_right(90)
         
@@ -135,13 +133,8 @@ def scan():
     global size_of_tube
     cronometer.reset()
     print("Procurando tubo...")
-    # valor_giro = 3
-    # metrica = 6000
     while not tube_is_detected():
         andar_reto(150)
-        # if cronometer.time() > metrica:
-        #     turn_left(valor_giro)
-        #     metrica += 6000
     tempo = cronometer.time()
     
     brake_motors()
@@ -154,9 +147,6 @@ def scan():
     
     Close()
     
-    # Após fechar a garra
-    
-
     if is_red_tube():
         color_of_tube = "RED"
     elif is_green_tube():
@@ -176,11 +166,6 @@ def scan():
         andar_reto(-150)
     brake_motors()
     
-    
-    # if not tube_is_detected():
-    #     print("Entrei de novo no scan")
-    #     Open()
-    #     scan()
         
     print("Sai do scan")
         
