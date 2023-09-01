@@ -15,23 +15,24 @@ ev3 = EV3Brick()
 
 # Codigo ---------------------------------------------------------------------------------------
 
-find_blue_line()
-# print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
-ev3.speaker.beep(444, 1000)
-while True:
-    align_to_begin_scan()
-    ev3.speaker.beep(444, 1000)
-    scan()
-    ev3.speaker.beep(444, 1000)
-    go_to_check_point()
-    ev3.speaker.beep(444, 1000)
-    set_path()
-    ev3.speaker.beep(444, 1000)
+# find_blue_line()
+# # print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
+# ev3.speaker.beep(444, 1000)
+# while True:
+#     align_to_begin_scan()
+#     ev3.speaker.beep(444, 1000)
+#     scan()
+#     ev3.speaker.beep(444, 1000)
+#     go_to_check_point()
+#     ev3.speaker.beep(444, 1000)
+#     set_path()
+#     ev3.speaker.beep(444, 1000)
 
 
 #-----------------------------------------------------------------------------------------------
 
-
+# move_forward(3000)
+# turn_left_pid(90)
 
 # Ajustar curva de 90 graus --------------------------------------------------------------------
 
@@ -41,10 +42,11 @@ while True:
 
 # Ajustar axle_track ---------------------------------------------------------------------------
 
-# while True:
-#     turn_left(360)
-#     brake_motors()
-#     wait(1000)
+# motors.turn(330)
+# while not is_black():
+#     motors.turn(1)
+# motors.stop()
+# print(left_motor.angle(), right_motor.angle())
 
 #-----------------------------------------------------------------------------------------------
 
@@ -62,6 +64,7 @@ while True:
 # Ajustar ranges das cores ---------------------------------------------------------------------
 
 # while True:
+#     wait(500)
 #     print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())
 
 #-----------------------------------------------------------------------------------------------
@@ -79,7 +82,7 @@ while True:
 
 # Ajustar andar reto ---------------------------------------------------------------------------
 
-# while True:
-#     andar_reto(360)
+while True:
+    andar_reto(150)
 
 #-----------------------------------------------------------------------------------------------

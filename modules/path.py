@@ -53,14 +53,15 @@ def find_blue_line():
     if (is_red_left() or is_red_right()):
         print("Achou vermelho")
         move_backward(3500) 
-        turn_left(90)
+        turn_left_pid(90)
         brake_motors()
         
         while not is_blue() and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not is_wall():
             andar_reto(360)
         if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
             print("Achou parede")
-            turn_left(180)
+            brake_motors()
+            turn_left_pid(180)
             brake_motors()
             
             while not is_blue():
@@ -77,7 +78,7 @@ def find_blue_line():
             andar_reto(-360)
             
         brake_motors()
-        turn_right(90)
+        turn_right_pid(90)
         
         find_blue_line()
     
@@ -85,14 +86,8 @@ def find_blue_line():
 def align_to_begin_scan():
     brake_motors()
     print("Achei o azul")
-    if size_of_tube != 10 and color_of_tube != "BROWN":
-        while is_blue():
-            andar_reto(-360)   
-        brake_motors()
-    if size_of_tube == 10 and color_of_tube == "BROWN":
-        turn_right(360)
-    else:
-        turn_right(90)
+    move_backward(100)
+    turn_right_pid(90)
         
     branco = 80
     azul = 10
@@ -123,9 +118,9 @@ def align_to_begin_scan():
         erro = delta * kp
         motors.drive(vel, erro)
     brake_motors()
-    turn_left(90)
-    move_forward(1400)
-    turn_left(90)
+    turn_left_pid(90)
+    move_forward(1200)
+    turn_left_pid(90)
     
 
 def scan():
@@ -171,9 +166,9 @@ def scan():
         
         
 def align_to_begin_deliver():
-    turn_right(90)
+    turn_right_pid(90)
     move_backward(1200)
-    turn_left(90)
+    turn_left_pid(90)
 
 def set_path():
     global color_of_tube
