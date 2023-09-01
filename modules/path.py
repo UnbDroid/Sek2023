@@ -112,6 +112,7 @@ def align_to_begin_scan():
             chegou_no_fim = True
             brake_motors()
             move_backward(1500)
+            
     branco = 80
     azul = 10
     threshold = (branco + azul) / 2  # = 40

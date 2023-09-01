@@ -18,25 +18,20 @@ def tube_library():
     azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
-    while crono.time() < 600:
+    while crono.time() < 1400: # Tenho que olhar isso
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
-        motors.drive(vel, erro)  
-    turn_left(90)
-    
-    crono.reset()
-    while not is_yellow_left() and not is_yellow_right():
-        andar_reto(360)
-    tempo = crono.time()
+        motors.drive(vel, erro)
     brake_motors()
-    found_door()
     
-    move_forward(300) # Indo para a entrega
+    move_backward(800)
+    turn_left(90)
+    move_forward(2000) # Indo para a entrega
     Open()
-    move_backward(600) # Volta para a área de coleta a msm distância de ir
+    move_backward(2000) # Volta para a área de coleta a msm distância de ir
     
-    turn_left(200)
+    turn_left(180)
     
     while not is_blue():
         andar_reto(360)
@@ -61,7 +56,6 @@ def tube_city_hall():
     move_forward(1000) # Está indo em direção ao objeto J
     
     if has_obstacle(): #sensor identificou objeto "J":
-        move_backward(1000)
         turn_right(180)
         while not is_blue():
             andar_reto(360)

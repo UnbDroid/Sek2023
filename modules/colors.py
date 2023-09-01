@@ -77,11 +77,11 @@ def is_blue():
 
 # -------------------------------------------------------------
 
-range_max_red_left = [84, 32, 35]
-range_min_red_left = [54, 2, 5]
+range_max_red_left = [82, 32, 30]
+range_min_red_left = [52, 2, 0]
 
-range_max_red_right = [106, 30, 45]
-range_min_red_right = [76, 0, 15]
+range_max_red_right = [90, 30, 45]
+range_min_red_right = [60, 0, 15]
 
 def is_red_left():
     return range_min_red_left[0] <= red_left() <= range_max_red_left[0] and range_min_red_left[1] <= green_left() <= range_max_red_left[1] and range_min_red_left[2] <= blue_left() <= range_max_red_left[2]
