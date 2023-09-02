@@ -13,13 +13,11 @@ def tube_is_detected():
 ultrasound_sensor = UltrasonicSensor(Port.S3)
 
 def has_obstacle():
-    if ultrasound_sensor.distance() <= 60:
+    if ultrasound_sensor.distance() <= 100:
         print("Obstáculo detectado")
-        found_wall()
         return True
     else:
         print("Obstáculo não detectado")
-        not_found_wall()
         return False
 
 # def is_tube_of_15():

@@ -23,65 +23,77 @@ print('waiting for connection...')
 server.wait_for_connection()
 print('connected!')
 
-def find_blue_line():
-    cronometer.reset()
-    brake_motors()
-    
-    cor_vista = ""
-    
-    print("procurando")
-    while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-        andar_reto(360)   
-        #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
-        if is_blue():
-            cor_vista = "AZUL"
-        elif is_red_left() or is_red_right():
-            cor_vista = "VERMELHO"
-        elif is_black_left() or is_black_right():
-            cor_vista = "PAREDE"
-        elif is_yellow_left() or is_yellow_right():
-            cor_vista = "PAREDE"
-    brake_motors()
-    time_forward = cronometer.time()
-    ajust_color(cor_vista)
-    if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()):
-        while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-            andar_reto(-360)
+def find_blue_line(numero_de_paredes):
+    if numero_de_paredes < 4:
+        cronometer.reset()
         brake_motors()
         
+        cor_vista = ""
         
-    if (is_red_left() or is_red_right()):
-        print("Achou vermelho")
-        move_backward(3500) 
-        turn_left_pid(90)
+        print("procurando")
+        while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
+            andar_reto(360)   
+            #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
+            if is_blue():
+                cor_vista = "AZUL"
+            elif is_red_left() or is_red_right():
+                cor_vista = "VERMELHO"
+            elif is_black_left() or is_black_right():
+                cor_vista = "PAREDE"
+            elif is_yellow_left() or is_yellow_right():
+                cor_vista = "PAREDE"
         brake_motors()
-        
-        while not is_blue() and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not is_wall():
-            andar_reto(360)
-        if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
-            print("Achou parede")
+        time_forward = cronometer.time()
+        ajust_color(cor_vista)
+        if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
+            while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
+                andar_reto(-360)
             brake_motors()
+            
+        if (is_red_left() or is_red_right()):
+            print("Achou vermelho")
+            brake_motors()
+            move_backward(3500) 
+            turn_left_pid(90)
+            brake_motors()
+            
+            while not is_blue() and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not is_wall():
+                andar_reto(360)
+            if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
+                print("Achou parede")
+                brake_motors()
+                turn_left_pid(180)
+                brake_motors()
+                
+                while not is_blue():
+                    andar_reto(360)
+            brake_motors()
+            
+            
+        elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
+            print("Achou parede")
+            cronometer.reset()
+            print("Voltando...")
+            while cronometer.time() < time_forward:
+                andar_reto(-360)
+                
+            brake_motors()
+            turn_right_pid(90)
+            
+            find_blue_line(numero_de_paredes + 1)
+    else:
+        turn_left_pid(90)
+        move_forward(3000)
+        turn_left_pid(90)
+        while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
+            andar_reto(360)
+        brake_motors()
+        if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
+            print("Achou parede")
             turn_left_pid(180)
             brake_motors()
-            
             while not is_blue():
                 andar_reto(360)
-        brake_motors()
-        
-        
-    elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
-        
-        print("Achou parede")
-        cronometer.reset()
-        print("Voltando...")
-        while cronometer.time() < time_forward:
-            andar_reto(-360)
-            
-        brake_motors()
-        turn_right_pid(90)
-        
-        find_blue_line()
-    
         
 def align_to_begin_scan():
     brake_motors()
@@ -104,20 +116,7 @@ def align_to_begin_scan():
         if is_red_right():
             chegou_no_fim = True
             brake_motors()
-            move_backward(1500)
             
-    branco = 80
-    azul = 10
-    threshold = (branco + azul) / 2  # = 40
-    vel = 100
-    chegou_no_fim = False
-    cronometer.reset()
-    while cronometer.time() < 1600:
-        delta = threshold - red_left()
-        kp = 0.8
-        erro = delta * kp
-        motors.drive(vel, erro)
-    brake_motors()
     turn_left_pid(90)
     move_forward(1200)
     turn_left_pid(90)

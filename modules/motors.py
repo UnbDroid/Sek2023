@@ -21,36 +21,85 @@ prev_delta = 0
 
 
 def andar_reto(velo):
+    #Vlw Thamires tmj :)
     
-    global integral
-    global prev_delta
-    kp = 4.89 #5.05
-    ki = 1.0
+    kp_left = 0.943
+    kp_right = 0.962
+    ki_left = 0.001
+    ki_right = 0.0025
+    sum_error_left = 0
+    sum_error_right = 0
+    multiplicador = 0
+    velocidade_esquerda = 0
+    velocidade_direita = 0  
+    velocidade_esquerda_old = 0
+    velocidade_direita_old = 0  
+    velocidade_referencia_old = 0
     
     #kd = 0.9955
+    
+    velocidade_esquerda = left_motor.speed()
+    velocidade_direita = right_motor.speed()
+            
+    velo = velo * 2
     
     angulo_esquerda = left_motor.angle()
     angulo_direita = right_motor.angle()
     
-    delta = (angulo_esquerda - angulo_direita) / 360
-    erro = delta * kp
+    multiplicador = velocidade_referencia_old * velo
     
-    integral += delta
-    integral *= ki
+    if(multiplicador <= 0):
+        sum_error_left = 0
+        sum_error_right = 0
+        
+    velocidade_referencia_old = velo
+
+    velocidade_esquerda_old = velocidade_esquerda
+    velocidade_direita_old = velocidade_direita
     
-    derivative = delta - prev_delta
-    #derivative *= kd
+    if(velocidade_esquerda >= -360 and velocidade_esquerda <= 360):
+        velocidade_esquerda = velocidade_esquerda_old
     
-    control_output = erro + integral + derivative
+    if(velocidade_direita >= -360 and velocidade_direita <= 360):
+        velocidade_direita = velocidade_direita_old
+    # delta = (angulo_esquerda - angulo_direita) / 360
+    error_left = (velo - velocidade_esquerda)
+    error_right = (velo - velocidade_direita)
     
-    prev_delta = delta
+    sum_error_left += error_left
+    sum_error_right += error_right
     
-    print("Diferença:", delta)
+    control_signal_left = (kp_left * error_left) + (ki_left * sum_error_left)
+    control_signal_right = (kp_right * error_right) + (ki_right * sum_error_right)
+
+
+    print("Velocidade esquerda:", left_motor.speed(), "Velocidade direita:", right_motor.speed())
+    print("Signal esquerda:", control_signal_left, "Signal direita:", control_signal_right)
+    print("Diferença:", (angulo_esquerda - angulo_direita))
+    
+    if control_signal_left < 1 and control_signal_left > -1:
+        control_signal_left = 1
+    if control_signal_right < 1 and control_signal_right > -1:
+        control_signal_right = 1
     
     # Ajustar os motores com base no controle calculado
-    right_motor.run_angle((velo + control_output), 360, wait = False)
-    left_motor.run_angle((velo - control_output), 360, wait = False)
-
+    
+    if(control_signal_left >= 300):
+        control_signal_left = 300
+    
+    if(control_signal_right >= 300):
+        control_signal_right = 300
+        
+    if(control_signal_left <= -300):
+        control_signal_left = -300
+    
+    if(control_signal_right <= -300):
+        control_signal_right = -300
+    
+    right_motor.run_angle(control_signal_right, 360, wait = False)
+    left_motor.run_angle(control_signal_left, 360, wait = False)
+    
+    
 def brake_motors():
     motors.stop()
     left_motor.reset_angle(0)
@@ -111,38 +160,11 @@ def turn_right(x):
     print(left_motor.angle(), right_motor.angle())
     brake_motors()
     wait(200)
-    
-def turn_right_pid(x):  
-    kp = 0.42
-    ki = 0.0
-    setpoint = 1226 * (x / 360)
-    
-    setpoint = round(setpoint)
-      
-    wait(200)
-    brake_motors()
-      
-    while not abs(calculate_error(setpoint)) < 2.5:
-        current_angle = left_motor.angle()
-        control_signal = calcule(current_angle, setpoint, kp, ki)
-        left_motor.run_angle(200, control_signal, wait = False)
-        right_motor.run_angle(200, -control_signal, wait = True)
-        
-        print(left_motor.angle(), right_motor.angle())
-        
-        print(calculate_error(setpoint))
-        
-        # if(abs(calculate_error(setpoint)) < 1.5):
-        # wait(200)
-        # break
-    # move_forward(500)
-    
-    brake_motors()
             
 def turn_left_pid(x):  
     kp = 0.42
     ki = 0.0
-    setpoint = 1226 * (x / 360)
+    setpoint = 1224 * (x / 360)
       
     setpoint = round(setpoint)
     
@@ -166,6 +188,32 @@ def turn_left_pid(x):
     brake_motors()
     # move_forward(500)
     
+def turn_right_pid(x):  
+    kp = 0.42
+    ki = 0.0
+    setpoint = 1224 * (x / 360)
+    
+    setpoint = round(setpoint)
+      
+    wait(200)
+    brake_motors()
+      
+    while not abs(calculate_error(setpoint)) < 2.5:
+        current_angle = left_motor.angle()
+        control_signal = calcule(current_angle, setpoint, kp, ki)
+        left_motor.run_angle(200, control_signal, wait = False)
+        right_motor.run_angle(200, -control_signal, wait = True)
+        
+        print(left_motor.angle(), right_motor.angle())
+        
+        print(calculate_error(setpoint))
+        
+        # if(abs(calculate_error(setpoint)) < 1.5):
+        # wait(200)
+        # break
+    # move_forward(500)
+    
+    brake_motors()
     
 def calcule(current_value, setpoint, kp, ki):
     integral = 0
