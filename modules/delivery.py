@@ -79,7 +79,7 @@ def tube_city_hall():
             motors.drive(vel, erro)
             
         turn_left_pid(90)
-        move_forward(3000)
+        move_forward(3500)
         turn_left_pid(90)
         move_forward(2000)
         Open()
@@ -115,7 +115,7 @@ def tube_city_hall():
 def tube_school():
     
     crono.reset()
-    branco = 88 
+    branco = 88
     azul = 14 #22 
     threshold = (branco + azul) / 2  # = 40
     vel = 100
@@ -499,7 +499,7 @@ def tube_drugstore():
             brake_motors()
     
         else:    
-            move_forward(2500)
+            move_forward(275)
             turn_right_pid(90)
             move_forward(1500)
             
@@ -507,7 +507,7 @@ def tube_drugstore():
             
             move_backward(1500)
             turn_right_pid(90)
-            move_forward(3000)
+            move_forward(2750)
             turn_right_pid(90)
             while not is_blue():
                 andar_reto(360)
