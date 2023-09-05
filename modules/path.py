@@ -56,19 +56,33 @@ def find_blue_line(numero_de_paredes):
             move_backward(3500) 
             turn_left_pid(90)
             brake_motors()
-            
-            while not is_blue() and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not is_wall():
+            numero_de_bloqueios = 0
+            while not is_blue() and numero :
                 andar_reto(360)
-            if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
-                print("Achou parede")
-                brake_motors()
-                turn_left_pid(180)
-                brake_motors()
-                
-                while not is_blue():
-                    andar_reto(360)
+                if ((is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle()) and numero_de_bloqueios:
+                    numero_de_bloqueios += 1
+                    brake_motors()
+                    if numero_de_bloqueios < 2:
+                        print("Achou parede")
+                        turn_left_pid(180)
+                        brake_motors()
             brake_motors()
-            
+            if numero_de_bloqueios == 2:
+                if has_obstacle():
+                    while ultrasound_sensor.distance() > 145:
+                        andar_reto(360)
+                    brake_motors()
+                    while ultrasound_sensor.distance() < 145:
+                        andar_reto(-150)
+                    brake_motors()
+                else:
+                    while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
+                        andar_reto(360)
+                    brake_motors()
+                    move_backward(700)
+                turn_left_pid(90)
+                find_blue_line(0)
+                
             
         elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
             print("Achou parede")
