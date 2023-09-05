@@ -114,7 +114,7 @@ def align_to_begin_scan():
             brake_motors()
             
     turn_left_pid(90)
-    move_forward(1200)
+    move_forward(1400)
     turn_left_pid(90)
     
 
