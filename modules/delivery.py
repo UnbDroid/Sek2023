@@ -269,7 +269,7 @@ def tube_museum():
     azul = 14 #22
     threshold = (branco + azul) / 2  
     vel = 100
-    while crono.time() < 3500: #4000
+    while crono.time() < 3600: #4000
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -378,9 +378,9 @@ def tube_museum():
                 
     else: # objeto J não existe
         print("Não existe J")
-        move_forward(5000)
+        move_forward(6000)
         turn_left_pid(90)
-        move_forward(1000)
+        move_forward(800)
     
         if has_obstacle(): #Objeto "H":
             move_backward(1000)
@@ -406,15 +406,15 @@ def tube_museum():
             cor_vista = "VERMELHO"
             ajust_color(cor_vista)
             
-            move_backward(500)
+            move_backward(700)
             
             turn_right_pid(90)
-            move_forward(1500)
+            move_forward(1700)
             
             Open()
             
             #retorna para a área de coleta
-            move_backward(1500)
+            move_backward(1700)
             turn_right_pid(90)
             move_forward(3000)
             turn_right_pid(90)
@@ -513,7 +513,7 @@ def tube_drugstore():
                 andar_reto(360)
             brake_motors()
     else:
-        move_forward(5000) # Mesmo valor do museum
+        move_forward(5700) # Mesmo valor do museum
         turn_right_pid(90)
     
         if has_obstacle(): #Objeto "G":
@@ -547,7 +547,7 @@ def tube_drugstore():
                 turn_left_pid(90)
                 move_forward(8)
         else:
-            move_forward(2500)
+            move_forward(2800)
             turn_left_pid(90)
             move_forward(1700)
             
@@ -570,14 +570,14 @@ def tube_bakery():
     azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
-    while crono.time() < 9500:
+    while crono.time() < 9800:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
         motors.drive(vel, erro)
 
     brake_motors()
-    turn_left_pid(95)
+    turn_left_pid(90)
     move_forward(1000)
     
     if has_obstacle(): #Objeto "I":
@@ -647,7 +647,7 @@ def tube_bakery():
             turn_left_pid(90)
             move_forward(8)
     else:
-        move_forward(7200)
+        move_forward(8700)
     
     if has_obstacle(): #Objeto "D":
         turn_left_pid(90)
@@ -691,8 +691,21 @@ def tube_bakery():
         
     
 def tube_park():
-    move_forward(3500)
+    crono.reset()
+    branco = 88 
+    azul = 14 #22
+    threshold = (branco + azul) / 2  # = 40
+    vel = 100
+    while crono.time() < 3600: #3250
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(vel, erro)
+
+    brake_motors()
     turn_left_pid(90)
+    move_forward(1000)
+    
     if has_obstacle(): #objeto "J":
         turn_right_pid(90)
         move_forward(4)
@@ -739,7 +752,9 @@ def tube_park():
                 move_forward(2)
                 #Abre e retorna
     else:
-        move_forward(4750)
+        not_found_wall()
+        move_forward(5050)
+        
         if has_obstacle(): #objeto "E":
             turn_right_pid(90)
             move_forward(4)
@@ -758,7 +773,14 @@ def tube_park():
                 move_forward(2)
                 #Abre e retorna
         else:
-            move_forward(7000)
+            not_found_wall()
+            while not is_black_left() and not is_black_right():
+                andar_reto(360)
+                
+            brake_motors()
+            cor_vista = "PAREDE"
+            ajust_color(cor_vista)
+            move_backward(700)
             turn_right_pid(90)
             if has_obstacle(): #objeto "B":
                 turn_180()
@@ -767,7 +789,7 @@ def tube_park():
                 move_forward(2)
                 #Abre e retorna
             else:
-                move_forward(3500)
+                move_forward(1500)
                 turn_left_pid(90)
                 move_forward(1750)
-                #Abre e retorna
+                Open()

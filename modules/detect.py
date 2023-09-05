@@ -17,7 +17,7 @@ def has_obstacle():
         print("Obstáculo detectado")
         return True
     else:
-        print("Obstáculo não detectado")
+        # print("Obstáculo não detectado")
         return False
 
 # def is_tube_of_15():

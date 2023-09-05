@@ -73,9 +73,9 @@ def andar_reto(velo):
     control_signal_right = (kp_right * error_right) + (ki_right * sum_error_right)
 
 
-    print("Velocidade esquerda:", left_motor.speed(), "Velocidade direita:", right_motor.speed())
-    print("Signal esquerda:", control_signal_left, "Signal direita:", control_signal_right)
-    print("Diferença:", (angulo_esquerda - angulo_direita))
+    # print("Velocidade esquerda:", left_motor.speed(), "Velocidade direita:", right_motor.speed())
+    # print("Signal esquerda:", control_signal_left, "Signal direita:", control_signal_right)
+    # print("Diferença:", (angulo_esquerda - angulo_direita))
     
     if control_signal_left < 1 and control_signal_left > -1:
         control_signal_left = 1
@@ -130,7 +130,7 @@ def turn_left(x):
         left_motor.run_angle(5, (-valor_a_girar - left_motor.angle()), wait = False)
     if right_motor.angle() != valor_a_girar:
         right_motor.run_angle(5, (valor_a_girar - right_motor.angle()), wait = True)
-    print(left_motor.angle(), right_motor.angle())
+    # print(left_motor.angle(), right_motor.angle())
     brake_motors()
     wait(200)
     
@@ -157,7 +157,7 @@ def turn_right(x):
         left_motor.run_angle(5, (valor_a_girar - left_motor.angle()), wait = False)
     if right_motor.angle() != -valor_a_girar:
         right_motor.run_angle(5, (-valor_a_girar - right_motor.angle()), wait = True)
-    print(left_motor.angle(), right_motor.angle())
+    # print(left_motor.angle(), right_motor.angle())
     brake_motors()
     wait(200)
             
@@ -177,9 +177,9 @@ def turn_left_pid(x):
         left_motor.run_angle(200, -control_signal, wait = False)
         right_motor.run_angle(200, control_signal, wait = True)
         
-        print(left_motor.angle(), right_motor.angle())
+        # print(left_motor.angle(), right_motor.angle())
         
-        print(calculate_error_right(setpoint))
+        # print(calculate_error_right(setpoint))
         
         # if(abs(calculate_error_right(setpoint)) < 1.5):
         # wait(200)
@@ -204,9 +204,9 @@ def turn_right_pid(x):
         left_motor.run_angle(200, control_signal, wait = False)
         right_motor.run_angle(200, -control_signal, wait = True)
         
-        print(left_motor.angle(), right_motor.angle())
+        # print(left_motor.angle(), right_motor.angle())
         
-        print(calculate_error(setpoint))
+        # print(calculate_error(setpoint))
         
         # if(abs(calculate_error(setpoint)) < 1.5):
         # wait(200)
