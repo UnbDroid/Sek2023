@@ -463,12 +463,12 @@ def tube_drugstore():
             motors.drive(vel, erro)
         brake_motors()
         turn_left_pid(90)
-        move_forward(5700)
+        move_forward(6200)
         turn_left_pid(90)
-        move_forward(400)
+        move_forward(500)
         
         if has_obstacle(): #Objeto "G":
-            move_backward(400)
+            move_backward(500)
             turn_right_pid(90)
             
             while not is_black_left() or not is_black_right():
@@ -501,11 +501,11 @@ def tube_drugstore():
         else:    
             move_forward(2500)
             turn_right_pid(90)
-            move_forward(1200)
+            move_forward(1500)
             
             Open()
             
-            move_backward(1200)
+            move_backward(1500)
             turn_right_pid(90)
             move_forward(3000)
             turn_right_pid(90)

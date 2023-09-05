@@ -83,17 +83,13 @@ def find_blue_line(numero_de_paredes):
             find_blue_line(numero_de_paredes + 1)
     else:
         turn_left_pid(90)
-        move_forward(3000)
-        turn_left_pid(90)
-        while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
+        while ultrasound_sensor.distance() > 145 and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
             andar_reto(360)
         brake_motors()
-        if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-            print("Achou parede")
-            turn_left_pid(180)
-            brake_motors()
-            while not is_blue():
-                andar_reto(360)
+        if is_wall():
+            move_backward(500)
+        turn_left_pid(90)
+        find_blue_line(0)
         
 def align_to_begin_scan():
     brake_motors()
@@ -129,9 +125,9 @@ def scan():
     print("Procurando tubo...")
     while not tube_is_detected():
         andar_reto(150)
+    brake_motors()
     tempo = cronometer.time()
     
-    brake_motors()
     mbox.send('chave')
     mbox.wait()
 

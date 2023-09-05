@@ -41,30 +41,30 @@ def andar_reto(velo):
     velocidade_esquerda = left_motor.speed()
     velocidade_direita = right_motor.speed()
             
-    velo = velo * 2
+    velo_double = velo * 2
     
     angulo_esquerda = left_motor.angle()
     angulo_direita = right_motor.angle()
     
-    multiplicador = velocidade_referencia_old * velo
+    multiplicador = velocidade_referencia_old * velo_double
     
     if(multiplicador <= 0):
         sum_error_left = 0
         sum_error_right = 0
         
-    velocidade_referencia_old = velo
+    velocidade_referencia_old = velo_double
 
     velocidade_esquerda_old = velocidade_esquerda
     velocidade_direita_old = velocidade_direita
     
-    if(velocidade_esquerda >= -360 and velocidade_esquerda <= 360):
+    if(velocidade_esquerda >= -velo and velocidade_esquerda <= velo):
         velocidade_esquerda = velocidade_esquerda_old
     
-    if(velocidade_direita >= -360 and velocidade_direita <= 360):
+    if(velocidade_direita >= -velo and velocidade_direita <= velo):
         velocidade_direita = velocidade_direita_old
     # delta = (angulo_esquerda - angulo_direita) / 360
-    error_left = (velo - velocidade_esquerda)
-    error_right = (velo - velocidade_direita)
+    error_left = (velo_double - velocidade_esquerda)
+    error_right = (velo_double - velocidade_direita)
     
     sum_error_left += error_left
     sum_error_right += error_right
@@ -84,17 +84,17 @@ def andar_reto(velo):
     
     # Ajustar os motores com base no controle calculado
     
-    if(control_signal_left >= 300):
-        control_signal_left = 300
+    if(control_signal_left >= 300 * (abs(velo)/360)):
+        control_signal_left = 300 * (abs(velo)/360)
     
-    if(control_signal_right >= 300):
-        control_signal_right = 300
+    if(control_signal_right >= 300 * (abs(velo)/360)):
+        control_signal_right = 300 * (abs(velo)/360)
         
-    if(control_signal_left <= -300):
-        control_signal_left = -300
+    if(control_signal_left <= -300 * (abs(velo)/360)):
+        control_signal_left = -300 * (abs(velo)/360)
     
-    if(control_signal_right <= -300):
-        control_signal_right = -300
+    if(control_signal_right <= -300 * (abs(velo)/360)):
+        control_signal_right = -300 * (abs(velo)/360)
     
     right_motor.run_angle(control_signal_right, 360, wait = False)
     left_motor.run_angle(control_signal_left, 360, wait = False)

@@ -84,7 +84,7 @@ while True:
 # Ajustar ranges dos tubos ---------------------------------------------------------------------
 
 # while True:
-#     print(tube_verificator.rgb())
+#     print(ultrasound_sensor.distance())
 
 #-----------------------------------------------------------------------------------------------
 
