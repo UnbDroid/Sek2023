@@ -57,15 +57,14 @@ def find_blue_line(numero_de_paredes):
             turn_left_pid(90)
             brake_motors()
             numero_de_bloqueios = 0
-            while not is_blue() and numero :
+            while not is_blue() and numero_de_bloqueios < 2:
                 andar_reto(360)
-                if ((is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle()) and numero_de_bloqueios:
+                if ((is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle()):
                     numero_de_bloqueios += 1
                     brake_motors()
                     if numero_de_bloqueios < 2:
                         print("Achou parede")
                         turn_left_pid(180)
-                        brake_motors()
             brake_motors()
             if numero_de_bloqueios == 2:
                 if has_obstacle():
@@ -80,7 +79,7 @@ def find_blue_line(numero_de_paredes):
                         andar_reto(360)
                     brake_motors()
                     move_backward(700)
-                turn_left_pid(90)
+                turn_right_pid(90)
                 find_blue_line(0)
                 
             
@@ -96,13 +95,15 @@ def find_blue_line(numero_de_paredes):
             
             find_blue_line(numero_de_paredes + 1)
     else:
-        turn_left_pid(90)
+        turn_right_pid(90)
         while ultrasound_sensor.distance() > 145 and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
             andar_reto(360)
         brake_motors()
-        if is_wall():
-            move_backward(500)
-        turn_left_pid(90)
+        if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
+            cor_vista = "PAREDE"
+            ajust_color(cor_vista)
+            move_backward(700)
+        turn_right_pid(90)
         find_blue_line(0)
         
 def align_to_begin_scan():
