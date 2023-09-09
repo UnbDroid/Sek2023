@@ -19,21 +19,22 @@ def find_blue_line(numero_de_paredes):
         while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
             andar_reto(360)   
             #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
-            if is_blue():
-                cor_vista = "AZUL"
-            elif is_red_left() or is_red_right():
-                cor_vista = "VERMELHO"
-            elif is_black_left() or is_black_right():
-                cor_vista = "PAREDE"
-            elif is_yellow_left() or is_yellow_right():
-                cor_vista = "PAREDE"
         brake_motors()
+        if is_blue():
+            cor_vista = "AZUL"
+        elif is_red_left() or is_red_right():
+            cor_vista = "VERMELHO"
+        elif is_black_left() or is_black_right():
+            cor_vista = "PAREDE"
+        elif is_yellow_left() or is_yellow_right():
+            cor_vista = "PAREDE"
         time_forward = cronometer.time()
-        ajust_color(cor_vista)
         if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
             while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
                 andar_reto(-360)
             brake_motors()
+        if cor_vista != "":
+            ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
             
         if (is_red_left() or is_red_right()):
             print("Achou vermelho")
@@ -41,32 +42,37 @@ def find_blue_line(numero_de_paredes):
             move_backward(3500) 
             turn_left_pid(90)
             brake_motors()
-            numero_de_bloqueios = 0
-            while not is_blue() and numero_de_bloqueios < 2:
+            while not is_blue():
                 andar_reto(360)
-                if ((is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle()):
-                    numero_de_bloqueios += 1
+                if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                     brake_motors()
-                    if numero_de_bloqueios < 2:
-                        print("Achou parede")
-                        turn_left_pid(180)
-            brake_motors()
-            if numero_de_bloqueios == 2:
-                if has_obstacle():
+                    turn_right_pid(180)
+                elif has_obstacle():
+                    brake_motors()
                     while ultrasound_sensor.distance() > 145:
                         andar_reto(360)
                     brake_motors()
                     while ultrasound_sensor.distance() < 145:
                         andar_reto(-150)
                     brake_motors()
-                else:
-                    while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
+                    turn_right_pid(90)
+                    cronometer.reset()
+                    while not is_red_left() and not is_red_right() and not has_obstacle():
                         andar_reto(360)
                     brake_motors()
-                    move_backward(700)
-                turn_right_pid(90)
-                find_blue_line(0)
-                
+                    if cronometer.time() < 6000 or has_obstacle():
+                        turn_right_pid(180)
+                        while ultrasound_sensor.distance() > 145 and not is_red_left() and not is_red_right():
+                            andar_reto(360)
+                        brake_motors()
+                        if is_red_left() or is_red_right():
+                            move_backward(3500)
+                            turn_right_pid(90)
+                    else:
+                        move_backward(3500)
+                        turn_left_pid(90)
+                        find_blue_line(0)
+            brake_motors()
             
         elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
             print("Achou parede")
@@ -77,7 +83,8 @@ def find_blue_line(numero_de_paredes):
                 
             brake_motors()
             turn_right_pid(90)
-            
+            print("Vai somar mais um no numero_de_paredes")
+            print(numero_de_paredes)
             find_blue_line(numero_de_paredes + 1)
     else:
         turn_right_pid(90)
@@ -88,86 +95,6 @@ def find_blue_line(numero_de_paredes):
             cor_vista = "PAREDE"
             ajust_color(cor_vista)
             move_backward(700)
-        turn_right_pid(90)
-        find_blue_line(0)
-    if numero_de_paredes < 4:
-        cronometer.reset()
-        brake_motors()
-        
-        cor_vista = ""
-        
-        print("procurando")
-        while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
-            andar_reto(360)   
-            #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
-            if is_blue():
-                cor_vista = "AZUL"
-            elif is_red_left() or is_red_right():
-                cor_vista = "VERMELHO"
-            elif is_black_left() or is_black_right():
-                cor_vista = "PAREDE"
-            elif is_yellow_left() or is_yellow_right():
-                cor_vista = "PAREDE"
-        brake_motors()
-        time_forward = cronometer.time()
-        ajust_color(cor_vista)
-        if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
-            while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-                andar_reto(-360)
-            brake_motors()
-            
-        if (is_red_left() or is_red_right()):
-            print("Achou vermelho")
-            brake_motors()
-            move_backward(3500) 
-            turn_left_pid(90)
-            brake_motors()
-            numero_de_bloqueios = 0
-            while not is_blue() and numero_de_bloqueios < 2:
-                andar_reto(360)
-                if ((is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle()):
-                    numero_de_bloqueios += 1
-                    brake_motors()
-                    if numero_de_bloqueios < 2:
-                        print("Achou parede")
-                        turn_left_pid(180)
-            brake_motors()
-            if numero_de_bloqueios == 2:
-                if has_obstacle():
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(360)
-                    brake_motors()
-                    while ultrasound_sensor.distance() < 145:
-                        andar_reto(-150)
-                    brake_motors()
-                else:
-                    while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-                        andar_reto(360)
-                    brake_motors()
-                    move_backward(700)
-                turn_right_pid(90)
-                find_blue_line(0)
-                
-            
-        elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
-            print("Achou parede")
-            cronometer.reset()
-            print("Voltando...")
-            while cronometer.time() < time_forward:
-                andar_reto(-360)
-                
-            brake_motors()
-            turn_right_pid(90)
-            
-            find_blue_line(numero_de_paredes + 1)
-    else:
-        turn_left_pid(90)
-        while ultrasound_sensor.distance() > 145 and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
-            andar_reto(360)
-        brake_motors()
-        if is_wall():
-            move_backward(500)
-        turn_left_pid(90)
         find_blue_line(0)
 
 def go_to_check_point():
@@ -908,110 +835,169 @@ def tube_park():
     
     if has_obstacle() or "J" in has_object_in: #objeto "J":
         has_object_in.append("J")
-        turn_right_pid(90)
-        move_forward(4)
+        turn_right_pid(180)
+        while not is_blue():
+            andar_reto(360)
+        brake_motors()
+        
+        while is_blue():
+            andar_reto(-360)
+        brake_motors()
         turn_left_pid(90)
-        move_forward(4)
+        
+        branco = 88 
+        azul = 14 #22
+        threshold = (branco + azul) / 2  
+        vel = 100
+        crono.reset()
+        while crono.time() < 6500: 
+            delta = red_right() - threshold
+            kp = 0.5
+            erro = delta * kp
+            motors.drive(vel, erro)
+        brake_motors()
+        turn_left_pid(90)
+        move_forward(6200)
         if has_obstacle() or "D" in has_object_in: #objeto "D":
             has_object_in.append("D")
             turn_left_pid(90)
-            move_forward(4)
+            move_forward(3250)
             turn_right_pid(90)
-            move_forward(4)
+            while not is_black_left() and not is_black_right():
+                andar_reto(360)
+            brake_motors()
+            cor_vista = "PAREDE"
+            ajust_color(cor_vista)
+            move_backward(700)
             turn_right_pid(90)
-            if has_obstacle() or "B" in has_object_in: #objeto "B":
-                has_object_in.append("B")
-                turn_180()
-                move_forward(2)
-                turn_right_pid(90)
-                move_forward(2)
-                Open()
-                move_backward(1500)
-                turn_right_pid(90)
-                #Abre e retorna
-                find_blue_line(0)
-            else:
-                move_forward(4)
-                turn_left_pid(90)
-                move_forward(2)
-                Open()
-                move_backward(1500)
-                turn_right_pid(90)
-                #Abre e retorna
-                find_blue_line(0)
+            move_forward(3250)
+            turn_left_pid(90)
+            move_forward(1500)
+            Open()
+            move_backward(1500)
+            turn_right_pid(90)
+            find_blue_line(0)
         else:
-            move_forward(4)
+            while not is_black_left() and not is_black_right():
+                andar_reto(360)
+            brake_motors()
+            cor_vista = "PAREDE"
+            ajust_color(cor_vista)
+            move_backward(700)
             turn_right_pid(90)
+            move_forward(500)
             if has_obstacle() or "A" in has_object_in: #objeto "A":
                 has_object_in.append("A")
-                turn_180()
-                move_forward(2)
+                turn_right_pid(180)
+                move_forward(3750)
                 turn_right_pid(90)
-                move_forward(2)
+                move_forward(1500)
                 Open()
                 move_backward(1500)
-                turn_right_pid(90)
+                turn_left_pid(90)
                 #Abre e retorna
                 find_blue_line(0)
             else:
-                move_forward(2)
+                move_forward(2750)
                 turn_left_pid(90)
-                move_forward(2)
+                move_forward(1500)
                 Open()
                 move_backward(1500)
                 turn_right_pid(90)
                 #Abre e retorna
                 find_blue_line(0)
     else:
-        not_found_wall()
-        move_forward(5050)
-        
+        move_forward(6200)
         if has_obstacle() or "E" in has_object_in: #objeto "E":
             has_object_in.append("E")
             turn_right_pid(90)
-            move_forward(4)
-            turn_left_pid(90)
-            move_forward(4)
-            turn_right_pid(90)
-            if has_obstacle() or "A" in has_object_in: #objeto "A":
-                has_object_in.append("A")
-                turn_180()
-                move_forward(2)
+            move_forward(500)
+            if has_obstacle() or "G" in has_object_in: #objeto "G":
+                move_backward(500)
                 turn_right_pid(90)
-                move_forward(2)
+                while not is_blue():
+                    andar_reto(360)
+                brake_motors()
+                while is_blue():
+                    andar_reto(-360)
+                brake_motors()
+                turn_left_pid(90)
+                branco = 88 
+                azul = 14 #22
+                threshold = (branco + azul) / 2  
+                vel = 100
+                crono.reset()
+                while crono.time() < 6500: 
+                    delta = red_right() - threshold
+                    kp = 0.5
+                    erro = delta * kp
+                    motors.drive(vel, erro)
+                brake_motors()
+                turn_left_pid(90)
+                while not is_black_left() and not is_black_right():
+                    andar_reto(360)
+                brake_motors()
+                cor_vista = "PAREDE"
+                ajust_color(cor_vista)
+                move_backward(700)
+                turn_right_pid(90)
+                move_forward(3250)
+                turn_left_pid(90)
+                move_forward(1500)
                 Open()
                 move_backward(1500)
                 turn_right_pid(90)
-                #Abre e retorna
                 find_blue_line(0)
             else:
-                move_forward(2)
+                move_forward(4000)
                 turn_left_pid(90)
-                move_forward(2)
-                Open()
-                move_backward(1500)
+                while not is_black_left() and not is_black_right():
+                    andar_reto(360)
+                brake_motors()
+                cor_vista = "PAREDE"
+                ajust_color(cor_vista)
+                move_backward(700)
                 turn_right_pid(90)
-                #Abre e retorna
-                find_blue_line(0)
+                move_forward(500)
+                if has_obstacle() or "A" in has_object_in: #objeto "A":
+                    has_object_in.append("A")
+                    turn_right_pid(180)
+                    move_forward(3250)
+                    turn_right_pid(90)
+                    move_forward(1500)
+                    Open()
+                    move_backward(1500)
+                    turn_left_pid(90)
+                    #Abre e retorna
+                    find_blue_line(0)
+                else:
+                    move_forward(2750)
+                    turn_left_pid(90)
+                    move_forward(1500)
+                    Open()
+                    move_backward(1500)
+                    turn_right_pid(90)
+                    #Abre e retorna
+                    find_blue_line(0)
         else:
-            not_found_wall()
             while not is_black_left() and not is_black_right():
-                andar_reto(360)
-                
+                andar_reto(360)   
             brake_motors()
             cor_vista = "PAREDE"
             ajust_color(cor_vista)
             move_backward(700)
             turn_right_pid(90)
+            move_forward(500)
             if has_obstacle() or "B" in has_object_in: #objeto "B":
                 has_object_in.append("B")
-                turn_180()
-                move_forward(2)
+                move_backward(500)
+                turn_right_pid(180)
+                move_forward(2750)
                 turn_right_pid(90)
-                move_forward(2)
+                move_forward(1500)
                 Open()
                 move_backward(1500)
-                turn_right_pid(90)
+                turn_left_pid(90)
                 #Abre e retorna
                 find_blue_line(0)
             else:

@@ -44,9 +44,9 @@ while True:
 
 # Ajustar axle_track ---------------------------------------------------------------------------
 
-# for i in range(3):
-#     motors.turn(330)
-#     while not is_black():
+# for i in range(3):                                       # 1212
+#     motors.turn(330)                                     # 1212
+#     while not is_black():                                # 1216
 #         motors.turn(1)
 #     motors.stop()
 #     print(left_motor.angle(), right_motor.angle())

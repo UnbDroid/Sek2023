@@ -34,21 +34,22 @@ def find_blue_line(numero_de_paredes):
         while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
             andar_reto(360)   
             #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
-            if is_blue():
-                cor_vista = "AZUL"
-            elif is_red_left() or is_red_right():
-                cor_vista = "VERMELHO"
-            elif is_black_left() or is_black_right():
-                cor_vista = "PAREDE"
-            elif is_yellow_left() or is_yellow_right():
-                cor_vista = "PAREDE"
         brake_motors()
+        if is_blue():
+            cor_vista = "AZUL"
+        elif is_red_left() or is_red_right():
+            cor_vista = "VERMELHO"
+        elif is_black_left() or is_black_right():
+            cor_vista = "PAREDE"
+        elif is_yellow_left() or is_yellow_right():
+            cor_vista = "PAREDE"
         time_forward = cronometer.time()
-        ajust_color(cor_vista)
         if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
             while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
                 andar_reto(-360)
             brake_motors()
+        if cor_vista != "":
+            ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
             
         if (is_red_left() or is_red_right()):
             print("Achou vermelho")
@@ -56,32 +57,37 @@ def find_blue_line(numero_de_paredes):
             move_backward(3500) 
             turn_left_pid(90)
             brake_motors()
-            numero_de_bloqueios = 0
-            while not is_blue() and numero_de_bloqueios < 2:
+            while not is_blue():
                 andar_reto(360)
-                if ((is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle()):
-                    numero_de_bloqueios += 1
+                if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                     brake_motors()
-                    if numero_de_bloqueios < 2:
-                        print("Achou parede")
-                        turn_left_pid(180)
-            brake_motors()
-            if numero_de_bloqueios == 2:
-                if has_obstacle():
+                    turn_right_pid(180)
+                elif has_obstacle():
+                    brake_motors()
                     while ultrasound_sensor.distance() > 145:
                         andar_reto(360)
                     brake_motors()
                     while ultrasound_sensor.distance() < 145:
                         andar_reto(-150)
                     brake_motors()
-                else:
-                    while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
+                    turn_right_pid(90)
+                    cronometer.reset()
+                    while not is_red_left() and not is_red_right() and not has_obstacle():
                         andar_reto(360)
                     brake_motors()
-                    move_backward(700)
-                turn_right_pid(90)
-                find_blue_line(0)
-                
+                    if cronometer.time() < 6000 or has_obstacle():
+                        turn_right_pid(180)
+                        while ultrasound_sensor.distance() > 145 and not is_red_left() and not is_red_right():
+                            andar_reto(360)
+                        brake_motors()
+                        if is_red_left() or is_red_right():
+                            move_backward(3500)
+                            turn_right_pid(90)
+                    else:
+                        move_backward(3500)
+                        turn_left_pid(90)
+                        find_blue_line(0)
+            brake_motors()
             
         elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
             print("Achou parede")
@@ -92,7 +98,8 @@ def find_blue_line(numero_de_paredes):
                 
             brake_motors()
             turn_right_pid(90)
-            
+            print("Vai somar mais um no numero_de_paredes")
+            print(numero_de_paredes)
             find_blue_line(numero_de_paredes + 1)
     else:
         turn_right_pid(90)
@@ -103,7 +110,6 @@ def find_blue_line(numero_de_paredes):
             cor_vista = "PAREDE"
             ajust_color(cor_vista)
             move_backward(700)
-        turn_right_pid(90)
         find_blue_line(0)
         
 def align_to_begin_scan():

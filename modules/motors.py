@@ -163,7 +163,7 @@ def turn_right(x):
 def turn_left_pid(x):  
     kp = 0.42
     ki = 0.0
-    setpoint = 1216 * (x / 360)
+    setpoint = 1224 * (x / 360)
       
     setpoint = round(setpoint)
     
@@ -190,7 +190,7 @@ def turn_left_pid(x):
 def turn_right_pid(x):  
     kp = 0.42
     ki = 0.0
-    setpoint = 1216 * (x / 360)
+    setpoint = 1224 * (x / 360)
     
     setpoint = round(setpoint)
       
@@ -249,6 +249,9 @@ def calculate_error_right(setpoint):
 def ajust_color(cor_vista):
     print("Ajustando cor...")
     
+    brake_motors()
+    wait(200)
+    
     if cor_vista == "PRETO":
         if is_black_left():
             while not is_black_right():
@@ -258,8 +261,8 @@ def ajust_color(cor_vista):
             
         elif is_black_right():
             while not is_black_left():
-                left_motor.run_angle(100, 1, wait = False)
-                right_motor.run_angle(-50, 1, wait = False)
+                left_motor.run_angle(80, 1, wait = False)
+                right_motor.run_angle(-10, 1, wait = False)
             brake_motors()
         
         
@@ -273,8 +276,8 @@ def ajust_color(cor_vista):
             brake_motors()
         elif is_red_right():
             while not is_red_left():
-                left_motor.run_angle(100, 1, wait = False)
-                right_motor.run_angle(-50, 1, wait = False)
+                left_motor.run_angle(80, 1, wait = False)
+                right_motor.run_angle(-10, 1, wait = False)
             brake_motors()
     
 # ---------------------------------
@@ -288,8 +291,8 @@ def ajust_color(cor_vista):
             
         elif is_blue_right():
             while not is_blue_left():
-                left_motor.run_angle(100, 1, wait = False)
-                right_motor.run_angle(-50, 1, wait = False)
+                left_motor.run_angle(80, 1, wait = False)
+                right_motor.run_angle(-10, 1, wait = False)
             brake_motors()
 
 # ---------------------------------
@@ -303,8 +306,8 @@ def ajust_color(cor_vista):
             
         elif is_yellow_right():
             while not is_yellow_left():
-                left_motor.run_angle(100, 1, wait = False)
-                right_motor.run_angle(-50, 1, wait = False)
+                left_motor.run_angle(80, 1, wait = False)
+                right_motor.run_angle(-10, 1, wait = False)
             brake_motors()
             
 # ---------------------------------
@@ -318,6 +321,8 @@ def ajust_color(cor_vista):
                 
         elif (is_black_right() or is_yellow_right()):
             while not is_black_left() and not is_yellow_left():
-                left_motor.run_angle(100, 1, wait = False)
-                right_motor.run_angle(-50, 1, wait = False)
+                left_motor.run_angle(80, 1, wait = False)
+                right_motor.run_angle(-10, 1, wait = False)
             brake_motors()
+            
+            
