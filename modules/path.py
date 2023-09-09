@@ -25,7 +25,6 @@ print('connected!')
 
 def find_blue_line(numero_de_paredes):
     if numero_de_paredes < 4:
-        cronometer.reset()
         brake_motors()
         
         cor_vista = ""
@@ -91,12 +90,15 @@ def find_blue_line(numero_de_paredes):
             
         elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
             print("Achou parede")
-            cronometer.reset()
             print("Voltando...")
-            while cronometer.time() < time_forward:
-                andar_reto(-360)
-                
-            brake_motors()
+            if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
+                move_backward(700)
+            elif has_obstacle():
+                while ultrasound_sensor.distance() > 145:
+                    andar_reto(360)
+                while ultrasound_sensor.distance() < 145:
+                    andar_reto(-150)
+                brake_motors()
             turn_right_pid(90)
             print("Vai somar mais um no numero_de_paredes")
             print(numero_de_paredes)

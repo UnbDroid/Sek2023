@@ -10,7 +10,6 @@ has_object_in = []
 
 def find_blue_line(numero_de_paredes):
     if numero_de_paredes < 4:
-        cronometer.reset()
         brake_motors()
         
         cor_vista = ""
@@ -76,12 +75,15 @@ def find_blue_line(numero_de_paredes):
             
         elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
             print("Achou parede")
-            cronometer.reset()
             print("Voltando...")
-            while cronometer.time() < time_forward:
-                andar_reto(-360)
-                
-            brake_motors()
+            if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
+                move_backward(700)
+            elif has_obstacle():
+                while ultrasound_sensor.distance() > 145:
+                    andar_reto(360)
+                while ultrasound_sensor.distance() < 145:
+                    andar_reto(-150)
+                brake_motors()
             turn_right_pid(90)
             print("Vai somar mais um no numero_de_paredes")
             print(numero_de_paredes)
@@ -817,13 +819,14 @@ def tube_bakery():
             find_blue_line(0)
     
 def tube_park():
+    
     global has_object_in
     crono.reset()
     branco = 88 
     azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
-    while crono.time() < 3600: #3250
+    while crono.time() < 3900: #3250
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -834,6 +837,7 @@ def tube_park():
     move_forward(1000)
     
     if has_obstacle() or "J" in has_object_in: #objeto "J":
+        print("Tem um objeto no J indo pro Park")
         has_object_in.append("J")
         turn_right_pid(180)
         while not is_blue():
@@ -850,22 +854,25 @@ def tube_park():
         threshold = (branco + azul) / 2  
         vel = 100
         crono.reset()
-        while crono.time() < 6500: 
+        while crono.time() < 6000: # reduzir 
             delta = red_right() - threshold
             kp = 0.5
             erro = delta * kp
             motors.drive(vel, erro)
         brake_motors()
         turn_left_pid(90)
-        move_forward(6200)
+        move_forward(6400)
+        
         if has_obstacle() or "D" in has_object_in: #objeto "D":
+            print("Tem objeto no D")
             has_object_in.append("D")
             turn_left_pid(90)
-            move_forward(3250)
+            move_forward(5750)
             turn_right_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(360)
             brake_motors()
+            
             cor_vista = "PAREDE"
             ajust_color(cor_vista)
             move_backward(700)
@@ -883,9 +890,11 @@ def tube_park():
             brake_motors()
             cor_vista = "PAREDE"
             ajust_color(cor_vista)
+            
             move_backward(700)
             turn_right_pid(90)
             move_forward(500)
+            
             if has_obstacle() or "A" in has_object_in: #objeto "A":
                 has_object_in.append("A")
                 turn_right_pid(180)
@@ -898,20 +907,31 @@ def tube_park():
                 #Abre e retorna
                 find_blue_line(0)
             else:
-                move_forward(2750)
+                while not is_red_left() and not is_red_right():
+                    andar_reto(360)
+                brake_motors()
+                cor_vista = "VERMELHO"
+                ajust_color(cor_vista)
+                
+                move_backward(700) # possivelmente eu reduza
                 turn_left_pid(90)
                 move_forward(1500)
                 Open()
                 move_backward(1500)
                 turn_right_pid(90)
-                #Abre e retorna
+
                 find_blue_line(0)
+                
     else:
         move_forward(6200)
+        
         if has_obstacle() or "E" in has_object_in: #objeto "E":
             has_object_in.append("E")
+            move_backward(400)
             turn_right_pid(90)
             move_forward(500)
+            
+            
             if has_obstacle() or "G" in has_object_in: #objeto "G":
                 move_backward(500)
                 turn_right_pid(90)
@@ -948,17 +968,22 @@ def tube_park():
                 move_backward(1500)
                 turn_right_pid(90)
                 find_blue_line(0)
+                
             else:
-                move_forward(4000)
+                
+                move_forward(4700)
                 turn_left_pid(90)
+                
                 while not is_black_left() and not is_black_right():
                     andar_reto(360)
                 brake_motors()
                 cor_vista = "PAREDE"
                 ajust_color(cor_vista)
+                
                 move_backward(700)
                 turn_right_pid(90)
                 move_forward(500)
+                
                 if has_obstacle() or "A" in has_object_in: #objeto "A":
                     has_object_in.append("A")
                     turn_right_pid(180)
@@ -970,14 +995,21 @@ def tube_park():
                     turn_left_pid(90)
                     #Abre e retorna
                     find_blue_line(0)
+                    
                 else:
-                    move_forward(2750)
+                    while not is_red_left() and not is_red_right():
+                        andar_reto(360)
+                    brake_motors()
+                    cor_vista = "VERMELHO"
+                    ajust_color(cor_vista)
+                    move_backward(400)
+                    
                     turn_left_pid(90)
                     move_forward(1500)
                     Open()
                     move_backward(1500)
                     turn_right_pid(90)
-                    #Abre e retorna
+                    
                     find_blue_line(0)
         else:
             while not is_black_left() and not is_black_right():
@@ -1003,8 +1035,8 @@ def tube_park():
             else:
                 move_forward(1800)
                 turn_left_pid(90)
-                move_forward(1750)
+                move_forward(1550)
                 Open()
-                move_backward(1750)
+                move_backward(1550)
                 turn_right_pid(90)
                 find_blue_line(0)
