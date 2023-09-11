@@ -212,3 +212,5 @@ def set_path():
             tube_school()
         if color_of_tube == "BROWN": #Biblioteca
             tube_library()
+        if color_of_tube == "RED":
+            tube_drugstore()

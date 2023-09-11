@@ -22,7 +22,7 @@ prev_delta = 0
 def andar_reto(velo):
     #Vlw Thamires tmj :)
     
-    kp_left = 0.943
+    kp_left = 0.942
     kp_right = 0.962
     ki_left = 0
     ki_right = 0.0025
