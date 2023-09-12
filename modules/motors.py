@@ -26,50 +26,14 @@ def andar_reto(velo):
     kp_right = 0.962
     ki_left = 0
     ki_right = 0.0025
-    sum_error_left = 0
-    sum_error_right = 0
-    multiplicador = 0
-    velocidade_esquerda = 0
-    velocidade_direita = 0  
-    velocidade_esquerda_old = 0
-    velocidade_direita_old = 0  
-    velocidade_referencia_old = 0
     
-    #kd = 0.9955
-    
-    velocidade_esquerda = left_motor.speed()
-    velocidade_direita = right_motor.speed()
+    control_signal_left = left_motor.speed()
+    control_signal_right = right_motor.speed()
             
     velo_double = velo * 2
     
-    angulo_esquerda = left_motor.angle()
-    angulo_direita = right_motor.angle()
-    
-    multiplicador = velocidade_referencia_old * velo_double
-    
-    if(multiplicador <= 0):
-        sum_error_left = 0
-        sum_error_right = 0
-        
-    velocidade_referencia_old = velo_double
-
-    velocidade_esquerda_old = velocidade_esquerda
-    velocidade_direita_old = velocidade_direita
-    
-    if(velocidade_esquerda >= -velo and velocidade_esquerda <= velo):
-        velocidade_esquerda = velocidade_esquerda_old
-    
-    if(velocidade_direita >= -velo and velocidade_direita <= velo):
-        velocidade_direita = velocidade_direita_old
-    # delta = (angulo_esquerda - angulo_direita) / 360
-    error_left = (velo_double - velocidade_esquerda)
-    error_right = (velo_double - velocidade_direita)
-    
-    sum_error_left += error_left
-    sum_error_right += error_right
-    
-    control_signal_left = (kp_left * error_left) + (ki_left * sum_error_left)
-    control_signal_right = (kp_right * error_right) + (ki_right * sum_error_right)
+    control_signal_left += calcule(control_signal_left, velo_double, kp_left, ki_left)
+    control_signal_right += calcule(control_signal_right, velo_double, kp_right, ki_right)
 
 
     # print("Velocidade esquerda:", left_motor.speed(), "Velocidade direita:", right_motor.speed())
@@ -83,20 +47,20 @@ def andar_reto(velo):
     
     # Ajustar os motores com base no controle calculado
     
-    if(control_signal_left >= 300 * (abs(velo)/360)):
-        control_signal_left = 300 * (abs(velo)/360)
+    # if(control_signal_left >= 300 * (abs(velo)/360)):
+    #     control_signal_left = 300 * (abs(velo)/360)
     
-    if(control_signal_right >= 300 * (abs(velo)/360)):
-        control_signal_right = 300 * (abs(velo)/360)
+    # if(control_signal_right >= 300 * (abs(velo)/360)):
+    #     control_signal_right = 300 * (abs(velo)/360)
         
-    if(control_signal_left <= -300 * (abs(velo)/360)):
-        control_signal_left = -300 * (abs(velo)/360)
+    # if(control_signal_left <= -300 * (abs(velo)/360)):
+    #     control_signal_left = -300 * (abs(velo)/360)
     
-    if(control_signal_right <= -300 * (abs(velo)/360)):
-        control_signal_right = -300 * (abs(velo)/360)
+    # if(control_signal_right <= -300 * (abs(velo)/360)):
+    #     control_signal_right = -300 * (abs(velo)/360)
     
-    right_motor.run_angle(control_signal_right, 360, wait = False)
-    left_motor.run_angle(control_signal_left, 360, wait = False)
+    right_motor.run(control_signal_right)
+    left_motor.run(control_signal_left)
     
     
 def brake_motors():
@@ -172,9 +136,9 @@ def turn_left_pid(x):
     
     while not (abs(calculate_error_right(setpoint)) < 2.5):
         current_angle = right_motor.angle()
-        control_signal = calcule(current_angle, setpoint, kp, ki)
-        left_motor.run_angle(200, -control_signal, wait = False)
-        right_motor.run_angle(200, control_signal, wait = True)
+        current_angle += calcule(current_angle, setpoint, kp, ki)
+        left_motor.run_angle(200, -current_angle, wait = False)
+        right_motor.run_angle(200, current_angle, wait = True)
         
         # print(left_motor.angle(), right_motor.angle())
         
@@ -216,7 +180,6 @@ def turn_right_pid(x):
     
 def calcule(current_value, setpoint, kp, ki):
     integral = 0
-    prev_error = 0
     
     error = setpoint - current_value
     p = error * kp
@@ -225,8 +188,6 @@ def calcule(current_value, setpoint, kp, ki):
     i = integral * ki
     
     control_signal = p + i 
-    
-    prev_error = error  
     
     return control_signal 
 
