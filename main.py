@@ -15,18 +15,18 @@ ev3 = EV3Brick()
 
 # Codigo ---------------------------------------------------------------------------------------
 
-find_blue_line(0)
-# print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
-ev3.speaker.beep(444, 1000)
-while True:
-    align_to_begin_scan()
-    ev3.speaker.beep(444, 1000)
-    scan()
-    ev3.speaker.beep(444, 1000)
-    go_to_check_point()
-    ev3.speaker.beep(444, 1000)
-    set_path()
-    ev3.speaker.beep(444, 1000)
+# find_blue_line(0)
+# # print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
+# ev3.speaker.beep(444, 1000)
+# while True:
+#     align_to_begin_scan()
+#     ev3.speaker.beep(444, 1000)
+#     scan()
+#     ev3.speaker.beep(444, 1000)
+#     go_to_check_point()
+#     ev3.speaker.beep(444, 1000)
+#     set_path()
+#     ev3.speaker.beep(444, 1000)
 
 # -----------------------------------------------------------------------------------------------
 
@@ -97,7 +97,7 @@ while True:
 
 # Ajustar andar reto ---------------------------------------------------------------------------
 
-# while True:
-#     andar_reto(360)
+while True:
+    andar_reto(360)
 
 #-----------------------------------------------------------------------------------------------
