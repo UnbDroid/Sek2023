@@ -1,7 +1,7 @@
 from pybricks.nxtdevices import ColorSensor                                
 from pybricks.parameters import Port
 
-tube_sensor_verification = ColorSensor(Port.S4)
+tube_sensor_verification = ColorSensor(Port.S3)
 
 def tube():
     verification = tube_sensor_verification.reflection()
