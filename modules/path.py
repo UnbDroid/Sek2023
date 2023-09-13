@@ -125,20 +125,24 @@ def align_to_begin_scan():
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     chegou_no_fim = False
+    
     while not chegou_no_fim:
         
         delta = threshold - red_left()
-        kp = 0.8
+        kp = 0.45
         erro = delta * kp
         motors.drive(vel, erro)
         
         if is_red_right():
             chegou_no_fim = True
             brake_motors()
-            
+    wait(500) 
     turn_left_pid(90)
-    move_forward(1400)
+    wait(500) 
+    move_forward(1200)
+    wait(500) 
     turn_left_pid(90)
+    
     
 
 def scan():
