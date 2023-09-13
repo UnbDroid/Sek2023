@@ -1002,7 +1002,7 @@ def tube_park():
                     brake_motors()
                     cor_vista = "VERMELHO"
                     ajust_color(cor_vista)
-                    move_backward(400)
+                    move_backward(500)
                     
                     turn_left_pid(90)
                     move_forward(1500)
