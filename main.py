@@ -97,7 +97,20 @@ ev3 = EV3Brick()
 
 # Ajustar andar reto ---------------------------------------------------------------------------
 
-while True:
-    andar_reto(360)
+# while True:
+#     andar_reto(360)
+
+# move_forward(100)
 
 #-----------------------------------------------------------------------------------------------
+
+# Ajustar o ajust color ------------------------------------------------------------------------
+
+while not is_black_left() and not is_black_right():
+    andar_reto(360)
+    
+cor_vista = "TESTE"
+brake_motors()
+ajust_color(cor_vista)
+found_door()
+move_backward(1000)
