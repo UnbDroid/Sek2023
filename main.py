@@ -119,23 +119,4 @@ ev3 = EV3Brick()
 
 # Ajustar a distância --------------------------------------------------------------------------
 
-distance = []
-
-for i in range(5):
-    while ultrasound_sensor.distance() < 250:
-        andar_reto(-360)
-    brake_motors()
-    while ultrasound_sensor.distance() > 200:
-        andar_reto(360)
-    brake_motors()
-    while ultrasound_sensor.distance() < 200:
-        andar_reto(-100)
-    brake_motors()
-    cronometer.reset()
-    while cronometer.time() < 1000:
-        andar_reto(360)
-    brake_motors()
-    distance.append(200 - ultrasound_sensor.distance())
-    print("Distância por segundo: ", (200 - ultrasound_sensor.distance()))
-
-print("Distância média por segundo: ", sum(distance)/len(distance))
+teste()
