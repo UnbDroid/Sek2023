@@ -8,6 +8,7 @@ from pybricks.tools import wait
 from modules.colors import *
 from modules.detect import *
 from modules.path import *
+from modules.variables import *
 
 left_motor = Motor(Port.A) 
 right_motor = Motor(Port.B)
@@ -32,30 +33,11 @@ def andar_reto(velo):
     
     control_signal_left += calcule(control_signal_left, velo_double, kp_left, ki_left)
     control_signal_right += calcule(control_signal_right, velo_double, kp_right, ki_right)
-
-
-    # print("Velocidade esquerda:", left_motor.speed(), "Velocidade direita:", right_motor.speed())
-    # print("Signal esquerda:", control_signal_left, "Signal direita:", control_signal_right)
-    # print("Diferença:", (angulo_esquerda - angulo_direita))
     
     if control_signal_left < 1 and control_signal_left > -1:
         control_signal_left = 1
     if control_signal_right < 1 and control_signal_right > -1:
         control_signal_right = 1
-    
-    # Ajustar os motores com base no controle calculado
-    
-    # if(control_signal_left >= 300 * (abs(velo)/360)):
-    #     control_signal_left = 300 * (abs(velo)/360)
-    
-    # if(control_signal_right >= 300 * (abs(velo)/360)):
-    #     control_signal_right = 300 * (abs(velo)/360)
-        
-    # if(control_signal_left <= -300 * (abs(velo)/360)):
-    #     control_signal_left = -300 * (abs(velo)/360)
-    
-    # if(control_signal_right <= -300 * (abs(velo)/360)):
-    #     control_signal_right = -300 * (abs(velo)/360)
     
     right_motor.run(control_signal_right)
     left_motor.run(control_signal_left)
@@ -204,195 +186,99 @@ def calculate_error_right(setpoint):
     #     motors.stop()
     # left_motor.reset_angle(0)
     # right_motor.reset_angle(0)
-    
+ 
 def ajust_color(cor_vista):
     print("Ajustando cor...")
-    
     brake_motors()
     wait(250)
     move_backward(300)
     
-    # if cor_vista == "PRETO":
-    #     if is_black_left():
-    #         while not is_black_right():
-    #             right_motor.run_angle(80, 1, wait = False)
-    #             left_motor.run_angle(-10, 1, wait = False)
-            
-            
-    #     elif is_black_right():
-    #         while not is_black_left():
-    #             left_motor.run_angle(80, 1, wait = False)
-    #             right_motor.run_angle(-10, 1, wait = False)
-            
-        
-        
-# --------------------------------- 
-        
-    # if cor_vista == "VERMELHO":
-    #     if is_red_left():
-    #         while not is_red_right():
-    #             right_motor.run_angle(80, 1, wait = False)
-    #             left_motor.run_angle(-10, 1, wait = False)
-            
-    #     elif is_red_right():
-    #         while not is_red_left():
-    #             left_motor.run_angle(80, 1, wait = False)
-    #             right_motor.run_angle(-10, 1, wait = False)
-            
-    
-# ---------------------------------
-    
-    # if cor_vista == "AZUL":
-    #     if is_blue_left():
-    #         while not is_blue_right():
-    #             right_motor.run_angle(80, 1, wait = False)
-    #             left_motor.run_angle(-10, 1, wait = False)
-            
-            
-    #     elif is_blue_right():
-    #         while not is_blue_left():
-    #             left_motor.run_angle(80, 1, wait = False)
-    #             right_motor.run_angle(-10, 1, wait = False)
-            
-
-# ---------------------------------
-
-    # if cor_vista == "AMARELO":
-    #     if is_yellow_left():
-    #         while not is_yellow_right() and not is_black_right():
-    #             right_motor.run_angle(80, 1, wait = False)
-    #             left_motor.run_angle(-10, 1, wait = False)
-            
-            
-    #     elif is_yellow_right():
-    #         while not is_yellow_left():
-    #             left_motor.run_angle(80, 1, wait = False)
-    #             right_motor.run_angle(-10, 1, wait = False)
-            
-            
-# ---------------------------------
-
-    # if cor_vista == "PAREDE":
-    #     if (is_black_left() or is_yellow_left()):
-    #         while not is_black_right() and not is_yellow_right():
-    #             right_motor.run_angle(80, 1, wait = False)
-    #             left_motor.run_angle(-10, 1, wait = False)
-            
-                
-    #     elif (is_black_right() or is_yellow_right()):
-    #         while not is_black_left() and not is_yellow_left():
-    #             left_motor.run_angle(80, 1, wait = False)
-    #             right_motor.run_angle(-10, 1, wait = False)
-                
 # ---------------------------------------------------------------------------------------- 
     if cor_vista == "PRETO":
-        white_left = 84
-        black_left = 8
-        treshold_left = 46 #(84+8)/2
-        
-        white_right = 95
-        black_right = 10
-        treshold_right = 42 # (95-10)/2
-        
-        while (red_left() != treshold_left) and (red_right() != treshold_right):
+            
+        while (red_left() != get_treshold_left_black() ) and (red_right() != get_treshold_right_black() ):
     
-            while red_left() != treshold_left:
+            while red_left() != get_treshold_left_black() :
                 
-                while red_left() > treshold_left: #white
+                while red_left() > get_treshold_left_black() : #white
                     left_motor.run_angle(40, 1, wait = False)
                     right_motor.run_angle(-10, 1, wait = False)
                    
                 
-                while red_left() < treshold_left: #black
+                while red_left() < get_treshold_left_black() : #black
                     left_motor.run_angle(-40, 1, wait = False)
                     right_motor.run_angle(10, 1, wait = False)
                    
 
-            while red_right() != treshold_right:
+            while red_right() != get_treshold_right_black() :
                 
-                while red_right() > treshold_right: #white
+                while red_right() > get_treshold_right_black() : #white
                     right_motor.run_angle(40, 1, wait = False)
                     left_motor.run_angle(-10, 1, wait = False)
                     
                     
-                while red_right() < treshold_right: #black
+                while red_right() < get_treshold_right_black() : #black
                     right_motor.run_angle(-40, 1, wait = False)
                     left_motor.run_angle(10, 1, wait = False)
 
 
 # ----------------------------------------------------------------------------------------
-# vermelho Esquerda:  (79, 15, 18) Direita:  (79, 18, 24)
-# BRANCO Esquerda:  (90, 91, 100) Direita:  (91, 95, 100)
-
     if cor_vista == "VERMELHO":
-        #white_left = 91
-        #green_left = 18
-        treshold_left = 40
         
-        #white_right = 95
-        #green_right = 18
-        treshold_right = 55
         
-        while (green_left() != treshold_left) and (green_right() != treshold_right):
+        while (green_left() != get_treshold_left_red() ) and (green_right() != get_treshold_right_red() ):
            
-            while green_left() != treshold_left:
+            while green_left() != get_treshold_left_red() :
                 
-                while green_left() > treshold_left: #white
+                while green_left() > get_treshold_left_red() : #white
                     left_motor.run_angle(40, 1, wait = False)
                     right_motor.run_angle(-10, 1, wait = False)
                    
                 
-                while green_left() < treshold_left: #black
+                while green_left() < get_treshold_left_red() : #black
                     left_motor.run_angle(-40, 1, wait = False)
                     right_motor.run_angle(10, 1, wait = False)
                    
 
-            while green_right() != treshold_right:
+            while green_right() != get_treshold_right_red() :
                 
-                while green_right() > treshold_right: #white
+                while green_right() > get_treshold_right_red() : #white
                     right_motor.run_angle(40, 1, wait = False)
                     left_motor.run_angle(-10, 1, wait = False)
                     
                     
-                while green_right() < treshold_right: #black
+                while green_right() < get_treshold_right_red() : #black
                     right_motor.run_angle(-40, 1, wait = False)
                     left_motor.run_angle(10, 1, wait = False)
 
     
 # ----------------------------------------------------------------------------------------
-# amarelo (80, 75, 38) Direita:  (82, 80, 51)
-#BRANCO Esquerda:  (90, 91, 100) Direita:  (91, 95, 100)
     if cor_vista == "AMARELO":
-            #white_left = 91
-            #green_left = 18
-            treshold_left = 70
+        
             
-            #white_right = 95
-            #green_right = 18
-            treshold_right = 75
             
-            while (blue_left() != treshold_left) and (blue_right() != treshold_right):
+            while (blue_left() != get_treshold_left_yellow() ) and (blue_right() != get_treshold_right_yellow()):
             
-                while blue_left() != treshold_left:
+                while blue_left() != get_treshold_left_yellow() :
                     
-                    while blue_left() > treshold_left: #white
+                    while blue_left() > get_treshold_left_yellow() : 
                         left_motor.run_angle(40, 1, wait = False)
                         right_motor.run_angle(-10, 1, wait = False)
                     
                     
-                    while blue_left() < treshold_left: #black
+                    while blue_left() < get_treshold_left_yellow() : 
                         left_motor.run_angle(-40, 1, wait = False)
                         right_motor.run_angle(10, 1, wait = False)
                     
 
-                while blue_right() != treshold_right:
+                while blue_right() != get_treshold_right_yellow():
                     
-                    while blue_right() > treshold_right: #white
+                    while blue_right() > get_treshold_right_yellow(): 
                         right_motor.run_angle(40, 1, wait = False)
                         left_motor.run_angle(-10, 1, wait = False)
                         
                         
-                    while blue_right() < treshold_right: #black
+                    while blue_right() < get_treshold_right_yellow(): 
                         right_motor.run_angle(-40, 1, wait = False)
                         left_motor.run_angle(10, 1, wait = False)         
                         

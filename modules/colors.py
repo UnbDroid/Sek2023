@@ -4,7 +4,7 @@ from pybricks.parameters import Port
 color_sensor_floor_left = ColorSensor(Port.S1)
 color_sensor_floor_right = ColorSensor(Port.S2)
 
-cor_vista = "BRANCO"
+cor_vista = ""
 
 def red_left():
     return color_sensor_floor_left.rgb()[0]
