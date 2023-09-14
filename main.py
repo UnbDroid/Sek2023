@@ -106,10 +106,10 @@ ev3 = EV3Brick()
 
 # Ajustar o ajust color ------------------------------------------------------------------------
 
-while not is_black_left() and not is_black_right():
+while not is_yellow_left() and not is_yellow_right():
     andar_reto(360)
     
-cor_vista = "TESTE"
+cor_vista = "AMARELO"
 brake_motors()
 ajust_color(cor_vista)
 found_door()
