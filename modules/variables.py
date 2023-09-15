@@ -6,16 +6,17 @@ def get_treshold_left_black():
 def get_treshold_right_black():
     return 42
 
-
+# Esquerda:  (88, 80, 40) Direita:  (88, 80, 55)
+# Esquerda:  (89, 91, 100) Direita:  (80, 82, 100)
 def get_treshold_left_yellow():
-    return 70
+    return 64
 def get_treshold_right_yellow():
-    return 75
+    return 78
 
 
-def treshold_left_red():
+def get_treshold_left_red():
     return 40
-def treshold_right_red():
+def get_treshold_right_red():
     return 55
 
 

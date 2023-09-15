@@ -46,11 +46,7 @@ def andar_reto(velo):
     right_motor.run(control_signal_right)
     left_motor.run(control_signal_left)
     #42
-    if left_motor.angle() > 358 and right_motor.angle() > 358 and not estabilizou:
-        estabilizou = True
-        print("Estabilizou")
-        print(left_motor.angle(), right_motor.angle())
-        print(cronometer.time())
+    # print("Sinal de controle esquerdo:", control_signal_left, "Sinal de controle direito:", control_signal_right)
     
     
 def brake_motors():
@@ -59,42 +55,43 @@ def brake_motors():
     right_motor.reset_angle(0)
 
 def teste():
-    cronometer.reset()
+    # cronometer.reset()
     #ELE ANDA 51 cm EM 10 SEGUNDOS
     #ELE ANDA 4,5 cm EM 298 MILISEGUNDOS
-    while cronometer.time() < 298:
-        andar_reto(360)
-    brake_motors()
+    # while cronometer.time() < 298:
+    #     andar_reto(360)
+    # brake_motors()
+    while left_motor.angle() > -747 or right_motor.angle() > -747:
+        andar_reto(-360)
+    motors.stop()
+    # print(left_motor.angle(), right_motor.angle())
 
 def move_forward(distancia, vel=360):
     #1000 milésimos = 1 segundo
     #0,289 para acelerar = 289 milisegundos
     # 4,5 cm para andar em 289 milisegundos
-    tempo = 289
-    angulo_esquerda = distancia * (862/30)
-    angulo_direita = distancia * (840/30)
-    brake_motors()
-    wait(289)
-    while left_motor.angle() < angulo_esquerda or right_motor.angle() < angulo_direita:
+    left_motor.reset_angle(0)
+    right_motor.reset_angle(0)
+    angulo = (distancia * 3398)/124
+    while left_motor.angle() < angulo or right_motor.angle() < angulo:
         andar_reto(vel)
     motors.stop()
-    wait(289)
-    if left_motor.angle() > angulo_esquerda:
-        left_motor.run_angle(-30, abs(angulo_esquerda-left_motor.angle()), wait = True)
-    elif left_motor.angle() < angulo_esquerda:
-        left_motor.run_angle(30, abs(angulo_esquerda-left_motor.angle()), wait = True)
-    if right_motor.angle() > angulo_direita:
-        right_motor.run_angle(-30, abs(angulo_direita-right_motor.angle()), wait = True)
-    elif right_motor.angle() < angulo_direita:
-        right_motor.run_angle(30, abs(angulo_direita-right_motor.angle()), wait = True)
+    print(left_motor.angle(), right_motor.angle())
     brake_motors()
-    wait(289)
     
 def move_backward(distancia, vel=360):
-    tempo = ((distancia * 10) / 97) * 1000
-    cronometer.reset()
-    while cronometer.time() < tempo:
+    # tempo = ((distancia * 10) / 97) * 1000
+    # cronometer.reset()
+    # while cronometer.time() < tempo:
+    #     andar_reto(-vel)
+    # brake_motors()
+    left_motor.reset_angle(0)
+    right_motor.reset_angle(0)
+    angulo = (distancia * -1496)/55
+    while left_motor.angle() > angulo or right_motor.angle() > angulo:
         andar_reto(-vel)
+    motors.stop()
+    print(left_motor.angle(), right_motor.angle())
     brake_motors()
     
 def turn_left(x):
@@ -143,7 +140,7 @@ def turn_right(x):
             
 def turn_left_pid(x):  
     kp = 1.0
-    ki = 0.0
+    ki = 0.0156
     setpoint = 1224 * (x / 360)
       
     setpoint = round(setpoint)
@@ -170,7 +167,7 @@ def turn_left_pid(x):
     
 def turn_right_pid(x):  
     kp = 1.0
-    ki = 0.0
+    ki = 0.0156
     setpoint = 1224 * (x / 360)
     
     setpoint = round(setpoint)
@@ -228,7 +225,7 @@ def ajust_color(cor_vista):
     print("Ajustando cor...")
     brake_motors()
     wait(250)
-    move_backward(300)
+    move_backward(1)
     
 # ---------------------------------------------------------------------------------------- 
     if cor_vista == "PRETO":

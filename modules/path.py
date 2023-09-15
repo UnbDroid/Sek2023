@@ -40,6 +40,8 @@ def find_blue_line(numero_de_paredes):
             cor_vista = "VERMELHO"
         elif is_black_left() or is_black_right():
             cor_vista = "PRETO"
+        elif is_yellow_left() or is_yellow_right():
+            cor_vista = "AMARELO"
         time_forward = cronometer.time()
         if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
             while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
@@ -51,7 +53,7 @@ def find_blue_line(numero_de_paredes):
         if (is_red_left() or is_red_right()):
             print("Achou vermelho")
             brake_motors()
-            move_backward(3500) 
+            move_backward(43) 
             turn_left_pid(90)
             brake_motors()
             while not is_blue():
@@ -78,10 +80,10 @@ def find_blue_line(numero_de_paredes):
                             andar_reto(360)
                         brake_motors()
                         if is_red_left() or is_red_right():
-                            move_backward(3500)
+                            move_backward(43)
                             turn_right_pid(90)
                     else:
-                        move_backward(3500)
+                        move_backward(43)
                         turn_left_pid(90)
                         find_blue_line(0)
             brake_motors()
@@ -90,7 +92,7 @@ def find_blue_line(numero_de_paredes):
             print("Achou parede")
             print("Voltando...")
             if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-                move_backward(700)
+                move_backward(8)
             elif has_obstacle():
                 while ultrasound_sensor.distance() > 145:
                     andar_reto(360)
@@ -109,7 +111,7 @@ def find_blue_line(numero_de_paredes):
         if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
             cor_vista = "PRETO"
             ajust_color(cor_vista)
-            move_backward(700)
+            move_backward(8)
         find_blue_line(0)
         
 def align_to_begin_scan():
@@ -146,6 +148,7 @@ def align_to_begin_scan():
 def scan():
     global color_of_tube
     global size_of_tube
+    
     cronometer.reset()
     print("Procurando tubo...")
     while not tube_is_detected():
@@ -174,9 +177,7 @@ def scan():
     print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
     
     cronometer.reset()
-    
-    valor_giro = -3
-    metrica = 6000
+
     while cronometer.time() < tempo:
         andar_reto(-150)
     brake_motors()
