@@ -103,13 +103,12 @@ while True:
 
 # Ajustar o ajust color ------------------------------------------------------------------------
 
-# while not is_yellow_left() and not is_yellow_right():
+# while not is_red_left() and not is_red_right():
 #     andar_reto(360)
     
-# cor_vista = "AMARELO"
+# cor_vista = "VERMELHO"
 # brake_motors()
 # ajust_color(cor_vista)
-# found_door()
 # move_backward(10)
 
 #-----------------------------------------------------------------------------------------------

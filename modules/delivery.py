@@ -9,101 +9,104 @@ crono = StopWatch()
 
 has_object_in = []
 
-def find_blue_line(numero_de_paredes):
-    if numero_de_paredes < 4:
-        brake_motors()
+# def find_blue_line(numero_de_paredes):
+#     if numero_de_paredes < 4:
+#         brake_motors()
         
-        cor_vista = ""
+#         cor_vista = ""
         
-        print("procurando")
-        while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
-            andar_reto(360)   
-            #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
-        brake_motors()
-        if is_blue():
-            cor_vista = "AZUL"
-        elif is_red_left() or is_red_right():
-            cor_vista = "VERMELHO"
-        elif is_black_left() or is_black_right():
-            cor_vista = "PRETO"
-        elif is_yellow_left() or is_yellow_right():
-            cor_vista = "AMARELO"
-        time_forward = cronometer.time()
-        if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
-            while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-                andar_reto(-360)
-            brake_motors()
-        if cor_vista != "":
-            ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
+#         print("procurando")
+#         while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
+#             andar_reto(360)   
+#             #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
+#         brake_motors()
+#         if is_blue():
+#             cor_vista = "AZUL"
+#         elif is_red_left() or is_red_right():
+#             cor_vista = "VERMELHO"
+#         elif is_black_left() or is_black_right():
+#             cor_vista = "PRETO"
+#         elif is_yellow_left() or is_yellow_right():
+#             cor_vista = "AMARELO"
+#         time_forward = cronometer.time()
+#         if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
+#             while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
+#                 andar_reto(-360)
+#             brake_motors()
+#         if cor_vista != "":
+#             ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
             
-        if (is_red_left() or is_red_right()):
-            print("Achou vermelho")
-            brake_motors()
-            move_backward(3500) 
-            turn_left_pid(90)
-            brake_motors()
-            while not is_blue():
-                andar_reto(360)
-                if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
-                    brake_motors()
-                    turn_right_pid(180)
-                elif has_obstacle():
-                    brake_motors()
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(360)
-                    brake_motors()
-                    while ultrasound_sensor.distance() < 145:
-                        andar_reto(-150)
-                    brake_motors()
-                    turn_right_pid(90)
-                    cronometer.reset()
-                    while not is_red_left() and not is_red_right() and not has_obstacle():
-                        andar_reto(360)
-                    brake_motors()
-                    if cronometer.time() < 6000 or has_obstacle():
-                        turn_right_pid(180)
-                        while ultrasound_sensor.distance() > 145 and not is_red_left() and not is_red_right():
-                            andar_reto(360)
-                        brake_motors()
-                        if is_red_left() or is_red_right():
-                            move_backward(3500)
-                            turn_right_pid(90)
-                    else:
-                        move_backward(3500)
-                        turn_left_pid(90)
-                        find_blue_line(0)
-            brake_motors()
+#         if (is_red_left() or is_red_right()):
+#             print("Achou vermelho")
+#             brake_motors()
+#             move_backward(3500) 
+#             turn_left_pid(90)
+#             brake_motors()
+#             while not is_blue():
+#                 andar_reto(360)
+#                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
+#                     brake_motors()
+#                     turn_right_pid(180)
+#                 elif has_obstacle():
+#                     brake_motors()
+#                     while ultrasound_sensor.distance() > 145:
+#                         andar_reto(360)
+#                     brake_motors()
+#                     while ultrasound_sensor.distance() < 145:
+#                         andar_reto(-150)
+#                     brake_motors()
+#                     turn_right_pid(90)
+#                     cronometer.reset()
+#                     while not is_red_left() and not is_red_right() and not has_obstacle():
+#                         andar_reto(360)
+#                     brake_motors()
+#                     if cronometer.time() < 6000 or has_obstacle():
+#                         turn_right_pid(180)
+#                         while ultrasound_sensor.distance() > 145 and not is_red_left() and not is_red_right():
+#                             andar_reto(360)
+#                         brake_motors()
+#                         if is_red_left() or is_red_right():
+#                             move_backward(3500)
+#                             turn_right_pid(90)
+#                     else:
+#                         move_backward(3500)
+#                         turn_left_pid(90)
+#                         find_blue_line(0)
+#             brake_motors()
             
-        elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
-            print("Achou parede")
-            print("Voltando...")
-            if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-                move_backward(700)
-            elif has_obstacle():
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(360)
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-150)
-                brake_motors()
-            turn_right_pid(90)
-            print("Vai somar mais um no numero_de_paredes")
-            print(numero_de_paredes)
-            find_blue_line(numero_de_paredes + 1)
-    else:
-        turn_right_pid(90)
-        while ultrasound_sensor.distance() > 145 and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
-            andar_reto(360)
-        brake_motors()
-        if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-            cor_vista = "PRETO"
-            ajust_color(cor_vista)
-            move_backward(700)
-        find_blue_line(0)
+#         elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
+#             print("Achou parede")
+#             print("Voltando...")
+#             if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
+#                 move_backward(700)
+#             elif has_obstacle():
+#                 while ultrasound_sensor.distance() > 145:
+#                     andar_reto(360)
+#                 while ultrasound_sensor.distance() < 145:
+#                     andar_reto(-150)
+#                 brake_motors()
+#             turn_right_pid(90)
+#             print("Vai somar mais um no numero_de_paredes")
+#             print(numero_de_paredes)
+#             find_blue_line(numero_de_paredes + 1)
+#     else:
+#         turn_right_pid(90)
+#         while ultrasound_sensor.distance() > 145 and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
+#             andar_reto(360)
+#         brake_motors()
+#         if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
+#             cor_vista = "PRETO"
+#             ajust_color(cor_vista)
+#             move_backward(700)
+#         find_blue_line(0)
 
 def go_to_check_point():
     turn_right_pid(90)
-    move_backward(1200)
+    wait(250)
+    move_backward(13)
+    wait(250)
     turn_left_pid(90)
+    wait(250)
 
 def tube_library():
     global has_object_in
@@ -119,18 +122,15 @@ def tube_library():
         motors.drive(vel, erro)
     brake_motors()
     
-    move_backward(800)
+    move_backward(6)
     turn_left_pid(90)
-    move_forward(2000) # Indo para a entrega
+    move_forward(32) # Indo para a entrega
     Open()
-    move_backward(2000) # Volta para a área de coleta a msm distância de ir
+    move_backward(32) # Volta para a área de coleta a msm distância de ir
     
-    turn_left_pid(180)
-    
-    while not is_blue():
-        andar_reto(360)
-    brake_motors()
-    
+    turn_left_pid(90)
+    move_backward(14)
+    turn_left_pid(90)
         
     
 def tube_city_hall():

@@ -34,9 +34,8 @@ def find_blue_line(numero_de_paredes):
             andar_reto(360)   
             #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
         brake_motors()
-        if is_blue():
-            cor_vista = "AZUL"
-        elif is_red_left() or is_red_right():
+    
+        if is_red_left() or is_red_right():
             cor_vista = "VERMELHO"
         elif is_black_left() or is_black_right():
             cor_vista = "PRETO"
@@ -103,6 +102,7 @@ def find_blue_line(numero_de_paredes):
             print("Vai somar mais um no numero_de_paredes")
             print(numero_de_paredes)
             find_blue_line(numero_de_paredes + 1)
+        
     else:
         turn_right_pid(90)
         while ultrasound_sensor.distance() > 145 and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
@@ -117,10 +117,10 @@ def find_blue_line(numero_de_paredes):
 def align_to_begin_scan():
     brake_motors()
     print("Achei o azul")
-    move_backward(100)
+    move_backward(1)
     turn_right_pid(90)
         
-    branco = 80
+    branco = 90 # 80
     azul = 10
     threshold = (branco + azul) / 2  # = 40
     vel = 100
@@ -136,12 +136,22 @@ def align_to_begin_scan():
         if is_red_right():
             chegou_no_fim = True
             brake_motors()
+            
+    wait(500)
+    move_backward(0.7)
+    brake_motors()
+    
     wait(500) 
     turn_left_pid(90)
+    brake_motors()
+    
     wait(500) 
-    move_forward(1200)
+    move_forward(14)
+    brake_motors()
+    
     wait(500) 
     turn_left_pid(90)
+    brake_motors()
     
     
 
@@ -181,16 +191,11 @@ def scan():
     while cronometer.time() < tempo:
         andar_reto(-150)
     brake_motors()
+    wait(250)
     
-        
+    move_forward(1)
     print("Sai do scan")
         
-        
-def align_to_begin_deliver():
-    turn_right_pid(90)
-    move_backward(1200)
-    turn_left_pid(90)
-
 def set_path():
     global color_of_tube
     global size_of_tube
