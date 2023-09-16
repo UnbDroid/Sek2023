@@ -36,11 +36,11 @@ def find_blue_line(numero_de_paredes):
         brake_motors()
     
         if is_red_left() or is_red_right():
-            cor_vista = "VERMELHO"
+            cor_vista = "RED"
         elif is_black_left() or is_black_right():
-            cor_vista = "PRETO"
+            cor_vista = "BLACK"
         elif is_yellow_left() or is_yellow_right():
-            cor_vista = "AMARELO"
+            cor_vista = "YELLOW"
         time_forward = cronometer.time()
         if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
             while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
@@ -50,7 +50,7 @@ def find_blue_line(numero_de_paredes):
             ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
             
         if (is_red_left() or is_red_right()):
-            print("Achou vermelho")
+            print("Achou RED")
             brake_motors()
             move_backward(43) 
             turn_left_pid(90)
@@ -109,7 +109,7 @@ def find_blue_line(numero_de_paredes):
             andar_reto(360)
         brake_motors()
         if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-            cor_vista = "PRETO"
+            cor_vista = "BLACK"
             ajust_color(cor_vista)
             move_backward(8)
         find_blue_line(0)

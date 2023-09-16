@@ -107,7 +107,7 @@ ev3 = EV3Brick()
 while not is_black_left() and not is_black_right():
     andar_reto(360)
     
-cor_vista = "PRETO"
+cor_vista = "BLACK"
 brake_motors()
 ajust_color(cor_vista)
 move_backward(10)

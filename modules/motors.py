@@ -221,7 +221,7 @@ def ajust_color(cor_vista):
     move_backward(1)
     
 # ---------------------------------------------------------------------------------------- 
-    if cor_vista == "PRETO":
+    if cor_vista == "BLACK":
             
         while (red_left() not in get_treshold_left_black() ) and (red_right() not in get_treshold_right_black() ):
     
@@ -250,7 +250,7 @@ def ajust_color(cor_vista):
 
 
 # ----------------------------------------------------------------------------------------
-    if cor_vista == "VERMELHO":
+    if cor_vista == "RED":
         
         
         while (blue_left() not in get_treshold_left_red() ) and (blue_right() not in get_treshold_right_red() ):
@@ -280,7 +280,7 @@ def ajust_color(cor_vista):
 
     
 # ----------------------------------------------------------------------------------------
-    if cor_vista == "AMARELO":
+    if cor_vista == "YELLOW":
         print(blue_left(), blue_right())
         while (blue_left() not in get_treshold_left_yellow() ) and (blue_right() not in get_treshold_right_yellow()):
             print("Entrei")
