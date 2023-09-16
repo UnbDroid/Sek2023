@@ -117,7 +117,7 @@ def find_blue_line(numero_de_paredes):
 def align_to_begin_scan():
     brake_motors()
     print("Achei o azul")
-    move_backward(1)
+    move_backward(0.6)
     turn_right_pid(90)
         
     branco = 90 # 80
