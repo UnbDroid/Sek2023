@@ -5,7 +5,7 @@ from modules.beeps import *
 tube_verificator = ColorSensor(Port.S4)
 
 def tube_is_detected():
-    if tube_verificator.reflection() > 10 or tube_verificator.rgb()[2] > 5:
+    if tube_verificator.reflection() >= 8 or tube_verificator.rgb()[2] >= 6:
         return True
     else:
         return False

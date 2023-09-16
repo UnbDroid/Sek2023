@@ -10,3 +10,7 @@ def found_wall():
 def not_found_wall():
     ev3.speaker.beep(100, 1000)
     
+def alined_to_wall():
+    ev3.speaker.beep(100, 1000)
+
+    

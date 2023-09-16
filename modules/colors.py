@@ -4,7 +4,7 @@ from pybricks.parameters import Port
 color_sensor_floor_left = ColorSensor(Port.S1)
 color_sensor_floor_right = ColorSensor(Port.S2)
 
-cor_vista = "BRANCO"
+cor_vista = ""
 
 def red_left():
     return color_sensor_floor_left.rgb()[0]
@@ -60,11 +60,11 @@ def is_yellow():
 
 # -------------------------------------------------------------
 
-range_max_blue_left = [30, 44, 100]
-range_min_blue_left = [0, 14, 70]
+range_max_blue_left = [30, 44, 110]
+range_min_blue_left = [0, 14, 80]
 
-range_max_blue_right = [30, 45, 100]
-range_min_blue_right = [0, 15, 70]
+range_max_blue_right = [30, 45, 115]
+range_min_blue_right = [0, 15, 85]
 
 def is_blue_left():
     return range_min_blue_left[0] <= red_left() <= range_max_blue_left[0] and range_min_blue_left[1] <= green_left() <= range_max_blue_left[1] and range_min_blue_left[2] <= blue_left() <= range_max_blue_left[2]
@@ -96,3 +96,6 @@ def is_red():
 
 def is_wall():
     return (is_black_left() and is_yellow_right()) or (is_yellow_left() and is_black_right())
+
+
+# -------------------------------------------------------------

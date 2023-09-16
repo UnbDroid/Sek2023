@@ -8,59 +8,45 @@ from pybricks.tools import wait
 from modules.colors import *
 from modules.detect import *
 from modules.path import *
+from modules.variables import *
 
 left_motor = Motor(Port.A) 
 right_motor = Motor(Port.B)
 
 cronometer = StopWatch()
 
+estabilizou = False
 motors = DriveBase(left_motor, right_motor, 42.1, 150) # 140.88
 
 integral = 0
 prev_delta = 0
-
+time_teste = 0
 def andar_reto(velo):
-    #Vlw Thamires tmj :)
+    global time_teste    
+    global estabilizou
+    time_teste += 1
     
-    kp_left = 0.942
-    kp_right = 0.962
-    ki_left = 0
-    ki_right = 0.0025
-    
+    kp_left = 0.9
+    kp_right = 1
+    ki_left = 0.05
+    ki_right = 0.1
     control_signal_left = left_motor.speed()
     control_signal_right = right_motor.speed()
-            
-    velo_double = velo * 2
-    
+
+    velo_double = velo
+
     control_signal_left += calcule(control_signal_left, velo_double, kp_left, ki_left)
     control_signal_right += calcule(control_signal_right, velo_double, kp_right, ki_right)
 
-
-    # print("Velocidade esquerda:", left_motor.speed(), "Velocidade direita:", right_motor.speed())
-    # print("Signal esquerda:", control_signal_left, "Signal direita:", control_signal_right)
-    # print("Diferença:", (angulo_esquerda - angulo_direita))
-    
     if control_signal_left < 1 and control_signal_left > -1:
         control_signal_left = 1
     if control_signal_right < 1 and control_signal_right > -1:
         control_signal_right = 1
-    
-    # Ajustar os motores com base no controle calculado
-    
-    # if(control_signal_left >= 300 * (abs(velo)/360)):
-    #     control_signal_left = 300 * (abs(velo)/360)
-    
-    # if(control_signal_right >= 300 * (abs(velo)/360)):
-    #     control_signal_right = 300 * (abs(velo)/360)
-        
-    # if(control_signal_left <= -300 * (abs(velo)/360)):
-    #     control_signal_left = -300 * (abs(velo)/360)
-    
-    # if(control_signal_right <= -300 * (abs(velo)/360)):
-    #     control_signal_right = -300 * (abs(velo)/360)
-    
+
     right_motor.run(control_signal_right)
     left_motor.run(control_signal_left)
+    #42
+    # print("Sinal de controle esquerdo:", control_signal_left, "Sinal de controle direito:", control_signal_right)
     
     
 def brake_motors():
@@ -68,17 +54,38 @@ def brake_motors():
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
 
-def move_forward(tempo, vel=360):
-    cronometer.reset()
-    while cronometer.time() < tempo:
+def teste():
+    # cronometer.reset()
+    #ELE ANDA 51 cm EM 10 SEGUNDOS
+    #ELE ANDA 4,5 cm EM 298 MILISEGUNDOS
+    # while cronometer.time() < 298:
+    #     andar_reto(360)
+    # brake_motors()
+    while left_motor.angle() > -747 or right_motor.angle() > -747:
+        andar_reto(-360)
+    motors.stop()
+    # print(left_motor.angle(), right_motor.angle())
+
+def move_forward(distancia, vel=360):
+    left_motor.reset_angle(0)
+    right_motor.reset_angle(0)
+    angulo = (distancia * 3398)/124
+    while left_motor.angle() < angulo or right_motor.angle() < angulo:
         andar_reto(vel)
+    motors.stop()
+    print(left_motor.angle(), right_motor.angle())
     brake_motors()
     
-def move_backward(tempo, vel=360):
-    cronometer.reset()
-    while cronometer.time() < tempo:
+def move_backward(distancia, vel=360):
+    left_motor.reset_angle(0)
+    right_motor.reset_angle(0)
+    angulo = (distancia * -1496)/55
+    while left_motor.angle() > angulo or right_motor.angle() > angulo:
         andar_reto(-vel)
+    motors.stop()
+    print(left_motor.angle(), right_motor.angle())
     brake_motors()
+    
     
 def turn_left(x):
     wait(200)
@@ -125,8 +132,8 @@ def turn_right(x):
     wait(200)
             
 def turn_left_pid(x):  
-    kp = 0.42
-    ki = 0.0
+    kp = 1.0
+    ki = 0.0156
     setpoint = 1224 * (x / 360)
       
     setpoint = round(setpoint)
@@ -134,7 +141,7 @@ def turn_left_pid(x):
     wait(200)
     brake_motors()
     
-    while not (abs(calculate_error_right(setpoint)) < 2.5):
+    while not (abs(calculate_error_right(setpoint)) < 177):
         current_angle = right_motor.angle()
         current_angle += calcule(current_angle, setpoint, kp, ki)
         left_motor.run_angle(200, -current_angle, wait = False)
@@ -142,7 +149,7 @@ def turn_left_pid(x):
         
         # print(left_motor.angle(), right_motor.angle())
         
-        # print(calculate_error_right(setpoint))
+        print(calculate_error_right(setpoint))
         
         # if(abs(calculate_error_right(setpoint)) < 1.5):
         # wait(200)
@@ -152,8 +159,8 @@ def turn_left_pid(x):
     # move_forward(500)
     
 def turn_right_pid(x):  
-    kp = 0.42
-    ki = 0.0
+    kp = 1.0
+    ki = 0.0156
     setpoint = 1224 * (x / 360)
     
     setpoint = round(setpoint)
@@ -161,15 +168,15 @@ def turn_right_pid(x):
     wait(200)
     brake_motors()
       
-    while not abs(calculate_error(setpoint)) < 2.5:
+    while not abs(calculate_error(setpoint)) < 176:
         current_angle = left_motor.angle()
-        control_signal = calcule(current_angle, setpoint, kp, ki)
-        left_motor.run_angle(200, control_signal, wait = False)
-        right_motor.run_angle(200, -control_signal, wait = True)
+        current_angle += calcule(current_angle, setpoint, kp, ki)
+        left_motor.run_angle(200, current_angle, wait = False)
+        right_motor.run_angle(200, -current_angle, wait = True)
         
         # print(left_motor.angle(), right_motor.angle())
         
-        # print(calculate_error(setpoint))
+        print(calculate_error(setpoint))
         
         # if(abs(calculate_error(setpoint)) < 1.5):
         # wait(200)
@@ -206,84 +213,102 @@ def calculate_error_right(setpoint):
     #     motors.stop()
     # left_motor.reset_angle(0)
     # right_motor.reset_angle(0)
-    
+ 
 def ajust_color(cor_vista):
     print("Ajustando cor...")
-    
     brake_motors()
-    wait(200)
+    wait(250)
+    move_backward(1)
     
-    if cor_vista == "PRETO":
-        if is_black_left():
-            while not is_black_right():
-                right_motor.run_angle(100, 1, wait = False)
-                left_motor.run_angle(-50, 1, wait = False)
-            brake_motors()
+# ---------------------------------------------------------------------------------------- 
+    if cor_vista == "BLACK":
             
-        elif is_black_right():
-            while not is_black_left():
-                left_motor.run_angle(80, 1, wait = False)
-                right_motor.run_angle(-10, 1, wait = False)
-            brake_motors()
-        
-        
-# --------------------------------- 
-        
-    if cor_vista == "VERMELHO":
-        if is_red_left():
-            while not is_red_right():
-                right_motor.run_angle(100, 1, wait = False)
-                left_motor.run_angle(-50, 1, wait = False)
-            brake_motors()
-        elif is_red_right():
-            while not is_red_left():
-                left_motor.run_angle(80, 1, wait = False)
-                right_motor.run_angle(-10, 1, wait = False)
-            brake_motors()
+        while (red_left() not in get_treshold_left_black() ) and (red_right() not in get_treshold_right_black() ):
     
-# ---------------------------------
-    
-    if cor_vista == "AZUL":
-        if is_blue_left():
-            while not is_blue_right():
-                right_motor.run_angle(100, 1, wait = False)
-                left_motor.run_angle(-50, 1, wait = False)
-            brake_motors()
-            
-        elif is_blue_right():
-            while not is_blue_left():
-                left_motor.run_angle(80, 1, wait = False)
-                right_motor.run_angle(-10, 1, wait = False)
-            brake_motors()
-
-# ---------------------------------
-
-    if cor_vista == "AMARELO":
-        if is_yellow_left():
-            while not is_yellow_right() and not is_black_right():
-                right_motor.run_angle(100, 1, wait = False)
-                left_motor.run_angle(-50, 1, wait = False)
-            brake_motors()
-            
-        elif is_yellow_right():
-            while not is_yellow_left():
-                left_motor.run_angle(80, 1, wait = False)
-                right_motor.run_angle(-10, 1, wait = False)
-            brake_motors()
-            
-# ---------------------------------
-
-    if cor_vista == "PAREDE":
-        if (is_black_left() or is_yellow_left()):
-            while not is_black_right() and not is_yellow_right():
-                right_motor.run_angle(100, 1, wait = False)
-                left_motor.run_angle(-50, 1, wait = False)
-            brake_motors()
+            while red_left() not in (get_treshold_left_black()) :
                 
-        elif (is_black_right() or is_yellow_right()):
-            while not is_black_left() and not is_yellow_left():
-                left_motor.run_angle(80, 1, wait = False)
-                right_motor.run_angle(-10, 1, wait = False)
-            brake_motors()
-            
-            
+                while red_left() > (max(get_treshold_left_black())) : #white
+                    left_motor.run_angle(40, 1, wait = False)
+                    right_motor.run_angle(-10, 1, wait = False)
+                   
+                
+                while red_left() < min(get_treshold_left_black()) : #black
+                    left_motor.run_angle(-40, 1, wait = False)
+                    right_motor.run_angle(10, 1, wait = False)
+                   
+
+            while red_right() not in (get_treshold_right_black()) :
+                
+                while red_right() > (max(get_treshold_right_black())) : #white
+                    right_motor.run_angle(40, 1, wait = False)
+                    left_motor.run_angle(-10, 1, wait = False)
+                    
+                    
+                while red_right() < (min(get_treshold_right_black())) : #black
+                    right_motor.run_angle(-40, 1, wait = False)
+                    left_motor.run_angle(10, 1, wait = False)
+
+
+# ----------------------------------------------------------------------------------------
+    if cor_vista == "RED":
+        
+        
+        while (blue_left() not in get_treshold_left_red() ) and (blue_right() not in get_treshold_right_red() ):
+           
+            while blue_left() not in get_treshold_left_red() :
+                
+                while blue_left() > max(get_treshold_left_red()) : #white
+                    left_motor.run_angle(40, 1, wait = False)
+                    right_motor.run_angle(-10, 1, wait = False)
+                   
+                
+                while blue_left() < min(get_treshold_left_red()) : #black
+                    left_motor.run_angle(-40, 1, wait = False)
+                    right_motor.run_angle(10, 1, wait = False)
+                   
+
+            while blue_right() not in get_treshold_right_red() :
+                
+                while blue_right() > max(get_treshold_right_red()) : #white
+                    right_motor.run_angle(40, 1, wait = False)
+                    left_motor.run_angle(-10, 1, wait = False)
+                    
+                    
+                while blue_right() < min(get_treshold_right_red()) : #black
+                    right_motor.run_angle(-40, 1, wait = False)
+                    left_motor.run_angle(10, 1, wait = False)
+
+    
+# ----------------------------------------------------------------------------------------
+    if cor_vista == "YELLOW":
+        print(blue_left(), blue_right())
+        while (blue_left() not in get_treshold_left_yellow() ) and (blue_right() not in get_treshold_right_yellow()):
+            print("Entrei")
+            while blue_left() not in get_treshold_left_yellow() :
+                
+                while blue_left() > max(get_treshold_left_yellow()) : 
+                    left_motor.run_angle(40, 1, wait = False)
+                    right_motor.run_angle(-10, 1, wait = False)
+                
+                
+                while blue_left() < min(get_treshold_left_yellow()) : 
+                    left_motor.run_angle(-40, 1, wait = False)
+                    right_motor.run_angle(10, 1, wait = False)
+                
+
+            while blue_right() not in get_treshold_right_yellow():
+                
+                while blue_right() > max(get_treshold_right_yellow()): 
+                    right_motor.run_angle(40, 1, wait = False)
+                    left_motor.run_angle(-10, 1, wait = False)
+                    
+                    
+                while blue_right() < min(get_treshold_right_yellow()): 
+                    right_motor.run_angle(-40, 1, wait = False)
+                    left_motor.run_angle(10, 1, wait = False)         
+
+        
+    print("Cor ajustada!")   
+    alined_to_wall()          
+    brake_motors()
+    wait(500)

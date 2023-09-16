@@ -1,108 +1,20 @@
 from modules.motors import *
 from modules.beeps import *
 from modules.claw import *
+from modules.variables import *
 
 from pybricks.tools import StopWatch
 
 crono = StopWatch()
 
-has_object_in = []
-
-def find_blue_line(numero_de_paredes):
-    if numero_de_paredes < 4:
-        brake_motors()
-        
-        cor_vista = ""
-        
-        print("procurando")
-        while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
-            andar_reto(360)   
-            #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
-        brake_motors()
-        if is_blue():
-            cor_vista = "AZUL"
-        elif is_red_left() or is_red_right():
-            cor_vista = "VERMELHO"
-        elif is_black_left() or is_black_right():
-            cor_vista = "PAREDE"
-        elif is_yellow_left() or is_yellow_right():
-            cor_vista = "PAREDE"
-        time_forward = cronometer.time()
-        if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
-            while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-                andar_reto(-360)
-            brake_motors()
-        if cor_vista != "":
-            ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
-            
-        if (is_red_left() or is_red_right()):
-            print("Achou vermelho")
-            brake_motors()
-            move_backward(3500) 
-            turn_left_pid(90)
-            brake_motors()
-            while not is_blue():
-                andar_reto(360)
-                if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
-                    brake_motors()
-                    turn_right_pid(180)
-                elif has_obstacle():
-                    brake_motors()
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(360)
-                    brake_motors()
-                    while ultrasound_sensor.distance() < 145:
-                        andar_reto(-150)
-                    brake_motors()
-                    turn_right_pid(90)
-                    cronometer.reset()
-                    while not is_red_left() and not is_red_right() and not has_obstacle():
-                        andar_reto(360)
-                    brake_motors()
-                    if cronometer.time() < 6000 or has_obstacle():
-                        turn_right_pid(180)
-                        while ultrasound_sensor.distance() > 145 and not is_red_left() and not is_red_right():
-                            andar_reto(360)
-                        brake_motors()
-                        if is_red_left() or is_red_right():
-                            move_backward(3500)
-                            turn_right_pid(90)
-                    else:
-                        move_backward(3500)
-                        turn_left_pid(90)
-                        find_blue_line(0)
-            brake_motors()
-            
-        elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
-            print("Achou parede")
-            print("Voltando...")
-            if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-                move_backward(700)
-            elif has_obstacle():
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(360)
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-150)
-                brake_motors()
-            turn_right_pid(90)
-            print("Vai somar mais um no numero_de_paredes")
-            print(numero_de_paredes)
-            find_blue_line(numero_de_paredes + 1)
-    else:
-        turn_right_pid(90)
-        while ultrasound_sensor.distance() > 145 and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
-            andar_reto(360)
-        brake_motors()
-        if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-            cor_vista = "PAREDE"
-            ajust_color(cor_vista)
-            move_backward(700)
-        find_blue_line(0)
 
 def go_to_check_point():
     turn_right_pid(90)
-    move_backward(1200)
+    wait(250)
+    move_backward(13)
+    wait(250)
     turn_left_pid(90)
+    wait(250)
 
 def tube_library():
     global has_object_in
@@ -118,18 +30,15 @@ def tube_library():
         motors.drive(vel, erro)
     brake_motors()
     
-    move_backward(800)
+    move_backward(6)
     turn_left_pid(90)
-    move_forward(2000) # Indo para a entrega
+    move_forward(32) # Indo para a entrega
     Open()
-    move_backward(2000) # Volta para a área de coleta a msm distância de ir
+    move_backward(32) # Volta para a área de coleta a msm distância de ir
     
-    turn_left_pid(180)
-    
-    while not is_blue():
-        andar_reto(360)
-    brake_motors()
-    
+    turn_left_pid(90)
+    move_backward(13)
+    turn_left_pid(90)
         
     
 def tube_city_hall():
@@ -260,7 +169,7 @@ def tube_school():
             turn_left_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(360)
-            cor_vista = "PAREDE"
+            cor_vista = "BLACK"
             brake_motors()
             ajust_color(cor_vista)
             move_backward(100)
@@ -270,9 +179,9 @@ def tube_school():
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
             brake_motors()
-            cor_vista = "VERMELHO"
+            cor_vista = "RED"
             ajust_color(cor_vista)
-            print("Bati no vermelho")
+            print("Bati no RED")
             move_backward(2800)
             turn_right_pid(90)
             move_forward(4900)
@@ -282,9 +191,9 @@ def tube_school():
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
             brake_motors()
-            cor_vista = "VERMELHO"
+            cor_vista = "RED"
             ajust_color(cor_vista)
-            print("Bati no vermelho 2")
+            print("Bati no RED 2")
             
             move_backward(700)
             turn_right_pid(90)
@@ -300,16 +209,16 @@ def tube_school():
             while not is_black_left() and not is_black_right():
                 andar_reto(360)
             brake_motors()
-            cor_vista = "PAREDE"
+            cor_vista = "BLACK"
             ajust_color(cor_vista)
             move_backward(1000)
             turn_left_pid(90)
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
             brake_motors()
-            cor_vista = "VERMELHO"
+            cor_vista = "RED"
             ajust_color(cor_vista)
-            print("Bati no vermelho")
+            print("Bati no RED")
             move_backward(3500)
             turn_left_pid(90)
             while not is_blue():
@@ -318,9 +227,9 @@ def tube_school():
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
             brake_motors()
-            cor_vista = "VERMELHO"
+            cor_vista = "RED"
             ajust_color(cor_vista)
-            print("Bati no vermelho")
+            print("Bati no RED")
             move_backward(500)
             turn_right_pid(90)
             move_forward(1500)
@@ -328,7 +237,7 @@ def tube_school():
             Open()
             move_backward(1500)
             turn_right_pid(90)
-            find_blue_line(0)
+            find_blue_line()
     else:
         move_forward(2500)#Distancia pequena 3500
         turn_right_pid(90)
@@ -343,7 +252,7 @@ def tube_school():
         move_backward(1000)
         turn_right_pid(90)
         #retorna para a área de coleta
-        find_blue_line(0)
+        find_blue_line()
         
 def tube_museum():
     global has_object_in
@@ -394,16 +303,16 @@ def tube_museum():
             while not is_black_left() and not is_black_right():
                 andar_reto(360)
             brake_motors()
-            cor_vista = "PAREDE"
+            cor_vista = "BLACK"
             ajust_color(cor_vista)
             move_backward(700)
             turn_left_pid(90)
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
             brake_motors()
-            cor_vista = "VERMELHO"
+            cor_vista = "RED"
             ajust_color(cor_vista)
-            print("Bati no vermelho")
+            print("Bati no RED")
             move_backward(3500)
             turn_left_pid(90)
             move_forward(3250)
@@ -413,7 +322,7 @@ def tube_museum():
             Open()
             move_backward(1500)
             turn_right_pid(90)
-            find_blue_line(0)
+            find_blue_line()
         else:
             move_forward(6000)
             if has_obstacle() or "H" in has_object_in: #sensor identificou objeto H:
@@ -427,14 +336,14 @@ def tube_museum():
                 Open()
                 move_backward(1500)
                 turn_right_pid(90)
-                find_blue_line(0)
+                find_blue_line()
             else:
                 while not is_red_left() and not is_red_right():
                     andar_reto(360)
                 brake_motors()
-                cor_vista = "VERMELHO"
+                cor_vista = "RED"
                 ajust_color(cor_vista)
-                print("Bati no vermelho")
+                print("Bati no RED")
                 move_backward(500)
                 turn_right_pid(90)
                 move_forward(1500)
@@ -442,7 +351,7 @@ def tube_museum():
                 Open()
                 move_backward(1500)
                 turn_right_pid(90)
-                find_blue_line(0)
+                find_blue_line()
                 
     else: # objeto J não existe
         print("Não existe J")
@@ -461,7 +370,7 @@ def tube_museum():
             Open()
             move_backward(1500)
             turn_right_pid(90)
-            find_blue_line(0)
+            find_blue_line()
             
         else: #Objeto "H" não existe
             print("Não existe H")
@@ -469,8 +378,8 @@ def tube_museum():
                 andar_reto(360)
             brake_motors()
             
-            print("Achou vermelho")
-            cor_vista = "VERMELHO"
+            print("Achou RED")
+            cor_vista = "RED"
             ajust_color(cor_vista)
             
             move_backward(700)
@@ -481,7 +390,7 @@ def tube_museum():
             Open()
             move_backward(1700)
             turn_right_pid(90)
-            find_blue_line(0)
+            find_blue_line()
         
                 
 def tube_drugstore():
@@ -539,7 +448,7 @@ def tube_drugstore():
             brake_motors()
             
             
-            cor_vista = "PRETO"
+            cor_vista = "BLACK"
             ajust_color(cor_vista)
             
             move_backward(500)
@@ -553,7 +462,7 @@ def tube_drugstore():
             move_backward(2200)
             turn_right_pid(90)
             
-            find_blue_line(0)
+            find_blue_line()
     
         else:    
             move_forward(2750)
@@ -563,7 +472,7 @@ def tube_drugstore():
             Open()
             move_backward(1000)
             turn_right_pid(90)
-            find_blue_line(0)
+            find_blue_line()
     else:
         move_forward(5700) # Mesmo valor do museum
         turn_right_pid(90)
@@ -586,7 +495,7 @@ def tube_drugstore():
                 #Abre e solta
                 move_backward(1500)
                 turn_right_pid(90)
-                find_blue_line(0) 
+                find_blue_line() 
             else:
                 move_forward(4)
                 turn_right_pid(90)
@@ -597,7 +506,7 @@ def tube_drugstore():
                 move_backward(1500)
                 turn_right_pid(90)
                 #Abre e retorna
-                find_blue_line(0)
+                find_blue_line()
         else:
             move_forward(2800)
             turn_left_pid(90)
@@ -606,7 +515,7 @@ def tube_drugstore():
             Open() #Entregou
             move_backward(1700)
             turn_right_pid(90)
-            find_blue_line(0)
+            find_blue_line()
         
 def tube_bakery():
     global has_object_in
@@ -663,7 +572,7 @@ def tube_bakery():
             while not is_black_left() and not is_black_right():
                 andar_reto(360)
             brake_motors()
-            cor_vista = "PAREDE"
+            cor_vista = "BLACK"
             ajust_color(cor_vista)
             move_backward(700)
             turn_right_pid(90)
@@ -671,16 +580,16 @@ def tube_bakery():
                 andar_reto(360)
             brake_motors()
             if is_red_left() or is_red_right():
-                cor_vista = "VERMELHO"
+                cor_vista = "RED"
                 ajust_color(cor_vista)
-                print("Bati no vermelho")
+                print("Bati no RED")
                 move_backward(700)
                 turn_right_pid(90)
                 move_forward(1500)
                 Open()
                 move_backward(1500)
                 turn_right_pid(90)
-                find_blue_line(0)
+                find_blue_line()
             else:
                 has_object_in.append("A")
                 while ultrasound_sensor.distance() > 145:
@@ -696,7 +605,7 @@ def tube_bakery():
                 Open()
                 move_backward(1500)
                 turn_right_pid(90)
-                find_blue_line(0)
+                find_blue_line()
         else:
             move_forward(4500)
             turn_left_pid(90)
@@ -710,23 +619,23 @@ def tube_bakery():
                 while not is_black_left() and not is_black_right():
                     andar_reto(360)
                 brake_motors()
-                cor_vista = "PAREDE"
+                cor_vista = "BLACK"
                 ajust_color(cor_vista)
                 move_backward(700)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
                     andar_reto(360)
                 brake_motors()
-                cor_vista = "VERMELHO"
+                cor_vista = "RED"
                 ajust_color(cor_vista)
-                print("Bati no vermelho")
+                print("Bati no RED")
                 move_backward(700)
                 turn_right_pid(90)
                 move_forward(1500)
                 Open()
                 move_backward(1500)
                 turn_right_pid(90)
-                find_blue_line(0)
+                find_blue_line()
             else:
                 move_forward(1500)
                 turn_right_pid(90)
@@ -735,7 +644,7 @@ def tube_bakery():
                 move_backward(1500)
                 turn_right_pid(90)
                 #Abre e retorna
-                find_blue_line(0)
+                find_blue_line()
     else:
         move_forward(5500)
         if has_obstacle() or "D" in has_object_in:
@@ -768,46 +677,46 @@ def tube_bakery():
                 while not is_black_left() and not is_black_right():
                     andar_reto(360)
                 brake_motors()
-                cor_vista = "PAREDE"
+                cor_vista = "BLACK"
                 ajust_color(cor_vista)
                 move_backward(700)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
                     andar_reto(360)
                 brake_motors()
-                cor_vista = "VERMELHO"
+                cor_vista = "RED"
                 ajust_color(cor_vista)
-                print("Bati no vermelho")
+                print("Bati no RED")
                 move_backward(700)
                 turn_right_pid(90)
                 move_forward(1500)
                 Open()
                 move_backward(1500)
                 turn_right_pid(90)
-                find_blue_line(0)
+                find_blue_line()
             else:
                 move_forward(4500)
                 turn_right_pid(90)
                 while not is_black_left() and not is_black_right():
                     andar_reto(360)
                 brake_motors()
-                cor_vista = "PAREDE"
+                cor_vista = "BLACK"
                 ajust_color(cor_vista)
                 move_backward(700)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
                     andar_reto(360)
                 brake_motors()
-                cor_vista = "VERMELHO"
+                cor_vista = "RED"
                 ajust_color(cor_vista)
-                print("Bati no vermelho")
+                print("Bati no RED")
                 move_backward(700)
                 turn_right_pid(90)
                 move_forward(1500)
                 Open()
                 move_backward(1500)
                 turn_right_pid(90)
-                find_blue_line(0)
+                find_blue_line()
         else:
             move_forward(3000)
             turn_right_pid(90)
@@ -816,7 +725,7 @@ def tube_bakery():
             move_backward(1500)
             turn_right_pid(90)
             #Abre e retorna
-            find_blue_line(0)
+            find_blue_line()
     
 def tube_park():
     
@@ -873,7 +782,7 @@ def tube_park():
                 andar_reto(360)
             brake_motors()
             
-            cor_vista = "PAREDE"
+            cor_vista = "BLACK"
             ajust_color(cor_vista)
             move_backward(700)
             turn_right_pid(90)
@@ -883,12 +792,12 @@ def tube_park():
             Open()
             move_backward(1500)
             turn_right_pid(90)
-            find_blue_line(0)
+            find_blue_line()
         else:
             while not is_black_left() and not is_black_right():
                 andar_reto(360)
             brake_motors()
-            cor_vista = "PAREDE"
+            cor_vista = "BLACK"
             ajust_color(cor_vista)
             
             move_backward(700)
@@ -905,12 +814,12 @@ def tube_park():
                 move_backward(1500)
                 turn_left_pid(90)
                 #Abre e retorna
-                find_blue_line(0)
+                find_blue_line()
             else:
                 while not is_red_left() and not is_red_right():
                     andar_reto(360)
                 brake_motors()
-                cor_vista = "VERMELHO"
+                cor_vista = "RED"
                 ajust_color(cor_vista)
                 
                 move_backward(700) # possivelmente eu reduza
@@ -920,7 +829,7 @@ def tube_park():
                 move_backward(1500)
                 turn_right_pid(90)
 
-                find_blue_line(0)
+                find_blue_line()
                 
     else:
         move_forward(6200)
@@ -957,7 +866,7 @@ def tube_park():
                 while not is_black_left() and not is_black_right():
                     andar_reto(360)
                 brake_motors()
-                cor_vista = "PAREDE"
+                cor_vista = "BLACK"
                 ajust_color(cor_vista)
                 move_backward(700)
                 turn_right_pid(90)
@@ -967,7 +876,7 @@ def tube_park():
                 Open()
                 move_backward(1500)
                 turn_right_pid(90)
-                find_blue_line(0)
+                find_blue_line()
                 
             else:
                 
@@ -977,7 +886,7 @@ def tube_park():
                 while not is_black_left() and not is_black_right():
                     andar_reto(360)
                 brake_motors()
-                cor_vista = "PAREDE"
+                cor_vista = "BLACK"
                 ajust_color(cor_vista)
                 
                 move_backward(700)
@@ -994,13 +903,13 @@ def tube_park():
                     move_backward(1500)
                     turn_left_pid(90)
                     #Abre e retorna
-                    find_blue_line(0)
+                    find_blue_line()
                     
                 else:
                     while not is_red_left() and not is_red_right():
                         andar_reto(360)
                     brake_motors()
-                    cor_vista = "VERMELHO"
+                    cor_vista = "RED"
                     ajust_color(cor_vista)
                     move_backward(500)
                     
@@ -1010,12 +919,12 @@ def tube_park():
                     move_backward(1500)
                     turn_right_pid(90)
                     
-                    find_blue_line(0)
+                    find_blue_line()
         else:
             while not is_black_left() and not is_black_right():
                 andar_reto(360)   
             brake_motors()
-            cor_vista = "PAREDE"
+            cor_vista = "BLACK"
             ajust_color(cor_vista)
             move_backward(700)
             turn_right_pid(90)
@@ -1031,7 +940,7 @@ def tube_park():
                 move_backward(1500)
                 turn_left_pid(90)
                 #Abre e retorna
-                find_blue_line(0)
+                find_blue_line()
             else:
                 move_forward(1800)
                 turn_left_pid(90)
@@ -1039,4 +948,4 @@ def tube_park():
                 Open()
                 move_backward(1550)
                 turn_right_pid(90)
-                find_blue_line(0)
+                find_blue_line()

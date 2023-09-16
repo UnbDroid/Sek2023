@@ -34,14 +34,13 @@ def find_blue_line(numero_de_paredes):
             andar_reto(360)   
             #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
         brake_motors()
-        if is_blue():
-            cor_vista = "AZUL"
-        elif is_red_left() or is_red_right():
-            cor_vista = "VERMELHO"
+    
+        if is_red_left() or is_red_right():
+            cor_vista = "RED"
         elif is_black_left() or is_black_right():
-            cor_vista = "PAREDE"
+            cor_vista = "BLACK"
         elif is_yellow_left() or is_yellow_right():
-            cor_vista = "PAREDE"
+            cor_vista = "YELLOW"
         time_forward = cronometer.time()
         if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
             while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
@@ -51,9 +50,9 @@ def find_blue_line(numero_de_paredes):
             ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
             
         if (is_red_left() or is_red_right()):
-            print("Achou vermelho")
+            print("Achou RED")
             brake_motors()
-            move_backward(3500) 
+            move_backward(43) 
             turn_left_pid(90)
             brake_motors()
             while not is_blue():
@@ -80,10 +79,10 @@ def find_blue_line(numero_de_paredes):
                             andar_reto(360)
                         brake_motors()
                         if is_red_left() or is_red_right():
-                            move_backward(3500)
+                            move_backward(43)
                             turn_right_pid(90)
                     else:
-                        move_backward(3500)
+                        move_backward(43)
                         turn_left_pid(90)
                         find_blue_line(0)
             brake_motors()
@@ -92,7 +91,7 @@ def find_blue_line(numero_de_paredes):
             print("Achou parede")
             print("Voltando...")
             if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-                move_backward(700)
+                move_backward(8)
             elif has_obstacle():
                 while ultrasound_sensor.distance() > 145:
                     andar_reto(360)
@@ -103,32 +102,34 @@ def find_blue_line(numero_de_paredes):
             print("Vai somar mais um no numero_de_paredes")
             print(numero_de_paredes)
             find_blue_line(numero_de_paredes + 1)
+        
     else:
         turn_right_pid(90)
         while ultrasound_sensor.distance() > 145 and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
             andar_reto(360)
         brake_motors()
         if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-            cor_vista = "PAREDE"
+            cor_vista = "BLACK"
             ajust_color(cor_vista)
-            move_backward(700)
+            move_backward(8)
         find_blue_line(0)
         
 def align_to_begin_scan():
     brake_motors()
     print("Achei o azul")
-    move_backward(100)
+    move_backward(0.6)
     turn_right_pid(90)
         
-    branco = 80
+    branco = 90 # 80
     azul = 10
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     chegou_no_fim = False
+    
     while not chegou_no_fim:
         
         delta = threshold - red_left()
-        kp = 0.8
+        kp = 0.45
         erro = delta * kp
         motors.drive(vel, erro)
         
@@ -136,14 +137,28 @@ def align_to_begin_scan():
             chegou_no_fim = True
             brake_motors()
             
+    wait(500)
+    move_backward(0.7)
+    brake_motors()
+    
+    wait(500) 
     turn_left_pid(90)
-    move_forward(1400)
+    brake_motors()
+    
+    wait(500) 
+    move_forward(14)
+    brake_motors()
+    
+    wait(500) 
     turn_left_pid(90)
+    brake_motors()
+    
     
 
 def scan():
     global color_of_tube
     global size_of_tube
+    
     cronometer.reset()
     print("Procurando tubo...")
     while not tube_is_detected():
@@ -172,22 +187,15 @@ def scan():
     print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
     
     cronometer.reset()
-    
-    valor_giro = -3
-    metrica = 6000
+
     while cronometer.time() < tempo:
         andar_reto(-150)
     brake_motors()
+    wait(250)
     
-        
+    move_forward(1)
     print("Sai do scan")
         
-        
-def align_to_begin_deliver():
-    turn_right_pid(90)
-    move_backward(1200)
-    turn_left_pid(90)
-
 def set_path():
     global color_of_tube
     global size_of_tube
