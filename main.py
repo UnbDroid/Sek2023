@@ -9,8 +9,8 @@ from modules.claw import *
 from pybricks.hubs import EV3Brick
 
 ev3 = EV3Brick()
-
-# Codigo ---------------------------------------------------------------------------------------
+# has_object_in = []
+# # Codigo ---------------------------------------------------------------------------------------
 
 find_blue_line(0)
 # print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
@@ -38,7 +38,6 @@ while True:
 
 #-----------------------------------------------------------------------------------------------
 
-# print(tube_is_detected())
 # Ajustar axle_track ---------------------------------------------------------------------------
 
 # for i in range(3):                                       # 1212

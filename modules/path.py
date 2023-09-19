@@ -35,29 +35,28 @@ def find_blue_line(numero_de_paredes):
         print("procurando")
         while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
             andar_reto(360)   
+            #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
         brake_motors()
-    
-    
-        if is_red_left() or is_red_right():
-            cor_vista = "RED"
+        if is_blue():
+            cor_vista = "AZUL"
+        elif is_red_left() or is_red_right():
+            cor_vista = "VERMELHO"
         elif is_black_left() or is_black_right():
-            cor_vista = "BLACK"
+            cor_vista = "PAREDE"
         elif is_yellow_left() or is_yellow_right():
-            cor_vista = "YELLOW"
+            cor_vista = "PAREDE"
         time_forward = cronometer.time()
-        
-        
         if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
             while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
                 andar_reto(-360)
             brake_motors()
         if cor_vista != "":
-            ajust_color(cor_vista)
+            ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
             
         if (is_red_left() or is_red_right()):
-            print("Achou RED")
+            print("Achou vermelho")
             brake_motors()
-            move_backward(43) 
+            move_backward(3500) 
             turn_left_pid(90)
             brake_motors()
             while not is_blue():
@@ -84,10 +83,10 @@ def find_blue_line(numero_de_paredes):
                             andar_reto(360)
                         brake_motors()
                         if is_red_left() or is_red_right():
-                            move_backward(43)
+                            move_backward(3500)
                             turn_right_pid(90)
                     else:
-                        move_backward(43)
+                        move_backward(3500)
                         turn_left_pid(90)
                         find_blue_line(0)
             brake_motors()
@@ -96,7 +95,7 @@ def find_blue_line(numero_de_paredes):
             print("Achou parede")
             print("Voltando...")
             if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-                move_backward(8)
+                move_backward(700)
             elif has_obstacle():
                 while ultrasound_sensor.distance() > 145:
                     andar_reto(360)
@@ -107,16 +106,15 @@ def find_blue_line(numero_de_paredes):
             print("Vai somar mais um no numero_de_paredes")
             print(numero_de_paredes)
             find_blue_line(numero_de_paredes + 1)
-        
     else:
         turn_right_pid(90)
         while ultrasound_sensor.distance() > 145 and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
             andar_reto(360)
         brake_motors()
         if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-            cor_vista = "BLACK"
+            cor_vista = "PAREDE"
             ajust_color(cor_vista)
-            move_backward(8)
+            move_backward(700)
         find_blue_line(0)
 
 
@@ -147,25 +145,18 @@ def align_to_begin_scan():
     
     
     # Manobra na área de coleta 
-            
     wait(500)
     move_backward(0.7)
-    brake_motors()
-    
+   
     wait(500) 
     turn_left_pid(90)
-    brake_motors()
     
     wait(500) 
     move_forward(14)
-    brake_motors()
-    
+
     wait(500) 
     turn_left_pid(90)
-    brake_motors()
-    
-    
-
+        
 def scan():
     global color_of_tube
     global size_of_tube

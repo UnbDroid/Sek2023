@@ -17,7 +17,7 @@ def go_to_check_point():
     wait(250)
 
 def tube_library():
-    global has_object_in
+    #global has_object_in
     crono.reset()
     branco = 88 
     azul = 14 #22
@@ -42,7 +42,7 @@ def tube_library():
         
     
 def tube_city_hall():
-    global has_object_in
+    #global has_object_in
     crono.reset()
     branco = 88
     azul = 14 #22
@@ -59,7 +59,7 @@ def tube_city_hall():
     move_forward(18) # Está indo em direção ao objeto J
     
     if has_obstacle() :# or "J" in has_object_in 
-        # has_object_in.append("J")
+        # #has_object_in.append("J")
         turn_right_pid(180)
         while not is_blue():
             andar_reto(360)
@@ -115,7 +115,7 @@ def tube_city_hall():
 
     
 def tube_school():
-    #global has_object_in
+    ##global has_object_in
     crono.reset()
     branco = 88
     azul = 14 #22 
@@ -132,7 +132,7 @@ def tube_school():
     move_forward(18)
     
     if has_obstacle() : #or "I" in has_object_in: #sensor identificou objeto "i":
-        #has_object_in.append("I")
+        ##has_object_in.append("I")
         turn_left_pid(180)
         while not is_blue():
             andar_reto(360)
@@ -152,7 +152,7 @@ def tube_school():
         
         while crono.time() < 6000:
             delta = threshold - red_left()
-            kp = 1.0 (0.8)
+            kp = 1.0 #(0.8)
             erro = delta * kp
             motors.drive(vel, erro)
         brake_motors()
@@ -162,8 +162,8 @@ def tube_school():
         
         turn_right_pid(90)
         move_forward(15)
-        if has_obstacle() or "G" in has_object_in: #Objeto "G":
-            has_object_in.append("G")
+        if has_obstacle(): # "G" in has_object_in: #Objeto "G":
+            #has_object_in.append("G")
             move_backward(1000)
             turn_left_pid(90)
             while not is_black_left() and not is_black_right():
@@ -253,7 +253,7 @@ def tube_school():
         brake_motors()
         
 def tube_museum():
-    global has_object_in
+    #global has_object_in
     crono.reset()
     branco = 88 
     azul = 14 #22
@@ -269,8 +269,8 @@ def tube_museum():
     turn_left_pid(90)
     move_forward(1000) # Está indo em direção ao objeto J
     
-    if has_obstacle() or "J" in has_object_in: #sensor identificou objeto "j":
-        has_object_in.append("J")
+    if has_obstacle(): # "J" in has_object_in: #sensor identificou objeto "j":
+        #has_object_in.append("J")
         move_backward(1000)
         turn_right_pid(180)
         while not is_blue():
@@ -294,8 +294,8 @@ def tube_museum():
         move_forward(6500)
         turn_left_pid(90)
         move_forward(1000)
-        if has_obstacle() or "G" in has_object_in: #sensor identificou objeto G:
-            has_object_in.append("G")
+        if has_obstacle(): # "G" in has_object_in: #sensor identificou objeto G:
+            #has_object_in.append("G")
             move_backward(1000)
             turn_right_pid(90)
             while not is_black_left() and not is_black_right():
@@ -323,8 +323,8 @@ def tube_museum():
             find_blue_line()
         else:
             move_forward(6000)
-            if has_obstacle() or "H" in has_object_in: #sensor identificou objeto H:
-                has_object_in.append("H")
+            if has_obstacle(): # "H" in has_object_in: #sensor identificou objeto H:
+                #has_object_in.append("H")
                 move_backward(1000)
                 turn_right_pid(90)
                 move_forward(3000)
@@ -357,8 +357,8 @@ def tube_museum():
         turn_left_pid(90)
         move_forward(800)
     
-        if has_obstacle() or "H" in has_object_in: #Objeto "H":
-            has_object_in.append("H")
+        if has_obstacle(): # "H" in has_object_in: #Objeto "H":
+            #has_object_in.append("H")
             move_backward(1000)
             turn_right_pid(90)
             move_forward(2000)
@@ -392,7 +392,7 @@ def tube_museum():
         
                 
 def tube_drugstore():
-    global has_object_in
+    #global has_object_in
     crono.reset()
     branco = 88 
     azul = 14 #22
@@ -408,8 +408,8 @@ def tube_drugstore():
     turn_left_pid(90)
     move_forward(1000)
     
-    if has_obstacle() or "J" in has_object_in: #Objeto "J":
-        has_object_in.append("J")
+    if has_obstacle(): # "J" in has_object_in: #Objeto "J":
+        #has_object_in.append("J")
         turn_right_pid(180)
         while not is_blue():
             andar_reto(360)
@@ -436,8 +436,8 @@ def tube_drugstore():
         turn_left_pid(90)
         move_forward(500)
         
-        if has_obstacle() or "G" in has_object_in: #Objeto "G":
-            has_object_in.append("G")
+        if has_obstacle(): # "G" in has_object_in: #Objeto "G":
+            #has_object_in.append("G")
             move_backward(500)
             turn_right_pid(90)
             
@@ -475,11 +475,11 @@ def tube_drugstore():
         move_forward(5700) # Mesmo valor do museum
         turn_right_pid(90)
     
-        if has_obstacle() or "G" in has_object_in: #Objeto "G":
-            has_object_in.append("G")
+        if has_obstacle(): # "G" in has_object_in: #Objeto "G":
+            #has_object_in.append("G")
             turn_left_pid(90)
-            if has_obstacle() or "E" in has_object_in: #Objeto "E":
-                has_object_in.append("E")
+            if has_obstacle(): # "E" in has_object_in: #Objeto "E":
+                #has_object_in.append("E")
                 move_backward(5)
                 turn_right_pid(90)
                 move_forward(4)
@@ -516,7 +516,7 @@ def tube_drugstore():
             find_blue_line()
         
 def tube_bakery():
-    global has_object_in
+    #global has_object_in
     crono.reset()
     branco = 88
     azul = 14 #22 
@@ -532,8 +532,8 @@ def tube_bakery():
     turn_left_pid(90)
     move_forward(1000)
     
-    if has_obstacle() or "I" in has_object_in: #Objeto "I":
-        has_object_in.append("I")
+    if has_obstacle(): # "I" in has_object_in: #Objeto "I":
+        #has_object_in.append("I")
         move_backward(1000)
         turn_left_pid(180)
         while not is_blue():
@@ -563,8 +563,8 @@ def tube_bakery():
         move_forward(7000)
         turn_right_pid(90)
         move_forward(1000)
-        if has_obstacle() or "G" in has_object_in: #objeto "G":
-            has_object_in.append("G")
+        if has_obstacle(): # "G" in has_object_in: #objeto "G":
+            #has_object_in.append("G")
             move_backward(1000)
             turn_left_pid(90)
             while not is_black_left() and not is_black_right():
@@ -589,7 +589,7 @@ def tube_bakery():
                 turn_right_pid(90)
                 find_blue_line()
             else:
-                has_object_in.append("A")
+                #has_object_in.append("A")
                 while ultrasound_sensor.distance() > 145:
                     andar_reto(360)
                 brake_motors()
@@ -608,8 +608,8 @@ def tube_bakery():
             move_forward(4500)
             turn_left_pid(90)
             move_forward(1000)
-            if has_obstacle() or "D" in has_object_in: 
-                has_object_in.append("D")
+            if has_obstacle(): # "D" in has_object_in: 
+                #has_object_in.append("D")
                 move_backward(1000)
                 turn_left_pid(90)
                 move_forward(5500)
@@ -645,12 +645,12 @@ def tube_bakery():
                 find_blue_line()
     else:
         move_forward(5500)
-        if has_obstacle() or "D" in has_object_in:
-            has_object_in.append("D")
+        if has_obstacle(): # "D" in has_object_in:
+            #has_object_in.append("D")
             turn_left_pid(90)
             move_forward(1000)
-            if has_obstacle() or "G" in has_object_in:
-                has_object_in.append("G")
+            if has_obstacle(): # "G" in has_object_in:
+                #has_object_in.append("G")
                 move_backward(1000)
                 turn_left_pid(90)
                 while not is_blue():
@@ -727,7 +727,7 @@ def tube_bakery():
     
 def tube_park():
     
-    global has_object_in
+    #global has_object_in
     crono.reset()
     branco = 88 
     azul = 14 #22
@@ -743,9 +743,9 @@ def tube_park():
     turn_left_pid(90)
     move_forward(1000)
     
-    if has_obstacle() or "J" in has_object_in: #objeto "J":
+    if has_obstacle(): # "J" in has_object_in: #objeto "J":
         print("Tem um objeto no J indo pro Park")
-        has_object_in.append("J")
+        #has_object_in.append("J")
         turn_right_pid(180)
         while not is_blue():
             andar_reto(360)
@@ -770,9 +770,9 @@ def tube_park():
         turn_left_pid(90)
         move_forward(6400)
         
-        if has_obstacle() or "D" in has_object_in: #objeto "D":
+        if has_obstacle(): # "D" in has_object_in: #objeto "D":
             print("Tem objeto no D")
-            has_object_in.append("D")
+            #has_object_in.append("D")
             turn_left_pid(90)
             move_forward(5750)
             turn_right_pid(90)
@@ -802,8 +802,8 @@ def tube_park():
             turn_right_pid(90)
             move_forward(500)
             
-            if has_obstacle() or "A" in has_object_in: #objeto "A":
-                has_object_in.append("A")
+            if has_obstacle(): # "A" in has_object_in: #objeto "A":
+                #has_object_in.append("A")
                 turn_right_pid(180)
                 move_forward(3750)
                 turn_right_pid(90)
@@ -832,14 +832,14 @@ def tube_park():
     else:
         move_forward(6200)
         
-        if has_obstacle() or "E" in has_object_in: #objeto "E":
-            has_object_in.append("E")
+        if has_obstacle(): # "E" in has_object_in: #objeto "E":
+            #has_object_in.append("E")
             move_backward(400)
             turn_right_pid(90)
             move_forward(500)
             
             
-            if has_obstacle() or "G" in has_object_in: #objeto "G":
+            if has_obstacle(): # "G" in has_object_in: #objeto "G":
                 move_backward(500)
                 turn_right_pid(90)
                 while not is_blue():
@@ -891,8 +891,8 @@ def tube_park():
                 turn_right_pid(90)
                 move_forward(500)
                 
-                if has_obstacle() or "A" in has_object_in: #objeto "A":
-                    has_object_in.append("A")
+                if has_obstacle(): # "A" in has_object_in: #objeto "A":
+                    #has_object_in.append("A")
                     turn_right_pid(180)
                     move_forward(3250)
                     turn_right_pid(90)
@@ -927,8 +927,8 @@ def tube_park():
             move_backward(700)
             turn_right_pid(90)
             move_forward(500)
-            if has_obstacle() or "B" in has_object_in: #objeto "B":
-                has_object_in.append("B")
+            if has_obstacle(): # "B" in has_object_in: #objeto "B":
+                #has_object_in.append("B")
                 move_backward(500)
                 turn_right_pid(180)
                 move_forward(2750)

@@ -190,25 +190,25 @@ def ajust_color(cor_vista):
             while blue_left() not in get_treshold_left_red() :
                 
                 while blue_left() > max(get_treshold_left_red()) : #white
-                    left_motor.run_angle(40, 1, wait = False)
-                    right_motor.run_angle(-10, 1, wait = False)
+                    left_motor.run_angle(60, 1, wait = False)
+                    right_motor.run_angle(-40, 1, wait = False)
                    
                 
                 while blue_left() < min(get_treshold_left_red()) : #black
-                    left_motor.run_angle(-40, 1, wait = False)
-                    right_motor.run_angle(10, 1, wait = False)
+                    left_motor.run_angle(-60, 1, wait = False)
+                    right_motor.run_angle(40, 1, wait = False)
                    
 
             while blue_right() not in get_treshold_right_red() :
                 
                 while blue_right() > max(get_treshold_right_red()) : #white
-                    right_motor.run_angle(40, 1, wait = False)
-                    left_motor.run_angle(-10, 1, wait = False)
+                    right_motor.run_angle(60, 1, wait = False)
+                    left_motor.run_angle(-40, 1, wait = False)
                     
                     
                 while blue_right() < min(get_treshold_right_red()) : #black
-                    right_motor.run_angle(-40, 1, wait = False)
-                    left_motor.run_angle(10, 1, wait = False)
+                    right_motor.run_angle(-60, 1, wait = False)
+                    left_motor.run_angle(40, 1, wait = False)
 
     
 # ----------------------------------------------------------------------------------------

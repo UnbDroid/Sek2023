@@ -1,6 +1,8 @@
 from pybricks.ev3devices import ColorSensor
 from pybricks.parameters import Port
 
+from modules.variables import *
+
 color_sensor_floor_left = ColorSensor(Port.S1)
 color_sensor_floor_right = ColorSensor(Port.S2)
 
@@ -27,16 +29,48 @@ def blue_right():
     return color_sensor_floor_right.rgb()[2]
 
 
+#azul os dois Esquerda:  (13, 27, 99) Direita:  (16, 31, 100)
+# VERMELHO OS DOIS : Esquerda:  (89, 19, 25) Direita:  (89, 19, 36)
+# BRANCO OS DOIS : Esquerda:  (90, 92, 100) Direita:  (93, 96, 100)
+# AMARELO : Esquerda:  (95, 84, 48) Direita:  (100, 96, 67)
+# PRETO   : Esquerda:  (10, 12, 15) Direita:  (10, 10, 21)
+
+# Atomação thamires.13 ------------------------------------------------------------------
+
+range_max_black_left = get_range_colors([10, 12, 15], 'max')
+range_min_black_left = get_range_colors([10, 12, 15], 'min')
+
+range_max_black_right = get_range_colors([10, 10, 21], 'max')
+range_min_black_right = get_range_colors([10, 10, 21], 'min')
+
+# -----------------------------------------------
+
+range_max_yellow_left = get_range_colors([95, 84, 48], 'max')
+range_min_yellow_left = get_range_colors([95, 84, 48], 'min')
+
+range_max_yellow_right = get_range_colors([100, 96, 67], 'max')
+range_min_yellow_right = get_range_colors([100, 96, 67], 'min')
+
+# -----------------------------------------------
+
+range_max_blue_left = get_range_colors([13, 27, 99], 'max')
+range_min_blue_left = get_range_colors([13, 27, 99], 'min')
+
+range_max_blue_right = get_range_colors([16, 31, 100], 'max')
+range_min_blue_right = get_range_colors([16, 31, 100], 'min')
+
+# -----------------------------------------------
+
+range_max_red_left = get_range_colors([85, 16, 21], 'max')
+range_min_red_left = get_range_colors([85, 16, 21], 'min')
+
+range_max_red_right = get_range_colors([91, 22, 36], 'max')
+range_min_red_right = get_range_colors([91, 22, 36], 'min')
 
 # Range das cores ------------------------------------------------------------------------
  
 ## BLACK ##
 
-range_max_black_left = [21, 22, 23]
-range_min_black_left = [1, 2, 3]
-
-range_max_black_right = [20, 22, 31]
-range_min_black_right = [0, 2, 11]
 
 def is_black_left():
     return range_min_black_left[0] <= red_left() <= range_max_black_left[0] and range_min_black_left[1] <= green_left() <= range_max_black_left[1] and range_min_black_left[2] <= blue_left() <= range_max_black_left[2]
@@ -50,11 +84,6 @@ def is_black():
 
 ## YELLOW ##
 
-range_max_yellow_left = [92, 89, 50]
-range_min_yellow_left = [62, 59, 20]
-
-range_max_yellow_right = [96, 98, 71]
-range_min_yellow_right = [66, 68, 41]
 
 def is_yellow_left():
     return range_min_yellow_left[0] <= red_left() <= range_max_yellow_left[0] and range_min_yellow_left[1] <= green_left() <= range_max_yellow_left[1] and range_min_yellow_left[2] <= blue_left() <= range_max_yellow_left[2]
@@ -67,11 +96,6 @@ def is_yellow():
 
 ## BLUE ##
 
-range_max_blue_left = [30, 44, 110]
-range_min_blue_left = [0, 14, 80]
-
-range_max_blue_right = [30, 45, 115]
-range_min_blue_right = [0, 15, 85]
 
 def is_blue_left():
     return range_min_blue_left[0] <= red_left() <= range_max_blue_left[0] and range_min_blue_left[1] <= green_left() <= range_max_blue_left[1] and range_min_blue_left[2] <= blue_left() <= range_max_blue_left[2]
@@ -84,11 +108,6 @@ def is_blue():
 
 ## RED ##
 
-range_max_red_left = [94, 33, 34]
-range_min_red_left = [64, 3, 4]
-
-range_max_red_right = [92, 35, 45]
-range_min_red_right = [62, 5, 15]
 
 def is_red_left():
     return range_min_red_left[0] <= red_left() <= range_max_red_left[0] and range_min_red_left[1] <= green_left() <= range_max_red_left[1] and range_min_red_left[2] <= blue_left() <= range_max_red_left[2]
