@@ -22,7 +22,7 @@ def has_obstacle():
 
 
 def is_red_tube():
-    return tube_verificator.rgb()[0] >= (tube_verificator.rgb()[1] + tube_verificator.rgb()[2])
+    return tube_verificator.rgb()[0] >= (tube_verificator.rgb()[1] + tube_verificator.rgb()[2]) and tube_verificator.rgb()[0] > 20
 
 def is_green_tube():
     return (tube_verificator.rgb()[0] + tube_verificator.rgb()[2]) <= tube_verificator.rgb()[1]
@@ -30,3 +30,5 @@ def is_green_tube():
 def is_blue_tube():
     return (tube_verificator.rgb()[0] + tube_verificator.rgb()[1]) <= tube_verificator.rgb()[2]
 
+def is_brown_tube():
+    return tube_verificator.rgb()[0] >= (tube_verificator.rgb()[1] + tube_verificator.rgb()[2]) and tube_verificator.rgb()[0] < 10 and tube_verificator.rgb()[0] > 2

@@ -2,7 +2,7 @@ from modules.motors import *
 from modules.beeps import *
 from modules.claw import *
 from modules.variables import *
-
+from modules.path import *
 from pybricks.tools import StopWatch
 
 crono = StopWatch()
@@ -131,8 +131,8 @@ def tube_school():
     turn_left_pid(90)
     move_forward(18)
     
-    if has_obstacle() : #or "I" in has_object_in: #sensor identificou objeto "i":
-        ##has_object_in.append("I")
+    if has_obstacle():
+        found_wall()
         turn_left_pid(180)
         while not is_blue():
             andar_reto(360)
@@ -143,27 +143,27 @@ def tube_school():
         brake_motors()
         turn_right_pid(90)
         
-        branco = 80
-        azul = 10
-        threshold = (branco + azul) / 2  # = 40
+        
+    
+        branco = 90
+        azul = 13
+        threshold = (branco + azul) / 2  
         vel = 100
         crono.reset()
-        
-        
         while crono.time() < 6000:
             delta = threshold - red_left()
             kp = 1.0 #(0.8)
             erro = delta * kp
             motors.drive(vel, erro)
+            
         brake_motors()
         turn_right_pid(90)
         move_forward(66)
-        #G
-        
         turn_right_pid(90)
+        #G
         move_forward(15)
-        if has_obstacle(): # "G" in has_object_in: #Objeto "G":
-            #has_object_in.append("G")
+        
+        if has_obstacle(): 
             move_backward(1000)
             turn_left_pid(90)
             while not is_black_left() and not is_black_right():
@@ -227,15 +227,13 @@ def tube_school():
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
             brake_motors()
-            cor_vista = "RED"
-            ajust_color(cor_vista)
             print("Bati no RED")
-            move_backward(500)
+            move_backward(6)
             turn_right_pid(90)
-            move_forward(1500)
+            move_forward(15)
             #abre e retorna
             Open()
-            move_backward(1500)
+            move_backward(15)
             turn_right_pid(90)
             find_blue_line(0)
     else:

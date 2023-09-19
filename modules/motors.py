@@ -5,8 +5,6 @@ from pybricks.tools import StopWatch
 from pybricks.robotics import DriveBase
 
 from pybricks.tools import wait
-from modules.colors import *
-from modules.detect import *
 from modules.path import *
 from modules.variables import *
 
