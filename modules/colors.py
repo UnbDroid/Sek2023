@@ -6,6 +6,8 @@ color_sensor_floor_right = ColorSensor(Port.S2)
 
 cor_vista = ""
 
+# Get colors  ----------------------------------------------
+
 def red_left():
     return color_sensor_floor_left.rgb()[0]
 
@@ -24,7 +26,11 @@ def green_right():
 def blue_right():
     return color_sensor_floor_right.rgb()[2]
 
-# -------------------------------------------------------------
+
+
+# Range das cores ------------------------------------------------------------------------
+ 
+## BLACK ##
 
 range_max_black_left = [21, 22, 23]
 range_min_black_left = [1, 2, 3]
@@ -41,7 +47,8 @@ def is_black_right():
 def is_black():
     return is_black_left() and is_black_right()
 
-# -------------------------------------------------------------
+
+## YELLOW ##
 
 range_max_yellow_left = [92, 89, 50]
 range_min_yellow_left = [62, 59, 20]
@@ -58,7 +65,7 @@ def is_yellow_right():
 def is_yellow():
     return is_yellow_left() and is_yellow_right()
 
-# -------------------------------------------------------------
+## BLUE ##
 
 range_max_blue_left = [30, 44, 110]
 range_min_blue_left = [0, 14, 80]
@@ -75,7 +82,7 @@ def is_blue_right():
 def is_blue():
     return is_blue_left() and is_blue_right()
 
-# -------------------------------------------------------------
+## RED ##
 
 range_max_red_left = [94, 33, 34]
 range_min_red_left = [64, 3, 4]
@@ -92,10 +99,29 @@ def is_red_right():
 def is_red():
     return is_red_left() and is_red_right()
 
-# -------------------------------------------------------------
+
+## BROWN ##
+
+rage_max_brown_left = [30, 30, 30]
+rage_min_brown_left = [0, 0, 0]
+
+range_max_brown_right = [30, 30, 30]
+range_min_brown_right = [0, 0, 0]
+
+def is_brown_left():
+    return range_min_brown_left[0] <= red_left() <= range_max_brown_left[0] and range_min_brown_left[1] <= green_left() <= range_max_brown_left[1] and range_min_brown_left[2] <= blue_left() <= range_max_brown_left[2]
+
+def is_brown_right():
+    return range_min_brown_right[0] <= red_right() <= range_max_brown_right[0] and range_min_brown_right[1] <= green_right() <= range_max_brown_right[1] and range_min_brown_right[2] <= blue_right() <= range_max_brown_right[2]
+
+def is_brown():
+    return is_brown_left() and is_brown_right()
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 def is_wall():
     return (is_black_left() and is_yellow_right()) or (is_yellow_left() and is_black_right())
 
 
-# -------------------------------------------------------------

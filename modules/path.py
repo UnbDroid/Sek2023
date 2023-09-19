@@ -23,6 +23,9 @@ print('waiting for connection...')
 server.wait_for_connection()
 print('connected!')
 
+
+# Função recursiva para achar a área azul ---------------------------------------------------------------------------------
+
 def find_blue_line(numero_de_paredes):
     if numero_de_paredes < 4:
         brake_motors()
@@ -32,8 +35,8 @@ def find_blue_line(numero_de_paredes):
         print("procurando")
         while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
             andar_reto(360)   
-            #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
         brake_motors()
+    
     
         if is_red_left() or is_red_right():
             cor_vista = "RED"
@@ -42,12 +45,14 @@ def find_blue_line(numero_de_paredes):
         elif is_yellow_left() or is_yellow_right():
             cor_vista = "YELLOW"
         time_forward = cronometer.time()
+        
+        
         if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
             while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
                 andar_reto(-360)
             brake_motors()
         if cor_vista != "":
-            ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
+            ajust_color(cor_vista)
             
         if (is_red_left() or is_red_right()):
             print("Achou RED")
@@ -113,7 +118,10 @@ def find_blue_line(numero_de_paredes):
             ajust_color(cor_vista)
             move_backward(8)
         find_blue_line(0)
-        
+
+
+# Se alinhando no azul para iniciar o scan ---------------------------------------------------------------------------------
+      
 def align_to_begin_scan():
     brake_motors()
     print("Achei o azul")
@@ -136,6 +144,9 @@ def align_to_begin_scan():
         if is_red_right():
             chegou_no_fim = True
             brake_motors()
+    
+    
+    # Manobra na área de coleta 
             
     wait(500)
     move_backward(0.7)
@@ -195,14 +206,17 @@ def scan():
     
     move_forward(1)
     print("Sai do scan")
-        
+
+
+       
 def set_path():
     global color_of_tube
     global size_of_tube
     
     print("Entrei")
     if size_of_tube == 15:
-        print("Tem 15 cm")#$%¨&*(
+        
+        print("Tem 15 cm")
         if color_of_tube == "RED": #Farmacia
             tube_drugstore()
         if color_of_tube == "GREEN": #Prefeitura
@@ -212,7 +226,7 @@ def set_path():
         if color_of_tube == "BROWN": #Padaria
             tube_bakery()
     else:
-        print("Entrei no else")#$%¨&*(
+        # print("Tem 10 cm")
         
         if color_of_tube == "GREEN": #Parque
             tube_park()

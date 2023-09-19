@@ -10,6 +10,7 @@ def found_wall():
     ev3.speaker.beep(1000, 500)
     wait(250)
     ev3.speaker.beep(1000, 500)
+    # Teste
     
 def not_found_wall():
     ev3.speaker.beep(100, 1000)
