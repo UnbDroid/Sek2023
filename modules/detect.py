@@ -29,3 +29,4 @@ def is_green_tube():
 
 def is_blue_tube():
     return (tube_verificator.rgb()[0] + tube_verificator.rgb()[1]) <= tube_verificator.rgb()[2]
+

@@ -119,6 +119,7 @@ def turn_left_pid(x):
         # print(calculate_error_right(setpoint)) # Teste para o erro
         
     brake_motors()
+    wait(200)
     
 def turn_right_pid(x):  
     kp = 1.0
@@ -140,6 +141,7 @@ def turn_right_pid(x):
         # print(calculate_error(setpoint)) # Teste para o erro
          
     brake_motors()
+    wait(200)
     
 
 # ALINHAMENTO NAS CORES--------------------------------------------------------------------------------------------
