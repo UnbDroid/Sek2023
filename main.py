@@ -12,22 +12,23 @@ ev3 = EV3Brick()
 # has_object_in = []
 # # Codigo ---------------------------------------------------------------------------------------
 
-# find_blue_line(0)
-# ev3.speaker.beep(444, 1000)
-# while True:
-#     align_to_begin_scan()
-#     ev3.speaker.beep(444, 1000)
-#     scan()
-#     ev3.speaker.beep(444, 1000)
-#     go_to_check_point()
-#     ev3.speaker.beep(444, 1000)
-#     set_path()
-#     ev3.speaker.beep(444, 1000)
+find_blue_line(0)
+ev3.speaker.beep(444, 1000)
+while True:
+    align_to_begin_scan()
+    ev3.speaker.beep(444, 1000)
+    scan()
+    ev3.speaker.beep(444, 1000)
+    go_to_check_point()
+    ev3.speaker.beep(444, 1000)
+    set_path()
+    ev3.speaker.beep(444, 1000)
 
 # Editando o Range------------------------------------------------------------------------------
+
 # while True:
-#     print("Vejo?",tube_is_detected(), "Cor",is_brown_tube() )
-    #Cor (4, 2, 0)
+    # print("Vejo?",tube_is_detected(), "Cor",is_brown_tube() )
+    # Cor (4, 2, 0)
     # Vejo? True Cor (38, 4, 1)
 
 
@@ -117,3 +118,11 @@ ev3 = EV3Brick()
 # Ajustar a distância --------------------------------------------------------------------------
 
 # move_backward(43)
+
+#-----------------------------------------------------------------------------------------------
+
+# Teste de girar o motor -----------------------------------------------------------------------
+
+# while True:
+#     left_motor.run(40)
+#     right_motor.run(-30)

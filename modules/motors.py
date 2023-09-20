@@ -7,6 +7,8 @@ from pybricks.robotics import DriveBase
 from pybricks.tools import wait
 from modules.path import *
 from modules.variables import *
+from modules.colors import *
+from modules.beeps import *
 
 left_motor = Motor(Port.A) 
 right_motor = Motor(Port.B)
@@ -79,6 +81,7 @@ def brake_motors():
 def move_forward(distancia, vel=360):
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
+    motors.stop()
     angulo = (distancia * 3398)/124
     while left_motor.angle() < angulo or right_motor.angle() < angulo:
         andar_reto(vel)   
@@ -90,6 +93,7 @@ def move_forward(distancia, vel=360):
 def move_backward(distancia, vel=360):
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
+    motors.stop()
     angulo = (distancia * -1496)/55
     while left_motor.angle() > angulo or right_motor.angle() > angulo:
         andar_reto(-vel)
@@ -158,25 +162,25 @@ def ajust_color(cor_vista):
             while red_left() not in (get_treshold_left_black()) :
                 
                 while red_left() > (max(get_treshold_left_black())) : #white
-                    left_motor.run_angle(40, 1, wait = False)
-                    right_motor.run_angle(-10, 1, wait = False)
+                    left_motor.run(40)
+                    right_motor.run(-10)
                    
                 
                 while red_left() < min(get_treshold_left_black()) : #black
-                    left_motor.run_angle(-40, 1, wait = False)
-                    right_motor.run_angle(10, 1, wait = False)
+                    left_motor.run(-40)
+                    right_motor.run(10)
                    
 
             while red_right() not in (get_treshold_right_black()) :
                 
                 while red_right() > (max(get_treshold_right_black())) : #white
-                    right_motor.run_angle(40, 1, wait = False)
-                    left_motor.run_angle(-10, 1, wait = False)
+                    right_motor.run(40)
+                    left_motor.run(-10)
                     
                     
                 while red_right() < (min(get_treshold_right_black())) : #black
-                    right_motor.run_angle(-40, 1, wait = False)
-                    left_motor.run_angle(10, 1, wait = False)
+                    right_motor.run(-40)
+                    left_motor.run(10)
 
 
 # ----------------------------------------------------------------------------------------
@@ -188,25 +192,25 @@ def ajust_color(cor_vista):
             while blue_left() not in get_treshold_left_red() :
                 
                 while blue_left() > max(get_treshold_left_red()) : #white
-                    left_motor.run_angle(60, 1, wait = False)
-                    right_motor.run_angle(-40, 1, wait = False)
+                    left_motor.run(60)
+                    right_motor.run(-40)
                    
                 
                 while blue_left() < min(get_treshold_left_red()) : #black
-                    left_motor.run_angle(-60, 1, wait = False)
-                    right_motor.run_angle(40, 1, wait = False)
+                    left_motor.run(-60)
+                    right_motor.run(40)
                    
 
             while blue_right() not in get_treshold_right_red() :
                 
                 while blue_right() > max(get_treshold_right_red()) : #white
-                    right_motor.run_angle(60, 1, wait = False)
-                    left_motor.run_angle(-40, 1, wait = False)
+                    right_motor.run(60)
+                    left_motor.run(-40)
                     
                     
                 while blue_right() < min(get_treshold_right_red()) : #black
-                    right_motor.run_angle(-60, 1, wait = False)
-                    left_motor.run_angle(40, 1, wait = False)
+                    right_motor.run(-60)
+                    left_motor.run(40)
 
     
 # ----------------------------------------------------------------------------------------
@@ -218,27 +222,27 @@ def ajust_color(cor_vista):
             while blue_left() not in get_treshold_left_yellow() :
                 
                 while blue_left() > max(get_treshold_left_yellow()) : 
-                    left_motor.run_angle(40, 1, wait = False)
-                    right_motor.run_angle(-10, 1, wait = False)
+                    left_motor.run(40)
+                    right_motor.run(-10)
                 
                 
                 while blue_left() < min(get_treshold_left_yellow()) : 
-                    left_motor.run_angle(-40, 1, wait = False)
-                    right_motor.run_angle(10, 1, wait = False)
+                    left_motor.run(-40)
+                    right_motor.run(10)
                 
 
             while blue_right() not in get_treshold_right_yellow():
                 
                 while blue_right() > max(get_treshold_right_yellow()): 
-                    right_motor.run_angle(40, 1, wait = False)
-                    left_motor.run_angle(-10, 1, wait = False)
+                    right_motor.run(40)
+                    left_motor.run(-10)
                     
                     
                 while blue_right() < min(get_treshold_right_yellow()): 
-                    right_motor.run_angle(-40, 1, wait = False)
-                    left_motor.run_angle(10, 1, wait = False)         
+                    right_motor.run(-40)
+                    left_motor.run(10)         
 
-        
+    brake_motors()
     print("Cor ajustada!")   
     alined_to_wall()          
     brake_motors()

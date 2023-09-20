@@ -33,30 +33,30 @@ def find_blue_line(numero_de_paredes):
         cor_vista = ""
         
         print("procurando")
+        
+        cronometer.reset()
         while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
             andar_reto(360)   
             #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
         brake_motors()
-        if is_blue():
-            cor_vista = "AZUL"
-        elif is_red_left() or is_red_right():
-            cor_vista = "VERMELHO"
-        elif is_black_left() or is_black_right():
-            cor_vista = "PAREDE"
-        elif is_yellow_left() or is_yellow_right():
-            cor_vista = "PAREDE"
         time_forward = cronometer.time()
+        if is_red_left() or is_red_right():
+            cor_vista = "RED"
+        elif is_black_left() or is_black_right():
+            cor_vista = "BLACK"
+        elif is_yellow_left() or is_yellow_right():
+            cor_vista = "YELLOW"
         if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
             while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
                 andar_reto(-360)
             brake_motors()
-        if cor_vista != "":
+        if cor_vista != "" and (((is_red_left() or is_black_left() or is_yellow_left()) and (not is_red_right() and not is_black_right() and not is_yellow_right())) or ((not is_red_left() and not is_black_left() and not is_yellow_left()) and (is_red_right() or is_black_right() or is_yellow_right()))):
             ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
             
         if (is_red_left() or is_red_right()):
             print("Achou vermelho")
             brake_motors()
-            move_backward(3500) 
+            move_backward(37) 
             turn_left_pid(90)
             brake_motors()
             while not is_blue():
@@ -83,7 +83,7 @@ def find_blue_line(numero_de_paredes):
                             andar_reto(360)
                         brake_motors()
                         if is_red_left() or is_red_right():
-                            move_backward(3500)
+                            move_backward(13)
                             turn_right_pid(90)
                     else:
                         move_backward(3500)
@@ -95,12 +95,15 @@ def find_blue_line(numero_de_paredes):
             print("Achou parede")
             print("Voltando...")
             if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-                move_backward(700)
+                cronometer.reset()
+                while cronometer.time() < time_forward:
+                    andar_reto(-360)
+                brake_motors()
             elif has_obstacle():
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(360)
                 while ultrasound_sensor.distance() < 145:
-                    andar_reto(-150)
+                    andar_reto(-360)
+                while ultrasound_sensor.distance() > 145:
+                    andar_reto(150)
                 brake_motors()
             turn_right_pid(90)
             print("Vai somar mais um no numero_de_paredes")
@@ -112,9 +115,12 @@ def find_blue_line(numero_de_paredes):
             andar_reto(360)
         brake_motors()
         if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-            cor_vista = "PAREDE"
+            if is_black_left() or is_black_right():
+                cor_vista = "BLACK"
+            elif is_yellow_left() or is_yellow_right():
+                cor_vista = "YELLOW"
             ajust_color(cor_vista)
-            move_backward(700)
+            move_backward(8)
         find_blue_line(0)
 
 

@@ -53,11 +53,11 @@ range_min_yellow_right = get_range_colors([100, 96, 67], 'min')
 
 # -----------------------------------------------
 
-range_max_blue_left = get_range_colors([13, 27, 99], 'max')
-range_min_blue_left = get_range_colors([13, 27, 99], 'min')
+range_max_blue_left = get_range_colors([17, 33, 100], 'max')
+range_min_blue_left = get_range_colors([17, 33, 100], 'min')
 
-range_max_blue_right = get_range_colors([16, 31, 100], 'max')
-range_min_blue_right = get_range_colors([16, 31, 100], 'min')
+range_max_blue_right = get_range_colors([18, 31, 100], 'max')
+range_min_blue_right = get_range_colors([18, 31, 100], 'min')
 
 # -----------------------------------------------
 
