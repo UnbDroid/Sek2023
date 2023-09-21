@@ -105,7 +105,7 @@ def move_backward(distancia, vel=360):
 def turn_left_pid(x):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1224 * (x / 360)
+    setpoint = 1204 * (x / 360)
       
     setpoint = round(setpoint)
     
@@ -126,7 +126,7 @@ def turn_left_pid(x):
 def turn_right_pid(x):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1224 * (x / 360)
+    setpoint = 1204 * (x / 360)
     
     setpoint = round(setpoint)
       
@@ -192,24 +192,24 @@ def ajust_color(cor_vista):
             while blue_left() not in get_treshold_left_red() :
                 
                 while blue_left() > max(get_treshold_left_red()) : #white
-                    left_motor.run(60)
-                    right_motor.run(-40)
+                    left_motor.run(40)
+                    right_motor.run(-10)
                    
                 
                 while blue_left() < min(get_treshold_left_red()) : #black
-                    left_motor.run(-60)
+                    left_motor.run(-10)
                     right_motor.run(40)
                    
 
             while blue_right() not in get_treshold_right_red() :
                 
                 while blue_right() > max(get_treshold_right_red()) : #white
-                    right_motor.run(60)
-                    left_motor.run(-40)
+                    right_motor.run(40)
+                    left_motor.run(-10)
                     
                     
                 while blue_right() < min(get_treshold_right_red()) : #black
-                    right_motor.run(-60)
+                    right_motor.run(-10)
                     left_motor.run(40)
 
     

@@ -56,21 +56,23 @@ def find_blue_line(numero_de_paredes):
         if (is_red_left() or is_red_right()):
             print("Achou vermelho")
             brake_motors()
-            move_backward(37) 
+            move_backward(35)
             turn_left_pid(90)
             brake_motors()
             while not is_blue():
                 andar_reto(360)
                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                     brake_motors()
+                    if (is_black_left() and not is_black_right()) or (not is_black_left() and is_black_right()):
+                        cor_vista = "BLACK"
+                        ajust_color(cor_vista)
                     turn_right_pid(180)
                 elif has_obstacle():
                     brake_motors()
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(360)
-                    brake_motors()
                     while ultrasound_sensor.distance() < 145:
-                        andar_reto(-150)
+                        andar_reto(-360)
+                    while ultrasound_sensor.distance() > 145:
+                        andar_reto(150)
                     brake_motors()
                     turn_right_pid(90)
                     cronometer.reset()
@@ -83,7 +85,10 @@ def find_blue_line(numero_de_paredes):
                             andar_reto(360)
                         brake_motors()
                         if is_red_left() or is_red_right():
-                            move_backward(13)
+                            if (is_red_left() and not is_red_right()) or (not is_red_left() and is_red_right()):
+                                cor_vista = "RED"
+                                ajust_color(cor_vista)
+                            move_backward(35)
                             turn_right_pid(90)
                     else:
                         move_backward(3500)
