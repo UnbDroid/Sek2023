@@ -11,18 +11,35 @@ from pybricks.hubs import EV3Brick
 ev3 = EV3Brick()
 # has_object_in = []
 # # Codigo ---------------------------------------------------------------------------------------
-
-find_blue_line(0)
-ev3.speaker.beep(444, 1000)
 while True:
-    align_to_begin_scan()
-    ev3.speaker.beep(444, 1000)
-    scan()
-    ev3.speaker.beep(444, 1000)
-    go_to_check_point()
-    ev3.speaker.beep(444, 1000)
-    set_path()
-    ev3.speaker.beep(444, 1000)
+    try:
+        find_blue_line(0)
+        ev3.speaker.beep(444, 1000)
+        while True:
+            align_to_begin_scan()
+            ev3.speaker.beep(444, 1000)
+            scan()
+            ev3.speaker.beep(444, 1000)
+            go_to_check_point()
+            ev3.speaker.beep(444, 1000)
+            set_path()
+            ev3.speaker.beep(444, 1000)
+    except:
+        brake_motors()
+        print("OI")
+        deu_bom_familia()
+        wait(15000)
+        find_blue_line(0)
+        ev3.speaker.beep(444, 1000)
+        while True:
+            align_to_begin_scan()
+            ev3.speaker.beep(444, 1000)
+            scan()
+            ev3.speaker.beep(444, 1000)
+            go_to_check_point()
+            ev3.speaker.beep(444, 1000)
+            set_path()
+            ev3.speaker.beep(444, 1000)
 
 # Editando o Range------------------------------------------------------------------------------
 

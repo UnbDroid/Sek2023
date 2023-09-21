@@ -27,5 +27,10 @@ def not_found_wall():
 def alined_to_wall():
     motors.stop()
     ev3.speaker.beep(100, 1000)
+    
+def deu_bom_familia():
+    ev3.speaker.beep(1000, 500)
+    wait(250)
+    ev3.speaker.beep(1000, 500)
 
     

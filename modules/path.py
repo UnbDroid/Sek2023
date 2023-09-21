@@ -136,7 +136,7 @@ def find_blue_line(numero_de_paredes):
 def align_to_begin_scan():
     brake_motors()
     print("Achei o azul")
-    move_backward(0.8)
+    move_backward(1)
     turn_right_pid(90)
         
     branco = 90 # 80
@@ -158,17 +158,17 @@ def align_to_begin_scan():
     
     
     # Manobra na área de coleta 
-    wait(500)
+    wait(300)
     move_backward(0.7)
    
-    wait(500) 
+    wait(300) 
     turn_left_pid(90)
     
-    wait(500) 
+    wait(300) 
     move_forward(14)
 
-    wait(500) 
-    turn_left_pid(90)
+    wait(300) 
+    turn_left_pid(88)
         
 def scan():
     global color_of_tube
