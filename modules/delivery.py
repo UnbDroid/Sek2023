@@ -60,7 +60,7 @@ def tube_city_hall():
     
     if has_obstacle() :# or "J" in has_object_in 
         # #has_object_in.append("J")
-        turn_right_pid(180)
+        turn_180()
         while not is_blue():
             andar_reto(360)
         brake_motors()
@@ -133,7 +133,7 @@ def tube_school():
     
     if has_obstacle():
         found_wall()
-        turn_left_pid(180)
+        turn_180()
         while not is_blue():
             andar_reto(360)
         brake_motors()
@@ -179,11 +179,11 @@ def tube_school():
                 andar_reto(360)
             brake_motors()
             cor_vista = "RED"
-            ajust_color(cor_vista) 
+            ajust_color(cor_vista)
             print("Bati no RED")
-            move_backward(2800)
+            move_backward(28)
             turn_right_pid(90)
-            move_forward(4900)
+            move_forward(49)
             turn_left_pid(90)
             
             
@@ -194,23 +194,23 @@ def tube_school():
             ajust_color(cor_vista)
             print("Bati no RED 2")
             
-            move_backward(700)
+            move_backward(7)
             turn_right_pid(90)
-            move_forward(1500)
+            move_forward(15)
             Open()
-            move_backward(1500)
+            move_backward(15)
             turn_right_pid(90)
             
             #começa caminho de volta
             
-            move_forward(3000)
+            move_forward(30)
             turn_right_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(360)
             brake_motors()
             cor_vista = "BLACK"
             ajust_color(cor_vista)
-            move_backward(1000)
+            move_backward(10)
             turn_left_pid(90)
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
@@ -218,7 +218,7 @@ def tube_school():
             cor_vista = "RED"
             ajust_color(cor_vista)
             print("Bati no RED")
-            move_backward(3500)
+            move_backward(35)
             turn_left_pid(90)
             while not is_blue():
                 andar_reto(360)
@@ -265,12 +265,12 @@ def tube_museum():
 
     brake_motors()
     turn_left_pid(90)
-    move_forward(1000) # Está indo em direção ao objeto J
+    move_forward(10) # Está indo em direção ao objeto J
     
     if has_obstacle(): # "J" in has_object_in: #sensor identificou objeto "j":
         #has_object_in.append("J")
-        move_backward(1000)
-        turn_right_pid(180)
+        move_backward(10)
+        turn_180()
         while not is_blue():
             andar_reto(360)
         brake_motors()
@@ -289,19 +289,19 @@ def tube_museum():
             motors.drive(vel, erro)
         brake_motors()
         turn_left_pid(90)
-        move_forward(6500)
+        move_forward(65)
         turn_left_pid(90)
-        move_forward(1000)
+        move_forward(10)
         if has_obstacle(): # "G" in has_object_in: #sensor identificou objeto G:
             #has_object_in.append("G")
-            move_backward(1000)
+            move_backward(10)
             turn_right_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(360)
             brake_motors()
             cor_vista = "BLACK"
             ajust_color(cor_vista)
-            move_backward(700)
+            move_backward(7)
             turn_left_pid(90)
             while not is_red_left() and not is_red_right():
                 andar_reto(360)
@@ -309,28 +309,28 @@ def tube_museum():
             cor_vista = "RED"
             ajust_color(cor_vista)
             print("Bati no RED")
-            move_backward(3500)
+            move_backward(35)
             turn_left_pid(90)
-            move_forward(3250)
+            move_forward(32.5)
             turn_right_pid(90)
-            move_forward(1500)
+            move_forward(15)
             #abre e retorna
             Open()
-            move_backward(1500)
+            move_backward(15)
             turn_right_pid(90)
             find_blue_line()
         else:
-            move_forward(6000)
+            move_forward(60)
             if has_obstacle(): # "H" in has_object_in: #sensor identificou objeto H:
                 #has_object_in.append("H")
-                move_backward(1000)
+                move_backward(10)
                 turn_right_pid(90)
-                move_forward(3000)
+                move_forward(30)
                 turn_left_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 #abre e retorna
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_right_pid(90)
                 find_blue_line()
             else:
@@ -340,31 +340,31 @@ def tube_museum():
                 cor_vista = "RED"
                 ajust_color(cor_vista)
                 print("Bati no RED")
-                move_backward(500)
+                move_backward(5)
                 turn_right_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 #abre e retorna
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_right_pid(90)
                 find_blue_line()
                 
     else: # objeto J não existe
         print("Não existe J")
-        move_forward(6000)
+        move_forward(60)
         turn_left_pid(90)
-        move_forward(800)
+        move_forward(8)
     
         if has_obstacle(): # "H" in has_object_in: #Objeto "H":
             #has_object_in.append("H")
-            move_backward(1000)
+            move_backward(10)
             turn_right_pid(90)
-            move_forward(2000)
+            move_forward(20)
             turn_left_pid(90)
-            move_forward(1500)
+            move_forward(15)
             #abre e retorna
             Open()
-            move_backward(1500)
+            move_backward(15)
             turn_right_pid(90)
             find_blue_line()
             
@@ -378,13 +378,13 @@ def tube_museum():
             cor_vista = "RED"
             ajust_color(cor_vista)
             
-            move_backward(700)
+            move_backward(7)
             
             turn_right_pid(90)
-            move_forward(1700)
+            move_forward(17)
             
             Open()
-            move_backward(1700)
+            move_backward(17)
             turn_right_pid(90)
             find_blue_line()
         
@@ -404,11 +404,11 @@ def tube_drugstore():
 
     brake_motors()
     turn_left_pid(90)
-    move_forward(1000)
+    move_forward(10)
     
     if has_obstacle(): # "J" in has_object_in: #Objeto "J":
         #has_object_in.append("J")
-        turn_right_pid(180)
+        turn_180()
         while not is_blue():
             andar_reto(360)
         brake_motors()
@@ -430,13 +430,13 @@ def tube_drugstore():
             motors.drive(vel, erro)
         brake_motors()
         turn_left_pid(90)
-        move_forward(6200)
+        move_forward(62)
         turn_left_pid(90)
-        move_forward(500)
+        move_forward(5)
         
         if has_obstacle(): # "G" in has_object_in: #Objeto "G":
             #has_object_in.append("G")
-            move_backward(500)
+            move_backward(5)
             turn_right_pid(90)
             
             while not is_black_left() or not is_black_right():
@@ -447,30 +447,30 @@ def tube_drugstore():
             cor_vista = "BLACK"
             ajust_color(cor_vista)
             
-            move_backward(500)
+            move_backward(5)
             
             turn_left_pid(90)
-            move_forward(2400)
+            move_forward(24)
             turn_left_pid(90)
-            move_forward(2200)
+            move_forward(22)
             
             Open()
-            move_backward(2200)
+            move_backward(22)
             turn_right_pid(90)
             
             find_blue_line()
     
         else:    
-            move_forward(2750)
+            move_forward(27.5)
             turn_right_pid(90)
-            move_forward(1500)
+            move_forward(15)
             
             Open()
-            move_backward(1000)
+            move_backward(10)
             turn_right_pid(90)
             find_blue_line()
     else:
-        move_forward(5700) # Mesmo valor do museum
+        move_forward(57) # Mesmo valor do museum
         turn_right_pid(90)
     
         if has_obstacle(): # "G" in has_object_in: #Objeto "G":
@@ -499,17 +499,17 @@ def tube_drugstore():
                 turn_right_pid(90)
                 move_forward(2)
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_right_pid(90)
                 #Abre e retorna
                 find_blue_line()
         else:
-            move_forward(2800)
+            move_forward(28)
             turn_left_pid(90)
-            move_forward(1700)
+            move_forward(17)
             
             Open() #Entregou
-            move_backward(1700)
+            move_backward(17)
             turn_right_pid(90)
             find_blue_line()
         
@@ -528,12 +528,12 @@ def tube_bakery():
 
     brake_motors()
     turn_left_pid(90)
-    move_forward(1000)
+    move_forward(10)
     
     if has_obstacle(): # "I" in has_object_in: #Objeto "I":
         #has_object_in.append("I")
-        move_backward(1000)
-        turn_left_pid(180)
+        move_backward(10)
+        turn_180()
         while not is_blue():
             andar_reto(360)
         brake_motors()
@@ -558,19 +558,19 @@ def tube_bakery():
         brake_motors()
         turn_right_pid(90)
         #De frente para o J
-        move_forward(7000)
+        move_forward(70)
         turn_right_pid(90)
-        move_forward(1000)
+        move_forward(10)
         if has_obstacle(): # "G" in has_object_in: #objeto "G":
             #has_object_in.append("G")
-            move_backward(1000)
+            move_backward(10)
             turn_left_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(360)
             brake_motors()
             cor_vista = "BLACK"
             ajust_color(cor_vista)
-            move_backward(700)
+            move_backward(7)
             turn_right_pid(90)
             while not is_red_left() and not is_red_right() and not has_obstacle():
                 andar_reto(360)
@@ -579,11 +579,11 @@ def tube_bakery():
                 cor_vista = "RED"
                 ajust_color(cor_vista)
                 print("Bati no RED")
-                move_backward(700)
+                move_backward(7)
                 turn_right_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_right_pid(90)
                 find_blue_line()
             else:
@@ -595,29 +595,29 @@ def tube_bakery():
                     andar_reto(-150)
                 brake_motors()
                 turn_right_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 turn_left_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_right_pid(90)
                 find_blue_line()
         else:
-            move_forward(4500)
+            move_forward(45)
             turn_left_pid(90)
-            move_forward(1000)
+            move_forward(10)
             if has_obstacle(): # "D" in has_object_in: 
                 #has_object_in.append("D")
-                move_backward(1000)
+                move_backward(10)
                 turn_left_pid(90)
-                move_forward(5500)
+                move_forward(55)
                 turn_right_pid(90)
                 while not is_black_left() and not is_black_right():
                     andar_reto(360)
                 brake_motors()
                 cor_vista = "BLACK"
                 ajust_color(cor_vista)
-                move_backward(700)
+                move_backward(7)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
                     andar_reto(360)
@@ -625,31 +625,31 @@ def tube_bakery():
                 cor_vista = "RED"
                 ajust_color(cor_vista)
                 print("Bati no RED")
-                move_backward(700)
+                move_backward(7)
                 turn_right_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_right_pid(90)
                 find_blue_line()
             else:
-                move_forward(1500)
+                move_forward(15)
                 turn_right_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_right_pid(90)
                 #Abre e retorna
                 find_blue_line()
     else:
-        move_forward(5500)
+        move_forward(55)
         if has_obstacle(): # "D" in has_object_in:
             #has_object_in.append("D")
             turn_left_pid(90)
-            move_forward(1000)
+            move_forward(10)
             if has_obstacle(): # "G" in has_object_in:
                 #has_object_in.append("G")
-                move_backward(1000)
+                move_backward(10)
                 turn_left_pid(90)
                 while not is_blue():
                     andar_reto(360)
@@ -675,7 +675,7 @@ def tube_bakery():
                 brake_motors()
                 cor_vista = "BLACK"
                 ajust_color(cor_vista)
-                move_backward(700)
+                move_backward(7)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
                     andar_reto(360)
@@ -683,22 +683,22 @@ def tube_bakery():
                 cor_vista = "RED"
                 ajust_color(cor_vista)
                 print("Bati no RED")
-                move_backward(700)
+                move_backward(7)
                 turn_right_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_right_pid(90)
                 find_blue_line()
             else:
-                move_forward(4500)
+                move_forward(45)
                 turn_right_pid(90)
                 while not is_black_left() and not is_black_right():
                     andar_reto(360)
                 brake_motors()
                 cor_vista = "BLACK"
                 ajust_color(cor_vista)
-                move_backward(700)
+                move_backward(7)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
                     andar_reto(360)
@@ -706,19 +706,19 @@ def tube_bakery():
                 cor_vista = "RED"
                 ajust_color(cor_vista)
                 print("Bati no RED")
-                move_backward(700)
+                move_backward(7)
                 turn_right_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_right_pid(90)
                 find_blue_line()
         else:
-            move_forward(3000)
+            move_forward(30)
             turn_right_pid(90)
-            move_forward(1500)
+            move_forward(15)
             Open()
-            move_backward(1500)
+            move_backward(15)
             turn_right_pid(90)
             #Abre e retorna
             find_blue_line()
@@ -731,7 +731,7 @@ def tube_park():
     azul = 14 #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
-    while crono.time() < 3900: #3250
+    while crono.time() < 3600: #3250
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -739,12 +739,12 @@ def tube_park():
 
     brake_motors()
     turn_left_pid(90)
-    move_forward(1000)
+    move_forward(16)
     
     if has_obstacle(): # "J" in has_object_in: #objeto "J":
         print("Tem um objeto no J indo pro Park")
         #has_object_in.append("J")
-        turn_right_pid(180)
+        turn_180()
         while not is_blue():
             andar_reto(360)
         brake_motors()
@@ -766,13 +766,13 @@ def tube_park():
             motors.drive(vel, erro)
         brake_motors()
         turn_left_pid(90)
-        move_forward(6400)
+        move_forward(64)
         
         if has_obstacle(): # "D" in has_object_in: #objeto "D":
             print("Tem objeto no D")
             #has_object_in.append("D")
             turn_left_pid(90)
-            move_forward(5750)
+            move_forward(57.5)
             turn_right_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(360)
@@ -780,13 +780,13 @@ def tube_park():
             
             cor_vista = "BLACK"
             ajust_color(cor_vista)
-            move_backward(700)
+            move_backward(7)
             turn_right_pid(90)
-            move_forward(3250)
+            move_forward(32.5)
             turn_left_pid(90)
-            move_forward(1500)
+            move_forward(15)
             Open()
-            move_backward(1500)
+            move_backward(15)
             turn_right_pid(90)
             find_blue_line()
         else:
@@ -796,18 +796,18 @@ def tube_park():
             cor_vista = "BLACK"
             ajust_color(cor_vista)
             
-            move_backward(700)
+            move_backward(7)
             turn_right_pid(90)
-            move_forward(500)
+            move_forward(5)
             
             if has_obstacle(): # "A" in has_object_in: #objeto "A":
                 #has_object_in.append("A")
-                turn_right_pid(180)
-                move_forward(3750)
+                turn_180()
+                move_forward(37.5)
                 turn_right_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_left_pid(90)
                 #Abre e retorna
                 find_blue_line()
@@ -818,27 +818,27 @@ def tube_park():
                 cor_vista = "RED"
                 ajust_color(cor_vista)
                 
-                move_backward(700) # possivelmente eu reduza
+                move_backward(7) # possivelmente eu reduza
                 turn_left_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_right_pid(90)
 
                 find_blue_line()
                 
     else:
-        move_forward(6200)
+        move_forward(65)
         
         if has_obstacle(): # "E" in has_object_in: #objeto "E":
             #has_object_in.append("E")
-            move_backward(400)
+            move_backward(4)
             turn_right_pid(90)
-            move_forward(500)
+            move_forward(5)
             
             
             if has_obstacle(): # "G" in has_object_in: #objeto "G":
-                move_backward(500)
+                move_backward(5)
                 turn_right_pid(90)
                 while not is_blue():
                     andar_reto(360)
@@ -864,19 +864,19 @@ def tube_park():
                 brake_motors()
                 cor_vista = "BLACK"
                 ajust_color(cor_vista)
-                move_backward(700)
+                move_backward(7)
                 turn_right_pid(90)
-                move_forward(3250)
+                move_forward(32.5)
                 turn_left_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_right_pid(90)
                 find_blue_line()
                 
             else:
                 
-                move_forward(4700)
+                move_forward(47)
                 turn_left_pid(90)
                 
                 while not is_black_left() and not is_black_right():
@@ -885,18 +885,18 @@ def tube_park():
                 cor_vista = "BLACK"
                 ajust_color(cor_vista)
                 
-                move_backward(700)
+                move_backward(7)
                 turn_right_pid(90)
-                move_forward(500)
+                move_forward(5)
                 
                 if has_obstacle(): # "A" in has_object_in: #objeto "A":
                     #has_object_in.append("A")
-                    turn_right_pid(180)
-                    move_forward(3250)
+                    turn_180()
+                    move_forward(32.5)
                     turn_right_pid(90)
-                    move_forward(1500)
+                    move_forward(15)
                     Open()
-                    move_backward(1500)
+                    move_backward(15)
                     turn_left_pid(90)
                     #Abre e retorna
                     find_blue_line()
@@ -907,41 +907,42 @@ def tube_park():
                     brake_motors()
                     cor_vista = "RED"
                     ajust_color(cor_vista)
-                    move_backward(500)
+                    move_backward(5)
                     
                     turn_left_pid(90)
-                    move_forward(1500)
+                    move_forward(15)
                     Open()
-                    move_backward(1500)
+                    move_backward(15)
                     turn_right_pid(90)
                     
                     find_blue_line()
         else:
+            move_forward(15)
             while not is_black_left() and not is_black_right():
                 andar_reto(360)   
             brake_motors()
             cor_vista = "BLACK"
             ajust_color(cor_vista)
-            move_backward(700)
+            move_backward(8)
             turn_right_pid(90)
-            move_forward(500)
+            move_forward(5)
             if has_obstacle(): # "B" in has_object_in: #objeto "B":
                 #has_object_in.append("B")
-                move_backward(500)
-                turn_right_pid(180)
-                move_forward(2750)
+                move_backward(5)
+                turn_180()
+                move_forward(27.5)
                 turn_right_pid(90)
-                move_forward(1500)
+                move_forward(15)
                 Open()
-                move_backward(1500)
+                move_backward(15)
                 turn_left_pid(90)
                 #Abre e retorna
                 find_blue_line()
             else:
-                move_forward(1800)
+                move_forward(18)
                 turn_left_pid(90)
-                move_forward(1550)
+                move_forward(15.5)
                 Open()
-                move_backward(1550)
+                move_backward(15.5)
                 turn_right_pid(90)
                 find_blue_line()

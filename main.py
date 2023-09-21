@@ -34,15 +34,17 @@ while True:
 
 # Ajustar curva de 90 graus --------------------------------------------------------------------
 
-# motors.turn(180)
-# print(left_motor.angle(), right_motor.angle())
-# brake_motors()
+# count = 0
+# while count < 4:
+#     count+=1
+#     turn_right_pid(90)
+#     brake_motors()
 
 #-----------------------------------------------------------------------------------------------
 
 # Ajustar axle_track ---------------------------------------------------------------------------
 
-# for i in range(3):                                       # 1212
+# for i in range(5):                                       # 1212
 #     motors.turn(330)                                     # 1212
 #     while not is_black():                                # 1216
 #         motors.turn(1)

@@ -13,10 +13,12 @@ def get_treshold_left_yellow():
 def get_treshold_right_yellow():
     return [68,69,70]
 
+# Esquerda:  (92, 19, 22) Direita:  (88, 22, 34)
+# Esquerda:  (97, 95, 100) Direita:  (93, 96, 100)
 def get_treshold_left_red():
-    return [58,59,60]
+    return [54,55,56]
 def get_treshold_right_red():
-    return [61,62,63]
+    return [58,59,60]
 
 
 def get_range_colors(lista,fator='max'):

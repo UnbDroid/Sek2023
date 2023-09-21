@@ -63,10 +63,9 @@ def find_blue_line(numero_de_paredes):
                 andar_reto(360)
                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                     brake_motors()
-                    if (is_black_left() and not is_black_right()) or (not is_black_left() and is_black_right()):
-                        cor_vista = "BLACK"
-                        ajust_color(cor_vista)
-                    turn_right_pid(180)
+                    cor_vista = "BLACK"
+                    ajust_color(cor_vista)
+                    turn_180()
                 elif has_obstacle():
                     brake_motors()
                     while ultrasound_sensor.distance() < 145:
@@ -80,7 +79,10 @@ def find_blue_line(numero_de_paredes):
                         andar_reto(360)
                     brake_motors()
                     if cronometer.time() < 6000 or has_obstacle():
-                        turn_right_pid(180)
+                        if not has_obstacle():
+                            ajust_color("RED")
+                            move_backward(7)
+                        turn_180()
                         while ultrasound_sensor.distance() > 145 and not is_red_left() and not is_red_right():
                             andar_reto(360)
                         brake_motors()
@@ -134,7 +136,7 @@ def find_blue_line(numero_de_paredes):
 def align_to_begin_scan():
     brake_motors()
     print("Achei o azul")
-    move_backward(0.6)
+    move_backward(0.8)
     turn_right_pid(90)
         
     branco = 90 # 80

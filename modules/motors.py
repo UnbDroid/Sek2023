@@ -88,6 +88,7 @@ def move_forward(distancia, vel=360):
     # print(left_motor.angle(), right_motor.angle()) # Teste para o erro
     
     brake_motors()
+    wait(200)
 
     
 def move_backward(distancia, vel=360):
@@ -100,12 +101,13 @@ def move_backward(distancia, vel=360):
     # print(left_motor.angle(), right_motor.angle()) # Teste para o erro
     
     brake_motors()
+    wait(200)
     
             
 def turn_left_pid(x):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1204 * (x / 360)
+    setpoint = 1208 * (x / 360)
       
     setpoint = round(setpoint)
     
@@ -126,7 +128,7 @@ def turn_left_pid(x):
 def turn_right_pid(x):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1204 * (x / 360)
+    setpoint = 1208 * (x / 360)
     
     setpoint = round(setpoint)
       
@@ -141,9 +143,31 @@ def turn_right_pid(x):
         
         
         # print(calculate_error(setpoint)) # Teste para o erro
+        
+    print(left_motor.angle(), right_motor.angle())
          
     brake_motors()
     wait(200)
+    
+def turn_180():
+    kp = 1.0
+    ki = 0.0156
+    setpoint = 1208/2
+    # :) 💀
+    
+    wait(500)
+    setpoint = round(setpoint)
+      
+    brake_motors()
+      
+    while not abs(calculate_error(setpoint)) < 176:
+        current_angle = left_motor.angle()
+        current_angle += calcule(current_angle, setpoint, kp, ki)
+        
+        left_motor.run_angle(200, current_angle - 10, wait = False)
+        right_motor.run_angle(200, -current_angle + 10, wait = True)
+        
+    wait(500)
     
 
 # ALINHAMENTO NAS CORES--------------------------------------------------------------------------------------------
@@ -157,7 +181,7 @@ def ajust_color(cor_vista):
 # -----------------------------------------------------------------------------------------------------------------
     if cor_vista == "BLACK":
             
-        while (red_left() not in get_treshold_left_black() ) and (red_right() not in get_treshold_right_black() ):
+        if (red_left() not in get_treshold_left_black() ) or (red_right() not in get_treshold_right_black() ):
     
             while red_left() not in (get_treshold_left_black()) :
                 
@@ -187,37 +211,38 @@ def ajust_color(cor_vista):
     if cor_vista == "RED":
         
         
-        while (blue_left() not in get_treshold_left_red() ) and (blue_right() not in get_treshold_right_red() ):
+        if (green_left() not in get_treshold_left_red() ) or (blue_right() not in get_treshold_right_red() ):
            
-            while blue_left() not in get_treshold_left_red() :
+            while green_left() not in get_treshold_left_red() :
                 
-                while blue_left() > max(get_treshold_left_red()) : #white
+                while green_left() > max(get_treshold_left_red()) : #white
                     left_motor.run(40)
                     right_motor.run(-10)
                    
                 
-                while blue_left() < min(get_treshold_left_red()) : #black
-                    left_motor.run(-10)
-                    right_motor.run(40)
+                while green_left() < min(get_treshold_left_red()) : #black
+                    left_motor.run(-40)
+                    right_motor.run(10)
                    
-
-            while blue_right() not in get_treshold_right_red() :
+# Esquerda:  (92, 19, 22) Direita:  (88, 22, 34) # vermelhor
+# Esquerda:  (97, 95, 100) Direita:  (93, 96, 100) # branco
+            while green_right() not in get_treshold_right_red() :
                 
-                while blue_right() > max(get_treshold_right_red()) : #white
+                while green_right() > max(get_treshold_right_red()) : #white
                     right_motor.run(40)
                     left_motor.run(-10)
                     
                     
-                while blue_right() < min(get_treshold_right_red()) : #black
-                    right_motor.run(-10)
-                    left_motor.run(40)
+                while green_right() < min(get_treshold_right_red()) : #black
+                    right_motor.run(-40)
+                    left_motor.run(10)
 
     
 # ----------------------------------------------------------------------------------------
     if cor_vista == "YELLOW":
         
         
-        while (blue_left() not in get_treshold_left_yellow() ) and (blue_right() not in get_treshold_right_yellow()):
+        if (blue_left() not in get_treshold_left_yellow() ) or (blue_right() not in get_treshold_right_yellow()):
             
             while blue_left() not in get_treshold_left_yellow() :
                 
