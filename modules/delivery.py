@@ -152,7 +152,7 @@ def tube_school():
         crono.reset()
         while crono.time() < 6000:
             delta = threshold - red_left()
-            kp = 1.0 #(0.8)
+            kp = 0.5 #(0.8)
             erro = delta * kp
             motors.drive(vel, erro)
             
@@ -179,7 +179,7 @@ def tube_school():
                 andar_reto(360)
             brake_motors()
             cor_vista = "RED"
-            ajust_color(cor_vista)
+            ajust_color(cor_vista) 
             print("Bati no RED")
             move_backward(2800)
             turn_right_pid(90)

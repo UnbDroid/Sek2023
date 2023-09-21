@@ -91,7 +91,7 @@ def find_blue_line(numero_de_paredes):
                             move_backward(35)
                             turn_right_pid(90)
                     else:
-                        move_backward(3500)
+                        move_backward(35)
                         turn_left_pid(90)
                         find_blue_line(0)
             brake_motors()
