@@ -35,7 +35,7 @@ def align_to_begin_scan():
     branco = 90 # 80
     azul = 10
     threshold = (branco + azul) / 2  # = 40
-    vel = 300
+    vel = 150
     chegou_no_fim = False
     
     while not chegou_no_fim:

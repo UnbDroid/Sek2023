@@ -129,10 +129,10 @@ while True:
 
 # Ajustar o ajust color ------------------------------------------------------------------------
 
-# while not is_black_left() and not is_black_right():
+# while not is_red_left() and not is_red_right():
 #     andar_reto(500)
     
-# cor_vista = "BLACK"
+# cor_vista = "RED"
 # brake_motors()
 # ajust_color(cor_vista)
 # move_backward(10)

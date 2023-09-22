@@ -115,7 +115,7 @@ def move_backward(distancia, vel=500):
 def turn_left_pid(x):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1232 * (x / 360)
+    setpoint = 1224 * (x / 360)
       
     setpoint = round(setpoint)
     
@@ -144,7 +144,7 @@ def turn_left_pid(x):
 def turn_right_pid(x):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1232 * (x / 360)
+    setpoint = 1224 * (x / 360)
     
     setpoint = round(setpoint)
       
@@ -176,7 +176,7 @@ def turn_right_pid(x):
 def turn_180():
     kp = 1.0
     ki = 0.0156
-    setpoint = 1232/2
+    setpoint = 1224/2
     # :) 💀
     
     # wait(500)
@@ -255,8 +255,7 @@ def ajust_color(cor_vista):
                     left_motor.run(-40)
                     right_motor.run(5)
                 brake_motors()
-# Esquerda:  (92, 19, 22) Direita:  (88, 22, 34) # vermelhor
-# Esquerda:  (97, 95, 100) Direita:  (93, 96, 100) # branco
+
             while green_right() not in get_treshold_right_red() :
                 
                 while green_right() > max(get_treshold_right_red()) : #white

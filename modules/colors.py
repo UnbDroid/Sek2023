@@ -8,6 +8,19 @@ color_sensor_floor_right = ColorSensor(Port.S2)
 
 cor_vista = ""
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Get colors  ----------------------------------------------
 
 def red_left():
@@ -29,43 +42,37 @@ def blue_right():
     return color_sensor_floor_right.rgb()[2]
 
 
-#azul os dois Esquerda:  (13, 27, 99) Direita:  (16, 31, 100)
-# VERMELHO OS DOIS : Esquerda:  (89, 19, 25) Direita:  (89, 19, 36)
-# BRANCO OS DOIS : Esquerda:  (90, 92, 100) Direita:  (93, 96, 100)
-# AMARELO : Esquerda:  (95, 84, 48) Direita:  (100, 96, 67)
-# PRETO   : Esquerda:  (10, 12, 15) Direita:  (10, 10, 21)
-
 # Atomação thamires.13 ------------------------------------------------------------------
 
-range_max_black_left = get_range_colors([10, 12, 15], 'max')
-range_min_black_left = get_range_colors([10, 12, 15], 'min')
+range_max_black_left = get_range_colors(range_black_left(), 'max')
+range_min_black_left = get_range_colors(range_black_left(), 'min')
 
-range_max_black_right = get_range_colors([10, 10, 21], 'max')
-range_min_black_right = get_range_colors([10, 10, 21], 'min')
-
-# -----------------------------------------------
-
-range_max_yellow_left = get_range_colors([95, 84, 48], 'max')
-range_min_yellow_left = get_range_colors([95, 84, 48], 'min')
-
-range_max_yellow_right = get_range_colors([100, 96, 67], 'max')
-range_min_yellow_right = get_range_colors([100, 96, 67], 'min')
+range_max_black_right = get_range_colors(range_black_right(), 'max')
+range_min_black_right = get_range_colors(range_black_right(), 'min')
 
 # -----------------------------------------------
 
-range_max_blue_left = get_range_colors([17, 33, 100], 'max')
-range_min_blue_left = get_range_colors([17, 33, 100], 'min')
+range_max_yellow_left = get_range_colors(range_yellow_left(), 'max')
+range_min_yellow_left = get_range_colors(range_yellow_left(), 'min')
 
-range_max_blue_right = get_range_colors([18, 31, 100], 'max')
-range_min_blue_right = get_range_colors([18, 31, 100], 'min')
+range_max_yellow_right = get_range_colors(range_yellow_right(), 'max')
+range_min_yellow_right = get_range_colors(range_yellow_right(), 'min')
 
 # -----------------------------------------------
 
-range_max_red_left = get_range_colors([85, 16, 21], 'max')
-range_min_red_left = get_range_colors([85, 16, 21], 'min')
+range_max_blue_left = get_range_colors(range_blue_left(), 'max')
+range_min_blue_left = get_range_colors(range_blue_left(), 'min')
 
-range_max_red_right = get_range_colors([91, 22, 36], 'max')
-range_min_red_right = get_range_colors([91, 22, 36], 'min')
+range_max_blue_right = get_range_colors(range_blue_right(), 'max')
+range_min_blue_right = get_range_colors(range_blue_right(), 'min')
+
+# -----------------------------------------------
+
+range_max_red_left = get_range_colors(range_red_left(), 'max')
+range_min_red_left = get_range_colors(range_red_left(), 'min')
+
+range_max_red_right = get_range_colors(range_red_right(), 'max')
+range_min_red_right = get_range_colors(range_red_right(), 'min')
 
 # Range das cores ------------------------------------------------------------------------
  

@@ -1,27 +1,65 @@
-# Variaveis de motors para o ajust color!
-#Tresholds para as cores | Diferença entra a cor e o branco, mas
- 
+from modules.colors import *
+
+# MUDE APENAS ISSO PRA COMPETIÇÃO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+def range_black_left():
+    return [10, 12, 15]
+
+def range_black_right():
+    return [10, 10, 21]
+
+def range_yellow_left():
+    return [95, 84, 48]
+
+def range_yellow_right():
+    return [100, 96, 67]
+
+def range_blue_left():
+    return [17, 33, 100]
+
+def range_blue_right():
+    return [18, 31, 100]
+
+def range_red_left():
+    return [85, 16, 21]
+
+def range_red_right():
+    return [91, 22, 36]
+
+def range_white_left():
+    return [98, 97, 100]
+
+def range_white_right():
+    return [100, 100, 100]
+
+
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+
+
 
 def get_treshold_left_black():
-    return [49,50,51,52,53,54,55]
+    return get_treshold_left("red",range_black_left())
+
 def get_treshold_right_black():
-    return [47,48,49,50,51,52,53]
+    return get_treshold_left("red",range_black_right())
 
 
 def get_treshold_left_yellow():
-    return [66,67,68,69,70,71,72]
+    return get_treshold_left("blue",range_yellow_left())
 def get_treshold_right_yellow():
-    return [66,67,68,69,70,71,72]
+    return get_treshold_left("blue",range_yellow_right())
 
-# Esquerda:  (92, 19, 22) Direita:  (88, 22, 34)
-# Esquerda:  (97, 95, 100) Direita:  (93, 96, 100)
+
 def get_treshold_left_red():
-    return [52,53,54,55,56,57,58]
+    return get_treshold_left("green",range_red_left())
+
 def get_treshold_right_red():
-    return [56,57,58,59,60,61,62]
+    return get_treshold_right("green",range_red_right())
 
 
-def get_range_colors(lista,fator='max'):
+def get_range_colors(lista,fator = 'max'):
     if fator == "max":
         for i in range(len(lista)):
             lista[i] += 15
@@ -31,6 +69,107 @@ def get_range_colors(lista,fator='max'):
             lista[i] -= 15
             
     return lista
+
+def get_treshold_left(pos,color,white = range_white_left()):
+    if pos == "red":
+        
+        color_white_formula = white[0]
+        color_formula = color[0]
+
+        treshold = (color_formula + color_white_formula)//2
+        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+    
+    elif pos == "green":
+        
+        color_white_formula = white[1]
+        color_formula = color[1]
+        
+        treshold = ( color_formula + color_white_formula )//2
+        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+    
+    elif pos == "blue":
+        
+        color_white_formula = white[2]
+        color_formula = color[2]
+        
+        treshold = ( color_formula + color_white_formula )//2
+        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+    
+
+def get_treshold_right(pos,color,white = range_white_right()):
+    if pos == "red":
+        
+        color_white_formula = white[0]
+        color_formula = color[0]
+
+        treshold = (color_formula + color_white_formula)//2
+        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+    
+    elif pos == "green":
+        
+        color_white_formula = white[1]
+        color_formula = color[1]
+        
+        treshold = ( color_formula + color_white_formula )//2
+        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+    
+    elif pos == "blue":
+        
+        color_white_formula = white[2]
+        color_formula = color[2]
+        
+        treshold = ( color_formula + color_white_formula )//2
+        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+    
+    
+'''
+class Treshold():
+        
+    def __init__(self, white_left = [97, 95, 100], white_right = [93, 96, 100]):
+        self.white_left = white_left
+        self.white_right = white_right
+        
+    def get_treshold_left(self, color,pos):
+    
+        if pos == "red":
+            treshold = ( color[0] + self.white_left[0] )//2
+            return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+            
+        elif pos == "green":
+            treshold = ( color[1] + self.white_left[1] )//2
+            return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+            
+        elif pos == "blue":
+            treshold = ( color[2] + self.white_left[2] )//2
+            return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+        
+    def get_treshold_right(self, color,pos):
+        
+        if pos == "red":
+            treshold = ( color[0] + self.white_right[0] )//2
+            return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+        
+        elif pos == "green":
+            treshold = ( color[1] + self.white_right[1] )//2
+            return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+        
+        elif pos == "blue":
+            treshold = ( color[2] + self.white_right[2] )//2
+            return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+            
+    
+treshold = Treshold()
+vermelho_left = treshold.get_treshold_left([92, 19, 22],"green")
+print("isso é um teste do pedro",vermelho_left)
+'''
+
+
+     
+        
+        
+          
+          
+      
 
 # teste
 # def get_treshold_colors(color, white, pos):
