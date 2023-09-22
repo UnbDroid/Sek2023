@@ -35,7 +35,7 @@ def align_to_begin_scan():
     branco = 90 # 80
     azul = 10
     threshold = (branco + azul) / 2  # = 40
-    vel = 100
+    vel = 300
     chegou_no_fim = False
     
     while not chegou_no_fim:
@@ -61,7 +61,7 @@ def align_to_begin_scan():
     move_forward(14)
 
     # wait(300) 
-    turn_left_pid(88)
+    turn_left_pid(90)
         
 def scan():
     global color_of_tube
@@ -72,7 +72,7 @@ def scan():
     
     print("Procurando tubo...")
     while not tube_is_detected():
-        andar_reto(150)
+        andar_reto(200)
     angulo_esquerdo = left_motor.angle()
     angulo_direito = right_motor.angle()
     brake_motors()
@@ -104,7 +104,7 @@ def scan():
     right_motor.reset_angle(0)
     
     while left_motor.angle() > ((-angulo_esquerdo) + 10) or right_motor.angle() > ((-angulo_direito) + 10):
-        andar_reto(-150)
+        andar_reto(-200)
     
     brake_motors()
     

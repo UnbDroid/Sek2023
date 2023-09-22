@@ -60,7 +60,7 @@ def find_blue_line(numero_de_paredes):
                     while not is_red_left() and not is_red_right() and not has_obstacle():
                         andar_reto(500)
                     brake_motors()
-                    if cronometer.time() < 6000 or has_obstacle():
+                    if cronometer.time() < 3000 or has_obstacle():
                         if not has_obstacle():
                             ajust_color("RED")
                             move_backward(7)
