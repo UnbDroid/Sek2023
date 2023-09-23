@@ -8,19 +8,6 @@ color_sensor_floor_right = ColorSensor(Port.S2)
 
 cor_vista = ""
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Get colors  ----------------------------------------------
 
 def red_left():

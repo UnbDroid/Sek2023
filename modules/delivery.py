@@ -10,6 +10,7 @@ crono = StopWatch()
 # Função recursiva para achar a linha azul (ida ou volta) ----------------------------------------
 
 def find_blue_line(numero_de_paredes):
+    esquerda_direita = ["ESQUERDA", 1]
     if numero_de_paredes < 4:
         brake_motors()
         
@@ -53,7 +54,18 @@ def find_blue_line(numero_de_paredes):
                     while ultrasound_sensor.distance() > 145:
                         andar_reto(150)
                     brake_motors()
-                    turn_right_pid(90)
+                    if esquerda_direita[0] == "ESQUERDA":
+                        turn_left_pid(90)
+                        if esquerda_direita[1] == 2:
+                            esquerda_direita = ["DIREITA", 1]
+                        elif esquerda_direita[1] == 1:
+                            esquerda_direita[1] += 1
+                    else:
+                        turn_right_pid(90)
+                        if esquerda_direita[1] == 2:
+                            esquerda_direita = ["ESQUERDA", 1]
+                        elif esquerda_direita[1] == 1:
+                            esquerda_direita[1] += 1
                     cronometer.reset()
                     while not is_red_left() and not is_red_right() and not has_obstacle():
                         andar_reto(500)
@@ -62,7 +74,7 @@ def find_blue_line(numero_de_paredes):
                         if not has_obstacle():
                             ajust_color("RED")
                             move_backward(7)
-                        turn_180()
+                            turn_180()
                         while ultrasound_sensor.distance() > 145 and not is_red_left() and not is_red_right() and not is_black_left() and not is_black_right():
                             andar_reto(500)
                         brake_motors()
@@ -71,19 +83,224 @@ def find_blue_line(numero_de_paredes):
                                 cor_vista = "RED"
                                 ajust_color(cor_vista)
                             move_backward(36)
-                            turn_right_pid(90)
+                            if esquerda_direita[0] == "ESQUERDA":
+                                turn_left_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["DIREITA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
+                            else:
+                                turn_right_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["ESQUERDA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
                         elif is_black_left() or is_black_right():
                             cor_vista = "BLACK"
                             ajust_color(cor_vista)
                             move_backward(7)
-                            turn_right_pid(90)
+                            if esquerda_direita[0] == "ESQUERDA":
+                                turn_left_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["DIREITA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
+                            else:
+                                turn_right_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["ESQUERDA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
                             find_blue_line(0)
+                        elif ultrasound_sensor.distance() < 145:
+                            brake_motors()
+                            while ultrasound_sensor.distance() < 145:
+                                andar_reto(-500)
+                            while ultrasound_sensor.distance() > 145:
+                                andar_reto(150)
+                            brake_motors()
+                            if esquerda_direita[0] == "ESQUERDA":
+                                turn_left_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["DIREITA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
+                            else:
+                                turn_right_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["ESQUERDA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
+                            while not is_blue():
+                                andar_reto(500)
+                                if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
+                                    brake_motors()
+                                    cor_vista = "BLACK"
+                                    ajust_color(cor_vista)
+                                    move_backward(7)
+                                    if esquerda_direita[0] == "ESQUERDA":
+                                        turn_left_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["DIREITA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
+                                    else:
+                                        turn_right_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["ESQUERDA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
+                                elif has_obstacle():
+                                    brake_motors()
+                                    while ultrasound_sensor.distance() < 145:
+                                        andar_reto(-500)
+                                    brake_motors()
+                                    if esquerda_direita[0] == "ESQUERDA":
+                                        turn_left_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["DIREITA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
+                                    else:
+                                        turn_right_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["ESQUERDA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
+                                elif is_red_left() or is_red_right():
+                                    brake_motors()
+                                    cor_vista = "RED"
+                                    ajust_color(cor_vista)
+                                    move_backward(36)
+                                    if esquerda_direita[0] == "ESQUERDA":
+                                        turn_left_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["DIREITA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
+                                    else:
+                                        turn_right_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["ESQUERDA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
                     else:
                         cor_vista = "RED"
                         ajust_color(cor_vista)
                         move_backward(36)
-                        turn_left_pid(90)
-                        find_blue_line(0)
+                        if (esquerda_direita[0] == "ESQUERDA" and esquerda_direita[1] == 1) or (esquerda_direita[0] == "DIREITA" and esquerda_direita[1] == 2):
+                            turn_left_pid(90)
+                        else:
+                            turn_right_pid(90)
+                        while not is_blue() and not is_red_left() and not is_red_right() and not has_obstacle() and not is_black_left() and not is_black_right():
+                            andar_reto(500)
+                        brake_motors()
+                        if is_red_left() or is_red_right():
+                            if (is_red_left() and not is_red_right()) or (not is_red_left() and is_red_right()):
+                                cor_vista = "RED"
+                                ajust_color(cor_vista)
+                            move_backward(36)
+                            if esquerda_direita[0] == "ESQUERDA":
+                                turn_left_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["DIREITA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
+                            else:
+                                turn_right_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["ESQUERDA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
+                        elif is_black_left() or is_black_right():
+                            cor_vista = "BLACK"
+                            ajust_color(cor_vista)
+                            move_backward(7)
+                            if esquerda_direita[0] == "ESQUERDA":
+                                turn_left_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["DIREITA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
+                            else:
+                                turn_right_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["ESQUERDA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
+                            find_blue_line(0)
+                        elif ultrasound_sensor.distance() < 145:
+                            brake_motors()
+                            while ultrasound_sensor.distance() < 145:
+                                andar_reto(-500)
+                            while ultrasound_sensor.distance() > 145:
+                                andar_reto(150)
+                            brake_motors()
+                            if esquerda_direita[0] == "ESQUERDA":
+                                turn_left_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["DIREITA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
+                            else:
+                                turn_right_pid(90)
+                                if esquerda_direita[1] == 2:
+                                    esquerda_direita = ["ESQUERDA", 1]
+                                elif esquerda_direita[1] == 1:
+                                    esquerda_direita[1] += 1
+                            while not is_blue():
+                                andar_reto(500)
+                                if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
+                                    brake_motors()
+                                    cor_vista = "BLACK"
+                                    ajust_color(cor_vista)
+                                    move_backward(7)
+                                    if esquerda_direita[0] == "ESQUERDA":
+                                        turn_left_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["DIREITA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
+                                    else:
+                                        turn_right_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["ESQUERDA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
+                                elif has_obstacle():
+                                    brake_motors()
+                                    while ultrasound_sensor.distance() < 145:
+                                        andar_reto(-500)
+                                    brake_motors()
+                                    if esquerda_direita[0] == "ESQUERDA":
+                                        turn_left_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["DIREITA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
+                                    else:
+                                        turn_right_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["ESQUERDA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
+                                elif is_red_left() or is_red_right():
+                                    brake_motors()
+                                    cor_vista = "RED"
+                                    ajust_color(cor_vista)
+                                    move_backward(36)
+                                    if esquerda_direita[0] == "ESQUERDA":
+                                        turn_left_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["DIREITA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
+                                    else:
+                                        turn_right_pid(90)
+                                        if esquerda_direita[1] == 2:
+                                            esquerda_direita = ["ESQUERDA", 1]
+                                        elif esquerda_direita[1] == 1:
+                                            esquerda_direita[1] += 1
             brake_motors()
             
         elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():

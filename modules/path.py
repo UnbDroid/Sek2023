@@ -103,8 +103,8 @@ def scan():
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     
-    while left_motor.angle() > ((-angulo_esquerdo) + 10) or right_motor.angle() > ((-angulo_direito) + 10):
-        andar_reto(-200)
+    while left_motor.angle() > ((-angulo_esquerdo) + 20) or right_motor.angle() > ((-angulo_direito) + 20):
+        andar_reto(-500)
     
     brake_motors()
     
