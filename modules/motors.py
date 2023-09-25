@@ -200,6 +200,58 @@ def turn_180():
     #         left_motor.run(20)
     #         right_motor.run(-20)
     
+# Captura de ladinho popoi 🌹
+def de_ladinho():
+    # Possivelmente tentar se alinhar na área vermelha e depois comear a fazer a função
+    
+    mbox.send('scan')
+    mbox.wait()
+    tube_here = mbox.read()
+        
+    branco = 90
+    azul = 10
+    threshold = (branco + azul) / 2  
+    vel = 100
+    
+    
+    while not tube_here:
+        
+        delta = threshold - red_left()
+        kp = 0.45
+        erro = delta * kp
+        motors.drive(vel, erro)
+    brake_motors_para_drive_base()
+    deu_bom_familia()
+    
+    # em tese até aqui ele achou o tubo e vamos começar a fazer as manobras!
+    turn_left_pid(90)
+    move_backward(1)
+    # de frente pro tubo
+    close()
+    move_backward(1)
+    turn_right_pid(90)
+    
+    #agora com o tubo ir até o fim
+    chegou_no_fim = False
+    while not chegou_no_fim:
+    
+        delta = threshold - red_left()
+        kp = 0.45
+        erro = delta * kp
+        motors.drive(vel, erro)
+        
+        if is_red_right():
+            chegou_no_fim = True
+            brake_motors_para_drive_base()
+            
+    
+
+    
+    
+    
+    
+    
+    
 
 # ALINHAMENTO NAS CORES--------------------------------------------------------------------------------------------
      
