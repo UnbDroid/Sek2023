@@ -30,3 +30,6 @@ while True:
             mbox.send('15')
         else:
             mbox.send('10')
+            
+    elif msg == "scan":
+        tube_scan()
