@@ -354,11 +354,11 @@ def go_to_check_point():
 def tube_library():
     #global has_object_in
     crono.reset()
-    branco = 88 
-    azul = 14 #22
-    threshold = (branco + azul) / 2  # = 40
+    branco = 100
+    azul = 14 
+    threshold = (branco + azul) / 2  
     vel = 100
-    while crono.time() < 1400: # Tenho que olhar isso
+    while crono.time() < 1400: 
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp

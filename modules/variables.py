@@ -2,31 +2,31 @@ from modules.colors import *
 
 # MUDE APENAS ISSO PRA COMPETIÇÃO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def range_black_left():
-    return [10, 12, 15]
+    return [6, 6, 6]
 
 def range_black_right():
-    return [10, 10, 21]
+    return [9, 11, 24]
 
 def range_yellow_left():
-    return [95, 84, 48]
+    return [55, 59, 19]
 
 def range_yellow_right():
-    return [100, 96, 67]
+    return [93, 86, 62]
 
 def range_blue_left():
-    return [17, 33, 100]
+    return [8, 22, 46]
 
 def range_blue_right():
-    return [18, 31, 100]
+    return [14, 32, 100]
 
 def range_red_left():
-    return [85, 16, 21]
+    return [63, 11, 8]
 
 def range_red_right():
-    return [91, 22, 36]
+    return [95, 16, 38]
 
 def range_white_left():
-    return [98, 97, 100]
+    return [67, 79, 90]
 
 def range_white_right():
     return [100, 100, 100]
