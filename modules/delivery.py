@@ -854,7 +854,17 @@ def tube_drugstore():
             Open()
             move_backward(10)
             turn_right_pid(90)
-            find_blue_line(0)
+            
+            # volta # TESTE 
+            move_forward(15)
+            turn_right_pid(90)
+            
+            while not is_blue_left() or not is_blue_right():
+                andar_reto(450)
+            brake_motors()
+            
+            
+            
     else:
         not_found_wall()
         move_forward(57) # Mesmo valor do museum
@@ -1229,8 +1239,28 @@ def tube_park():
             move_forward(15)
             Open()
             move_backward(15)
+            turn_left_pid(90)
+            while not is_red_left() and not is_red_right():
+                andar_reto(500)
+            brake_motors()
+            cor_vista = "RED"
+            ajust_color(cor_vista)
+            move_backward(36)
             turn_right_pid(90)
-            find_blue_line(0)
+            while ultrasound_sensor.distance() > 145:
+                andar_reto(500)
+            brake_motors()
+            turn_left_pid(90)
+            while not is_red_left() and not is_red_right():
+                andar_reto(500)
+            brake_motors()
+            cor_vista = "RED"
+            ajust_color(cor_vista)
+            move_backward(36)
+            turn_right_pid(90)
+            while not is_blue():
+                andar_reto(500)
+            brake_motors()
         else:
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
@@ -1250,9 +1280,17 @@ def tube_park():
                 move_forward(15)
                 Open()
                 move_backward(15)
-                turn_left_pid(90)
-                #Abre e retorna
-                find_blue_line(0)
+                turn_right_pid(90)
+                while ultrasound.distance() > 145:
+                    andar_reto(500)
+                brake_motors()
+                while ultrasound.distance() < 145:
+                    andar_reto(-200)
+                brake_motors()
+                turn_right_pid(90)
+                while not is_blue():
+                    andar_reto(500)
+                brake_motors()
             else:
                 while not is_red_left() and not is_red_right():
                     andar_reto(500)
@@ -1308,14 +1346,23 @@ def tube_park():
                 ajust_color(cor_vista)
                 move_backward(7)
                 turn_right_pid(90)
-                move_forward(32.5)
+                while not is_red_left() and not is_red_right():
+                    andar_reto(500)
+                brake_motors()
+                cor_vista = "RED"
+                ajust_color(cor_vista)
+                print("Bati no RED")
+                move_backward(7)
                 turn_left_pid(90)
                 move_forward(15)
                 Open()
                 move_backward(15)
                 turn_right_pid(90)
-                find_blue_line(0)
-                
+                move_backward(29)
+                turn_right_pid(90)
+                while not is_blue():
+                    andar_reto(500)
+                brake_motors()
             else:
                 
                 move_forward(47)
@@ -1339,10 +1386,14 @@ def tube_park():
                     move_forward(15)
                     Open()
                     move_backward(15)
-                    turn_left_pid(90)
-                    #Abre e retorna
-                    find_blue_line(0)
-                    
+                    turn_right_pid(90)
+                    while ultrasound.distance() > 145:
+                        andar_reto(500)
+                    brake_motors()
+                    turn_right_pid(90)
+                    while not is_blue():
+                        andar_reto(500)
+                    brake_motors()
                 else:
                     while not is_red_left() and not is_red_right():
                         andar_reto(500)
