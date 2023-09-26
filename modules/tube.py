@@ -28,11 +28,13 @@ def tube_scan():
         
     else:
         print("To vendo nada não chefe!")
+        
         # (50+72)/2
         
 def alinhar_azul():
-    branco = 72
-    azul = 50
+    # print(andar_linha.rgb())
+    branco = 67
+    azul = 38
     treshold = (branco + azul)//2
     cor = andar_linha.rgb()[0]
     return str(treshold - cor)
