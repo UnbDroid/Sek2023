@@ -23,17 +23,21 @@ client.connect(SERVER)
 print('connected!')
 
 while True:
+    
     mbox.wait()
     msg = mbox.read()
     if msg == 'alinhar':
+        wait(50)
         mbox.send(alinhar_azul())
     elif msg == "chave":
+        wait(50)
         if tube() == True:
             mbox.send('15')
         else:
             mbox.send('10')
             
     elif msg == "scan":
+        wait(50)
         tube_scan()
 
 
