@@ -358,7 +358,7 @@ def tube_library():
     azul = range_blue_right()[0] #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
-    while crono.time() < 1400: # Tenho que olhar isso
+    while crono.time() < 1400: 
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp

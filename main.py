@@ -48,7 +48,8 @@ ev3 = EV3Brick()
 # Editando o Range------------------------------------------------------------------------------
 
 # while True:
-    # print("Vejo?",tube_is_detected(), "Cor",is_brown_tube() )
+#     print("Vejo?", tube_is_detected(), "Cor",is_brown_tube() )
+    # print("oi novinha", tube_verificator.rgb())
     # Cor (4, 2, 0)
     # Vejo? True Cor (38, 4, 1)
 
