@@ -25,12 +25,6 @@ while True:
     ev3.speaker.beep(444, 1000)
     set_path()
     ev3.speaker.beep(444, 1000)
-    '''
-    ! adadada
-    ? afafafa
-    */
-     
-    '''
    
 
     # except:

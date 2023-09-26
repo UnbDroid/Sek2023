@@ -75,9 +75,16 @@ def scan():
     
     print("Procurando tubo...")
     while not tube_is_detected():
-        andar_reto(200)
+        mbox.send('alinhar')
+        mbox.wait()
+        erro = mbox.read()
+        erro = float(erro)
+        erro = erro * -1.5
+        print(erro)
+        motors.drive(80, erro)
     angulo_esquerdo = left_motor.angle()
     angulo_direito = right_motor.angle()
+    brake_motors_para_drive_base()
     brake_motors()
     tempo = cronometer.time()
     
@@ -106,8 +113,15 @@ def scan():
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     
+    
     while left_motor.angle() > ((-angulo_esquerdo) + 20) or right_motor.angle() > ((-angulo_direito) + 20):
-        andar_reto(-500)
+        mbox.send('alinhar')
+        mbox.wait()
+        erro = mbox.read()
+        erro = float(erro)
+        erro = erro * 1.5
+        print(erro)
+        motors.drive(-80, erro)
     
     brake_motors()
     

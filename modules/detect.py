@@ -6,7 +6,7 @@ tube_verificator = ColorSensor(Port.S4)
 
 def tube_is_detected():
     # print("reflexion papai ",tube_verificator.reflection())
-    print("cor tube ",tube_verificator.rgb())
+    #print("cor tube ",tube_verificator.rgb())
     if tube_verificator.reflection() >= 8 or (tube_verificator.rgb()[0] >= 2 and tube_verificator.rgb()[1] >=3):
         return True
     else:
