@@ -33,7 +33,7 @@ def tube_scan():
 def alinhar_azul():
     branco = 72
     azul = 50
-    treshold = (branco + azul)/2
+    treshold = (branco + azul)//2
     cor = andar_linha.rgb()[0]
     return str(treshold - cor)
     # azul = cor[2]
