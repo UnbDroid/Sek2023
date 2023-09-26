@@ -1,8 +1,12 @@
 from pybricks.nxtdevices import ColorSensor                                
-from pybricks.parameters import Port
+from pybricks.parameters import Port, Color
+
 
 tube_sensor_verification = ColorSensor(Port.S3)
-scan_sensor = ColorSensor(Port.S4) # Teste de sensor de cor 
+# scan_sensor = ColorSensor(Port.S2)
+andar_linha = ColorSensor(Port.S4)
+
+# Teste de sensor de cor 
 
 
 
@@ -24,3 +28,15 @@ def tube_scan():
         
     else:
         print("To vendo nada não chefe!")
+        # (50+72)/2
+        
+def alinhar_azul():
+    branco = 72
+    azul = 50
+    treshold = (branco + azul)/2
+    cor = andar_linha.rgb()[0]
+    return str(treshold - cor)
+    # azul = cor[2]
+    # azul = int(azul)
+    
+    
