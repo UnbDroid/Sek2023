@@ -63,7 +63,7 @@ def align_to_begin_scan():
     # wait(300) 
     move_forward(15)
 
-    # wait(300) 
+    # wait(300)
     turn_left_pid(90)
         
 def scan():
