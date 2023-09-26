@@ -434,7 +434,7 @@ def tube_city_hall():
     else:
         #objeto J não existe
         not_found_wall()
-        move_forward(17)
+        move_forward(20)
         turn_right_pid(90)
         
         move_forward(20)
@@ -739,7 +739,7 @@ def tube_drugstore():
 
     brake_motors_para_drive_base()
     turn_left_pid(90)
-    move_forward(10)
+    move_forward(13)
     
     if has_obstacle(): # "J" in has_object_in: #Objeto "J":
         #has_object_in.append("J")
@@ -839,12 +839,13 @@ def tube_drugstore():
                 #Abre e retorna
                 find_blue_line(0)
         else:
-            move_forward(28)
+            not_found_wall()
+            move_forward(32)
             turn_left_pid(90)
-            move_forward(17)
+            move_forward(20)
             
             Open() #Entregou
-            move_backward(17)
+            move_backward(20)
             turn_right_pid(90)
             find_blue_line(0)
         
@@ -1163,7 +1164,7 @@ def tube_park():
                 find_blue_line(0)
                 
     else:
-        move_forward(65)
+        move_forward(68)
         
         if has_obstacle(): # "E" in has_object_in: #objeto "E":
             #has_object_in.append("E")
@@ -1274,7 +1275,7 @@ def tube_park():
                 #Abre e retorna
                 find_blue_line(0)
             else:
-                move_forward(18)
+                move_forward(22)
                 turn_left_pid(90)
                 move_forward(15.5)
                 Open()

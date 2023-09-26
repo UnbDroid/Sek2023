@@ -5,6 +5,7 @@ from modules.claw import *
 from modules.delivery import *
 from pybricks.tools import StopWatch
 
+ev3 = EV3Brick()
 pointed_to = 1
 cardinal_points = ["N", "E", "S", "W"]
 cronometer = StopWatch()
@@ -19,6 +20,8 @@ server = BluetoothMailboxServer()
 mbox = TextMailbox('greeting', server)
 
 # The server must be started before the client!
+
+ev3.speaker.beep(444, 1000)
 print('waiting for connection...')
 server.wait_for_connection()
 print('connected!')
@@ -58,7 +61,7 @@ def align_to_begin_scan():
     turn_left_pid(90)
     
     # wait(300) 
-    move_forward(14)
+    move_forward(15)
 
     # wait(300) 
     turn_left_pid(90)
