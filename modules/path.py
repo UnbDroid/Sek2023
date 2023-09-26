@@ -80,13 +80,15 @@ def scan():
         erro = mbox.read()
         erro = float(erro)
         erro = erro * -1.5
-        print(erro)
+        # print(erro)
+        
         motors.drive(80, erro)
+        
     angulo_esquerdo = left_motor.angle()
     angulo_direito = right_motor.angle()
     brake_motors_para_drive_base()
     brake_motors()
-    tempo = cronometer.time()
+    # tempo = cronometer.time()
     
     mbox.send('chave')
     mbox.wait()
@@ -110,8 +112,8 @@ def scan():
     
     brake_motors()
     
-    left_motor.reset_angle(0)
-    right_motor.reset_angle(0)
+    # left_motor.reset_angle(0)
+    # right_motor.reset_angle(0)
     
     
     while left_motor.angle() > ((-angulo_esquerdo) + 20) or right_motor.angle() > ((-angulo_direito) + 20):
@@ -119,11 +121,11 @@ def scan():
         mbox.wait()
         erro = mbox.read()
         erro = float(erro)
-        erro = erro * 1.5
+        erro = erro * 0.5
         print(erro)
         motors.drive(-80, erro)
     
-    brake_motors()
+    brake_motors_para_drive_base()
     
     print("Sai do scan")
        
