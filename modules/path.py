@@ -117,14 +117,15 @@ def scan():
     
     
     while left_motor.angle() > ((-angulo_esquerdo) + 20) or right_motor.angle() > ((-angulo_direito) + 20):
-        mbox.send('alinhar')
-        mbox.wait()
-        erro = mbox.read()
-        erro = float(erro)
-        erro = erro * 0.5
-        print(erro)
-        motors.drive(-80, erro)
-    
+        # mbox.send('alinhar')
+        # mbox.wait()
+        # erro = mbox.read()
+        # erro = float(erro)
+        # erro = erro * 1
+        # print(erro)
+        # motors.drive(-400, erro)
+        
+        andar_reto(-400)
     brake_motors_para_drive_base()
     
     print("Sai do scan")
