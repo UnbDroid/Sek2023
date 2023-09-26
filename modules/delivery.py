@@ -354,8 +354,8 @@ def go_to_check_point():
 def tube_library():
     #global has_object_in
     crono.reset()
-    branco = 88 
-    azul = 14 #22
+    branco = range_white_right()[0] 
+    azul = range_blue_right()[0] #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     while crono.time() < 1400: # Tenho que olhar isso
@@ -379,8 +379,8 @@ def tube_library():
 def tube_city_hall():
     #global has_object_in
     crono.reset()
-    branco = 88
-    azul = 14 #22
+    branco = range_white_right()[0]
+    azul = range_blue_right()[0] #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     while crono.time() < 3600: # Tenho que olhar isso
@@ -405,8 +405,8 @@ def tube_city_hall():
         turn_left_pid(90)
         
         
-        branco = 88 
-        azul = 14 #22
+        branco = range_white_right()[0] 
+        azul = range_blue_right()[0] #22
         threshold = (branco + azul) / 2  # = 40
         vel = 100
         crono.reset()
@@ -452,8 +452,8 @@ def tube_city_hall():
 def tube_school():
     ##global has_object_in
     crono.reset()
-    branco = 88
-    azul = 14 #22 
+    branco = range_white_right()[0]
+    azul = range_blue_right()[0] #22 
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     while crono.time() < 9500:
@@ -480,8 +480,8 @@ def tube_school():
         
         
     
-        branco = 90
-        azul = 13
+        branco = range_white_left()[0]
+        azul = range_blue_left()[0]
         threshold = (branco + azul) / 2  
         vel = 100
         crono.reset()
@@ -588,8 +588,8 @@ def tube_school():
 def tube_museum():
     #global has_object_in
     crono.reset()
-    branco = 88 
-    azul = 14 #22
+    branco = range_white_right()[0] 
+    azul = range_blue_right()[0] #22
     threshold = (branco + azul) / 2  
     vel = 100
     while crono.time() < 3600: #4000
@@ -612,8 +612,8 @@ def tube_museum():
         while is_blue():
             andar_reto(-500)
         turn_left_pid(90)
-        branco = 88 
-        azul = 14 #22
+        branco = range_white_right()[0] 
+        azul = range_blue_right()[0] #22
         threshold = (branco + azul) / 2  # = 40
         vel = 100
         crono.reset()
@@ -727,8 +727,8 @@ def tube_museum():
 def tube_drugstore():
     #global has_object_in
     crono.reset()
-    branco = 88 
-    azul = 14 #22
+    branco = range_white_right()[0] 
+    azul = range_blue_right()[0] #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     while crono.time() < 3600: #3250
@@ -753,8 +753,8 @@ def tube_drugstore():
         brake_motors()
         turn_left_pid(90)
         
-        branco = 88 
-        azul = 14 #22
+        branco = range_white_right()[0] 
+        azul = range_blue_right()[0] #22
         threshold = (branco + azul) / 2  
         vel = 100
         crono.reset()
@@ -851,8 +851,8 @@ def tube_drugstore():
 def tube_bakery():
     #global has_object_in
     crono.reset()
-    branco = 88
-    azul = 14 #22 
+    branco = range_white_right()[0]
+    azul = range_blue_right()[0] #22 
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     while crono.time() < 9500:
@@ -878,8 +878,8 @@ def tube_bakery():
             andar_reto(-500)
         brake_motors()
         turn_right_pid(90)
-        branco = 80
-        azul = 10
+        branco = range_white_left()[0]
+        azul = range_blue_left()[0]
         threshold = (branco + azul) / 2  # = 40
         vel = 100
         crono.reset()
@@ -993,8 +993,8 @@ def tube_bakery():
                     andar_reto(-500)
                 brake_motors()
                 turn_right_pid(90)
-                branco = 80
-                azul = 10
+                branco = range_white_left()[0]
+                azul = range_blue_left()[0]
                 threshold = (branco + azul) / 2  # = 40
                 vel = 100
                 crono.reset()
@@ -1062,8 +1062,8 @@ def tube_park():
     
     #global has_object_in
     crono.reset()
-    branco = 88 
-    azul = 14 #22
+    branco = range_white_right()[0] 
+    azul = range_blue_right()[0] #22
     threshold = (branco + azul) / 2  # = 40
     vel = 100
     while crono.time() < 3600: #3250
@@ -1089,8 +1089,8 @@ def tube_park():
         brake_motors()
         turn_left_pid(90)
         
-        branco = 88 
-        azul = 14 #22
+        branco = range_white_right()[0] 
+        azul = range_blue_right()[0] #22
         threshold = (branco + azul) / 2  
         vel = 100
         crono.reset()
@@ -1182,8 +1182,8 @@ def tube_park():
                     andar_reto(-500)
                 brake_motors()
                 turn_left_pid(90)
-                branco = 88 
-                azul = 14 #22
+                branco = range_white_right()[0] 
+                azul = range_blue_right()[0] #22
                 threshold = (branco + azul) / 2  
                 vel = 100
                 crono.reset()

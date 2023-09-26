@@ -32,8 +32,8 @@ def align_to_begin_scan():
     move_backward(1)
     turn_right_pid(90)
         
-    branco = 90 # 80
-    azul = 10
+    branco = range_white_left()[0] # 80
+    azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2  # = 40
     vel = 150
     chegou_no_fim = False

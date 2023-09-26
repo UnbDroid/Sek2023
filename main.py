@@ -15,17 +15,17 @@ ev3 = EV3Brick()
 #     try:
 
 
-find_blue_line(0)
-ev3.speaker.beep(444, 1000)
-while True:
-    align_to_begin_scan()
-    ev3.speaker.beep(444, 1000)
-    scan()
-    ev3.speaker.beep(444, 1000)
-    go_to_check_point()
-    ev3.speaker.beep(444, 1000)
-    set_path()
-    ev3.speaker.beep(444, 1000)
+# find_blue_line(0)
+# ev3.speaker.beep(444, 1000)
+# while True:
+#     align_to_begin_scan()
+#     ev3.speaker.beep(444, 1000)
+#     scan()
+#     ev3.speaker.beep(444, 1000)
+#     go_to_check_point()
+#     ev3.speaker.beep(444, 1000)
+#     set_path()
+#     ev3.speaker.beep(444, 1000)
 
 
     # except:
@@ -101,9 +101,9 @@ while True:
 
 # Ajustar ranges das cores ---------------------------------------------------------------------
 
-# while True:
-#     wait(500)
-#     print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())
+while True:
+    wait(500)
+    print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())
 
 #-----------------------------------------------------------------------------------------------
 
