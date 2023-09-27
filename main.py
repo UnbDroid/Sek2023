@@ -38,6 +38,9 @@ while True:
             mbox.send('tem tubo')
         else:
             mbox.send('nao tem tubo')
+            
+    elif msg == 'cor do tubo':
+        mbox.send(color_tube())
 
 # while True:
 #     alinhar_azul()
