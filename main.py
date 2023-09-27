@@ -25,25 +25,19 @@ print('connected!')
 while True:
     mbox.wait()
     msg = mbox.read()
-    
-    if msg == 'alinhar':
-        wait(50)
-        mbox.send(alinhar_azul())
         
-    elif msg == "chave":
+    if msg == "chave":
         wait(50)
-        if tube() == True:
+        if tube_is_15() == True:
             mbox.send('15')
         else:
             mbox.send('10')
-            
-    elif msg == "scan":
-        wait(50)
-        tube_scan()
 
     elif msg == 'tem tubo?':
         if tube_is_detected() == True:
-            mbox.send('detectado')
+            mbox.send('tem tubo')
+        else:
+            mbox.send('nao tem tubo')
 
 # while True:
 #     alinhar_azul()
