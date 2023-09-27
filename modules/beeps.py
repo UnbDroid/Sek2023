@@ -11,10 +11,10 @@ right_motor = Motor(Port.B)
 def brake_motors():
     left_motor.hold()
     right_motor.hold()
-    left_motor.reset_angle(0)
-    right_motor.reset_angle(0)
     while left_motor.speed() != 0 or right_motor.speed() != 0:
         wait(1)
+    left_motor.reset_angle(0)
+    right_motor.reset_angle(0)
 
 
 def found_door():
