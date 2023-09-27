@@ -1,8 +1,9 @@
 from pybricks.ev3devices import UltrasonicSensor
+from pybricks.nxtdevices import ColorSensor as CSNXT
 from modules.colors import *
 from modules.beeps import *
 
-tube_verificator = ColorSensor(Port.S4)
+tube_verificator = CSNXT(Port.S4)
 
 def tube_is_detected():
     # print("reflexion papai ",tube_verificator.reflection())
