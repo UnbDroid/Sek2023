@@ -52,6 +52,11 @@ from pybricks.hubs import EV3Brick
     # Cor (4, 2, 0)
     # Vejo? True Cor (38, 4, 1)
 
+# Teste range sensor auxiliar ------------------------------------------------------------------
+
+while True:
+    print(red_aux(), green_aux(), blue_aux())
+    wait(500)
 
 # Ajustar curva de 90 graus --------------------------------------------------------------------
 

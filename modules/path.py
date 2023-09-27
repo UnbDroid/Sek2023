@@ -14,7 +14,7 @@ color_of_tube = ""
 initial_path = [0, 0, 0, 0]
 current_path = [0, 0, 0, 0]
 
-# server 
+'''# server 
 from pybricks.messaging import BluetoothMailboxServer, TextMailbox
 server = BluetoothMailboxServer()
 mbox = TextMailbox('greeting', server)
@@ -25,7 +25,7 @@ ev3.speaker.beep(444, 1000)
 print('waiting for connection...')
 server.wait_for_connection()
 print('connected!')
-
+'''
 
 # Se alinhando no azul para iniciar o scan ---------------------------------------------------------------------------------
       
@@ -73,13 +73,18 @@ def scan():
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     
+    azul = 7
+    branco = 52
+    threshold = (azul + branco) / 2
+    
     print("Procurando tubo...")
-    while not tube_is_detected():
-        mbox.send('alinhar')
+    while True:
+        erro = (threshold - red_left()) * 0.8
+        mbox.send('tem tubo?')
         mbox.wait()
-        erro = mbox.read()
-        erro = float(erro)
-        erro = erro * -1.5
+        tem_tubo = mbox.read()
+        if tem_tubo == "tem tubo":
+            break
         # print(erro)
         
         motors.drive(80, erro)
