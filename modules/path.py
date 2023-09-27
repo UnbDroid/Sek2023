@@ -14,7 +14,7 @@ color_of_tube = ""
 initial_path = [0, 0, 0, 0]
 current_path = [0, 0, 0, 0]
 
-'''# server 
+# server 
 from pybricks.messaging import BluetoothMailboxServer, TextMailbox
 server = BluetoothMailboxServer()
 mbox = TextMailbox('greeting', server)
@@ -25,7 +25,7 @@ ev3.speaker.beep(444, 1000)
 print('waiting for connection...')
 server.wait_for_connection()
 print('connected!')
-'''
+
 
 # Se alinhando no azul para iniciar o scan ---------------------------------------------------------------------------------
       
@@ -104,14 +104,10 @@ def scan():
     
     Close()
     
-    if is_red_tube():
-        color_of_tube = "RED"
-    elif is_green_tube():
-        color_of_tube = "GREEN"
-    elif is_blue_tube():
-        color_of_tube = "BLUE"
-    else:
-        color_of_tube = "BROWN"
+    mbox.send('cor do tubo')
+    mbox.wait()
+    
+    color_of_tube = mbox.read()
         
     print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
     
