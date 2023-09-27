@@ -79,7 +79,7 @@ def scan():
     
     print("Procurando tubo...")
     while True:
-        erro = (threshold - red_left()) * 0.8
+        erro = (threshold - red_aux()) * 0.45
         mbox.send('tem tubo?')
         mbox.wait()
         tem_tubo = mbox.read()
