@@ -1,10 +1,10 @@
-from pybricks.nxtdevices import ColorSensor                                
+from pybricks.ev3devices import ColorSensor                                
 from pybricks.parameters import Port, Color
 
 
 tube_sensor_verification = ColorSensor(Port.S3)
 # scan_sensor = ColorSensor(Port.S2)
-andar_linha = ColorSensor(Port.S4)
+tube_presence_verificator = ColorSensor(Port.S4)
 
 # Teste de sensor de cor 
 
@@ -30,6 +30,12 @@ def tube_scan():
         print("To vendo nada não chefe!")
         
         # (50+72)/2
+        
+def tube_is_detected():
+    if tube_presence_verificator.reflection() >= 8 or (tube_presence_verificator.rgb()[0] >= 2 and tube_presence_verificator.rgb()[1] >=3):
+        return True
+    else:
+        return False
         
 def alinhar_azul():
     # print(andar_linha.rgb())
