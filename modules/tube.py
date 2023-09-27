@@ -23,7 +23,7 @@ def tube_is_15():
         # (50+72)/2
         
 def tube_is_detected():
-    if tube_presence_verificator.reflection() >= 8 or (tube_presence_verificator.rgb()[0] >= 2 and tube_presence_verificator.rgb()[1] >=3):
+    if tube_presence_verificator.reflection() >= 8:
         return True
     else:
         return False
