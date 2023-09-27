@@ -1,4 +1,4 @@
-from pybricks.ev3devices import ColorSensor                                
+from pybricks.nxtdevices import ColorSensor                                
 from pybricks.parameters import Port, Color
 
 
