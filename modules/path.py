@@ -35,14 +35,13 @@ def align_to_begin_scan():
     move_backward(1)
     turn_right_pid(90)
         
-    branco = range_white_left()[0] # 80
+    branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
-    threshold = (branco + azul) / 2  # = 40
+    threshold = (branco + azul) / 2 
     vel = 150
     chegou_no_fim = False
     
     while not chegou_no_fim:
-        
         delta = threshold - red_left()
         kp = 0.45
         erro = delta * kp
@@ -54,16 +53,12 @@ def align_to_begin_scan():
     
     
     # Manobra na área de coleta 
-    # wait(300)
-    move_backward(1.5) #0.7
+    move_backward(1.5) 
    
-    # wait(300) 
     turn_left_pid(90)
     
-    # wait(300) 
     move_forward(15)
 
-    # wait(300)
     turn_left_pid(90)
         
 def scan():
@@ -85,7 +80,7 @@ def scan():
         tem_tubo = mbox.read()
         if tem_tubo == "tem tubo":
             break
-        # print(erro)
+
         
         motors.drive(80, erro)
         
@@ -93,7 +88,6 @@ def scan():
     angulo_direito = right_motor.angle()
     brake_motors_para_drive_base()
     brake_motors()
-    # tempo = cronometer.time()
     
     mbox.send('chave')
     mbox.wait()
@@ -112,25 +106,82 @@ def scan():
     print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
     
     brake_motors()
-    
-    # left_motor.reset_angle(0)
-    # right_motor.reset_angle(0)
-    
+
     
     while left_motor.angle() > ((-angulo_esquerdo) + 20) or right_motor.angle() > ((-angulo_direito) + 20):
-        # mbox.send('alinhar')
-        # mbox.wait()
-        # erro = mbox.read()
-        # erro = float(erro)
-        # erro = erro * 1
-        # print(erro)
-        # motors.drive(-400, erro)
-        
         andar_reto(-400)
     brake_motors_para_drive_base()
     
     print("Sai do scan")
-       
+
+
+def scan_de_ladinho_papai():
+    branco = range_white_right()[0] 
+    azul = range_blue_right()[0] 
+    threshold = (branco + azul) / 2  
+    vel = 100
+
+    scan_tube = 'Sem tubo'
+
+    while scan_tube == 'Sem tubo':
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(vel, erro)   
+        
+        mbox.send('de_ladinho')
+        mbox.wait()
+        scan_tube = mbox.read()
+
+        
+    brake_motors_para_drive_base()
+    deu_bom_familia()
+
+
+    # # manobras --- 
+
+    move_forward(4)
+    turn_right_pid(90)
+    Close(False)
+    move_forward(5, 250)
+    while claw_motor.speed() != 0:
+        wait(1)
+
+    #com o tubo
+
+    move_backward(5)
+    turn_right_pid(90)
+            
+    branco = range_white_left()[0] # 80
+    azul = range_blue_left()[0] 
+    threshold = (branco + azul) / 2  # = 40
+    vel = 150
+    chegou_no_fim = False
+
+    while not chegou_no_fim:
+        
+        delta = threshold - red_left()
+        kp = 0.45
+        erro = delta * kp
+        motors.drive(vel, erro)
+        
+        if is_red_right():
+            chegou_no_fim = True
+            brake_motors_para_drive_base()
+
+
+    move_backward(1.5) #0.7
+
+    # wait(300) 
+    turn_left_pid(90)
+
+    # wait(300) 
+    move_forward(15)
+
+    # wait(300)
+    turn_left_pid(90)
+
+
 def set_path():
     global color_of_tube
     global size_of_tube
@@ -148,8 +199,7 @@ def set_path():
         if color_of_tube == "BROWN": #Padaria
             tube_bakery()
     else:
-        # print("Tem 10 cm")
-        
+
         if color_of_tube == "GREEN": #Parque
             tube_park()
         if color_of_tube == "BLUE": #Escola

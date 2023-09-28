@@ -11,89 +11,89 @@ from pybricks.hubs import EV3Brick
 # has_object_in = []
 # # Codigo ---------------------------------------------------------------------------------------
 
-# find_blue_line(0)
-# ev3.speaker.beep(444, 1000)
-# while True:
-#     align_to_begin_scan()
-#     ev3.speaker.beep(444, 1000)
-#     scan()
-#     ev3.speaker.beep(444, 1000)
-#     go_to_check_point()
-#     ev3.speaker.beep(444, 1000)
-#     set_path()
-#     ev3.speaker.beep(444, 1000)
+find_blue_line(0)
+ev3.speaker.beep(444, 1000)
+while True:
+    align_to_begin_scan()
+    ev3.speaker.beep(444, 1000)
+    scan()
+    ev3.speaker.beep(444, 1000)
+    go_to_check_point()
+    ev3.speaker.beep(444, 1000)
+    set_path()
+    ev3.speaker.beep(444, 1000)
    
 
 
 # ---------------------------------------------------------
 
-branco = range_white_right()[0] 
-azul = range_blue_right()[0] 
-threshold = (branco + azul) / 2  
-vel = 100
+# branco = range_white_right()[0] 
+# azul = range_blue_right()[0] 
+# threshold = (branco + azul) / 2  
+# vel = 100
 
-scan_tube = 'Sem tubo'
+# scan_tube = 'Sem tubo'
 
-while scan_tube == 'Sem tubo':
-    delta = red_right() - threshold
-    kp = 0.5
-    erro = delta * kp
-    motors.drive(vel, erro)   
+# while scan_tube == 'Sem tubo':
+#     delta = red_right() - threshold
+#     kp = 0.5
+#     erro = delta * kp
+#     motors.drive(vel, erro)   
      
-    mbox.send('de_ladinho')
-    mbox.wait()
-    scan_tube = mbox.read()
+#     mbox.send('de_ladinho')
+#     mbox.wait()
+#     scan_tube = mbox.read()
 
     
-brake_motors_para_drive_base()
-deu_bom_familia()
+# brake_motors_para_drive_base()
+# deu_bom_familia()
 
 
 # # manobras --- 
 
-move_forward(4)
-turn_right_pid(90)
-Close(False)
-move_forward(5, 250)
-while claw_motor.speed() != 0:
-    wait(1)
+# move_forward(4)
+# turn_right_pid(90)
+# Close(False)
+# move_forward(5, 250)
+# while claw_motor.speed() != 0:
+#     wait(1)
 
-#com o tubo
+# #com o tubo
 
-move_backward(5)
-turn_right_pid(90)
+# move_backward(5)
+# turn_right_pid(90)
         
-branco = range_white_left()[0] # 80
-azul = range_blue_left()[0] 
-threshold = (branco + azul) / 2  # = 40
-vel = 150
-chegou_no_fim = False
+# branco = range_white_left()[0] # 80
+# azul = range_blue_left()[0] 
+# threshold = (branco + azul) / 2  # = 40
+# vel = 150
+# chegou_no_fim = False
 
-while not chegou_no_fim:
+# while not chegou_no_fim:
     
-    delta = threshold - red_left()
-    kp = 0.45
-    erro = delta * kp
-    motors.drive(vel, erro)
+#     delta = threshold - red_left()
+#     kp = 0.45
+#     erro = delta * kp
+#     motors.drive(vel, erro)
     
-    if is_red_right():
-        chegou_no_fim = True
-        brake_motors_para_drive_base()
+#     if is_red_right():
+#         chegou_no_fim = True
+#         brake_motors_para_drive_base()
 
 
-# Manobra na área de coleta 
-# wait(300)
-move_backward(1.5) #0.7
+# # Manobra na área de coleta 
+# # wait(300)
+# move_backward(1.5) #0.7
 
-# wait(300) 
-turn_left_pid(90)
+# # wait(300) 
+# turn_left_pid(90)
 
-# wait(300) 
-move_forward(15)
+# # wait(300) 
+# move_forward(15)
 
-# wait(300)
-turn_left_pid(90)
-Open()
+# # wait(300)
+# turn_left_pid(90)
+# Open()
 
 # Editando o Range------------------------------------------------------------------------------
 
@@ -157,9 +157,9 @@ Open()
 
 # Ajustar ranges das cores ---------------------------------------------------------------------
 
-# while True:
-#     wait(500)
-#     print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())
+while True:
+    wait(500)
+    print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())
 
 #-----------------------------------------------------------------------------------------------
 

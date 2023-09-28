@@ -19,7 +19,7 @@ def find_blue_line(numero_de_paredes):
         print("procurando")
         while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
             andar_reto(500)   
-            #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
+            
         time_forward = [left_motor.angle(), right_motor.angle()]
         brake_motors()
         if is_red_left() or is_red_right():
@@ -34,7 +34,7 @@ def find_blue_line(numero_de_paredes):
             brake_motors()
             
         if (is_red_left() or is_red_right()):
-            ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
+            ajust_color(cor_vista) 
             print("Achou vermelho")
             brake_motors()
             move_backward(36)
