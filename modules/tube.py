@@ -47,7 +47,7 @@ def scan_de_ladinho():
     
     
 def color_tube():
-    if tube_presence_verificator.rgb()[0] >= 80 and tube_presence_verificator.rgb()[1] <= 30 and tube_presence_verificator.rgb()[2] <= 20:
+    if tube_presence_verificator.rgb()[0] >= 90 and tube_presence_verificator.rgb()[1] <= 35 and tube_presence_verificator.rgb()[2] <= 30:
         return "RED"
     elif tube_presence_verificator.rgb()[1] >= 45 and tube_presence_verificator.rgb()[0] <= 45 and tube_presence_verificator.rgb()[2] <= 45:
         return "GREEN"
