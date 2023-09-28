@@ -32,7 +32,7 @@ print('connected!')
 def align_to_begin_scan():
     brake_motors()
     print("Achei o azul")
-    move_backward(1)
+    move_backward(2)
     turn_right_pid(90)
         
     branco = range_white_left()[0] # 80
@@ -55,7 +55,11 @@ def align_to_begin_scan():
     
     # Manobra na área de coleta 
     # wait(300)
+<<<<<<< HEAD
     move_backward(1.5) #0.7
+=======
+    move_backward(1)
+>>>>>>> 0f7e5fbc34b469d8064b60a1609a792ea30e0336
    
     # wait(300) 
     turn_left_pid(90)
