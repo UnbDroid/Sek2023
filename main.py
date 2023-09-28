@@ -23,29 +23,27 @@ client.connect(SERVER)
 print('connected!')
 
 while True:
+    
     mbox.wait()
     msg = mbox.read()
-        
-    if msg == "chave":
+    
+    if msg == 'alinhar':
         wait(50)
-        if tube_is_15() == True:
+        mbox.send(alinhar_azul())
+        
+    elif msg == "chave":
+        wait(50)
+        if tube() == True:
             mbox.send('15')
         else:
             mbox.send('10')
-
-    elif msg == 'tem tubo?':
-        if tube_is_detected() == True:
-            mbox.send('tem tubo')
-        else:
-            mbox.send('nao tem tubo')
-            
-    elif msg == 'cor do tubo':
-        mbox.send(color_tube())
-
-# while True:
-#     print(tube_presence_verificator.rgb())
     
-#RED
-#BLUE
-#GREEN
-#BROWN
+    elif msg == "de_ladinho":
+        wait(50)
+        mbox.send(scan_de_ladinho())
+            
+    elif msg == "scan":
+        wait(50)
+        tube_scan()
+
+
