@@ -3,7 +3,7 @@ from pybricks.parameters import Port, Color
 from pybricks.ev3devices import UltrasonicSensor
 
 tube_sensor_verification = ColorSensor(Port.S3)
-andar_linha = ColorSensor(Port.S4)
+tube_presence_verificator = ColorSensor(Port.S4)
 
 ultrasound = UltrasonicSensor(Port.S2)
 
