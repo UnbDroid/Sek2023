@@ -43,4 +43,9 @@ while True:
         mbox.send(color_tube())
 
 # while True:
-#     print(tube_presence_verificator.reflection())
+#     print(tube_presence_verificator.rgb())
+    
+#RED
+#BLUE
+#GREEN
+#BROWN

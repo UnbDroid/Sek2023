@@ -29,11 +29,11 @@ def tube_is_detected():
         return False
     
 def color_tube():
-    if tube_presence_verificator.rgb()[0] >= (tube_presence_verificator.rgb()[1] + tube_presence_verificator.rgb()[2]):
+    if tube_presence_verificator.rgb()[0] >= 80 and tube_presence_verificator.rgb()[1] <= 30 and tube_presence_verificator.rgb()[2] <= 20:
         return "RED"
-    elif tube_presence_verificator.rgb()[1] >= (tube_presence_verificator.rgb()[0] + tube_presence_verificator.rgb()[2]):
+    elif tube_presence_verificator.rgb()[1] >= 45 and tube_presence_verificator.rgb()[0] <= 45 and tube_presence_verificator.rgb()[2] <= 45:
         return "GREEN"
-    elif tube_presence_verificator.rgb()[2] >= (tube_presence_verificator.rgb()[0] + tube_presence_verificator.rgb()[1]):
+    elif tube_presence_verificator.rgb()[0] >= 32 and tube_presence_verificator.rgb()[1] <= 32 and tube_presence_verificator.rgb()[2] >= 32:
         return "BLUE"
     else:
         return "BROWN"
