@@ -64,7 +64,7 @@ def align_to_begin_scan():
 '''
 
 def align_to_be_ladinho():
-    
+
 '''    
 def scan():
     global color_of_tube
@@ -119,6 +119,9 @@ def scan():
 
 
 def scan_de_ladinho_papai():
+    # to de frente pro azul
+    turn_left_pid(90)
+    
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2  
