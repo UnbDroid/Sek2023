@@ -40,7 +40,11 @@ while True:
     
     elif msg == "de_ladinho":
         wait(50)
-        mbox.send(scan_de_ladinho())
+        if scan_de_ladinho() == True:
+            mbox.send('Vi tubo')
+        else:
+            mbox.send('Sem tubo')
+        
             
     elif msg == "scan":
         wait(50)
