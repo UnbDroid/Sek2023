@@ -25,37 +25,52 @@ from pybricks.hubs import EV3Brick
    
 
 
-mbox.send('de_ladinho')
-mbox.wait()
-scan_tube = mbox.read()
-
-# salvar em uma variável
+# ---------------------------------------------------------
 
 branco = range_white_right()[0] 
-azul = range_blue_right()[0] #22
-threshold = (branco + azul) / 2  # = 40
+azul = range_blue_right()[0] 
+threshold = (branco + azul) / 2  
 vel = 100
 
-while True:
+scan_tube = 'Sem tubo'
+
+while scan_tube == 'Sem tubo':
+    delta = red_right() - threshold
+    kp = 0.5
+    erro = delta * kp
+    motors.drive(vel, erro)   
+     
     mbox.send('de_ladinho')
     mbox.wait()
     scan_tube = mbox.read()
-    while not scan_tube:
-        delta = red_right() - threshold
-        kp = 0.5
-        erro = delta * kp
-        motors.drive(vel, erro)
-        
-    brake_motors_para_drive_base()
 
-    deu_bom_familia()
     
-    break
+brake_motors_para_drive_base()
+brake_motors()
+
+deu_bom_familia()
 
 
+# manobras --- 
 
-
-
+move_forward(5)
+turn_right_pid(90)
+Close(False)
+while True:
+    print("Entrei")
+    mbox.send('tem tubo?')
+    mbox.wait()
+    tem_tubo = mbox.read()
+    print("li")
+    if tem_tubo == "tem tubo":
+        print("sai")
+        break
+    andar_reto(80)
+    
+andou_frente = [left_motor.angle(), right_motor.angle()]
+brake_motors()
+while left_motor.angle() < andou_frente[0] or right_motor.angle() < andou_frente[1]:
+    andar_reto(-80)
 
 
 # Editando o Range------------------------------------------------------------------------------
