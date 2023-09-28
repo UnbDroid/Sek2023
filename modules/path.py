@@ -55,7 +55,7 @@ def align_to_begin_scan():
     
     # Manobra na área de coleta 
     # wait(300)
-    move_backward(0.7)
+    move_backward(1.5) #0.7
    
     # wait(300) 
     turn_left_pid(90)

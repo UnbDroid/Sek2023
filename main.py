@@ -10,39 +10,53 @@ from pybricks.hubs import EV3Brick
 
 # has_object_in = []
 # # Codigo ---------------------------------------------------------------------------------------
+
+# find_blue_line(0)
+# ev3.speaker.beep(444, 1000)
 # while True:
-#     try:
-
-
-find_blue_line(0)
-ev3.speaker.beep(444, 1000)
-while True:
-    align_to_begin_scan()
-    ev3.speaker.beep(444, 1000)
-    scan()
-    ev3.speaker.beep(444, 1000)
-    go_to_check_point()
-    ev3.speaker.beep(444, 1000)
-    set_path()
-    ev3.speaker.beep(444, 1000)
+#     align_to_begin_scan()
+#     ev3.speaker.beep(444, 1000)
+#     scan()
+#     ev3.speaker.beep(444, 1000)
+#     go_to_check_point()
+#     ev3.speaker.beep(444, 1000)
+#     set_path()
+#     ev3.speaker.beep(444, 1000)
    
 
-    # except:
-    #     brake_motors()
-    #     print("OI")
-    #     deu_bom_familia()
-    #     wait(15000)
-    #     find_blue_line(0)
-    #     ev3.speaker.beep(444, 1000)
-    #     while True:
-    #         align_to_begin_scan()
-    #         ev3.speaker.beep(444, 1000)
-    #         scan()
-    #         ev3.speaker.beep(444, 1000)
-    #         go_to_check_point()
-    #         ev3.speaker.beep(444, 1000)
-    #         set_path()
-    #         ev3.speaker.beep(444, 1000)
+
+mbox.send('de_ladinho')
+mbox.wait()
+scan_tube = mbox.read()
+
+# salvar em uma variável
+
+branco = range_white_right()[0] 
+azul = range_blue_right()[0] #22
+threshold = (branco + azul) / 2  # = 40
+vel = 100
+
+while True:
+    mbox.send('de_ladinho')
+    mbox.wait()
+    scan_tube = mbox.read()
+    while not scan_tube:
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(vel, erro)
+        
+    brake_motors_para_drive_base()
+
+    deu_bom_familia()
+    
+    break
+
+
+
+
+
+
 
 # Editando o Range------------------------------------------------------------------------------
 
