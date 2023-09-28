@@ -46,32 +46,54 @@ while scan_tube == 'Sem tubo':
 
     
 brake_motors_para_drive_base()
-brake_motors()
-
 deu_bom_familia()
 
 
-# manobras --- 
+# # manobras --- 
 
-move_forward(5)
+move_forward(4)
 turn_right_pid(90)
 Close(False)
-while True:
-    print("Entrei")
-    mbox.send('tem tubo?')
-    mbox.wait()
-    tem_tubo = mbox.read()
-    print("li")
-    if tem_tubo == "tem tubo":
-        print("sai")
-        break
-    andar_reto(80)
-    
-andou_frente = [left_motor.angle(), right_motor.angle()]
-brake_motors()
-while left_motor.angle() < andou_frente[0] or right_motor.angle() < andou_frente[1]:
-    andar_reto(-80)
+move_forward(5, 250)
+while claw_motor.speed() != 0:
+    wait(1)
 
+#com o tubo
+
+move_backward(5)
+turn_right_pid(90)
+        
+branco = range_white_left()[0] # 80
+azul = range_blue_left()[0] 
+threshold = (branco + azul) / 2  # = 40
+vel = 150
+chegou_no_fim = False
+
+while not chegou_no_fim:
+    
+    delta = threshold - red_left()
+    kp = 0.45
+    erro = delta * kp
+    motors.drive(vel, erro)
+    
+    if is_red_right():
+        chegou_no_fim = True
+        brake_motors_para_drive_base()
+
+
+# Manobra na área de coleta 
+# wait(300)
+move_backward(1.5) #0.7
+
+# wait(300) 
+turn_left_pid(90)
+
+# wait(300) 
+move_forward(15)
+
+# wait(300)
+turn_left_pid(90)
+Open()
 
 # Editando o Range------------------------------------------------------------------------------
 
