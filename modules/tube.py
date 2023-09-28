@@ -23,7 +23,7 @@ def tube_is_15():
         # (50+72)/2
         
 def tube_is_detected():
-    if tube_presence_verificator.reflection() >= 8:
+    if tube_presence_verificator.reflection() >= 20:
         return True
     else:
         return False
