@@ -45,7 +45,13 @@ while True:
         else:
             mbox.send('Sem tubo')
         
-            
+    elif msg == "tem tubo?":
+        wait(50)
+        if tube_is_detected():
+            mbox.send("tem tubo")
+        else:
+            mbox.send("nao tem tubo")
+         
     elif msg == "scan":
         wait(50)
         tube_scan()
