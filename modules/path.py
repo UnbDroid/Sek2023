@@ -5,6 +5,7 @@ from modules.claw import *
 from modules.delivery import *
 from pybricks.tools import StopWatch
 
+ev3 = EV3Brick()
 pointed_to = 1
 cardinal_points = ["N", "E", "S", "W"]
 cronometer = StopWatch()
@@ -19,111 +20,25 @@ server = BluetoothMailboxServer()
 mbox = TextMailbox('greeting', server)
 
 # The server must be started before the client!
+
+ev3.speaker.beep(444, 1000)
 print('waiting for connection...')
 server.wait_for_connection()
 print('connected!')
 
-def find_blue_line(numero_de_paredes):
-    if numero_de_paredes < 4:
-        brake_motors()
-        
-        cor_vista = ""
-        
-        print("procurando")
-        while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
-            andar_reto(360)   
-            #print("RGB Esquerdo: ", red_left(), green_left(), blue_left(), "RGB Direito: ", red_right(), green_right(), blue_right())
-        brake_motors()
-    
-        if is_red_left() or is_red_right():
-            cor_vista = "RED"
-        elif is_black_left() or is_black_right():
-            cor_vista = "BLACK"
-        elif is_yellow_left() or is_yellow_right():
-            cor_vista = "YELLOW"
-        time_forward = cronometer.time()
-        if not is_blue() and not (is_red_left() or is_red_right()) and not (is_black_left() or is_black_right()) and not (is_yellow_left() or is_yellow_right()) and not has_obstacle():
-            while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right():
-                andar_reto(-360)
-            brake_motors()
-        if cor_vista != "":
-            ajust_color(cor_vista) # eu não estou suportando mais por favor alguem me ajuda
-            
-        if (is_red_left() or is_red_right()):
-            print("Achou RED")
-            brake_motors()
-            move_backward(43) 
-            turn_left_pid(90)
-            brake_motors()
-            while not is_blue():
-                andar_reto(360)
-                if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
-                    brake_motors()
-                    turn_right_pid(180)
-                elif has_obstacle():
-                    brake_motors()
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(360)
-                    brake_motors()
-                    while ultrasound_sensor.distance() < 145:
-                        andar_reto(-150)
-                    brake_motors()
-                    turn_right_pid(90)
-                    cronometer.reset()
-                    while not is_red_left() and not is_red_right() and not has_obstacle():
-                        andar_reto(360)
-                    brake_motors()
-                    if cronometer.time() < 6000 or has_obstacle():
-                        turn_right_pid(180)
-                        while ultrasound_sensor.distance() > 145 and not is_red_left() and not is_red_right():
-                            andar_reto(360)
-                        brake_motors()
-                        if is_red_left() or is_red_right():
-                            move_backward(43)
-                            turn_right_pid(90)
-                    else:
-                        move_backward(43)
-                        turn_left_pid(90)
-                        find_blue_line(0)
-            brake_motors()
-            
-        elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
-            print("Achou parede")
-            print("Voltando...")
-            if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-                move_backward(8)
-            elif has_obstacle():
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(360)
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-150)
-                brake_motors()
-            turn_right_pid(90)
-            print("Vai somar mais um no numero_de_paredes")
-            print(numero_de_paredes)
-            find_blue_line(numero_de_paredes + 1)
-        
-    else:
-        turn_right_pid(90)
-        while ultrasound_sensor.distance() > 145 and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
-            andar_reto(360)
-        brake_motors()
-        if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
-            cor_vista = "BLACK"
-            ajust_color(cor_vista)
-            move_backward(8)
-        find_blue_line(0)
-        
+
+# Se alinhando no azul para iniciar o scan ---------------------------------------------------------------------------------
+      
 def align_to_begin_scan():
     brake_motors()
     print("Achei o azul")
-    move_backward(0.6)
+    move_backward(1)
     turn_right_pid(90)
         
-    branco = 90 # 80
-    azul = 10
+    branco = range_white_left()[0] # 80
+    azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2  # = 40
-    vel = 100
+    vel = 150
     chegou_no_fim = False
     
     while not chegou_no_fim:
@@ -135,36 +50,50 @@ def align_to_begin_scan():
         
         if is_red_right():
             chegou_no_fim = True
-            brake_motors()
-            
-    wait(500)
-    move_backward(0.7)
-    brake_motors()
+            brake_motors_para_drive_base()
     
-    wait(500) 
+    
+    # Manobra na área de coleta 
+    # wait(300)
+    move_backward(1.5) #0.7
+   
+    # wait(300) 
     turn_left_pid(90)
-    brake_motors()
     
-    wait(500) 
-    move_forward(14)
-    brake_motors()
-    
-    wait(500) 
-    turn_left_pid(90)
-    brake_motors()
-    
-    
+    # wait(300) 
+    move_forward(15)
 
+    # wait(300)
+    turn_left_pid(90)
+        
 def scan():
     global color_of_tube
     global size_of_tube
     
-    cronometer.reset()
+    left_motor.reset_angle(0)
+    right_motor.reset_angle(0)
+    
+    azul = 7
+    branco = 52
+    threshold = (azul + branco) / 2
+    
     print("Procurando tubo...")
-    while not tube_is_detected():
-        andar_reto(150)
+    while True:
+        erro = (red_aux() - threshold) * 0.45
+        mbox.send('tem tubo?')
+        mbox.wait()
+        tem_tubo = mbox.read()
+        if tem_tubo == "tem tubo":
+            break
+        # print(erro)
+        
+        motors.drive(80, erro)
+        
+    angulo_esquerdo = left_motor.angle()
+    angulo_direito = right_motor.angle()
+    brake_motors_para_drive_base()
     brake_motors()
-    tempo = cronometer.time()
+    # tempo = cronometer.time()
     
     mbox.send('chave')
     mbox.wait()
@@ -175,34 +104,41 @@ def scan():
     
     Close()
     
-    if is_red_tube():
-        color_of_tube = "RED"
-    elif is_green_tube():
-        color_of_tube = "GREEN"
-    elif is_blue_tube():
-        color_of_tube = "BLUE"
-    else:
-        color_of_tube = "BROWN"
+    mbox.send('cor do tubo')
+    mbox.wait()
+    
+    color_of_tube = mbox.read()
         
     print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
     
-    cronometer.reset()
-
-    while cronometer.time() < tempo:
-        andar_reto(-150)
     brake_motors()
-    wait(250)
     
-    move_forward(1)
-    print("Sai do scan")
+    # left_motor.reset_angle(0)
+    # right_motor.reset_angle(0)
+    
+    
+    while left_motor.angle() > ((-angulo_esquerdo) + 20) or right_motor.angle() > ((-angulo_direito) + 20):
+        # mbox.send('alinhar')
+        # mbox.wait()
+        # erro = mbox.read()
+        # erro = float(erro)
+        # erro = erro * 1
+        # print(erro)
+        # motors.drive(-400, erro)
         
+        andar_reto(-400)
+    brake_motors_para_drive_base()
+    
+    print("Sai do scan")
+       
 def set_path():
     global color_of_tube
     global size_of_tube
     
     print("Entrei")
     if size_of_tube == 15:
-        print("Tem 15 cm")#$%¨&*(
+        
+        print("Tem 15 cm")
         if color_of_tube == "RED": #Farmacia
             tube_drugstore()
         if color_of_tube == "GREEN": #Prefeitura
@@ -212,7 +148,7 @@ def set_path():
         if color_of_tube == "BROWN": #Padaria
             tube_bakery()
     else:
-        print("Entrei no else")#$%¨&*(
+        # print("Tem 10 cm")
         
         if color_of_tube == "GREEN": #Parque
             tube_park()
