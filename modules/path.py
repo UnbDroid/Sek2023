@@ -75,13 +75,11 @@ def scan():
     print("Procurando tubo...")
     while True:
         erro = (red_aux() - threshold) * 0.45
-        mbox.send('tem tubo?')
+        mbox.send("tem tubo?")
         mbox.wait()
         tem_tubo = mbox.read()
         if tem_tubo == "tem tubo":
             break
-
-        
         motors.drive(80, erro)
         
     angulo_esquerdo = left_motor.angle()
