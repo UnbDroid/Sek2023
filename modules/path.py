@@ -60,7 +60,12 @@ def align_to_begin_scan():
     move_forward(15)
 
     turn_left_pid(90)
-        
+
+'''
+
+def align_to_be_ladinho():
+    
+'''    
 def scan():
     global color_of_tube
     global size_of_tube

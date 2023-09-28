@@ -157,9 +157,9 @@ while True:
 
 # Ajustar ranges das cores ---------------------------------------------------------------------
 
-while True:
-    wait(500)
-    print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())
+# while True:
+#     wait(500)
+#     print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())
 
 #-----------------------------------------------------------------------------------------------
 
