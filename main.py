@@ -47,5 +47,8 @@ while True:
         else:
             mbox.send("nao tem tubo")
          
+    elif msg == "cor do tubo":
+        mbox.send(color_tube())
+         
     elif msg == "scan":
         tube_scan()
