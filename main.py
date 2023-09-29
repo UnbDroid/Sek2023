@@ -14,12 +14,24 @@ from pybricks.hubs import EV3Brick
 find_blue_line(0)
 ev3.speaker.beep(444, 1000)
 while True:
-    align_to_begin_scan()
+    # Dentro do azul
+    
+    # align_to_begin_scan()
+    # ev3.speaker.beep(444, 1000)
+    # scan()
+    # ev3.speaker.beep(444, 1000)
+    # go_to_check_point()
+    # ev3.speaker.beep(444, 1000)
+    
+    # The Ladinho 😎🫡🤠
+    
+    align_to_be_ladinho()
     ev3.speaker.beep(444, 1000)
-    scan()
+    scan_de_ladinho_papai()
     ev3.speaker.beep(444, 1000)
-    go_to_check_point()
-    ev3.speaker.beep(444, 1000)
+    
+#-#-#----------------
+    
     set_path()
     ev3.speaker.beep(444, 1000)
    
@@ -185,10 +197,10 @@ while True:
 
 # Ajustar o ajust color ------------------------------------------------------------------------
 
-# while not is_red_left() and not is_red_right():
+# while not is_black_left() and not is_black_right():
 #     andar_reto(500)
     
-# cor_vista = "RED"
+# cor_vista = "BLACK"
 # brake_motors()
 # ajust_color(cor_vista)
 # move_backward(10)

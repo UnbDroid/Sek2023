@@ -61,11 +61,13 @@ def align_to_begin_scan():
 
     turn_left_pid(90)
 
-'''
+
 
 def align_to_be_ladinho():
-
-'''    
+    move_backward(0.2) #0.1
+    turn_left_pid(90)
+    move_backward(1)
+    
 def scan():
     global color_of_tube
     global size_of_tube
@@ -119,22 +121,68 @@ def scan():
 
 
 def scan_de_ladinho_papai():
-    # to de frente pro azul
-    turn_left_pid(90)
+    global color_of_tube
+    global size_of_tube
+    mbox.send('de_ladinho')
+    mbox.wait()
+    scan_tube=mbox.read()
     
+    count = 0
+    
+    if scan_tube == "Vi tubo":  
+        # move_backward(0.5)
+        while True:
+            mbox.send('de_ladinho')
+            mbox.wait()
+            scan_tube = mbox.read()
+            if scan_tube == "Sem tubo":
+                break
+            andar_reto(-35)
+            
+        move_backward(5.35) #5
+    
+            
+            
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2  
     vel = 100
 
-    scan_tube = 'Sem tubo'
+    mbox.send('de_ladinho')
+    mbox.wait()
+    scan_tube=mbox.read()
 
+    
     while scan_tube == 'Sem tubo':
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
-        motors.drive(vel, erro)   
+        motors.drive(vel, erro) 
         
+        # ---- novo  
+        if is_red_left():
+            brake_motors_para_drive_base()
+            turn_180()
+            branco = range_white_left()[0] 
+            azul = range_blue_left()[0] 
+            threshold = (branco + azul) / 2 
+            vel = 150
+            chegou_no_fim = False
+            
+            while not chegou_no_fim:
+                delta = threshold - red_left()
+                kp = 0.45
+                erro = delta * kp
+                motors.drive(vel, erro)
+                
+                if is_red_right():
+                    chegou_no_fim = True
+                    brake_motors_para_drive_base()
+            
+            move_backward(1.5)
+            turn_180()
+        
+        # -------
         mbox.send('de_ladinho')
         mbox.wait()
         scan_tube = mbox.read()
@@ -143,13 +191,21 @@ def scan_de_ladinho_papai():
     brake_motors_para_drive_base()
     deu_bom_familia()
 
-
+    
     # # manobras --- 
 
     move_forward(4)
-    turn_right_pid(90)
+    turn_right_pid(90, 72)
     Close(False)
+    wait(50)
     move_forward(5, 250)
+    mbox.send('chave')
+    mbox.wait()
+        
+    
+
+    size_of_tube = mbox.read()
+    size_of_tube = int(size_of_tube)
     while claw_motor.speed() != 0:
         wait(1)
 
@@ -178,15 +234,18 @@ def scan_de_ladinho_papai():
 
     move_backward(1.5) #0.7
 
-    # wait(300) 
+    while left_motor.speed() != 0 or right_motor.speed() != 0:
+        wait(1)
+
+    mbox.send('cor do tubo')
+    mbox.wait()
+    
+    color_of_tube = mbox.read()
+        
+    print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
     turn_left_pid(90)
-
-    # wait(300) 
-    move_forward(15)
-
-    # wait(300)
+    move_forward(2)
     turn_left_pid(90)
-
 
 def set_path():
     global color_of_tube

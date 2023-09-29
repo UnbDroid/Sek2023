@@ -1554,7 +1554,7 @@ def tube_park():
                 Open()
                 move_backward(15.5)
                 turn_left_pid(90)
-                while has_obstacle() and not is_red_left() and not is_red_right():
+                while not has_obstacle() and not is_red_left() and not is_red_right():
                     andar_reto(500)
                 brake_motors()
                 if has_obstacle():

@@ -114,7 +114,7 @@ def move_backward(distancia, vel=500):
 
     
             
-def turn_left_pid(x):  
+def turn_left_pid(x, vel=360):  
     kp = 1.0
     ki = 0.0156
     setpoint = 1224 * (x / 360)
@@ -126,12 +126,12 @@ def turn_left_pid(x):
     while not (abs(calculate_error_right(setpoint)) < 177):
         current_angle = right_motor.angle()
         current_angle += calcule(current_angle, setpoint, kp, ki)
-        left_motor.run_angle(360, -current_angle, wait = False)
-        right_motor.run_angle(360, current_angle, wait = True)
+        left_motor.run_angle(vel, -current_angle, wait = False)
+        right_motor.run_angle(vel, current_angle, wait = True)
         
     brake_motors()
     
-def turn_right_pid(x):  
+def turn_right_pid(x, vel=360):  
     kp = 1.0
     ki = 0.0156
     setpoint = 1224 * (x / 360)
@@ -142,8 +142,8 @@ def turn_right_pid(x):
     while not abs(calculate_error(setpoint)) < 176:
         current_angle = left_motor.angle()
         current_angle += calcule(current_angle, setpoint, kp, ki)
-        left_motor.run_angle(360, current_angle, wait = False)
-        right_motor.run_angle(360, -current_angle, wait = True)
+        left_motor.run_angle(vel, current_angle, wait = False)
+        right_motor.run_angle(vel, -current_angle, wait = True)
     
     
     print(left_motor.angle(), right_motor.angle())
