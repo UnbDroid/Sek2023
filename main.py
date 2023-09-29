@@ -11,9 +11,9 @@ from pybricks.hubs import EV3Brick
 # has_object_in = []
 # # Codigo ---------------------------------------------------------------------------------------
 
-# find_blue_line(0)
-# ev3.speaker.beep(444, 1000)
-# while True:
+find_blue_line(0)
+ev3.speaker.beep(444, 1000)
+while True:
     # Dentro do azul
     
     # align_to_begin_scan()
@@ -25,15 +25,15 @@ from pybricks.hubs import EV3Brick
     
     # The Ladinho 😎🫡🤠
     
-#     align_to_be_ladinho()
-#     ev3.speaker.beep(444, 1000)
-#     scan_de_ladinho_papai()
-#     ev3.speaker.beep(444, 1000)
+    align_to_be_ladinho()
+    ev3.speaker.beep(444, 1000)
+    scan_de_ladinho_papai()
+    ev3.speaker.beep(444, 1000)
     
 # #-#-#----------------
     
-#     set_path()
-#     ev3.speaker.beep(444, 1000)
+    set_path()
+    ev3.speaker.beep(444, 1000)
    
 
 
@@ -65,7 +65,7 @@ from pybricks.hubs import EV3Brick
 
 # move_forward(4)
 # turn_right_pid(90)
-# Close(False)
+# Close()
 # move_forward(5, 250)
 # while claw_motor.speed() != 0:
 #     wait(1)
@@ -105,9 +105,6 @@ from pybricks.hubs import EV3Brick
 
 # # wait(300)
 # turn_left_pid(90)
-New_Open()
-# wait(5000)
-# New_Close()
 
 # while not is_blue():
 #     andar_reto(500)

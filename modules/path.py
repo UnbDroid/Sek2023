@@ -13,6 +13,7 @@ size_of_tube = 0
 color_of_tube = ""
 initial_path = [0, 0, 0, 0]
 current_path = [0, 0, 0, 0]
+quanto_andou_pra_frente = [0, 0]
 
 # server 
 from pybricks.messaging import BluetoothMailboxServer, TextMailbox
@@ -64,7 +65,6 @@ def align_to_begin_scan():
 
 
 def align_to_be_ladinho():
-    move_backward(0.15) #0.1
     turn_left_pid(90)
     Open()
     move_backward(1)
@@ -101,7 +101,6 @@ def scan():
     size_of_tube = mbox.read()
     size_of_tube = int(size_of_tube)
     
-    
     Close()
     
     mbox.send('cor do tubo')
@@ -124,54 +123,74 @@ def scan():
 def scan_de_ladinho_papai():
     global color_of_tube
     global size_of_tube
-    mbox.send('de_ladinho')
-    mbox.wait()
-    scan_tube=mbox.read()
+    global quanto_andou_pra_frente
+        
+    turn_left_pid(180)
+
+    branco = range_white_left()[0] # 80
+    azul = range_blue_left()[0] 
+    threshold = (branco + azul) / 2  # = 40
+    vel = 150
+    chegou_no_fim = False
+
+    while not chegou_no_fim:
+        
+        delta = threshold - red_left()
+        kp = 0.45
+        erro = delta * kp
+        motors.drive(vel, erro)
+        
+        if is_red_right():
+            chegou_no_fim = True
+            brake_motors_para_drive_base()
+
+    move_backward(1.5) 
     
-    if scan_tube == "Vi tubo":  
-        while True:
-            mbox.send('de_ladinho')
-            mbox.wait()
-            scan_tube = mbox.read()
-            if scan_tube == "Sem tubo":
-                break
-            andar_reto(-35)
-            
-        move_backward(5.35) #5
+    turn_180()
     
-            
-       
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
-    threshold = (branco + azul) / 2  
-    vel = 100
+    threshold = (branco + azul) / 2
 
     mbox.send('de_ladinho')
     mbox.wait()
     scan_tube=mbox.read()
 
+    if quanto_andou_pra_frente != [0, 0]:
+        while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
+            delta = red_right() - threshold
+            kp = 0.5
+            erro = delta * kp
+            motors.drive(80, erro) 
+        brake_motors_para_drive_base()
     
     while scan_tube == 'Sem tubo':
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
-        motors.drive(vel, erro) 
+        motors.drive(40, erro) 
         
         # ---- novo  
         if is_red_left():
             brake_motors_para_drive_base()
+            move_backward(1.5)
             turn_180()
+            while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
+                delta = red_right() - threshold
+                kp = 0.5
+                erro = delta * kp
+                motors.drive(80, erro) 
+            brake_motors_para_drive_base()
             branco = range_white_left()[0] 
             azul = range_blue_left()[0] 
             threshold = (branco + azul) / 2 
-            vel = 150
             chegou_no_fim = False
             
             while not chegou_no_fim:
                 delta = threshold - red_left()
                 kp = 0.45
                 erro = delta * kp
-                motors.drive(vel, erro)
+                motors.drive(40, erro)
                 
                 if is_red_right():
                     chegou_no_fim = True
@@ -185,7 +204,7 @@ def scan_de_ladinho_papai():
         mbox.wait()
         scan_tube = mbox.read()
 
-        
+    quanto_andou_pra_frente = [left_motor.angle(), right_motor.angle()]    
     brake_motors_para_drive_base()
     deu_bom_familia()
 
@@ -194,7 +213,7 @@ def scan_de_ladinho_papai():
 
     move_forward(3.6)
     turn_right_pid(90, 72)
-    Close(False)
+    Close(esperar=False)
     wait(500)
     move_forward(5, 250)
     while claw_motor.speed() != 0:

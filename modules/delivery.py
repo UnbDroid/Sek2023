@@ -12,8 +12,8 @@ crono = StopWatch()
 def find_blue_line(numero_de_paredes):
     esquerda_direita = ["ESQUERDA", 1]
     
-    # if claw_motor.angle() < 10 and claw_motor.angle() > -10:
-    #     Close(False)
+    if claw_motor.angle() < 10 and claw_motor.angle() > -10:
+        Close(esperar=False)
     if numero_de_paredes < 4:
         brake_motors()
         
@@ -371,7 +371,7 @@ def tube_library():
     move_backward(32) # Volta para a área de coleta a msm distância de ir
     Close()
     turn_left_pid(90)
-    move_backward(13)
+    # move_backward(13) #SÓ LIGAR SE FOR USAR A CAPTURA NORMAL
     turn_left_pid(90)
         
     
@@ -545,8 +545,7 @@ def tube_school():
             print("Bati no RED")
             move_backward(36)
             turn_left_pid(90)
-            while not is_blue():
-                andar_reto(500)
+            find_blue_line(0)
             brake_motors()
         else:
             while not is_red_left() and not is_red_right():
@@ -576,8 +575,7 @@ def tube_school():
                 ajust_color(cor_vista)
                 move_backward(36)
                 turn_left_pid(90)
-                while not is_blue():
-                    andar_reto(500)
+                find_blue_line(0)
                 brake_motors()
     else:
         not_found_wall()
@@ -675,8 +673,7 @@ def tube_museum():
             print("Bati no RED")
             move_backward(36)
             turn_right_pid(90)
-            while not is_blue():
-                andar_reto(500)
+            find_blue_line(0)
             brake_motors()
         else:
             not_found_wall()
@@ -705,8 +702,7 @@ def tube_museum():
                 print("Bati no RED")
                 move_backward(36)
                 turn_right_pid(90)
-                while not is_blue():
-                    andar_reto(500)
+                find_blue_line(0)
                 brake_motors()
             else:
                 not_found_wall()
@@ -737,8 +733,7 @@ def tube_museum():
                     ajust_color(cor_vista)
                     move_backward(36)
                     turn_right_pid(90)
-                    while not is_blue():
-                        andar_reto(500)
+                    find_blue_line(0)
                     brake_motors()
     else: # objeto J não existe
         print("Não existe J")
@@ -861,8 +856,7 @@ def tube_drugstore():
             ajust_color(cor_vista)
             move_backward(36)
             turn_right_pid(90)
-            while not is_blue():
-                andar_reto(500)
+            find_blue_line(0)
             brake_motors()
         else:    
             not_found_wall()
@@ -887,8 +881,7 @@ def tube_drugstore():
                 ajust_color(cor_vista)
                 move_backward(36)
                 turn_right_pid(90)
-                while not is_blue():
-                    andar_reto(500)
+                find_blue_line(0)
                 brake_motors()
     else:
         not_found_wall()
@@ -946,8 +939,7 @@ def tube_drugstore():
                 ajust_color(cor_vista)
                 move_backward(36)
                 turn_right_pid(90)
-                while not is_blue():
-                    andar_reto(500)
+                find_blue_line(0)
                 brake_motors() 
             else:
                 not_found_wall()
@@ -1085,8 +1077,7 @@ def tube_bakery():
             ajust_color(cor_vista)
             move_backward(36)
             turn_left_pid(90)
-            while not is_blue():
-                andar_reto(500)
+            find_blue_line(0)
             brake_motors()
         else:
             not_found_wall()
@@ -1126,8 +1117,7 @@ def tube_bakery():
                 ajust_color(cor_vista)
                 move_backward(36)
                 turn_left_pid(90)
-                while not is_blue():
-                    andar_reto(500)
+                find_blue_line(0)
                 brake_motors()
             else:
                 not_found_wall()
@@ -1214,8 +1204,7 @@ def tube_bakery():
                 ajust_color(cor_vista)
                 move_backward(36)
                 turn_left_pid(90)
-                while not is_blue():
-                    andar_reto(500)
+                find_blue_line(0)
                 brake_motors()
             else:
                 not_found_wall()
@@ -1263,6 +1252,7 @@ def tube_bakery():
             Open()
             move_backward(20)
             turn_right_pid(90)
+            Close()
             #Abre e retorna
             while not has_obstacle() and not is_blue():
                 andar_reto(500)
@@ -1357,8 +1347,7 @@ def tube_park():
             ajust_color(cor_vista)
             move_backward(36)
             turn_right_pid(90)
-            while not is_blue():
-                andar_reto(500)
+            find_blue_line(0)
             brake_motors()
         else:
             while not is_black_left() and not is_black_right():
@@ -1387,8 +1376,7 @@ def tube_park():
                     andar_reto(-200)
                 brake_motors()
                 turn_right_pid(90)
-                while not is_blue():
-                    andar_reto(500)
+                find_blue_line(0)
                 brake_motors()
             else:
                 while not is_red_left() and not is_red_right():
@@ -1405,6 +1393,7 @@ def tube_park():
                 turn_left_pid(90)
                 move_forward(29)
                 turn_left_pid(90)
+                Close(False)
                 while not is_blue() and not has_obstacle():
                     andar_reto(500)
                 brake_motors()
@@ -1467,8 +1456,7 @@ def tube_park():
                 turn_right_pid(90)
                 move_backward(29)
                 turn_right_pid(90)
-                while not is_blue():
-                    andar_reto(500)
+                find_blue_line(0)
                 brake_motors()
             else:
                 
@@ -1498,8 +1486,7 @@ def tube_park():
                         andar_reto(500)
                     brake_motors()
                     turn_right_pid(90)
-                    while not is_blue():
-                        andar_reto(500)
+                    find_blue_line(0)
                     brake_motors()
                 else:
                     while not is_red_left() and not is_red_right():
