@@ -197,7 +197,7 @@ def scan_de_ladinho_papai():
     move_forward(4)
     turn_right_pid(90, 72)
     Close(False)
-    wait(50)
+    wait(70)
     move_forward(5, 250)
     mbox.send('chave')
     mbox.wait()
