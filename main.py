@@ -11,9 +11,9 @@ from pybricks.hubs import EV3Brick
 # has_object_in = []
 # # Codigo ---------------------------------------------------------------------------------------
 
-find_blue_line(0)
-ev3.speaker.beep(444, 1000)
-while True:
+# find_blue_line(0)
+# ev3.speaker.beep(444, 1000)
+# while True:
     # Dentro do azul
     
     # align_to_begin_scan()
@@ -25,15 +25,15 @@ while True:
     
     # The Ladinho 😎🫡🤠
     
-    align_to_be_ladinho()
-    ev3.speaker.beep(444, 1000)
-    scan_de_ladinho_papai()
-    ev3.speaker.beep(444, 1000)
+#     align_to_be_ladinho()
+#     ev3.speaker.beep(444, 1000)
+#     scan_de_ladinho_papai()
+#     ev3.speaker.beep(444, 1000)
     
-#-#-#----------------
+# #-#-#----------------
     
-    set_path()
-    ev3.speaker.beep(444, 1000)
+#     set_path()
+#     ev3.speaker.beep(444, 1000)
    
 
 
@@ -105,7 +105,13 @@ while True:
 
 # # wait(300)
 # turn_left_pid(90)
-# Open()
+New_Open()
+# wait(5000)
+# New_Close()
+
+# while not is_blue():
+#     andar_reto(500)
+# brake_motors()
 
 # Editando o Range------------------------------------------------------------------------------
 

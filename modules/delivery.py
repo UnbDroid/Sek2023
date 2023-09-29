@@ -11,6 +11,9 @@ crono = StopWatch()
 
 def find_blue_line(numero_de_paredes):
     esquerda_direita = ["ESQUERDA", 1]
+    
+    # if claw_motor.angle() < 10 and claw_motor.angle() > -10:
+    #     Close(False)
     if numero_de_paredes < 4:
         brake_motors()
         
@@ -366,7 +369,7 @@ def tube_library():
     move_forward(32) # Indo para a entrega
     Open()
     move_backward(32) # Volta para a área de coleta a msm distância de ir
-    
+    Close()
     turn_left_pid(90)
     move_backward(13)
     turn_left_pid(90)
@@ -421,8 +424,7 @@ def tube_city_hall():
         #retorna para a área de coleta
         move_backward(20)
         turn_left_pid(90)
-        while not is_blue():
-            andar_reto(500)
+        find_blue_line(0)
         brake_motors()
     
     else:
@@ -437,8 +439,7 @@ def tube_city_hall():
         move_backward(20)
         turn_right_pid(90)
         
-        while not is_blue():
-            andar_reto(500)
+        find_blue_line(0)
         brake_motors()
         
 
@@ -798,7 +799,7 @@ def tube_drugstore():
 
     brake_motors_para_drive_base()
     turn_left_pid(90)
-    move_forward(15)
+    move_forward(18)
     
     if has_obstacle(): # "J" in has_object_in: #Objeto "J":
         #has_object_in.append("J")
@@ -891,17 +892,19 @@ def tube_drugstore():
                 brake_motors()
     else:
         not_found_wall()
-        move_forward(57) # Mesmo valor do museum
+        move_forward(52) # Mesmo valor do museum
         turn_right_pid(90)
-        move_forward(8)
+        move_forward(10)
         if has_obstacle(): # "G" in has_object_in: #Objeto "G":
             #has_object_in.append("G")
             found_wall()
+            move_backward(10)
             turn_left_pid(90)
+            move_forward(10)
             if has_obstacle(): # "E" in has_object_in: #Objeto "E":
                 #has_object_in.append("E")
                 found_wall()
-                move_backward(5)
+                move_backward(10)
                 turn_180()
                 while not is_blue():
                     andar_reto(500)
@@ -948,13 +951,18 @@ def tube_drugstore():
                 brake_motors() 
             else:
                 not_found_wall()
-                move_forward(4)
+                while not is_black_left() and not is_black_right():
+                    andar_reto(500)
+                brake_motors()
+                cor_vista = "BLACK"
+                ajust_color(cor_vista)
+                move_backward(7)
                 turn_right_pid(90)
-                move_forward(2)
+                move_forward(36)
                 turn_right_pid(90)
-                move_forward(2)
+                move_forward(20)
                 Open()
-                move_backward(15)
+                move_backward(20)
                 turn_right_pid(90)
                 #Abre e retorna
                 while not has_obstacle() and not is_red_left() and not is_red_right():

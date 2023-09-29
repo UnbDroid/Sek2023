@@ -34,7 +34,7 @@ def align_to_begin_scan():
     print("Achei o azul")
     move_backward(1)
     turn_right_pid(90)
-        
+    Open()
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2 
@@ -64,8 +64,9 @@ def align_to_begin_scan():
 
 
 def align_to_be_ladinho():
-    move_backward(0.2) #0.1
+    move_backward(0.15) #0.1
     turn_left_pid(90)
+    Open()
     move_backward(1)
     
 def scan():
@@ -127,10 +128,7 @@ def scan_de_ladinho_papai():
     mbox.wait()
     scan_tube=mbox.read()
     
-    count = 0
-    
     if scan_tube == "Vi tubo":  
-        # move_backward(0.5)
         while True:
             mbox.send('de_ladinho')
             mbox.wait()
@@ -142,7 +140,7 @@ def scan_de_ladinho_papai():
         move_backward(5.35) #5
     
             
-            
+       
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2  
@@ -194,24 +192,17 @@ def scan_de_ladinho_papai():
     
     # # manobras --- 
 
-    move_forward(4)
+    move_forward(3.6)
     turn_right_pid(90, 72)
     Close(False)
-    wait(70)
+    wait(500)
     move_forward(5, 250)
-    mbox.send('chave')
-    mbox.wait()
-        
-    
-
-    size_of_tube = mbox.read()
-    size_of_tube = int(size_of_tube)
     while claw_motor.speed() != 0:
         wait(1)
 
     #com o tubo
 
-    move_backward(5)
+    move_backward(5.5)
     turn_right_pid(90)
             
     branco = range_white_left()[0] # 80
@@ -236,6 +227,11 @@ def scan_de_ladinho_papai():
 
     while left_motor.speed() != 0 or right_motor.speed() != 0:
         wait(1)
+
+    mbox.send('chave')
+    mbox.wait()
+    size_of_tube = mbox.read()
+    size_of_tube = int(size_of_tube)
 
     mbox.send('cor do tubo')
     mbox.wait()
