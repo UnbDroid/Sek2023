@@ -166,7 +166,9 @@ def scan_de_ladinho_papai():
         tem_tubo = mbox.read()
         if tem_tubo == "Vi tubo":
             break
-        motors.drive(40, erro)
+        else:
+            print(tem_tubo)
+            motors.drive(40, erro)
     
     quanto_andou_pra_frente[0] += left_motor.angle()
     quanto_andou_pra_frente[1] += right_motor.angle() 
