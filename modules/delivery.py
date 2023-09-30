@@ -13,7 +13,7 @@ def find_blue_line(numero_de_paredes):
     esquerda_direita = ["ESQUERDA", 1]
     
     if claw_motor.angle() < 10 and claw_motor.angle() > -10:
-        Close(esperar=False)
+        Close()
     if numero_de_paredes < 4:
         brake_motors()
         

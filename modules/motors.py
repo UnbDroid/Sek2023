@@ -117,7 +117,7 @@ def move_backward(distancia, vel=500):
 def turn_left_pid(x, vel=360):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1244 * (x / 360)
+    setpoint = 1228 * (x / 360)
       
     setpoint = round(setpoint)
     
@@ -134,7 +134,7 @@ def turn_left_pid(x, vel=360):
 def turn_right_pid(x, vel=360):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1244 * (x / 360)
+    setpoint = 1228 * (x / 360)
     
     setpoint = round(setpoint)
     brake_motors()
@@ -153,7 +153,7 @@ def turn_right_pid(x, vel=360):
 def turn_180():
     kp = 1.0
     ki = 0.0156
-    setpoint = 1244/2
+    setpoint = 1228/2
     # :) 💀
     
     # wait(500)

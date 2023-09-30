@@ -124,115 +124,80 @@ def scan_de_ladinho_papai():
     global color_of_tube
     global size_of_tube
     global quanto_andou_pra_frente
-        
-    turn_left_pid(180)
 
-    branco = range_white_left()[0] # 80
-    azul = range_blue_left()[0] 
-    threshold = (branco + azul) / 2  # = 40
-    vel = 150
-    chegou_no_fim = False
-
-    while not chegou_no_fim:
-        
-        delta = threshold - red_left()
-        kp = 0.45
-        erro = delta * kp
-        motors.drive(vel, erro)
-        
-        if is_red_right():
-            chegou_no_fim = True
-            brake_motors_para_drive_base()
-
-    move_backward(1.5) 
-    
-    turn_180()
-    
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2
 
-    mbox.send('de_ladinho')
-    mbox.wait()
-    scan_tube=mbox.read()
-
-    if quanto_andou_pra_frente != [0, 0]:
-        while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
-            delta = red_right() - threshold
-            kp = 0.5
-            erro = delta * kp
-            motors.drive(80, erro) 
-        brake_motors_para_drive_base()
-    
-    while scan_tube == 'Sem tubo':
+    while not is_red_left():
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
-        motors.drive(40, erro) 
-        
-        # ---- novo  
-        if is_red_left():
-            brake_motors_para_drive_base()
-            move_backward(1.5)
-            turn_180()
-            while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
-                delta = red_right() - threshold
-                kp = 0.5
-                erro = delta * kp
-                motors.drive(80, erro) 
-            brake_motors_para_drive_base()
-            branco = range_white_left()[0] 
-            azul = range_blue_left()[0] 
-            threshold = (branco + azul) / 2 
-            chegou_no_fim = False
-            
-            while not chegou_no_fim:
-                delta = threshold - red_left()
-                kp = 0.45
-                erro = delta * kp
-                motors.drive(40, erro)
-                
-                if is_red_right():
-                    chegou_no_fim = True
-                    brake_motors_para_drive_base()
-            
-            move_backward(1.5)
-            turn_180()
-        
-        # -------
-        mbox.send('de_ladinho')
-        mbox.wait()
-        scan_tube = mbox.read()
+        motors.drive(150, erro)
+    brake_motors_para_drive_base()
+    move_backward(1.5)
+    turn_left_pid(90)
+    move_forward(5)
+    turn_left_pid(90)
 
-    quanto_andou_pra_frente = [left_motor.angle(), right_motor.angle()]    
+    azul = 7
+    branco = 52
+    threshold = (azul + branco) / 2
+
+    print("1")
+    
+    if quanto_andou_pra_frente != [0, 0]:
+        while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
+            erro = (red_aux() - threshold) * -0.45
+            mbox.send("de_ladinho")
+            mbox.wait()
+            tem_tubo = mbox.read()
+            if tem_tubo == "Vi tubo":
+                break
+            motors.drive(100, erro)
+        brake_motors_para_drive_base() 
+
+    print("2")
+
+    while True:
+        erro = (red_aux() - threshold) * -0.45
+        mbox.send("de_ladinho")
+        mbox.wait()
+        tem_tubo = mbox.read()
+        if tem_tubo == "Vi tubo":
+            break
+        motors.drive(40, erro)
+    
+    quanto_andou_pra_frente[0] += left_motor.angle()
+    quanto_andou_pra_frente[1] += right_motor.angle() 
     brake_motors_para_drive_base()
     deu_bom_familia()
 
     
     # # manobras --- 
-
-    move_forward(3.6)
-    turn_right_pid(90, 72)
+    move_forward(3.8, 60)
+    turn_left_pid(90)
     Close(esperar=False)
-    wait(500)
-    move_forward(5, 250)
+    # wait(200)
+    move_forward(11, 360)
     while claw_motor.speed() != 0:
         wait(1)
 
     #com o tubo
 
-    move_backward(5.5)
+    move_backward(11)
     turn_right_pid(90)
             
-    branco = range_white_left()[0] # 80
-    azul = range_blue_left()[0] 
-    threshold = (branco + azul) / 2  # = 40
+    azul = 7
+    branco = 52
+    threshold = (azul + branco) / 2
+    
     vel = 150
     chegou_no_fim = False
 
     while not chegou_no_fim:
         
-        delta = threshold - red_left()
+        delta = threshold - red_aux()
         kp = 0.45
         erro = delta * kp
         motors.drive(vel, erro)
@@ -259,7 +224,7 @@ def scan_de_ladinho_papai():
         
     print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
     turn_left_pid(90)
-    move_forward(2)
+    move_forward(7.5)
     turn_left_pid(90)
 
 def set_path():
