@@ -52,3 +52,5 @@ while True:
          
     elif msg == "scan":
         tube_scan()
+    
+    wait(50)
