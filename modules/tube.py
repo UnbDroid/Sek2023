@@ -40,7 +40,7 @@ def alinhar_azul():
     # azul = int(azul)
     
 def scan_de_ladinho():
-    if ultrasound.distance() >=25 and  ultrasound.distance() <=75:
+    if ultrasound.distance() <= 100:
         return True
     else:
         return False
