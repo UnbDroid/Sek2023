@@ -13,6 +13,8 @@ from pybricks.messaging import BluetoothMailboxClient, TextMailbox
 print("2")
 from modules.tube import *
 
+ev3 = EV3Brick()
+
 SERVER = 'ev3dev'
 print("3")
 client = BluetoothMailboxClient()
@@ -25,6 +27,8 @@ print('connected!')
 while True:
     mbox.wait()
     msg = mbox.read()
+    
+    wait(50)
     
     if msg == 'alinhar':
         mbox.send(alinhar_azul())
@@ -43,8 +47,10 @@ while True:
         
     elif msg == "tem tubo?":
         if tube_is_detected() == True:
+            ev3.screen.print("tem tubo")
             mbox.send("tem tubo")
         else:
+            ev3.screen.print("nao tem tubo")
             mbox.send("nao tem tubo")
          
     elif msg == "cor do tubo":
@@ -53,4 +59,3 @@ while True:
     elif msg == "scan":
         tube_scan()
     
-    wait(50)
