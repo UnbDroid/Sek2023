@@ -13,6 +13,7 @@ size_of_tube = 0
 color_of_tube = ""
 initial_path = [0, 0, 0, 0]
 current_path = [0, 0, 0, 0]
+quanto_andou_pra_frente = [0, 0]
 
 # server 
 from pybricks.messaging import BluetoothMailboxServer, TextMailbox
@@ -34,15 +35,14 @@ def align_to_begin_scan():
     print("Achei o azul")
     move_backward(2)
     turn_right_pid(90)
-        
-    branco = range_white_left()[0] # 80
+    Open()
+    branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
-    threshold = (branco + azul) / 2  # = 40
+    threshold = (branco + azul) / 2 
     vel = 150
     chegou_no_fim = False
     
     while not chegou_no_fim:
-        
         delta = threshold - red_left()
         kp = 0.45
         erro = delta * kp
@@ -51,25 +51,34 @@ def align_to_begin_scan():
         if is_red_right():
             chegou_no_fim = True
             brake_motors_para_drive_base()
+            brake_motors()
     
     
     # Manobra na área de coleta 
+<<<<<<< HEAD
     # wait(300)
 <<<<<<< HEAD
     move_backward(1.5) #0.7
 =======
     move_backward(1)
 >>>>>>> 0f7e5fbc34b469d8064b60a1609a792ea30e0336
+=======
+    move_backward(3) 
+>>>>>>> teste-codigo
    
-    # wait(300) 
     turn_left_pid(90)
     
-    # wait(300) 
     move_forward(15)
 
-    # wait(300)
     turn_left_pid(90)
-        
+
+
+
+def align_to_be_ladinho():
+    turn_left_pid(90)
+    Open()
+    move_backward(1)
+    
 def scan():
     global color_of_tube
     global size_of_tube
@@ -77,34 +86,30 @@ def scan():
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     
-    azul = 7
-    branco = 52
+    azul = 9
+    branco = 63
     threshold = (azul + branco) / 2
     
     print("Procurando tubo...")
     while True:
         erro = (red_aux() - threshold) * 0.45
-        mbox.send('tem tubo?')
+        mbox.send("tem tubo?")
         mbox.wait()
         tem_tubo = mbox.read()
         if tem_tubo == "tem tubo":
             break
-        # print(erro)
-        
         motors.drive(80, erro)
         
     angulo_esquerdo = left_motor.angle()
     angulo_direito = right_motor.angle()
     brake_motors_para_drive_base()
     brake_motors()
-    # tempo = cronometer.time()
     
     mbox.send('chave')
     mbox.wait()
 
     size_of_tube = mbox.read()
     size_of_tube = int(size_of_tube)
-    
     
     Close()
     
@@ -116,25 +121,150 @@ def scan():
     print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
     
     brake_motors()
+
     
-    # left_motor.reset_angle(0)
-    # right_motor.reset_angle(0)
-    
-    
-    while left_motor.angle() > ((-angulo_esquerdo) + 20) or right_motor.angle() > ((-angulo_direito) + 20):
-        # mbox.send('alinhar')
-        # mbox.wait()
-        # erro = mbox.read()
-        # erro = float(erro)
-        # erro = erro * 1
-        # print(erro)
-        # motors.drive(-400, erro)
-        
+    while left_motor.angle() > ((-angulo_esquerdo) + 30) or right_motor.angle() > ((-angulo_direito) + 30):
         andar_reto(-400)
     brake_motors_para_drive_base()
+    brake_motors()
     
     print("Sai do scan")
-       
+
+
+def scan_de_ladinho_papai():
+    global color_of_tube
+    global size_of_tube
+<<<<<<< HEAD
+    mbox.send('de_ladinho')
+    mbox.wait()
+    scan_tube=mbox.read()
+    
+    
+    if scan_tube == "Vi tubo":  
+        while True:
+            mbox.send('de_ladinho')
+            mbox.wait()
+            scan_tube = mbox.read()
+            if scan_tube == "Sem tubo":
+                break
+            andar_reto(-35)
+            
+        move_backward(5.35) 
+    
+            
+            
+=======
+    global quanto_andou_pra_frente
+
+>>>>>>> ef8414a54c1d684f754c454907e5a5fc3c2d3739
+    branco = range_white_right()[0] 
+    azul = range_blue_right()[0] 
+    threshold = (branco + azul) / 2
+
+    while not is_red_left():
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(150, erro)
+    brake_motors_para_drive_base()
+    brake_motors()
+    move_backward(3)
+    turn_left_pid(90)
+    move_forward(5)
+    turn_left_pid(90)
+
+    azul = 9
+    branco = 63
+    threshold = (azul + branco) / 2
+
+    # print("1")
+    
+    if quanto_andou_pra_frente != [0, 0]:
+        while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
+            erro = (red_aux() - threshold) * -0.45
+            mbox.send("de_ladinho")
+            mbox.wait()
+            tem_tubo = mbox.read()
+            if tem_tubo == "Vi tubo":
+                break
+            motors.drive(150, erro)
+        brake_motors_para_drive_base()
+        brake_motors()
+
+    # print("2")
+
+    while True:
+        erro = (red_aux() - threshold) * -0.45
+        mbox.send("de_ladinho")
+        mbox.wait()
+        tem_tubo = mbox.read()
+        if tem_tubo == "Vi tubo":
+            break
+        else:
+            print(tem_tubo)
+            motors.drive(40, erro)
+    
+    quanto_andou_pra_frente[0] += left_motor.angle()
+    quanto_andou_pra_frente[1] += right_motor.angle() 
+    brake_motors_para_drive_base()
+    brake_motors()
+    deu_bom_familia()
+
+    
+    # # manobras --- 
+    move_forward(3.8, 60)
+    turn_left_pid(90)
+    Close(esperar=False, time = 250)
+    # wait(200)
+    move_forward(11, 360)
+    while claw_motor.speed() != 0:
+        wait(1)
+
+    #com o tubo
+
+    move_backward(11)
+    turn_right_pid(90)
+            
+    azul = 9
+    branco = 63
+    threshold = (azul + branco) / 2
+    
+    vel = 150
+    chegou_no_fim = False
+
+    while not chegou_no_fim:
+        
+        delta = threshold - red_aux()
+        kp = 0.45
+        erro = delta * kp
+        motors.drive(vel, erro)
+        
+        if is_red_right():
+            chegou_no_fim = True
+            brake_motors_para_drive_base()
+            brake_motors()
+
+
+    move_backward(3) #0.7
+
+    while left_motor.speed() != 0 or right_motor.speed() != 0:
+        wait(1)
+
+    mbox.send('chave')
+    mbox.wait()
+    size_of_tube = mbox.read()
+    size_of_tube = int(size_of_tube)
+
+    mbox.send('cor do tubo')
+    mbox.wait()
+    
+    color_of_tube = mbox.read()
+        
+    print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
+    turn_left_pid(90)
+    move_forward(7.5)
+    turn_left_pid(90)
+
 def set_path():
     global color_of_tube
     global size_of_tube
@@ -152,8 +282,7 @@ def set_path():
         if color_of_tube == "BROWN": #Padaria
             tube_bakery()
     else:
-        # print("Tem 10 cm")
-        
+
         if color_of_tube == "GREEN": #Parque
             tube_park()
         if color_of_tube == "BLUE": #Escola

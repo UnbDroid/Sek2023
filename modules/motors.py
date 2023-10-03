@@ -81,9 +81,8 @@ def brake_motors():
     right_motor.reset_angle(0)
     
 def brake_motors_para_drive_base():
-    motors.stop()
     while left_motor.speed() != 0 or right_motor.speed() != 0:
-        wait(1)
+        motors.stop()
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
 
@@ -98,7 +97,7 @@ def move_forward(distancia, vel=500):
     # print(left_motor.angle(), right_motor.angle()) # Teste para o erro
     
     brake_motors()
-    # wait(200)
+ 
 
     
 def move_backward(distancia, vel=500):
@@ -111,65 +110,40 @@ def move_backward(distancia, vel=500):
     # print(left_motor.angle(), right_motor.angle()) # Teste para o erro
     
     brake_motors()
-    # wait(200)
+
     
             
-def turn_left_pid(x):  
+def turn_left_pid(x, vel=360):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1224 * (x / 360)
+    setpoint = 1228 * (x / 360)
       
     setpoint = round(setpoint)
     
-    # wait(200)
     brake_motors()
     
     while not (abs(calculate_error_right(setpoint)) < 177):
         current_angle = right_motor.angle()
         current_angle += calcule(current_angle, setpoint, kp, ki)
-        left_motor.run_angle(360, -current_angle, wait = False)
-        right_motor.run_angle(360, current_angle, wait = True)
+        left_motor.run_angle(vel, -current_angle, wait = False)
+        right_motor.run_angle(vel, current_angle, wait = True)
         
-        # print(calculate_error_right(setpoint)) # Teste para o erro
-    
-    # if right_motor.angle() > setpoint and left_motor.angle() < -setpoint:
-    #     while right_motor.angle() > setpoint or left_motor.angle() < -setpoint:
-    #         right_motor.run(-20)
-    #         left_motor.run(20)
-    # elif right_motor.angle() < setpoint and left_motor.angle() > -setpoint:
-    #     while right_motor.angle() < setpoint or left_motor.angle() > -setpoint:
-    #         right_motor.run(20)
-    #         left_motor.run(-20)
-    
     brake_motors()
     
-def turn_right_pid(x):  
+def turn_right_pid(x, vel=360):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1224 * (x / 360)
+    setpoint = 1228 * (x / 360)
     
     setpoint = round(setpoint)
-      
-    #wait(200)
     brake_motors()
       
     while not abs(calculate_error(setpoint)) < 176:
         current_angle = left_motor.angle()
         current_angle += calcule(current_angle, setpoint, kp, ki)
-        left_motor.run_angle(360, current_angle, wait = False)
-        right_motor.run_angle(360, -current_angle, wait = True)
-        
-        
-        # print(calculate_error(setpoint)) # Teste para o erro
+        left_motor.run_angle(vel, current_angle, wait = False)
+        right_motor.run_angle(vel, -current_angle, wait = True)
     
-    # if left_motor.angle() > setpoint and right_motor.angle() < -setpoint:
-    #     while left_motor.angle() > setpoint or right_motor.angle() < -setpoint:
-    #         left_motor.run(-20)
-    #         right_motor.run(20)
-    # elif left_motor.angle() < setpoint and right_motor.angle() > -setpoint:
-    #     while left_motor.angle() < setpoint or right_motor.angle() > -setpoint:
-    #         left_motor.run(20)
-    #         right_motor.run(-20)
     
     print(left_motor.angle(), right_motor.angle())
          
@@ -178,11 +152,9 @@ def turn_right_pid(x):
 def turn_180():
     kp = 1.0
     ki = 0.0156
-    setpoint = 1224/2
-    # :) 💀
-    
-    # wait(500)
+    setpoint = 1228/2
     setpoint = round(setpoint)
+      
       
     brake_motors()
       
@@ -192,75 +164,14 @@ def turn_180():
         
         left_motor.run_angle(360, current_angle, wait = False)
         right_motor.run_angle(360, -current_angle, wait = True)
-        
-    # if left_motor.angle() > setpoint and right_motor.angle() < -setpoint:
-    #     while left_motor.angle() > setpoint or right_motor.angle() < -setpoint:
-    #         left_motor.run(-20)
-    #         right_motor.run(20)
-    # elif left_motor.angle() < setpoint and right_motor.angle() > -setpoint:
-    #     while left_motor.angle() < setpoint or right_motor.angle() > -setpoint:
-    #         left_motor.run(20)
-    #         right_motor.run(-20)
-    
-# Captura de ladinho popoi 🌹
-def de_ladinho():
-    # Possivelmente tentar se alinhar na área vermelha e depois comear a fazer a função
-    
-    mbox.send('scan')
-    mbox.wait()
-    tube_here = mbox.read()
-        
-    branco = 90
-    azul = 10
-    threshold = (branco + azul) / 2  
-    vel = 100
-    
-    
-    while not tube_here:
-        
-        delta = threshold - red_left()
-        kp = 0.45
-        erro = delta * kp
-        motors.drive(vel, erro)
-    brake_motors_para_drive_base()
-    deu_bom_familia()
-    
-    # em tese até aqui ele achou o tubo e vamos começar a fazer as manobras!
-    turn_left_pid(90)
-    move_backward(1)
-    # de frente pro tubo
-    close()
-    move_backward(1)
-    turn_right_pid(90)
-    
-    #agora com o tubo ir até o fim
-    chegou_no_fim = False
-    while not chegou_no_fim:
-    
-        delta = threshold - red_left()
-        kp = 0.45
-        erro = delta * kp
-        motors.drive(vel, erro)
-        
-        if is_red_right():
-            chegou_no_fim = True
-            brake_motors_para_drive_base()
-            
-    
 
-    
-    
-    
-    
-    
-    
 
 # ALINHAMENTO NAS CORES--------------------------------------------------------------------------------------------
      
 def ajust_color(cor_vista):
     print("Ajustando cor...")
     brake_motors()
-    # wait(250)
+
     move_backward(1)
     
 # -----------------------------------------------------------------------------------------------------------------
@@ -356,40 +267,3 @@ def ajust_color(cor_vista):
     print("Cor ajustada!")   
     alined_to_wall()          
     brake_motors()
-    # wait(500)
-    
-    
-# Funções antigas, vai que ajuda --------------------------------------------------------------
-
-# def turn_right(x):
-#     wait(200)
-#     brake_motors()
-#     valor_a_girar = 1226* (x / 360)
-#     left_motor.run_angle(200, valor_a_girar, wait = False)
-#     right_motor.run_angle(200, -valor_a_girar, wait = True)
-#     left_motor.hold()
-#     right_motor.hold()
-#     wait(200)
-#     if left_motor.angle() != valor_a_girar:
-#         left_motor.run_angle(5, (valor_a_girar - left_motor.angle()), wait = False)
-#     if right_motor.angle() != -valor_a_girar:
-#         right_motor.run_angle(5, (-valor_a_girar - right_motor.angle()), wait = True)
-#     brake_motors()
-#     wait(200)
-
-
-# def turn_left(x):
-#     wait(200)
-#     brake_motors()
-#     valor_a_girar = 1226 * (x / 360)
-#     left_motor.run_angle(200, -valor_a_girar, wait = False)
-#     right_motor.run_angle(200, valor_a_girar, wait = True)
-#     left_motor.hold()
-#     right_motor.hold()
-#     wait(200)
-#     if left_motor.angle() != -valor_a_girar:
-#         left_motor.run_angle(5, (-valor_a_girar - left_motor.angle()), wait = False)
-#     if right_motor.angle() != valor_a_girar:
-#         right_motor.run_angle(5, (valor_a_girar - right_motor.angle()), wait = True)
-#     brake_motors()
-#     wait(200)
