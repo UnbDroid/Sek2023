@@ -487,7 +487,7 @@ def tube_school():
         brake_motors_para_drive_base()
         brake_motors()
         turn_right_pid(90)
-        move_forward(68) # aqui ele está no J
+        move_forward(68)
         turn_right_pid(90)
         #G
         move_forward(12)
@@ -647,9 +647,6 @@ def tube_museum():
         move_forward(10)
         if has_obstacle():
 
-        
-        if has_obstacle():  #sensor identificou objeto G:
-            
             found_wall()
             move_backward(10)
             turn_right_pid(90)
@@ -898,7 +895,6 @@ def tube_drugstore():
                 turn_right_pid(90)
                 find_blue_line(0)
                 brake_motors()
-                
     else:
         not_found_wall()
         move_forward(52) 

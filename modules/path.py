@@ -33,7 +33,7 @@ print('connected!')
 def align_to_begin_scan():
     brake_motors()
     print("Achei o azul")
-    move_backward(2)
+    move_backward(1)
     turn_right_pid(90)
     Open()
     branco = range_white_left()[0] 
@@ -55,16 +55,7 @@ def align_to_begin_scan():
     
     
     # Manobra na área de coleta 
-<<<<<<< HEAD
-    # wait(300)
-<<<<<<< HEAD
-    move_backward(1.5) #0.7
-=======
-    move_backward(1)
->>>>>>> 0f7e5fbc34b469d8064b60a1609a792ea30e0336
-=======
     move_backward(3) 
->>>>>>> teste-codigo
    
     turn_left_pid(90)
     
@@ -134,29 +125,8 @@ def scan():
 def scan_de_ladinho_papai():
     global color_of_tube
     global size_of_tube
-<<<<<<< HEAD
-    mbox.send('de_ladinho')
-    mbox.wait()
-    scan_tube=mbox.read()
-    
-    
-    if scan_tube == "Vi tubo":  
-        while True:
-            mbox.send('de_ladinho')
-            mbox.wait()
-            scan_tube = mbox.read()
-            if scan_tube == "Sem tubo":
-                break
-            andar_reto(-35)
-            
-        move_backward(5.35) 
-    
-            
-            
-=======
     global quanto_andou_pra_frente
 
->>>>>>> ef8414a54c1d684f754c454907e5a5fc3c2d3739
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2
