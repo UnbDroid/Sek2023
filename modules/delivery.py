@@ -343,6 +343,39 @@ def find_blue_line(numero_de_paredes):
             move_backward(7)
         find_blue_line(0)
 
+def go_to_i(velocidade = 200):
+    branco = range_white_right()[0] 
+    azul = range_blue_right()[0] 
+    threshold = (branco + azul) / 2 
+    while left_motor.angle() < 2600 or right_motor.angle() < 997:
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(velocidade, erro)
+
+def go_to_j(velocidade = 200):
+    branco = range_white_right()[0] 
+    azul = range_blue_right()[0] 
+    threshold = (branco + azul) / 2  
+    while left_motor.angle() < 962 or right_motor.angle() < 967:
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        
+        motors.drive(velocidade, erro)
+
+def j_to_i():
+    print("_")
+    
+def i_to_j():
+    
+    print("_")
+
+
+
+
+
+
 def go_to_check_point():
     turn_right_pid(90)
 
@@ -376,19 +409,7 @@ def tube_library():
         
     
 def tube_city_hall():
-    
-
-    crono.reset()
-    branco = range_white_right()[0]
-    azul = range_blue_right()[0] 
-    threshold = (branco + azul) / 2  
-    vel = 100
-    while crono.time() < 3600: 
-        delta = red_right() - threshold
-        kp = 0.5
-        erro = delta * kp
-        motors.drive(vel, erro)
-
+    go_to_j()
     brake_motors_para_drive_base()
     brake_motors()
     turn_left_pid(90)
@@ -448,16 +469,7 @@ def tube_city_hall():
     
 def tube_school():
     
-    crono.reset()
-    branco = range_white_right()[0]
-    azul = range_blue_right()[0]  
-    threshold = (branco + azul) / 2  
-    vel = 100
-    while crono.time() < 9500:
-        delta = red_right() - threshold
-        kp = 0.5
-        erro = delta * kp
-        motors.drive(vel, erro)
+    go_to_i()
 
     brake_motors_para_drive_base()
     brake_motors()
@@ -478,6 +490,7 @@ def tube_school():
         threshold = (branco + azul) / 2  
         vel = 100
         crono.reset()
+        
         while crono.time() < 6000:
             delta = threshold - red_left()
             kp = 0.5 
@@ -603,16 +616,7 @@ def tube_school():
         
 def tube_museum():
     
-    crono.reset()
-    branco = range_white_right()[0] 
-    azul = range_blue_right()[0] #22
-    threshold = (branco + azul) / 2  
-    vel = 100
-    while crono.time() < 3600: #4000
-        delta = red_right() - threshold
-        kp = 0.5
-        erro = delta * kp
-        motors.drive(vel, erro)
+    go_to_j()
 
     brake_motors_para_drive_base()
     brake_motors()
@@ -793,16 +797,7 @@ def tube_museum():
                 
 def tube_drugstore():
     
-    crono.reset()
-    branco = range_white_right()[0] 
-    azul = range_blue_right()[0] 
-    threshold = (branco + azul) / 2  
-    vel = 100
-    while crono.time() < 3600: 
-        delta = red_right() - threshold
-        kp = 0.5
-        erro = delta * kp
-        motors.drive(vel, erro)
+    go_to_j()
 
     brake_motors_para_drive_base()
     brake_motors()
@@ -1011,21 +1006,13 @@ def tube_drugstore():
         
 def tube_bakery():
     
-    crono.reset()
-    branco = range_white_right()[0]
-    azul = range_blue_right()[0] 
-    threshold = (branco + azul) / 2  
-    vel = 100
-    while crono.time() < 9500:
-        delta = red_right() - threshold
-        kp = 0.5
-        erro = delta * kp
-        motors.drive(vel, erro)
+    go_to_i()
+
 
     brake_motors_para_drive_base()
     brake_motors()
     turn_left_pid(90)
-    move_forward(15)
+    move_forward(18)
     
     if has_obstacle(): 
         
@@ -1041,6 +1028,8 @@ def tube_bakery():
             andar_reto(-500)
         brake_motors()
         turn_right_pid(90)
+        
+        
         branco = range_white_left()[0]
         azul = range_blue_left()[0]
         threshold = (branco + azul) / 2  
@@ -1053,6 +1042,8 @@ def tube_bakery():
             kp = 0.5
             erro = delta * kp
             motors.drive(vel, erro)
+        print(left_motor.angle(),right_motor.angle())
+        
         brake_motors_para_drive_base()
         brake_motors()
         turn_right_pid(90)
@@ -1060,9 +1051,10 @@ def tube_bakery():
         move_forward(70)
         turn_right_pid(90)
         move_forward(10)
+        
         if has_obstacle():
             found_wall()
-            move_backward(10)
+            move_backward(12)
             turn_left_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
@@ -1109,7 +1101,8 @@ def tube_bakery():
                 ajust_color(cor_vista)
                 move_backward(36)
             turn_left_pid(90)
-            move_forward(7)##
+            move_forward(4)# de frente pro D
+            
             if has_obstacle(): 
                 found_wall()
                 move_backward(13)
@@ -1173,11 +1166,20 @@ def tube_bakery():
                     find_blue_line(0)
     else:
         not_found_wall()
-        move_forward(60)
+        move_forward(62)
+        
         if has_obstacle():
             found_wall()
+            while ultrasound_sensor.distance() < 145:
+                andar_reto(-500)
+            brake_motors()
+            
+            while ultrasound_sensor.distance() > 145:
+                andar_reto(150)
+            brake_motors()
+                
             turn_left_pid(90)
-            move_forward(10)
+            move_forward(8)
             if has_obstacle():
                 found_wall()
                 move_backward(10)
@@ -1234,6 +1236,7 @@ def tube_bakery():
                 not_found_wall()
                 move_forward(45)
                 turn_right_pid(90)
+                move_forward(20)
                 while not is_black_left() and not is_black_right():
                     andar_reto(500)
                 brake_motors()
@@ -1270,7 +1273,7 @@ def tube_bakery():
                     find_blue_line(0)
         else:
             not_found_wall()
-            move_forward(30)
+            move_forward(23)##
             turn_right_pid(90)
             move_forward(20)
             Open(time=500)
@@ -1290,18 +1293,8 @@ def tube_bakery():
     
 def tube_park():
     
+    go_to_j()
     
-    crono.reset()
-    branco = range_white_right()[0] 
-    azul = range_blue_right()[0] 
-    threshold = (branco + azul) / 2  
-    vel = 100
-    while crono.time() < 3600: 
-        delta = red_right() - threshold
-        kp = 0.5
-        erro = delta * kp
-        motors.drive(vel, erro)
-
     brake_motors_para_drive_base()
     brake_motors()
     turn_left_pid(90)
