@@ -482,7 +482,7 @@ def tube_school():
             
         brake_motors_para_drive_base()
         turn_right_pid(90)
-        move_forward(68)
+        move_forward(68) # aqui ele está no J
         turn_right_pid(90)
         #G
         move_forward(12)
@@ -632,8 +632,9 @@ def tube_museum():
         move_forward(65)
         turn_left_pid(90)
         move_forward(10)
-        if has_obstacle(): # "G" in has_object_in: #sensor identificou objeto G:
-            #has_object_in.append("G")
+        
+        if has_obstacle():  #sensor identificou objeto G:
+            
             found_wall()
             move_backward(10)
             turn_right_pid(90)
@@ -889,6 +890,7 @@ def tube_drugstore():
                 while not is_blue():
                     andar_reto(500)
                 brake_motors()
+                
     else:
         not_found_wall()
         move_forward(57) # Mesmo valor do museum
@@ -898,8 +900,7 @@ def tube_drugstore():
             #has_object_in.append("G")
             found_wall()
             turn_left_pid(90)
-            if has_obstacle(): # "E" in has_object_in: #Objeto "E":
-                #has_object_in.append("E")
+            if has_obstacle(): #Objeto "E":
                 found_wall()
                 move_backward(5)
                 turn_180()

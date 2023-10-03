@@ -127,10 +127,8 @@ def scan_de_ladinho_papai():
     mbox.wait()
     scan_tube=mbox.read()
     
-    count = 0
     
     if scan_tube == "Vi tubo":  
-        # move_backward(0.5)
         while True:
             mbox.send('de_ladinho')
             mbox.wait()
@@ -139,7 +137,7 @@ def scan_de_ladinho_papai():
                 break
             andar_reto(-35)
             
-        move_backward(5.35) #5
+        move_backward(5.35) 
     
             
             
