@@ -51,10 +51,11 @@ def align_to_begin_scan():
         if is_red_right():
             chegou_no_fim = True
             brake_motors_para_drive_base()
+            brake_motors()
     
     
     # Manobra na área de coleta 
-    move_backward(1.5) 
+    move_backward(3) 
    
     turn_left_pid(90)
     
@@ -76,8 +77,8 @@ def scan():
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     
-    azul = 7
-    branco = 52
+    azul = 9
+    branco = 63
     threshold = (azul + branco) / 2
     
     print("Procurando tubo...")
@@ -113,9 +114,10 @@ def scan():
     brake_motors()
 
     
-    while left_motor.angle() > ((-angulo_esquerdo) + 20) or right_motor.angle() > ((-angulo_direito) + 20):
+    while left_motor.angle() > ((-angulo_esquerdo) + 30) or right_motor.angle() > ((-angulo_direito) + 30):
         andar_reto(-400)
     brake_motors_para_drive_base()
+    brake_motors()
     
     print("Sai do scan")
 
@@ -135,16 +137,17 @@ def scan_de_ladinho_papai():
         erro = delta * kp
         motors.drive(150, erro)
     brake_motors_para_drive_base()
-    move_backward(1.5)
+    brake_motors()
+    move_backward(3)
     turn_left_pid(90)
     move_forward(5)
     turn_left_pid(90)
 
-    azul = 7
-    branco = 52
+    azul = 9
+    branco = 63
     threshold = (azul + branco) / 2
 
-    print("1")
+    # print("1")
     
     if quanto_andou_pra_frente != [0, 0]:
         while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
@@ -154,10 +157,11 @@ def scan_de_ladinho_papai():
             tem_tubo = mbox.read()
             if tem_tubo == "Vi tubo":
                 break
-            motors.drive(100, erro)
-        brake_motors_para_drive_base() 
+            motors.drive(150, erro)
+        brake_motors_para_drive_base()
+        brake_motors()
 
-    print("2")
+    # print("2")
 
     while True:
         erro = (red_aux() - threshold) * -0.45
@@ -173,13 +177,14 @@ def scan_de_ladinho_papai():
     quanto_andou_pra_frente[0] += left_motor.angle()
     quanto_andou_pra_frente[1] += right_motor.angle() 
     brake_motors_para_drive_base()
+    brake_motors()
     deu_bom_familia()
 
     
     # # manobras --- 
     move_forward(3.8, 60)
     turn_left_pid(90)
-    Close(esperar=False)
+    Close(esperar=False, time = 250)
     # wait(200)
     move_forward(11, 360)
     while claw_motor.speed() != 0:
@@ -190,8 +195,8 @@ def scan_de_ladinho_papai():
     move_backward(11)
     turn_right_pid(90)
             
-    azul = 7
-    branco = 52
+    azul = 9
+    branco = 63
     threshold = (azul + branco) / 2
     
     vel = 150
@@ -207,9 +212,10 @@ def scan_de_ladinho_papai():
         if is_red_right():
             chegou_no_fim = True
             brake_motors_para_drive_base()
+            brake_motors()
 
 
-    move_backward(1.5) #0.7
+    move_backward(3) #0.7
 
     while left_motor.speed() != 0 or right_motor.speed() != 0:
         wait(1)

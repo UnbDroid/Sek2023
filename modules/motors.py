@@ -81,9 +81,8 @@ def brake_motors():
     right_motor.reset_angle(0)
     
 def brake_motors_para_drive_base():
-    motors.stop()
     while left_motor.speed() != 0 or right_motor.speed() != 0:
-        wait(1)
+        motors.stop()
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
 
@@ -154,10 +153,8 @@ def turn_180():
     kp = 1.0
     ki = 0.0156
     setpoint = 1228/2
-    # :) 💀
-    
-    # wait(500)
     setpoint = round(setpoint)
+      
       
     brake_motors()
       
