@@ -6,13 +6,9 @@ from modules.delivery import *
 from pybricks.tools import StopWatch
 
 ev3 = EV3Brick()
-pointed_to = 1
-cardinal_points = ["N", "E", "S", "W"]
 cronometer = StopWatch()
 size_of_tube = 0
 color_of_tube = ""
-initial_path = [0, 0, 0, 0]
-current_path = [0, 0, 0, 0]
 quanto_andou_pra_frente = [0, 0]
 
 # server 
