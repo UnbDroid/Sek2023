@@ -2,9 +2,10 @@ from modules.path import *
 
 claw_motor = Motor(Port.C)
 
-def Open():
-    claw_motor.run_time(250,3200,Stop.HOLD,True)
+def Open(quantidade=800,time = 800):
+    print("Abrindooo")
+    claw_motor.run_angle(time, quantidade, wait=True)
 
-def Close(fechar=True):
-    claw_motor.run_time(-250,3200,Stop.HOLD,wait=fechar)
-
+def Close(quantidade=-800, esperar=True,time = 800):
+    print("Fechandooo")
+    claw_motor.run_angle(time, quantidade, wait=esperar)

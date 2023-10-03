@@ -16,21 +16,21 @@ ev3.speaker.beep(444, 1000)
 while True:
     # Dentro do azul
     
-    # align_to_begin_scan()
-    # ev3.speaker.beep(444, 1000)
-    # scan()
-    # ev3.speaker.beep(444, 1000)
-    # go_to_check_point()
-    # ev3.speaker.beep(444, 1000)
+    align_to_begin_scan()
+    ev3.speaker.beep(444, 1000)
+    scan()
+    ev3.speaker.beep(444, 1000)
+    go_to_check_point()
+    ev3.speaker.beep(444, 1000)
     
     # The Ladinho 😎🫡🤠
     
-    align_to_be_ladinho()
-    ev3.speaker.beep(444, 1000)
-    scan_de_ladinho_papai()
-    ev3.speaker.beep(444, 1000)
+    # align_to_be_ladinho()
+    # ev3.speaker.beep(444, 1000)
+    # scan_de_ladinho_papai()
+    # ev3.speaker.beep(444, 1000)
     
-#-#-#----------------
+# #-#-#----------------
     
     set_path()
     ev3.speaker.beep(444, 1000)
@@ -58,6 +58,7 @@ while True:
 
     
 # brake_motors_para_drive_base()
+#brake_motors()
 # deu_bom_familia()
 
 
@@ -65,7 +66,7 @@ while True:
 
 # move_forward(4)
 # turn_right_pid(90)
-# Close(False)
+# Close()
 # move_forward(5, 250)
 # while claw_motor.speed() != 0:
 #     wait(1)
@@ -91,11 +92,12 @@ while True:
 #     if is_red_right():
 #         chegou_no_fim = True
 #         brake_motors_para_drive_base()
+#brake_motors()
 
 
 # # Manobra na área de coleta 
 # # wait(300)
-# move_backward(1.5) #0.7
+# move_backward(3) #0.7
 
 # # wait(300) 
 # turn_left_pid(90)
@@ -105,7 +107,10 @@ while True:
 
 # # wait(300)
 # turn_left_pid(90)
-# Open()
+
+# while not is_blue():
+#     andar_reto(500)
+# brake_motors()
 
 # Editando o Range------------------------------------------------------------------------------
 
@@ -171,7 +176,7 @@ while True:
 
 # while True:
 #     wait(500)
-#     print("Esquerda: ", color_sensor_floor_left.rgb() , "Direita: ", color_sensor_floor_right.rgb())
+#     print("Esquerda: ", color_sensor_floor_aux.rgb() , "Direita: ", color_sensor_floor_right.rgb())
 
 #-----------------------------------------------------------------------------------------------
 
