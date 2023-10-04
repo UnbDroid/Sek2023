@@ -1275,17 +1275,7 @@ def tube_bakery():
             Open(time=500)
             move_backward(20)
             turn_right_pid(90)
-            Close(time=500)
-            
-            while not has_obstacle() and not is_blue():
-                andar_reto(500)
-            brake_motors()
-            if has_obstacle():
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                brake_motors()
-                turn_right_pid(90)
-                find_blue_line(0)
+            find_blue_line(0)
     
 def tube_park():
     
