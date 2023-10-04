@@ -1,6 +1,6 @@
 from modules.path import *
 
-claw_motor = Motor(Port.C)
+claw_motor = Motor(Port.A)
 
 def Open(quantidade=800,time = 800):
     print("Abrindooo")

@@ -5,8 +5,8 @@ from pybricks.parameters import Port, Stop
 from pybricks.robotics import DriveBase
 
 ev3 = EV3Brick()
-left_motor = Motor(Port.A) 
-right_motor = Motor(Port.B)
+left_motor = Motor(Port.C) 
+right_motor = Motor(Port.D)
 
 def brake_motors():
     left_motor.hold()

@@ -347,7 +347,7 @@ def go_to_i(velocidade = 200):
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2 
-    while left_motor.angle() < 2600 or right_motor.angle() < 997:
+    while left_motor.angle() < 2575 or right_motor.angle() < 2575:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -364,13 +364,29 @@ def go_to_j(velocidade = 200):
         
         motors.drive(velocidade, erro)
 
-def j_to_i():
-    print("_")
+def j_to_i(velocidade = 200):
+    #1613 1615
+    branco = range_white_right()[0] 
+    azul = range_blue_right()[0] 
+    threshold = (branco + azul) / 2  
     
-def i_to_j():
+    while left_motor.angle() < 1550 or right_motor.angle() < 1550 :
+        delta = red_right() - threshold
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(velocidade, erro)
     
-    print("_")
-
+def i_to_j(velocidade = 200):
+    branco = range_white_left()[0]
+    azul = range_blue_left()[0]
+    threshold = (branco + azul) / 2  
+    
+    
+    while left_motor.angle() < 1591 or right_motor.angle() < 1599:
+        delta = threshold - red_left()
+        kp = 0.5
+        erro = delta * kp
+        motors.drive(velocidade, erro)
 
 
 
@@ -426,16 +442,9 @@ def tube_city_hall():
         turn_left_pid(90)
         
         
-        branco = range_white_right()[0] 
-        azul = range_blue_right()[0] #22
-        threshold = (branco + azul) / 2  # = 40
-        vel = 100
-        crono.reset()
-        while crono.time() < 6000:
-            delta = red_right() - threshold
-            kp = 0.5
-            erro = delta * kp
-            motors.drive(vel, erro)
+        j_to_i()
+        
+        
         brake_motors_para_drive_base()
         brake_motors()
         turn_left_pid(90)
@@ -1012,7 +1021,7 @@ def tube_bakery():
     brake_motors_para_drive_base()
     brake_motors()
     turn_left_pid(90)
-    move_forward(18)
+    move_forward(20)
     
     if has_obstacle(): 
         
@@ -1030,18 +1039,9 @@ def tube_bakery():
         turn_right_pid(90)
         
         
-        branco = range_white_left()[0]
-        azul = range_blue_left()[0]
-        threshold = (branco + azul) / 2  
-        vel = 100
-        crono.reset()
+        i_to_j()
         
-        
-        while crono.time() < 6000:
-            delta = threshold - red_left()
-            kp = 0.5
-            erro = delta * kp
-            motors.drive(vel, erro)
+        print("aqui")
         print(left_motor.angle(),right_motor.angle())
         
         brake_motors_para_drive_base()
@@ -1139,7 +1139,7 @@ def tube_bakery():
                 brake_motors()
             else:
                 not_found_wall()
-                move_forward(18)
+                move_forward(20)
                 turn_right_pid(90)
                 move_forward(15)
                 Open(time=500)

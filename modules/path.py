@@ -69,6 +69,7 @@ def align_to_be_ladinho():
 def scan():
     global color_of_tube
     global size_of_tube
+    global quanto_andou_pra_frente
     
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
@@ -76,6 +77,18 @@ def scan():
     azul = 9
     branco = 63
     threshold = (azul + branco) / 2
+    
+    if quanto_andou_pra_frente != [0, 0]:
+        while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
+            erro = (red_aux() - threshold) * 0.45
+            mbox.send("de_ladinho")
+            mbox.wait()
+            tem_tubo = mbox.read()
+            if tem_tubo == "Vi tubo":
+                break
+            motors.drive(150, erro)
+        brake_motors_para_drive_base()
+        brake_motors()
     
     print("Procurando tubo...")
     while True:
@@ -87,8 +100,8 @@ def scan():
             break
         motors.drive(80, erro)
         
-    angulo_esquerdo = left_motor.angle()
-    angulo_direito = right_motor.angle()
+    quanto_andou_pra_frente[0] += left_motor.angle()
+    quanto_andou_pra_frente[1] += right_motor.angle()
     brake_motors_para_drive_base()
     brake_motors()
     
@@ -110,7 +123,7 @@ def scan():
     brake_motors()
 
     
-    while left_motor.angle() > ((-angulo_esquerdo) + 30) or right_motor.angle() > ((-angulo_direito) + 30):
+    while left_motor.angle() > (- (quanto_andou_pra_frente[0]) + 30) or right_motor.angle() > (- (quanto_andou_pra_frente[1]) + 30):
         andar_reto(-400)
     brake_motors_para_drive_base()
     brake_motors()

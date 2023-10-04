@@ -10,8 +10,8 @@ from modules.variables import *
 from modules.colors import *
 from modules.beeps import *
 
-left_motor = Motor(Port.A) 
-right_motor = Motor(Port.B)
+left_motor = Motor(Port.C) 
+right_motor = Motor(Port.D)
 
 cronometer = StopWatch()
 
@@ -116,7 +116,7 @@ def move_backward(distancia, vel=500):
 def turn_left_pid(x, vel=360):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1240 * (x / 360) 
+    setpoint = 1232 * (x / 360) 
       
     setpoint = round(setpoint)
     
@@ -133,7 +133,7 @@ def turn_left_pid(x, vel=360):
 def turn_right_pid(x, vel=360):  
     kp = 1.0
     ki = 0.0156
-    setpoint = 1240 * (x / 360)
+    setpoint = 1232 * (x / 360)
     
     setpoint = round(setpoint)
     brake_motors()
@@ -152,7 +152,7 @@ def turn_right_pid(x, vel=360):
 def turn_180():
     kp = 1.0
     ki = 0.0156
-    setpoint = 1240/2
+    setpoint = 1232/2
     setpoint = round(setpoint)
       
       
