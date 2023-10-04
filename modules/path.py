@@ -208,7 +208,7 @@ def scan_de_ladinho_papai():
     branco = 63
     threshold = (azul + branco) / 2
     
-    vel = 150
+    vel = 200
     chegou_no_fim = False
 
     while not chegou_no_fim:
