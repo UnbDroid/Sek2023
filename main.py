@@ -8,13 +8,12 @@ from modules.claw import *
 
 from pybricks.hubs import EV3Brick
 
-# has_object_in = []
-# # Codigo ---------------------------------------------------------------------------------------
+
+#* Codigo para pegar por dentro da área de coleta ---------------------------------------------------------------------------------------
 
 find_blue_line(0)
 ev3.speaker.beep(444, 1000)
 while True:
-    # Dentro do azul
     
     align_to_begin_scan()
     ev3.speaker.beep(444, 1000)
@@ -22,21 +21,27 @@ while True:
     ev3.speaker.beep(444, 1000)
     go_to_check_point()
     ev3.speaker.beep(444, 1000)
-    
-    # The Ladinho 😎🫡🤠
-    
-    # align_to_be_ladinho()
-    # ev3.speaker.beep(444, 1000)
-    # scan_de_ladinho_papai()
-    # ev3.speaker.beep(444, 1000)
-    
-# #-#-#----------------
-    
+
+
     set_path()
     ev3.speaker.beep(444, 1000)
    
 
+#* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -----------------------------------------------------
 
+# find_blue_line(0)
+# ev3.speaker.beep(444, 1000)
+# while True:
+    
+#     align_to_be_ladinho()
+#     ev3.speaker.beep(444, 1000)
+#     scan_de_ladinho_papai()
+#     ev3.speaker.beep(444, 1000)
+    
+
+#     set_path()
+#     ev3.speaker.beep(444, 1000)
+    
 # ---------------------------------------------------------
 
 # Editando o Range------------------------------------------------------------------------------

@@ -24,25 +24,26 @@ server.wait_for_connection()
 print('connected!')
 
 
-# Se alinhando no azul para iniciar o scan ---------------------------------------------------------------------------------
+#? Se alinhando no azul para iniciar o scan ---------------------------------------------------------------------------------
       
-def align_to_begin_scan():
+def align_to_begin_scan(velocidade = 150):
     brake_motors()
     print("Achei o azul")
     move_backward(1)
     turn_right_pid(90)
     Open()
+    
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2 
-    vel = 150
+
     chegou_no_fim = False
     
     while not chegou_no_fim:
         delta = threshold - red_left()
         kp = 0.45
         erro = delta * kp
-        motors.drive(vel, erro)
+        motors.drive(velocidade, erro)
         
         if is_red_right():
             chegou_no_fim = True
@@ -65,7 +66,9 @@ def align_to_be_ladinho():
     turn_left_pid(90)
     Open()
     move_backward(1)
-    
+  
+#? Tatica para pegar os tubos, seja de lado ou por dentro ----------------------------------------------------------
+  
 def scan():
     global color_of_tube
     global size_of_tube
@@ -156,7 +159,7 @@ def scan_de_ladinho_papai():
     branco = 63
     threshold = (azul + branco) / 2
 
-    # print("1")
+  
     
     if quanto_andou_pra_frente != [0, 0]:
         while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
@@ -170,7 +173,6 @@ def scan_de_ladinho_papai():
         brake_motors_para_drive_base()
         brake_motors()
 
-    # print("2")
 
     while True:
         erro = (red_aux() - threshold) * -0.45
@@ -190,11 +192,11 @@ def scan_de_ladinho_papai():
     deu_bom_familia()
 
     
-    # # manobras --- 
+    # manobras -----------------
     move_forward(3.8, 60)
     turn_left_pid(90)
     Close(esperar=False, time = 250)
-    # wait(200)
+
     move_forward(11, 360)
     while claw_motor.speed() != 0:
         wait(1)
@@ -224,7 +226,7 @@ def scan_de_ladinho_papai():
             brake_motors()
 
 
-    move_backward(3) #0.7
+    move_backward(3) 
 
     while left_motor.speed() != 0 or right_motor.speed() != 0:
         wait(1)

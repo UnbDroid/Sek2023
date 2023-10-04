@@ -1,6 +1,7 @@
 from modules.colors import *
 
-# MUDE APENAS ISSO PRA COMPETIÇÃO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#! MUDE APENAS ISSO PRA COMPETIÇÃO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#! Range das cores 
 def range_black_left():
     return [8, 9, 5]
 
@@ -13,7 +14,7 @@ def range_yellow_left():
 def range_yellow_right():
     return [85, 82, 49]
 
-def range_blue_left():#
+def range_blue_left():
     return [8, 22, 42]
 
 def range_blue_right():

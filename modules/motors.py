@@ -145,7 +145,7 @@ def turn_right_pid(x, vel=360):
         right_motor.run_angle(vel, -current_angle, wait = True)
     
     
-    print(left_motor.angle(), right_motor.angle())
+    # print(left_motor.angle(), right_motor.angle())
          
     brake_motors()
     
