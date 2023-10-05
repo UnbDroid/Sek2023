@@ -5,6 +5,8 @@ from modules.claw import *
 from modules.delivery import *
 from pybricks.tools import StopWatch
 
+dar_pra_tras = False
+
 ev3 = EV3Brick()
 cronometer = StopWatch()
 size_of_tube = 0
@@ -27,6 +29,9 @@ print('connected!')
 #? Se alinhando no azul para iniciar o scan ---------------------------------------------------------------------------------
       
 def align_to_begin_scan(velocidade = 150):
+    global dar_pra_tras
+    set_dar_pra_tras(True)
+    dar_pra_tras = get_dar_pra_tras
     brake_motors()
     print("Achei o azul")
     move_backward(1)
@@ -63,6 +68,9 @@ def align_to_begin_scan(velocidade = 150):
 
 
 def align_to_be_ladinho():
+    global dar_pra_tras
+    set_dar_pra_tras(False)
+    dar_pra_tras = get_dar_pra_tras
     turn_left_pid(90)
     Open()
     move_backward(1)
@@ -147,7 +155,7 @@ def scan_de_ladinho_papai():
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
-        motors.drive(150, erro)
+        motors.drive(200, erro)
     brake_motors_para_drive_base()
     brake_motors()
     move_backward(3)
@@ -155,12 +163,10 @@ def scan_de_ladinho_papai():
     move_forward(5)
     turn_left_pid(90)
 
-    azul = 9
-    branco = 63
+    azul = 9 #! VALORES DO AUXILIAR !! MUDAR NO DIA
+    branco = 63 #! VALORES DO AUXILIAR !! MUDAR NO DIA
     threshold = (azul + branco) / 2
 
-  
-    
     if quanto_andou_pra_frente != [0, 0]:
         while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
             erro = (red_aux() - threshold) * -0.45
@@ -182,7 +188,7 @@ def scan_de_ladinho_papai():
         if tem_tubo == "Vi tubo":
             break
         else:
-            print(tem_tubo)
+            #print(tem_tubo)
             motors.drive(40, erro)
     
     quanto_andou_pra_frente[0] += left_motor.angle()
@@ -242,8 +248,11 @@ def scan_de_ladinho_papai():
     color_of_tube = mbox.read()
         
     print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
+    
+    print("Manobra")
     turn_left_pid(90)
-    move_forward(7.5)
+    move_forward(5.5,450)
+    
     turn_left_pid(90)
 
 def set_path():

@@ -8,8 +8,9 @@ from modules.claw import *
 
 from pybricks.hubs import EV3Brick
 
+    
 
-#* Codigo para pegar por dentro da área de coleta ---------------------------------------------------------------------------------------
+#* Codigo para pegar por dentro da área de coleta 😶‍🌫️👀🔑 ---------------------------------------------------------------------------------------
 
 # find_blue_line(0)
 # ev3.speaker.beep(444, 1000)
@@ -27,7 +28,7 @@ from pybricks.hubs import EV3Brick
 #     ev3.speaker.beep(444, 1000)
    
 
-#* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -----------------------------------------------------
+#* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -------------------------------------------------------------------------------------
 
 find_blue_line(0)
 ev3.speaker.beep(444, 1000)
@@ -44,7 +45,7 @@ while True:
     
 # ---------------------------------------------------------
 
-# Editando o Range------------------------------------------------------------------------------
+#? Editando o Range------------------------------------------------------------------------------
 
 # while True:
 #     print("Vejo?", tube_is_detected(), "Cor",is_brown_tube() )

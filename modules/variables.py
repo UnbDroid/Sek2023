@@ -32,6 +32,13 @@ def range_white_left():#
 def range_white_right():
     return [91, 97, 100]
 
+def get_dar_pra_tras(value):
+    return value
+
+def set_dar_pra_tras(value):
+    return value
+
+
 
 
 
