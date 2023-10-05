@@ -82,6 +82,7 @@ def brake_motors():
     
 def brake_motors_para_drive_base():
     while left_motor.speed() != 0 or right_motor.speed() != 0:
+        motors.drive(0,0)
         motors.stop()
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
