@@ -156,7 +156,7 @@ def scan_de_ladinho_papai():
         motors.drive(200, erro)
     brake_motors_para_drive_base()
     brake_motors()
-    move_backward(5)
+    move_backward(2)
     turn_left_pid(90)
     move_forward(5)
     turn_left_pid(90)
@@ -173,7 +173,7 @@ def scan_de_ladinho_papai():
             tem_tubo = mbox.read()
             if tem_tubo == "Vi tubo":
                 break
-            motors.drive(150, erro)
+            motors.drive(50, erro)
         brake_motors_para_drive_base()
         brake_motors()
 
@@ -214,7 +214,7 @@ def scan_de_ladinho_papai():
     branco = 62
     threshold = (azul + branco) / 2
     
-    vel = 150
+    vel = 80
     chegou_no_fim = False
 
     while not chegou_no_fim:
@@ -230,7 +230,7 @@ def scan_de_ladinho_papai():
             brake_motors()
 
 
-    move_backward(5) 
+    move_backward(2) 
 
     while left_motor.speed() != 0 or right_motor.speed() != 0:
         wait(1)

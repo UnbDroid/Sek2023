@@ -19,7 +19,7 @@ estabilizou = False
 motors = DriveBase(left_motor, right_motor, 42.1, 150) # 140.88
 
 #! MUDAR LOGO APÓS LIGAR O ROBÔ
-axle_track = 1224
+axle_track = 1228
 
 # CONTROLE -----------------------------------------------------------------------------------------------
 
@@ -74,10 +74,10 @@ def calculate_error_right(setpoint):
 # FUNÇÕES BÁSICAS ----------------------------------------------------------------------------------------------------------------
 
 def brake_motors():
-    left_motor.hold()
-    right_motor.hold()
     while left_motor.speed() != 0 or right_motor.speed() != 0:
-        wait(1)
+        left_motor.hold()
+        right_motor.hold()
+        # wait(1)
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     
