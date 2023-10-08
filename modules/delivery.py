@@ -23,7 +23,7 @@ def go_to_i(velocidade = 150):
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2 
-    while left_motor.angle() < 2575 or right_motor.angle() < 2575:
+    while left_motor.angle() < 2550 or right_motor.angle() < 2550:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -33,7 +33,7 @@ def go_to_j(velocidade = 150):
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2  
-    while left_motor.angle() < 962 or right_motor.angle() < 967:
+    while left_motor.angle() < 940 or right_motor.angle() < 940:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -69,8 +69,8 @@ def i_to_j(velocidade = 150):
 #* Funções para avançar até o obstáculo
 
 def move_to_i_or_j(distancia = 19): # Colado no azul indo pro obstáculo
-    brake_motors_para_drive_base()
-    brake_motors()
+    brake_motors_para_drive_base()#!
+    brake_motors()#!
     turn_left_pid(90)
     move_forward(distancia) 
     
@@ -99,7 +99,7 @@ def find_blue_line(numero_de_paredes):
         cor_vista = ""
         
         print("procurando")
-        while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
+        while not is_meio_left() and not is_meio_right() and not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
             andar_reto(500)   
             
         time_forward = [left_motor.angle(), right_motor.angle()]
@@ -122,7 +122,7 @@ def find_blue_line(numero_de_paredes):
             move_backward(36)
             turn_left_pid(90)
             brake_motors()
-            while not is_blue_left() and not is_blue_right():
+            while not is_meio_left() and not is_meio_right() and not is_blue_left() and not is_blue_right():
                 andar_reto(500)
                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                     brake_motors()
@@ -214,7 +214,7 @@ def find_blue_line(numero_de_paredes):
                                     esquerda_direita = ["ESQUERDA", 1]
                                 elif esquerda_direita[1] == 1:
                                     esquerda_direita[1] += 1
-                            while not is_blue_left() and not is_blue_right():
+                            while not is_meio_left() and not is_meio_right() and not is_blue_left() and not is_blue_right():
                                 andar_reto(500)
                                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                                     brake_motors()
@@ -276,7 +276,7 @@ def find_blue_line(numero_de_paredes):
                             turn_left_pid(90)
                         else:
                             turn_right_pid(90)
-                        while not is_blue_left() and not is_blue_right() and not is_red_left() and not is_red_right() and not has_obstacle() and not is_black_left() and not is_black_right():
+                        while not is_meio_left() and not is_meio_right() and not is_blue_left() and not is_blue_right() and not is_red_left() and not is_red_right() and not has_obstacle() and not is_black_left() and not is_black_right():
                             andar_reto(500)
                         brake_motors()
                         if is_red_left() or is_red_right():
@@ -332,7 +332,7 @@ def find_blue_line(numero_de_paredes):
                                     esquerda_direita = ["ESQUERDA", 1]
                                 elif esquerda_direita[1] == 1:
                                     esquerda_direita[1] += 1
-                            while not is_blue_left() and not is_blue_right():
+                            while not is_meio_left() and not is_meio_right() and not is_blue_left() and not is_blue_right():
                                 andar_reto(500)
                                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                                     brake_motors()
@@ -450,7 +450,7 @@ def tube_library():
     brake_motors_para_drive_base()
     brake_motors()
     
-    move_backward(12)
+    move_backward(15)
     turn_left_pid(90)
     
     move_forward(20)

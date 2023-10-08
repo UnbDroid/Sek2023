@@ -19,7 +19,7 @@ estabilizou = False
 motors = DriveBase(left_motor, right_motor, 42.1, 150) # 140.88
 
 #! MUDAR LOGO APÓS LIGAR O ROBÔ
-axle_track = 1236
+axle_track = 1224
 
 # CONTROLE -----------------------------------------------------------------------------------------------
 

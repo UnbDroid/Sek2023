@@ -156,7 +156,7 @@ def scan_de_ladinho_papai():
         motors.drive(200, erro)
     brake_motors_para_drive_base()
     brake_motors()
-    move_backward(3)
+    move_backward(5)
     turn_left_pid(90)
     move_forward(5)
     turn_left_pid(90)
@@ -197,17 +197,17 @@ def scan_de_ladinho_papai():
 
     
     # manobras -----------------
-    move_forward(3.8, 60)
+    move_forward(4, 60)
     turn_left_pid(90)
-    Close(esperar=False, time = 250)
+    Close(esperar=False, time = 550) #250
 
-    move_forward(11, 360)
+    move_forward(12.5, 380)
     while claw_motor.speed() != 0:
         wait(1)
 
     #com o tubo
 
-    move_backward(11)
+    move_backward(12.5)
     turn_right_pid(90)
             
     azul = 12
@@ -230,7 +230,7 @@ def scan_de_ladinho_papai():
             brake_motors()
 
 
-    move_backward(3) 
+    move_backward(5) 
 
     while left_motor.speed() != 0 or right_motor.speed() != 0:
         wait(1)

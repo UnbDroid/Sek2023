@@ -83,7 +83,7 @@ while True:
 # for i in range(5):                                       # 1212
 #     motors.turn(330)                                     # 1212
 #     while not is_black():                                # 1216
-#         motors.drive(0,10)
+#         motors.drive(0,5)
 #     motors.stop()
 #     print(left_motor.angle(), right_motor.angle())
 #     brake_motors()
