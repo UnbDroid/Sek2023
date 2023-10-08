@@ -8,40 +8,48 @@ from modules.claw import *
 
 from pybricks.hubs import EV3Brick
 
+'''
+! Range do azul no brick aux
+! Range do ultrassom no aux
+! Ida pra bakery
+! Ida pro park
+! Alinhar com azul (deixar mais no azul)
+! Regular a entrada no azul
+'''
     
 
 #* Codigo para pegar por dentro da área de coleta 😶‍🌫️👀🔑 ---------------------------------------------------------------------------------------
-
-# find_blue_line(0)
-# ev3.speaker.beep(444, 1000)
-# while True:
-    
-#     align_to_begin_scan()
-#     ev3.speaker.beep(444, 1000)
-#     scan()
-#     ev3.speaker.beep(444, 1000)
-#     go_to_check_point()
-#     ev3.speaker.beep(444, 1000)
-
-
-#     set_path()
-#     ev3.speaker.beep(444, 1000)
-   
-
-#* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -------------------------------------------------------------------------------------
 
 find_blue_line(0)
 ev3.speaker.beep(444, 1000)
 while True:
     
-    align_to_be_ladinho()
+    align_to_begin_scan()
     ev3.speaker.beep(444, 1000)
-    scan_de_ladinho_papai()
+    scan()
     ev3.speaker.beep(444, 1000)
-    
+    go_to_check_point()
+    ev3.speaker.beep(444, 1000)
+
 
     set_path()
     ev3.speaker.beep(444, 1000)
+   
+
+#* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -------------------------------------------------------------------------------------
+
+# find_blue_line(0)
+# ev3.speaker.beep(444, 1000)
+# while True:
+    
+#     align_to_be_ladinho()
+#     ev3.speaker.beep(444, 1000)
+#     scan_de_ladinho_papai()
+#     ev3.speaker.beep(444, 1000)
+    
+
+#     set_path()
+#     ev3.speaker.beep(444, 1000)
     
 # ---------------------------------------------------------
 
@@ -75,7 +83,7 @@ while True:
 # for i in range(5):                                       # 1212
 #     motors.turn(330)                                     # 1212
 #     while not is_black():                                # 1216
-#         motors.turn(1)
+#         motors.drive(0,10)
 #     motors.stop()
 #     print(left_motor.angle(), right_motor.angle())
 #     brake_motors()
@@ -109,7 +117,8 @@ while True:
 
 # while True:
 #     wait(500)
-#     print("Esquerda: ", color_sensor_floor_aux.rgb() , "Direita: ", color_sensor_floor_right.rgb())
+#     print("Esquerda: ",color_sensor_floor_left.rgb(), "Aux: ", color_sensor_floor_aux.rgb() , "Direita: ", color_sensor_floor_right.rgb())
+    
 
 #-----------------------------------------------------------------------------------------------
 

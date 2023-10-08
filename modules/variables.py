@@ -9,28 +9,28 @@ def range_black_right():
     return [11, 10, 36]
 
 def range_yellow_left():
-    return [67, 70, 20]
+    return [56, 66, 17]
 
 def range_yellow_right():
-    return [85, 82, 49]
+    return [72, 75, 45]
 
 def range_blue_left():
-    return [8, 22, 42]
+    return [13, 17, 40]
 
 def range_blue_right():
-    return [13, 30, 100]
+    return [20, 22, 100]
 
 def range_red_left():
-    return [65, 10, 9]
+    return [69, 9, 11]
 
 def range_red_right():
-    return [86, 22, 35]
+    return [87, 16, 47]
 
 def range_white_left():#
-    return [69, 82, 90]
+    return [68, 83, 100]
 
 def range_white_right():
-    return [91, 97, 100]
+    return [82, 89, 100]
 
 def get_dar_pra_tras(value):
     return value

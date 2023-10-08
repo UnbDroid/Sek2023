@@ -85,8 +85,8 @@ def scan():
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     
-    azul = 9
-    branco = 63
+    azul = 12
+    branco = 62
     threshold = (azul + branco) / 2
     
     if quanto_andou_pra_frente != [0, 0]:
@@ -163,8 +163,8 @@ def scan_de_ladinho_papai():
     move_forward(5)
     turn_left_pid(90)
 
-    azul = 9 #! VALORES DO AUXILIAR !! MUDAR NO DIA
-    branco = 63 #! VALORES DO AUXILIAR !! MUDAR NO DIA
+    azul = 12 #! VALORES DO AUXILIAR !! MUDAR NO DIA
+    branco = 62 #! VALORES DO AUXILIAR !! MUDAR NO DIA
     threshold = (azul + branco) / 2
 
     if quanto_andou_pra_frente != [0, 0]:
@@ -212,8 +212,8 @@ def scan_de_ladinho_papai():
     move_backward(11)
     turn_right_pid(90)
             
-    azul = 9
-    branco = 63
+    azul = 12
+    branco = 62
     threshold = (azul + branco) / 2
     
     vel = 200

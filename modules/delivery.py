@@ -6,9 +6,15 @@ from modules.path import *
 from pybricks.tools import StopWatch
 
 crono = StopWatch()
-
-
+ 
 #! Mudar isso na competição :D
+
+
+#! ESSA POHA AQUI #FALSE é pro ALIGN
+# TO BE ladinho e TRUE para entrar
+
+dar_pra_tras = False 
+
 #! Localizações ----------------------------------------------------
 
 #* Essas funções são sobre, ir do checkpoint e caminhar até o obstáculo
@@ -458,12 +464,12 @@ def tube_library():
     
     
 
-    if get_dar_pra_tras() == True:
+    if dar_pra_tras == True:
         turn_left_pid(90)
         move_backward(13)
         turn_left_pid(90)
         
-    if get_dar_pra_tras() == False:
+    if dar_pra_tras == False:
         turn_180()
         
         
@@ -551,7 +557,6 @@ def tube_school():
             found_wall()
             move_backward(12)
             turn_left_pid(90)
-            move_forward(20)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
             brake_motors()
@@ -599,7 +604,6 @@ def tube_school():
                 andar_reto(500)
             brake_motors()
             turn_right_pid(90)
-            move_forward(20)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
             brake_motors()
@@ -694,7 +698,6 @@ def tube_museum():
             found_wall()
             move_backward(7) #middle_to_obstacle()
             turn_right_pid(90)
-            move_forward(20)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
             brake_motors()
@@ -717,7 +720,6 @@ def tube_museum():
             Open(time=500)
             move_backward(15)
             turn_right_pid(90)
-            move_forward(20)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
             brake_motors()
@@ -961,7 +963,6 @@ def tube_drugstore():
                 brake_motors_para_drive_base()
                 brake_motors()
                 turn_left_pid(90)
-                move_forward(20)
                 while not is_black_left() and not is_black_right():
                     andar_reto(500)
                 brake_motors()
@@ -986,7 +987,6 @@ def tube_drugstore():
                 brake_motors() 
             else:
                 not_found_wall()
-                move_forward(20)
                 while not is_black_left() and not is_black_right():
                     andar_reto(500)
                 brake_motors()
@@ -1086,7 +1086,6 @@ def tube_bakery():
             found_wall()
             move_backward(7) #middle_to_obstacle()
             turn_left_pid(90)
-            move_forward(20)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
             brake_motors()
@@ -1142,7 +1141,6 @@ def tube_bakery():
                 turn_left_pid(90)
                 move_forward(55)
                 turn_right_pid(90)
-                move_forward(20)
                 while not is_black_left() and not is_black_right():
                     andar_reto(500)
                 brake_motors()
@@ -1234,7 +1232,6 @@ def tube_bakery():
                 brake_motors_para_drive_base()
                 brake_motors()
                 turn_right_pid(90)
-                move_forward(20)
                 while not is_black_left() and not is_black_right():
                     andar_reto(500)
                 brake_motors()
@@ -1267,7 +1264,6 @@ def tube_bakery():
                 not_found_wall()
                 move_forward(45)
                 turn_right_pid(90)
-                move_forward(20)
                 while not is_black_left() and not is_black_right():
                     andar_reto(500)
                 brake_motors()
@@ -1357,7 +1353,6 @@ def tube_park():
             move_forward(53)
             
             turn_right_pid(90)
-            move_forward(20)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
             brake_motors()
@@ -1411,7 +1406,6 @@ def tube_park():
         else:
             print("Não tem objeto no D")
             not_found_wall()
-            move_forward(20)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
             brake_motors()
@@ -1464,6 +1458,7 @@ def tube_park():
     else:
         not_found_wall()
         i_or_j_to_middle()
+        wait(1000)
         middle_to_obstacle()
         
         if has_obstacle(): 
@@ -1489,7 +1484,6 @@ def tube_park():
                 brake_motors_para_drive_base()
                 brake_motors()
                 turn_left_pid(90)
-                move_forward(20)
                 while not is_black_left() and not is_black_right():
                     andar_reto(500)
                 brake_motors()
@@ -1517,7 +1511,6 @@ def tube_park():
                 not_found_wall()
                 move_forward(53)
                 turn_left_pid(90)
-                move_forward(20)
                 while not is_black_left() and not is_black_right():
                     andar_reto(500)
                 brake_motors()
@@ -1574,7 +1567,6 @@ def tube_park():
                     
         else:
             not_found_wall()
-            move_forward(20)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)   
             brake_motors()
