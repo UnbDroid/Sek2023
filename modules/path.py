@@ -36,7 +36,6 @@ def align_to_begin_scan(velocidade = 150):
     print("Achei o azul")
     move_backward(1)
     turn_right_pid(90)
-    Open()
     
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
@@ -72,7 +71,6 @@ def align_to_be_ladinho():
     set_dar_pra_tras(False)
     dar_pra_tras = get_dar_pra_tras
     turn_left_pid(90)
-    Open()
     move_backward(1)
   
 #? Tatica para pegar os tubos, seja de lado ou por dentro ----------------------------------------------------------
@@ -216,13 +214,13 @@ def scan_de_ladinho_papai():
     branco = 62
     threshold = (azul + branco) / 2
     
-    vel = 200
+    vel = 150
     chegou_no_fim = False
 
     while not chegou_no_fim:
         
         delta = threshold - red_aux()
-        kp = 0.45
+        kp = 0.5
         erro = delta * kp
         motors.drive(vel, erro)
         

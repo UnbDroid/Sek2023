@@ -83,7 +83,7 @@ def move_to_middle(distancia = 72): # Colado no azul até o meio da arena "F", "
 def i_or_j_to_middle(distancia = 53): # De frente com o I ou o J até o meio
     move_forward(distancia)
     
-def middle_to_obstacle(distancia = 7): # No meio da arena para andar até o obstáculo
+def middle_to_obstacle(distancia = 10): #!          No meio da arena para andar até o obstáculo
     move_forward(distancia)
 
 #! -------------------------------------------------------------------------------------------------------
@@ -93,15 +93,13 @@ def middle_to_obstacle(distancia = 7): # No meio da arena para andar até o obst
 
 def find_blue_line(numero_de_paredes):
     esquerda_direita = ["ESQUERDA", 1]
-    if claw_motor.angle() < 10 and claw_motor.angle() > -10:
-        Close(time=500)
     if numero_de_paredes < 4:
         brake_motors()
         
         cor_vista = ""
         
         print("procurando")
-        while not is_blue() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
+        while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
             andar_reto(500)   
             
         time_forward = [left_motor.angle(), right_motor.angle()]
@@ -124,7 +122,7 @@ def find_blue_line(numero_de_paredes):
             move_backward(36)
             turn_left_pid(90)
             brake_motors()
-            while not is_blue():
+            while not is_blue_left() and not is_blue_right():
                 andar_reto(500)
                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                     brake_motors()
@@ -216,7 +214,7 @@ def find_blue_line(numero_de_paredes):
                                     esquerda_direita = ["ESQUERDA", 1]
                                 elif esquerda_direita[1] == 1:
                                     esquerda_direita[1] += 1
-                            while not is_blue():
+                            while not is_blue_left() and not is_blue_right():
                                 andar_reto(500)
                                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                                     brake_motors()
@@ -278,7 +276,7 @@ def find_blue_line(numero_de_paredes):
                             turn_left_pid(90)
                         else:
                             turn_right_pid(90)
-                        while not is_blue() and not is_red_left() and not is_red_right() and not has_obstacle() and not is_black_left() and not is_black_right():
+                        while not is_blue_left() and not is_blue_right() and not is_red_left() and not is_red_right() and not has_obstacle() and not is_black_left() and not is_black_right():
                             andar_reto(500)
                         brake_motors()
                         if is_red_left() or is_red_right():
@@ -334,7 +332,7 @@ def find_blue_line(numero_de_paredes):
                                     esquerda_direita = ["ESQUERDA", 1]
                                 elif esquerda_direita[1] == 1:
                                     esquerda_direita[1] += 1
-                            while not is_blue():
+                            while not is_blue_left() and not is_blue_right():
                                 andar_reto(500)
                                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                                     brake_motors()
@@ -459,8 +457,7 @@ def tube_library():
     move_forward(12, 200) 
     
     Open(time = 500)
-    move_backward(32) 
-    Close(time = 500)
+    move_backward(32)
     
     
 
@@ -482,7 +479,7 @@ def tube_city_hall():
     if has_obstacle(): 
         found_wall()
         turn_180()
-        while not is_blue():
+        while not is_blue_left() and not is_blue_right():
             andar_reto(250) #FAZER: Testar a volta para n bater no tubo #500
         brake_motors()
         while is_blue():
@@ -533,7 +530,7 @@ def tube_school():
     if has_obstacle(): 
         found_wall()
         turn_180()
-        while not is_blue():
+        while not is_blue_left() and not is_blue_right():
             andar_reto(300)
         brake_motors()
         while is_blue():
@@ -675,7 +672,7 @@ def tube_museum():
         found_wall()
         move_backward(7) #middle_to_obstacle()
         turn_180()
-        while not is_blue():
+        while not is_blue_left() and not is_blue_right():
             andar_reto(300)
         brake_motors()
         while is_blue():
@@ -858,7 +855,7 @@ def tube_drugstore():
     if has_obstacle(): 
         found_wall()
         turn_180()
-        while not is_blue():
+        while not is_blue_left() and not is_blue_right():
             andar_reto(300)
         brake_motors()
         
@@ -950,7 +947,7 @@ def tube_drugstore():
                 found_wall()
                 move_backward(7) #middle_to_obstacle()
                 turn_180()
-                while not is_blue():
+                while not is_blue_left() and not is_blue_right():
                     andar_reto(300)
                 brake_motors()
                 while is_blue():
@@ -1020,7 +1017,7 @@ def tube_drugstore():
                     find_blue_line(0)
         else:
             not_found_wall()
-            move_forward(28)
+            move_forward(23)
             turn_left_pid(90)
             move_forward(20,200)
             
@@ -1056,7 +1053,7 @@ def tube_bakery():
         found_wall()
         move_backward(10)
         turn_180()
-        while not is_blue():
+        while not is_blue_left() and not is_blue_right():
             andar_reto(300)
         brake_motors()
         
@@ -1219,7 +1216,7 @@ def tube_bakery():
                 found_wall()
                 move_backward(10)
                 turn_left_pid(90)
-                while not is_blue():
+                while not is_blue_left() and not is_blue_right():
                     andar_reto(300)
                 brake_motors()
                 while is_blue():
@@ -1321,7 +1318,7 @@ def tube_park():
         print("Tem um objeto no J indo pro Park")
         
         turn_180()
-        while not is_blue():
+        while not is_blue_left() and not is_blue_right():
             andar_reto(300)
         brake_motors()
         
@@ -1471,7 +1468,7 @@ def tube_park():
                 found_wall()
                 move_backward(7) #middle_to_obstacle()
                 turn_right_pid(90)
-                while not is_blue():
+                while not is_blue_left() and not is_blue_right():
                     andar_reto(300)
                 brake_motors()
                 while is_blue():

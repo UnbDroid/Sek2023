@@ -20,6 +20,12 @@ def range_blue_left():
 def range_blue_right():
     return [20, 22, 100]
 
+def range_meio_left():
+    return [45, 50, 70]
+
+def range_meio_right():
+    return [51, 56, 100]
+
 def range_red_left():
     return [69, 9, 11]
 

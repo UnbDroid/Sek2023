@@ -70,6 +70,14 @@ range_min_red_left = get_range_colors(range_red_left(), 'min')
 range_max_red_right = get_range_colors(range_red_right(), 'max')
 range_min_red_right = get_range_colors(range_red_right(), 'min')
 
+# -----------------------------------------------
+
+range_max_meio_left = get_range_colors(range_meio_left(), 'max')
+range_min_meio_left = get_range_colors(range_meio_left(), 'min')
+
+range_max_meio_right = get_range_colors(range_meio_right(), 'max')
+range_min_meio_right = get_range_colors(range_meio_right(), 'min')
+
 # Range das cores ------------------------------------------------------------------------
  
 ## BLACK ##
