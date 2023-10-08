@@ -59,3 +59,5 @@ while True:
     elif msg == "scan":
         tube_scan()
     
+# while True:
+#     print(tube_presence_verificator.rgb())

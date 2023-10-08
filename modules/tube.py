@@ -11,7 +11,7 @@ ultrasound = UltrasonicSensor(Port.S2)
 
 def tube():
     verification = tube_sensor_verification.reflection()
-    if verification >= 5:
+    if verification >= 10:
         print("Tube is 15cm high")
         return True
     else:
@@ -47,17 +47,17 @@ def scan_de_ladinho():
     
     
 def color_tube():
-    if tube_presence_verificator.rgb()[0] >= 90 and tube_presence_verificator.rgb()[1] <= 35 and tube_presence_verificator.rgb()[2] <= 30:
+    if tube_presence_verificator.rgb()[0] >= 78 and tube_presence_verificator.rgb()[1] <= 30 and tube_presence_verificator.rgb()[2] <= 30:
         return "RED"
-    elif tube_presence_verificator.rgb()[1] >= 45 and tube_presence_verificator.rgb()[0] <= 45 and tube_presence_verificator.rgb()[2] <= 45:
+    elif tube_presence_verificator.rgb()[1] >= 70 and tube_presence_verificator.rgb()[0] <= 60 and tube_presence_verificator.rgb()[2] <= 65:
         return "GREEN"
-    elif tube_presence_verificator.rgb()[0] >= 32 and tube_presence_verificator.rgb()[1] <= 32 and tube_presence_verificator.rgb()[2] >= 32:
+    elif tube_presence_verificator.rgb()[0] <= 60 and tube_presence_verificator.rgb()[1] <= 67 and tube_presence_verificator.rgb()[2] >= 67:
         return "BLUE"
     else:
         return "BROWN"
 
 def tube_is_detected():
-    if tube_presence_verificator.reflection() >= 20:
+    if tube_presence_verificator.reflection() >= 40:
         return True
     else:
         return False
