@@ -153,7 +153,7 @@ def scan_de_ladinho_papai():
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
-        motors.drive(200, erro)
+        motors.drive(100, erro)
     brake_motors_para_drive_base()
     brake_motors()
     move_backward(2)
@@ -173,7 +173,7 @@ def scan_de_ladinho_papai():
             tem_tubo = mbox.read()
             if tem_tubo == "Vi tubo":
                 break
-            motors.drive(50, erro)
+            motors.drive(100, erro)
         brake_motors_para_drive_base()
         brake_motors()
 
@@ -214,7 +214,7 @@ def scan_de_ladinho_papai():
     branco = 62
     threshold = (azul + branco) / 2
     
-    vel = 80
+    vel = 100
     chegou_no_fim = False
 
     while not chegou_no_fim:
