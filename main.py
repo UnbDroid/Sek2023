@@ -28,7 +28,7 @@ while True:
     mbox.wait()
     msg = mbox.read()
     
-    wait(50)
+    wait(10)
     
     if msg == 'alinhar':
         mbox.send(alinhar_azul())
