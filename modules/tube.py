@@ -45,16 +45,24 @@ def alinhar_azul():
 #     else:
 #         return False
     
+def red_tube():
+    return [85, 21, 20]
+
+def blue_tube():
+    return [55, 68, 76]
+
+def green_tube():
+    return [49, 76, 57]
     
 def color_tube():
-    if tube_presence_verificator.rgb()[0] >= 78 and tube_presence_verificator.rgb()[1] <= 30 and tube_presence_verificator.rgb()[2] <= 30:
+    if tube_presence_verificator.rgb()[0] >= (red_tube()[0] - 15) and tube_presence_verificator.rgb()[0] <= (red_tube()[0] + 15) and tube_presence_verificator.rgb()[1] >= (red_tube()[1] - 15) and tube_presence_verificator.rgb()[1] <= (red_tube()[1] + 15) and tube_presence_verificator.rgb()[2] >= (red_tube()[2] - 15) and tube_presence_verificator.rgb()[2] <= (red_tube()[2] + 15):
         return "RED"
-    elif tube_presence_verificator.rgb()[1] >= 70 and tube_presence_verificator.rgb()[0] <= 60 and tube_presence_verificator.rgb()[2] <= 65:
+    elif tube_presence_verificator.rgb()[0] >= (green_tube()[0] - 15) and tube_presence_verificator.rgb()[0] <= (green_tube()[0] + 15) and tube_presence_verificator.rgb()[1] >= (green_tube()[1] - 15) and tube_presence_verificator.rgb()[1] <= (green_tube()[1] + 15) and tube_presence_verificator.rgb()[2] >= (green_tube()[2] - 15) and tube_presence_verificator.rgb()[2] <= (green_tube()[2] + 15):
         return "GREEN"
-    elif tube_presence_verificator.rgb()[0] <= 60 and tube_presence_verificator.rgb()[1] <= 67 and tube_presence_verificator.rgb()[2] >= 67:
+    elif tube_presence_verificator.rgb()[0] >= (blue_tube()[0] - 15) and tube_presence_verificator.rgb()[0] <= (blue_tube()[0] + 15) and tube_presence_verificator.rgb()[1] >= (blue_tube()[1] - 15) and tube_presence_verificator.rgb()[1] <= (blue_tube()[1] + 15) and tube_presence_verificator.rgb()[2] >= (blue_tube()[2] - 15) and tube_presence_verificator.rgb()[2] <= (blue_tube()[2] + 15):
         return "BLUE"
     else:
-        return "BROWN"
+        color_tube()
 
 def tube_is_detected():
     if tube_presence_verificator.reflection() >= 40:

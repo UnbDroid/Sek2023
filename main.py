@@ -57,5 +57,8 @@ while True:
     elif msg == "scan":
         tube_scan()
     
+    
+# while True:
+#     print(color_tube())
 # while True:
 #     print(scan_de_ladinho())
