@@ -3,6 +3,7 @@ from modules.colors import *
 from modules.beeps import *
 
 ultrasound_sensor = UltrasonicSensor(Port.S3)
+tube_sensor = UltrasonicSensor(Port.S4)
 
 def has_obstacle():
     valores_lidos = []
@@ -18,4 +19,11 @@ def has_obstacle():
     else:
         return False
     
-tube_sensor = UltrasonicSensor(Port.S4)
+
+
+
+def tube_is_detected():
+    if tube_sensor.reflection() >= 40: #FAZER: Mudar o range da identificação do tubo
+        return True
+    else:
+        return False

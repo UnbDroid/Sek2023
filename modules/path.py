@@ -210,9 +210,9 @@ def scan_de_ladinho_papai():
     #FAZER : MUDAR TODA A IDEIA DE CAPTURA PQ O SENSOR ESTÁ NO BRICK PRINCIPAL!!!!!!!!!!
     while True:
         erro = (red_aux() - threshold) * -0.45
-        mbox.send("de_ladinho")
-        mbox.wait()
-        tem_tubo = mbox.read()
+        # mbox.send("de_ladinho")
+        # mbox.wait()
+        # tem_tubo = mbox.read()
         if tem_tubo == "Vi tubo":
             while True:
                 erro = (red_aux() - threshold) * -0.45
@@ -228,18 +228,35 @@ def scan_de_ladinho_papai():
         else:
             #print(tem_tubo)
             motors.drive(40, erro)
+            
+            
+    while not tube_is_detected():
+        print("Entrei no while")
+        
+        if tube_is_detected():
+            brake_motors_para_drive_base()
+            break
+        
+        #FAZER : RED NORMAL :D
+        
+        erro = (red_aux() - threshold) * -0.45
+        motors.drive(40,erro)
+        
+        
     
-    quanto_andou_pra_frente[0] += left_motor.angle()
-    quanto_andou_pra_frente[1] += right_motor.angle() 
+    # quanto_andou_pra_frente[0] += left_motor.angle()
+    # quanto_andou_pra_frente[1] += right_motor.angle() 
     brake_motors_para_drive_base()
     brake_motors()
     deu_bom_familia()
 
     
     # manobras -----------------
-    move_backward(6, 60)
+    
+    #FAZER: ARRUMAR AS MANOBRAS POIS O SENSOR ESTA átras :D
+    move_backward(6, 60) #Aqui
     turn_left_pid(90)
-    Close(esperar=False, time = 550) #250
+    Close(esperar=False, time = 550) 
 
     move_forward(12.5, 380)
     while claw_motor.speed() != 0:
@@ -250,6 +267,8 @@ def scan_de_ladinho_papai():
     move_backward(12.5)
     turn_right_pid(90)
             
+    #FAZER: Mesma coisa, arrumar o range!
+    
     azul = 12
     branco = 62
     threshold = (azul + branco) / 2
