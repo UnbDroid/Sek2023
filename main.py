@@ -18,7 +18,7 @@ from pybricks.hubs import EV3Brick
 '''
     
 
-#* Codigo para pegar por dentro da área de coleta 😶‍🌫️👀🔑 ---------------------------------------------------------------------------------------
+#* Codigo paraa dar inicio a guerra deth com 😡🤬😶‍🌫️👀🔑 ---------------------------------------------------------------------------------------
 
 # find_blue_line(0)
 # ev3.speaker.beep(444, 1000)
@@ -203,3 +203,7 @@ while True:
 # while True:
 #     left_motor.run(40)
 #     right_motor.run(-30)
+
+
+# while True:
+#     print(tube_sensor.distance())

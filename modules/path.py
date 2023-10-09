@@ -216,8 +216,9 @@ def scan_de_ladinho_papai():
     #? Teste
     
     while tube_is_detected():
-        move_backward(1,100)
-    move_backward(1)
+        andar_reto(-40)
+    brake_motors()
+    move_backward(2)
     #? move_backward(4.5, 60) #Aqui
     Close()
     turn_left_pid(90)
