@@ -158,7 +158,7 @@ def scan_de_ladinho_papai():
     chegou_no_fim = False
 
     while not chegou_no_fim:
-        if is_red_left() and red_left()>=50 :
+        if is_red_left() and red_left() >= range_meio_blue_left()[0]:
             chegou_no_fim = True
             brake_motors_para_drive_base()
             brake_motors()
@@ -169,7 +169,7 @@ def scan_de_ladinho_papai():
         erro = delta * kp
         motors.drive(180, erro) #! VELOCIDADE ARRUMANDO
         
-        if is_red_left() and red_left()>=50 :
+        if is_red_left() and red_left() >= range_meio_blue_left()[0]:
             chegou_no_fim = True
             brake_motors_para_drive_base()
             brake_motors()
@@ -180,67 +180,28 @@ def scan_de_ladinho_papai():
     # brake_motors_para_drive_base()
     # brake_motors()
     #FAZER : Testar essa função por causa da manobra (possivelmente só 180 graus msm)
-    move_backward(2)
-    turn_right_pid(90)
-    # move_forward(3)
-    while red_left() < range_meio_blue_left()[0]:
-        andar_reto(-150)
-    move_backward(2.5)
-    turn_right_pid(90)
+    
+    move_backward(5)
+    turn_180()
 
-    azul = 12 #FAZER : TE same do de baixo
-    branco = 62 #FAZER : Mudar os ranges para andar no sensor esquerdo, de preff automático, to com sono '-'
+    azul = range_blue_left()[0]
+    branco = range_white_left()[0]
     threshold = (azul + branco) / 2
 
     if quanto_andou_pra_frente != [0, 0]:
         while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
-            erro = (red_aux() - threshold) * -0.45
-            # mbox.send("de_ladinho")
-            # mbox.wait()
-            # tem_tubo = mbox.read()
-            # if tem_tubo == "Vi tubo":
-            #     break
+            erro = (red_left() - threshold) * -0.45
+            if tube_is_detected():
+                brake_motors_para_drive_base()
+                brake_motors()
+                break
             motors.drive(180, erro) #! VELOCIDADE ARRUMANDO
         brake_motors_para_drive_base()
         brake_motors()
 
-
-
-
-    #FAZER : MUDAR TODA A IDEIA DE CAPTURA PQ O SENSOR ESTÁ NO BRICK PRINCIPAL!!!!!!!!!!
-    while True:
-        erro = (red_aux() - threshold) * -0.45
-        # mbox.send("de_ladinho")
-        # mbox.wait()
-        # tem_tubo = mbox.read()
-        if tem_tubo == "Vi tubo":
-            while True:
-                erro = (red_aux() - threshold) * -0.45
-                mbox.send("de_ladinho")
-                mbox.wait()
-                tem_tubo = mbox.read()
-                if tem_tubo != "Vi tubo":
-                    brake_motors_para_drive_base()
-                    break
-                else:
-                    motors.drive(10, erro)
-            break
-        else:
-            #print(tem_tubo)
-            motors.drive(40, erro)
-            
-            
     while not tube_is_detected():
-        print("Entrei no while")
-        
-        if tube_is_detected():
-            brake_motors_para_drive_base()
-            break
-        
-        #FAZER : RED NORMAL :D
-        
-        erro = (red_aux() - threshold) * -0.45
-        motors.drive(40,erro)
+        erro = (red_left() - threshold) * -0.45
+        motors.drive(80, erro)
         
         
     
@@ -255,29 +216,31 @@ def scan_de_ladinho_papai():
     
     #FAZER: ARRUMAR AS MANOBRAS POIS O SENSOR ESTA átras :D
     move_backward(6, 60) #Aqui
+    Close()
     turn_left_pid(90)
+    move_backward(3,100)
+    Open()
+    move_forward(3,100)
     Close(esperar=False, time = 550) 
 
-    move_forward(12.5, 380)
+    move_forward(9, 380)
     while claw_motor.speed() != 0:
         wait(1)
 
     #com o tubo
 
-    move_backward(12.5)
+    move_backward(9)
     turn_right_pid(90)
-            
-    #FAZER: Mesma coisa, arrumar o range!
-    
-    azul = 12
-    branco = 62
+
+    azul = range_blue_left()[0]
+    branco = range_white_left()[0]
     threshold = (azul + branco) / 2
     
     chegou_no_fim = False
 
     while not chegou_no_fim:
         
-        delta = threshold - red_aux()
+        delta = threshold - red_left()
         kp = 0.5
         erro = delta * kp
         motors.drive(180, erro) #! VELOCIDADE ARRUMANDO
@@ -306,10 +269,7 @@ def scan_de_ladinho_papai():
     print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
     
     print("Manobra")
-    turn_left_pid(90)
-    move_forward(5.5,450)
-    
-    turn_left_pid(90)
+    turn_180()
 
 def set_path():
     global color_of_tube

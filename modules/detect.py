@@ -23,7 +23,7 @@ def has_obstacle():
 
 
 def tube_is_detected():
-    if tube_sensor.reflection() >= 40: #FAZER: Mudar o range da identificação do tubo
+    if tube_sensor.distance() <= 120: 
         return True
     else:
         return False

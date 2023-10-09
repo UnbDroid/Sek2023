@@ -29,14 +29,14 @@ def green_right():
 def blue_right():
     return color_sensor_floor_right.rgb()[2]
 
-def red_aux():
-    return color_sensor_floor_aux.rgb()[0]
+# def red_aux():
+#     return color_sensor_floor_aux.rgb()[0]
 
-def green_aux():
-    return color_sensor_floor_aux.rgb()[1]
+# def green_aux():
+#     return color_sensor_floor_aux.rgb()[1]
 
-def blue_aux():
-    return color_sensor_floor_aux.rgb()[2]
+# def blue_aux():
+#     return color_sensor_floor_aux.rgb()[2]
 
 # Atomação thamires.13 ------------------------------------------------------------------
 
