@@ -201,7 +201,26 @@ def scan_de_ladinho_papai():
 
     while not tube_is_detected():
         erro = (red_left() - threshold) * -0.45
-        motors.drive(180, erro)
+        motors.drive(150, erro)
+        if is_red_right():
+            brake_motors_para_drive_base()
+            move_backward(4)
+            turn_180()
+            while left_motor.angle() < 2200 or right_motor.angle() < 2200:
+                delta = red_right() - threshold
+                kp = 0.5
+                erro = delta * kp
+                motors.drive(500, erro) #! VELOCIDADE ARRUMANDO
+            brake_motors_para_drive_base()
+            while not is_red_left():
+                delta = red_right() - threshold
+                kp = 0.5
+                erro = delta * kp
+                motors.drive(150, erro) #! VELOCIDADE ARRUMANDO
+            brake_motors_para_drive_base()
+            move_backward(5)
+            turn_180()
+                
         
         
     
@@ -218,7 +237,7 @@ def scan_de_ladinho_papai():
     while tube_is_detected():
         andar_reto(-40)
     brake_motors()
-    move_backward(3)
+    move_backward(3,60)
     #? move_backward(4.5, 60) #Aqui
     Close()
     turn_left_pid(90)
@@ -254,7 +273,7 @@ def scan_de_ladinho_papai():
             delta = threshold - red_left()
             kp = 0.5
             erro = delta * kp
-            motors.drive(150, erro) #! VELOCIDADE ARRUMANDO
+            motors.drive(135, erro) #! VELOCIDADE ARRUMANDO
             
             if is_red_right():
                 chegou_no_fim = True

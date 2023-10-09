@@ -34,11 +34,11 @@ def range_meio_blue_right():
 
 def range_red_left():
     # return [69, 9, 11] #! RANGES DA ARENA OFICIAL
-    return [60, 9, 7]
+    return [65, 8, 9]
 
 def range_red_right():
     # return [87, 16, 47] #! RANGES DA ARENA OFICIAL
-    return [95, 19, 54]
+    return [92, 18, 45]
 
 def range_white_left():
     # return [68, 83, 100] #! RANGES DA ARENA OFICIAL

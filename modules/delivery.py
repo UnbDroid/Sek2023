@@ -457,9 +457,9 @@ def tube_library():
     move_forward(3)
     
     move_forward(20)
+    Open(time = 500)
     move_forward(12, 200) 
     
-    Open(time = 500)
     move_backward(32)
     
     
@@ -867,9 +867,9 @@ def tube_museum():
             move_backward(3)
             wait(500)
             move_forward(3)
+            Open(time = 500)
             move_forward(17,200)
             
-            Open(time = 500)
             move_backward(17)
             turn_right_pid(90)
             move_forward(29)
@@ -1429,8 +1429,8 @@ def tube_park():
             move_backward(3)
             wait(500)
             move_forward(3)
-            move_forward(13,200)
             Open(time = 500)
+            move_forward(13,200)
             move_backward(13)
             turn_left_pid(90)
             
