@@ -43,6 +43,7 @@ ev3.speaker.beep(444, 1000)
 while True:
     
     align_to_be_ladinho()
+    
     ev3.speaker.beep(444, 1000)
     scan_de_ladinho_papai()
     ev3.speaker.beep(444, 1000)

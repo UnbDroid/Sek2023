@@ -4,27 +4,27 @@ from modules.colors import *
 #! Range das cores 
 def range_black_left():
     # return [8, 9, 5] #! RANGES DA ARENA OFICIAL
-    return [8, 9, 13]
+    return [7, 9, 9]
 
 def range_black_right():
     # return [11, 10, 36] #! RANGES DA ARENA OFICIAL
-    return [15, 19, 36]
+    return [13, 14, 33]
 
 def range_yellow_left():
     # return [56, 66, 17] #! RANGES DA ARENA OFICIAL
-    return [66, 72, 17]
+    return [54, 65, 14]
 
 def range_yellow_right():
     # return [72, 75, 45] #! RANGES DA ARENA OFICIAL
-    return [79, 81, 43]
+    return [81, 81, 55]
 
 def range_blue_left():
     # return [13, 17, 40] #! RANGES DA ARENA OFICIAL
-    return [13, 18, 42]
+    return [9, 15, 36]
 
 def range_blue_right():
     # return [20, 22, 100] #! RANGES DA ARENA OFICIAL
-    return [21, 24, 100]
+    return [17, 22, 100]
 
 def range_meio_blue_left():
     return [(range_white_left()[0] + range_blue_left()[0])//2, (range_white_left()[1] + range_blue_left()[1])//2, (range_white_left()[2] + range_blue_left()[2])//2]
@@ -34,19 +34,19 @@ def range_meio_blue_right():
 
 def range_red_left():
     # return [69, 9, 11] #! RANGES DA ARENA OFICIAL
-    return [73, 8, 10]
+    return [60, 9, 7]
 
 def range_red_right():
     # return [87, 16, 47] #! RANGES DA ARENA OFICIAL
-    return [85, 15, 34]
+    return [95, 19, 54]
 
 def range_white_left():
     # return [68, 83, 100] #! RANGES DA ARENA OFICIAL
-    return [70, 85, 100]
+    return [67, 82, 98]
 
 def range_white_right():
     # return [82, 89, 100] #! RANGES DA ARENA OFICIAL
-    return [84, 91, 100]
+    return [92, 97, 100]
 
 def get_dar_pra_tras(value):
     return value

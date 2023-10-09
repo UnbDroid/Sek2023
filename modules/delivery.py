@@ -23,7 +23,7 @@ def go_to_i(velocidade = 150):
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2 
-    while left_motor.angle() < 2550 or right_motor.angle() < 2550:
+    while left_motor.angle() < 2000 or right_motor.angle() < 2000:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -33,7 +33,7 @@ def go_to_j(velocidade = 150):
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2  
-    while left_motor.angle() < 940 or right_motor.angle() < 940:
+    while left_motor.angle() < 400 or right_motor.angle() < 400:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -99,7 +99,7 @@ def find_blue_line(numero_de_paredes):
         cor_vista = ""
         
         print("procurando")
-        while not is_meio_left() and not is_meio_right() and not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
+        while not is_blue_left() and not is_blue_right() and not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right() and not is_red_left() and not is_red_right() and not has_obstacle():
             andar_reto(500)   
             
         time_forward = [left_motor.angle(), right_motor.angle()]
@@ -122,7 +122,7 @@ def find_blue_line(numero_de_paredes):
             move_backward(36)
             turn_left_pid(90)
             brake_motors()
-            while not is_meio_left() and not is_meio_right() and not is_blue_left() and not is_blue_right():
+            while not is_blue_left() and not is_blue_right():
                 andar_reto(500)
                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                     brake_motors()
@@ -214,7 +214,7 @@ def find_blue_line(numero_de_paredes):
                                     esquerda_direita = ["ESQUERDA", 1]
                                 elif esquerda_direita[1] == 1:
                                     esquerda_direita[1] += 1
-                            while not is_meio_left() and not is_meio_right() and not is_blue_left() and not is_blue_right():
+                            while not is_blue_left() and not is_blue_right():
                                 andar_reto(500)
                                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                                     brake_motors()
@@ -276,7 +276,7 @@ def find_blue_line(numero_de_paredes):
                             turn_left_pid(90)
                         else:
                             turn_right_pid(90)
-                        while not is_meio_left() and not is_meio_right() and not is_blue_left() and not is_blue_right() and not is_red_left() and not is_red_right() and not has_obstacle() and not is_black_left() and not is_black_right():
+                        while not is_blue_left() and not is_blue_right() and not is_red_left() and not is_red_right() and not has_obstacle() and not is_black_left() and not is_black_right():
                             andar_reto(500)
                         brake_motors()
                         if is_red_left() or is_red_right():
@@ -332,7 +332,7 @@ def find_blue_line(numero_de_paredes):
                                     esquerda_direita = ["ESQUERDA", 1]
                                 elif esquerda_direita[1] == 1:
                                     esquerda_direita[1] += 1
-                            while not is_meio_left() and not is_meio_right() and not is_blue_left() and not is_blue_right():
+                            while not is_blue_left() and not is_blue_right():
                                 andar_reto(500)
                                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
                                     brake_motors()
@@ -502,8 +502,8 @@ def tube_city_hall():
         move_backward(3)
         wait(500)
         move_forward(3)
-        move_forward(20, 200)
         Open(time=500)
+        move_forward(20, 200)
 
         move_backward(20)
         turn_left_pid(90)
@@ -517,8 +517,8 @@ def tube_city_hall():
         move_backward(3)
         wait(500)
         move_forward(3)
-        move_forward(20,200)
         Open(time=500)
+        move_forward(20,200)
         
         move_backward(20)
         turn_right_pid(90)
@@ -600,8 +600,8 @@ def tube_school():
             move_backward(3)
             wait(500)
             move_forward(3)
-            move_forward(15, 200)
             Open(time=500)
+            move_forward(15, 200)
             move_backward(15)
             turn_right_pid(90)
             
@@ -639,10 +639,10 @@ def tube_school():
             move_backward(3)
             wait(500)
             move_forward(3)
+            Open(time=500)
             move_forward(15,200)
             
             
-            Open(time=500)
             move_backward(15)
             turn_right_pid(90)
             while not is_red_left() and not is_red_right() and ultrasound_sensor.distance() > 145:
@@ -670,8 +670,8 @@ def tube_school():
         move_backward(3)
         wait(500)
         move_forward(3)
-        move_forward(20,200)
         Open(time=500)
+        move_forward(20,200)
         move_backward(20)
         turn_right_pid(90)
         find_blue_line(0)
@@ -730,9 +730,9 @@ def tube_museum():
             move_backward(3)
             wait(500)
             move_forward(3)
+            Open(time=500)
             move_forward(15,200)
             
-            Open(time=500)
             move_backward(15)
             turn_right_pid(90)
             while not is_black_left() and not is_black_right():
@@ -772,9 +772,9 @@ def tube_museum():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
+                Open(time=500)
                 move_forward(15,200)
                 
-                Open(time=500)
                 move_backward(15)
                 turn_left_pid(90)
                 while ultrasound_sensor.distance() > 145:
@@ -801,9 +801,9 @@ def tube_museum():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
+                Open(time=500)
                 move_forward(20,200)
                 
-                Open(time=500)
                 move_backward(20)
                 turn_right_pid(90)
                 while not has_obstacle() and not is_red_left() and not is_red_right():
@@ -843,9 +843,9 @@ def tube_museum():
             move_backward(3)
             wait(500)
             move_forward(3)
+            Open(time=500)
             move_forward(20,200)
             #abre e retorna
-            Open(time=500)
             move_backward(20)
             turn_left_pid(90)
             find_blue_line(0)
@@ -924,9 +924,9 @@ def tube_drugstore():
             move_backward(3)
             wait(500)
             move_forward(3)
+            Open(time=500)
             move_forward(22,200)
             
-            Open(time=500)
             move_backward(22)
             turn_left_pid(90)
             while not is_red_left() or not is_red_right():
@@ -945,9 +945,9 @@ def tube_drugstore():
             move_backward(3)
             wait(500)
             move_forward(3)
+            Open(time=500)
             move_forward(15,200)
             
-            Open(time=500)
             move_backward(10)
             turn_right_pid(90)
             while not has_obstacle() and not is_red_left() and not is_red_right():
@@ -1007,8 +1007,8 @@ def tube_drugstore():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                move_forward(20,200)
                 Open(time=500)
+                move_forward(20,200)
                 
                 move_backward(20)
                 turn_left_pid(90)
@@ -1035,8 +1035,8 @@ def tube_drugstore():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                move_forward(20,200)
                 Open(time=500)
+                move_forward(20,200)
                 move_backward(20)
                 turn_right_pid(90)
                 
@@ -1059,14 +1059,15 @@ def tube_drugstore():
                     find_blue_line(0)
         else:
             not_found_wall()
-            move_forward(23)
+            move_forward(20)
             turn_left_pid(90)
             move_backward(3)
             wait(500)
             move_forward(3)
+            Open(time=500) 
             move_forward(20,200)
             
-            Open(time=500) 
+            # Open(time=500) 
             move_backward(20)
             turn_right_pid(90)
             while not has_obstacle() and not is_red_left() and not is_red_right():
@@ -1146,8 +1147,8 @@ def tube_bakery():
             move_backward(3)
             wait(500)
             move_forward(3)
-            move_forward(20,200)
             Open(time=500)
+            move_forward(20,200)
             move_backward(20)
             turn_right_pid(90)
             while not is_red_left() and not is_red_right():
@@ -1204,8 +1205,8 @@ def tube_bakery():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                move_forward(20,200)
                 Open(time=500)
+                move_forward(20,200)
                 move_backward(20)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
@@ -1224,8 +1225,8 @@ def tube_bakery():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                move_forward(15,200)
                 Open(time=500)
+                move_forward(15,200)
                 move_backward(15)
                 turn_right_pid(90)
                 while ultrasound_sensor.distance() > 145:
@@ -1301,8 +1302,8 @@ def tube_bakery():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                move_forward(15,200)
                 Open(time=500)
+                move_forward(15,200)
                 move_backward(15)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
@@ -1336,8 +1337,8 @@ def tube_bakery():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                move_forward(15,200)
                 Open(time=500)
+                move_forward(15,200)
                 move_backward(15)
                 turn_right_pid(90)
                 while not has_obstacle() and not is_red_left() and not is_red_right():
@@ -1364,8 +1365,8 @@ def tube_bakery():
             move_backward(3)
             wait(500)
             move_forward(3)
-            move_forward(20,200)
             Open(time=500)
+            move_forward(20,200)
             move_backward(20)
             turn_right_pid(90)
             find_blue_line(0)
@@ -1488,8 +1489,8 @@ def tube_park():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                move_forward(15,200)
                 Open(time=500)
+                move_forward(15,200)
                 move_backward(15)
                 turn_right_pid(90)
                 while ultrasound_sensor.distance() > 145:
@@ -1514,8 +1515,8 @@ def tube_park():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                move_forward(15,200)
                 Open(time=500)
+                move_forward(15,200)
                 
                 
                 move_backward(15)
@@ -1571,8 +1572,8 @@ def tube_park():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                move_forward(15,200)
                 Open(time=500)
+                move_forward(15,200)
                 move_backward(15)
                 turn_right_pid(90)
                 move_backward(29)
@@ -1603,8 +1604,8 @@ def tube_park():
                     move_backward(3)
                     wait(500)
                     move_forward(3)
-                    move_forward(15,200)
                     Open(time=500)
+                    move_forward(15,200)
                     move_backward(15)
                     turn_right_pid(90)
                     while ultrasound_sensor.distance() > 145:
@@ -1626,8 +1627,8 @@ def tube_park():
                     move_backward(3)
                     wait(500)
                     move_forward(3)
-                    move_forward(15,200)
                     Open(time=500)
+                    move_forward(15,200)
                     move_backward(15)
                     turn_right_pid(90)
                     move_backward(29)
@@ -1667,8 +1668,8 @@ def tube_park():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                move_forward(15,200)
                 Open(time=500)
+                move_forward(15,200)
                 move_backward(15)
                 turn_left_pid(90)
                 move_backward(29)
@@ -1682,8 +1683,8 @@ def tube_park():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                move_forward(15.5,200)
                 Open(time=500)
+                move_forward(15.5,200)
                 move_backward(15.5)
                 turn_left_pid(90)
                 while not has_obstacle() and not is_red_left() and not is_red_right():
