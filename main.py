@@ -38,18 +38,18 @@ from pybricks.hubs import EV3Brick
 
 #* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -------------------------------------------------------------------------------------
 
-find_blue_line(0)
-ev3.speaker.beep(444, 1000)
-while True:
+# find_blue_line(0)
+# ev3.speaker.beep(444, 1000)
+# while True:
     
-    align_to_be_ladinho()
-    ev3.speaker.beep(444, 1000)
-    scan_de_ladinho_papai()
-    ev3.speaker.beep(444, 1000)
+#     align_to_be_ladinho()
+#     ev3.speaker.beep(444, 1000)
+#     scan_de_ladinho_papai()
+#     ev3.speaker.beep(444, 1000)
     
 
-    set_path()
-    ev3.speaker.beep(444, 1000)
+#     set_path()
+#     ev3.speaker.beep(444, 1000)
     
 # ---------------------------------------------------------
 
@@ -115,9 +115,9 @@ while True:
 
 # Ajustar ranges das cores ---------------------------------------------------------------------
 
-# while True:
-#     wait(500)
-#     print("Esquerda: ",color_sensor_floor_left.rgb(), "Aux: ", color_sensor_floor_aux.rgb() , "Direita: ", color_sensor_floor_right.rgb())
+while True:
+    wait(500)
+    print("Esquerda: ",color_sensor_floor_left.rgb(), "Aux: ", color_sensor_floor_aux.rgb() , "Direita: ", color_sensor_floor_right.rgb())
     
 
 #-----------------------------------------------------------------------------------------------

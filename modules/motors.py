@@ -268,6 +268,24 @@ def ajust_color(cor_vista):
                     left_motor.run(5)         
                 brake_motors()
 
+# Entrada --------------------------------------------------------------------------------------------
+
+    if cor_vista == "ALINHAR_AMARELO"
+
+        while (not is_yellow_right() or not is_yellow_left()) or (not is_black_right() or not is_black_left() ):
+            andar_reto(150) #! Ajustar o valor 
+        brake_motors()
+        
+        
+        if not is_yellow():
+            while (not is_yellow_right() or not is_yellow_left()):
+                andar_reto(150) #! Ajustar o valor (baixo pra kct)
+                
+                if is_yellow_right() and not is_yellow_left():
+                    turn_left_pid(20) #! Ajustar o valor
+                    move_backward(8)
+                    turn_right_pid(20)
+
     brake_motors()
     print("Cor ajustada!")   
     alined_to_wall()          
