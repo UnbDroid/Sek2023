@@ -65,7 +65,9 @@ def color_tube():
         color_tube()
 
 def tube_is_detected():
-    if tube_presence_verificator.reflection() >= 40:
-        return True
-    else:
-        return False
+    count = 0
+    while count < 5:
+        if tube_presence_verificator.reflection() >= 20:
+            return True
+        count += 1
+    return False
