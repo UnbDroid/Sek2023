@@ -89,7 +89,7 @@ def middle_to_obstacle(distancia = 10): #!          No meio da arena para andar 
 #! -------------------------------------------------------------------------------------------------------
 
 
-#? Função recursiva para achar a linha azul (ida ou volta) ----------------------------------------
+# Função recursiva para achar a linha azul (ida ou volta) ----------------------------------------
 
 def find_blue_line(numero_de_paredes):
     esquerda_direita = ["ESQUERDA", 1]
@@ -430,7 +430,7 @@ def find_blue_line(numero_de_paredes):
 def go_to_check_point():
     turn_right_pid(90)
 
-    move_backward(14) #? 13
+    move_backward(14) 
     
     turn_left_pid(90)
 

@@ -26,7 +26,7 @@ server.wait_for_connection()
 print('connected!')
 
 
-#? Se alinhando no azul para iniciar o scan ---------------------------------------------------------------------------------
+# Se alinhando no azul para iniciar o scan ---------------------------------------------------------------------------------
       
 def align_to_begin_scan(velocidade = 150):
     global dar_pra_tras
@@ -49,7 +49,7 @@ def align_to_begin_scan(velocidade = 150):
         erro = delta * kp
         motors.drive(velocidade, erro)
         
-        if is_red_right():
+        if is_red_right() :
             chegou_no_fim = True
             brake_motors_para_drive_base()
             brake_motors()
@@ -73,7 +73,7 @@ def align_to_be_ladinho():
     turn_left_pid(90)
     move_backward(1)
   
-#? Tatica para pegar os tubos, seja de lado ou por dentro ----------------------------------------------------------
+# Tatica para pegar os tubos, seja de lado ou por dentro ----------------------------------------------------------
   
 def scan():
     global color_of_tube
@@ -149,17 +149,42 @@ def scan_de_ladinho_papai():
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2
 
-    while not is_red_left():
+    # while not is_red_left() and red_left() >= 50:
+    #     delta = red_right() - threshold
+    #     kp = 0.5
+    #     erro = delta * kp
+    #     motors.drive(150, erro) #! VELOCIDADE ARRUMANDO
+        
+    chegou_no_fim = False
+
+    while not chegou_no_fim:
+        if is_red_left() and red_left()>=50 :
+            chegou_no_fim = True
+            brake_motors_para_drive_base()
+            brake_motors()
+            break
+        
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
-        motors.drive(100, erro)
-    brake_motors_para_drive_base()
-    brake_motors()
+        motors.drive(180, erro) #! VELOCIDADE ARRUMANDO
+        
+        if is_red_left() and red_left()>=50 :
+            chegou_no_fim = True
+            brake_motors_para_drive_base()
+            brake_motors()
+            break
+
+
+            
+    # brake_motors_para_drive_base()
+    # brake_motors()
     move_backward(2)
-    turn_left_pid(90)
-    move_forward(5)
-    turn_left_pid(90)
+    turn_right_pid(90)
+    # move_forward(3)
+    while red_left() < range_meio_left():
+        andar_reto(-150)
+    turn_right_pid(90)
 
     azul = 12 #! VALORES DO AUXILIAR !! MUDAR NO DIA
     branco = 62 #! VALORES DO AUXILIAR !! MUDAR NO DIA
@@ -168,12 +193,12 @@ def scan_de_ladinho_papai():
     if quanto_andou_pra_frente != [0, 0]:
         while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
             erro = (red_aux() - threshold) * -0.45
-            mbox.send("de_ladinho")
-            mbox.wait()
-            tem_tubo = mbox.read()
-            if tem_tubo == "Vi tubo":
-                break
-            motors.drive(100, erro)
+            # mbox.send("de_ladinho")
+            # mbox.wait()
+            # tem_tubo = mbox.read()
+            # if tem_tubo == "Vi tubo":
+            #     break
+            motors.drive(180, erro) #! VELOCIDADE ARRUMANDO
         brake_motors_para_drive_base()
         brake_motors()
 
@@ -184,6 +209,16 @@ def scan_de_ladinho_papai():
         mbox.wait()
         tem_tubo = mbox.read()
         if tem_tubo == "Vi tubo":
+            while True:
+                erro = (red_aux() - threshold) * -0.45
+                mbox.send("de_ladinho")
+                mbox.wait()
+                tem_tubo = mbox.read()
+                if tem_tubo != "Vi tubo":
+                    brake_motors_para_drive_base()
+                    break
+                else:
+                    motors.drive(10, erro)
             break
         else:
             #print(tem_tubo)
@@ -197,7 +232,7 @@ def scan_de_ladinho_papai():
 
     
     # manobras -----------------
-    move_forward(4, 60)
+    move_backward(6, 60)
     turn_left_pid(90)
     Close(esperar=False, time = 550) #250
 
@@ -214,7 +249,6 @@ def scan_de_ladinho_papai():
     branco = 62
     threshold = (azul + branco) / 2
     
-    vel = 100
     chegou_no_fim = False
 
     while not chegou_no_fim:
@@ -222,7 +256,7 @@ def scan_de_ladinho_papai():
         delta = threshold - red_aux()
         kp = 0.5
         erro = delta * kp
-        motors.drive(vel, erro)
+        motors.drive(180, erro) #! VELOCIDADE ARRUMANDO
         
         if is_red_right():
             chegou_no_fim = True

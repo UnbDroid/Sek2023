@@ -32,10 +32,10 @@ def andar_reto(velo):
     global estabilizou
     time_teste += 1
     
-    kp_left = 0.9
-    kp_right = 1
-    ki_left = 0.05
-    ki_right = 0.1
+    kp_left = 0.9 #? 0.9
+    kp_right = 1 #? 1
+    ki_left = 0.0 #? 0.05
+    ki_right = 0.0
     control_signal_left = left_motor.speed()
     control_signal_right = right_motor.speed()
 
@@ -82,9 +82,9 @@ def brake_motors():
     right_motor.reset_angle(0)
     
 def brake_motors_para_drive_base():
-    while left_motor.speed() != 0 or right_motor.speed() != 0:
-        motors.drive(0,0)
-        motors.stop()
+    while left_motor.speed() > 0 and right_motor.speed() > 0:
+        motors.drive(-1080,0)
+    motors.stop()
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
 
