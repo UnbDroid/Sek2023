@@ -5,7 +5,7 @@ from modules.variables import *
 
 color_sensor_floor_left = ColorSensor(Port.S2)
 color_sensor_floor_right = ColorSensor(Port.S1)
-color_sensor_floor_aux = ColorSensor(Port.S4)
+# color_sensor_floor_aux = ColorSensor(Port.S4) #!!!!!!!!!!!!
 
 cor_vista = ""
 

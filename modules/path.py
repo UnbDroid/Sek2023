@@ -66,7 +66,7 @@ def align_to_begin_scan(velocidade = 150):
 
 
 
-def align_to_be_ladinho():
+def align_to_be_ladinho(): 
     global dar_pra_tras
     set_dar_pra_tras(False)
     dar_pra_tras = get_dar_pra_tras
@@ -140,7 +140,7 @@ def scan():
     print("Sai do scan")
 
 
-def scan_de_ladinho_papai():
+def scan_de_ladinho_papai(): 
     global color_of_tube
     global size_of_tube
     global quanto_andou_pra_frente
@@ -179,6 +179,7 @@ def scan_de_ladinho_papai():
             
     # brake_motors_para_drive_base()
     # brake_motors()
+    #FAZER : Testar essa função por causa da manobra (possivelmente só 180 graus msm)
     move_backward(2)
     turn_right_pid(90)
     # move_forward(3)
@@ -187,8 +188,8 @@ def scan_de_ladinho_papai():
     move_backward(2.5)
     turn_right_pid(90)
 
-    azul = 12 #! VALORES DO AUXILIAR !! MUDAR NO DIA
-    branco = 62 #! VALORES DO AUXILIAR !! MUDAR NO DIA
+    azul = 12 #FAZER : TE same do de baixo
+    branco = 62 #FAZER : Mudar os ranges para andar no sensor esquerdo, de preff automático, to com sono '-'
     threshold = (azul + branco) / 2
 
     if quanto_andou_pra_frente != [0, 0]:
@@ -204,6 +205,9 @@ def scan_de_ladinho_papai():
         brake_motors()
 
 
+
+
+    #FAZER : MUDAR TODA A IDEIA DE CAPTURA PQ O SENSOR ESTÁ NO BRICK PRINCIPAL!!!!!!!!!!
     while True:
         erro = (red_aux() - threshold) * -0.45
         mbox.send("de_ladinho")

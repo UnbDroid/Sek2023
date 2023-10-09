@@ -440,7 +440,7 @@ def tube_library():
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2  
-    while left_motor.angle() < 462 or right_motor.angle() < 467: #fazer : Testando a entrega 
+    while left_motor.angle() < 462 or right_motor.angle() < 467: 
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -483,7 +483,7 @@ def tube_city_hall():
         found_wall()
         turn_180()
         while not is_blue_left() and not is_blue_right():
-            andar_reto(250) #FAZER: Testar a volta para n bater no tubo #500
+            andar_reto(250) 
         brake_motors()
         while is_blue():
             andar_reto(-500)
@@ -1420,7 +1420,7 @@ def tube_park():
             ajust_color(cor_vista)
             
             
-            #Fazer: Testar esses valores <3
+
             move_backward(7)
             turn_right_pid(90)
             move_forward(32.5)
@@ -1443,7 +1443,7 @@ def tube_park():
             move_backward(36)
             
             
-            turn_left_pid(90) #FAZER : Verificar os testes para direita msm, obstáuclo D e J
+            turn_left_pid(90) 
             
             
             while ultrasound_sensor.distance() > 145:
@@ -1520,7 +1520,7 @@ def tube_park():
                 
                 move_backward(15)
                 turn_left_pid(90)
-                move_forward(29) #FAZER verificar se esssa distância coloca ele no meio para identificar o obstáuclo no D (Obstáculo J e entra pelo D dps coloca no D)
+                move_forward(29) 
                 
                 turn_left_pid(90)
                 find_blue_line(0)

@@ -17,3 +17,5 @@ def has_obstacle():
         return True
     else:
         return False
+    
+tube_sensor = UltrasonicSensor(Port.S4)
