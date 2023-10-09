@@ -38,20 +38,56 @@ from pybricks.hubs import EV3Brick
 
 #* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -------------------------------------------------------------------------------------
 
-# find_blue_line(0)
-# ev3.speaker.beep(444, 1000)
-# while True:
+find_blue_line(0)
+ev3.speaker.beep(444, 1000)
+while True:
     
-#     align_to_be_ladinho()
-#     ev3.speaker.beep(444, 1000)
-#     scan_de_ladinho_papai()
-#     ev3.speaker.beep(444, 1000)
+    align_to_be_ladinho()
+    ev3.speaker.beep(444, 1000)
+    scan_de_ladinho_papai()
+    ev3.speaker.beep(444, 1000)
     
 
-#     set_path()
-#     ev3.speaker.beep(444, 1000)
+    set_path()
+    ev3.speaker.beep(444, 1000)
     
 # ---------------------------------------------------------
+
+# Teste <3
+
+# while not is_yellow() or not is_black_left() or not is_black_right():
+#     andar_reto(100)
+    
+#     if is_yellow():
+        
+#         ajust_color("YELLOW")
+#         break
+#     elif is_black_left():
+        
+#         brake_motors()
+#         move_backward(6)
+#         print("vou virar")
+#         turn_left_pid(70) #! Ajustar o valor
+#         print("Virei")
+#         move_backward(5)
+#         turn_right_pid(70)
+        
+#     elif is_black_right():
+        
+#         brake_motors()
+#         move_backward(5)
+#         turn_right_pid(70)
+#         move_backward(5)
+#         turn_left_pid(70)
+    
+    # elif color_sensor_floor_left.rgb():
+    
+
+
+
+
+
+
 
 # Editando o Range------------------------------------------------------------------------------
 
@@ -115,9 +151,9 @@ from pybricks.hubs import EV3Brick
 
 # Ajustar ranges das cores ---------------------------------------------------------------------
 
-while True:
-    wait(500)
-    print("Esquerda: ",color_sensor_floor_left.rgb(), "Aux: ", color_sensor_floor_aux.rgb() , "Direita: ", color_sensor_floor_right.rgb())
+# while True:
+#     wait(500)
+#     print("Esquerda: ",color_sensor_floor_left.rgb(), "Aux: ", color_sensor_floor_aux.rgb() , "Direita: ", color_sensor_floor_right.rgb())
     
 
 #-----------------------------------------------------------------------------------------------

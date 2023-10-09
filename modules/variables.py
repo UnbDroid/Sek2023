@@ -24,7 +24,7 @@ def range_blue_left():
 
 def range_blue_right():
     # return [20, 22, 100] #! RANGES DA ARENA OFICIAL
-    return [17, 34 100]
+    return [17, 34 ,100]
 
 def range_meio_blue_left():
     return [(range_white_left()[0] + range_blue_left()[0])//2, (range_white_left()[1] + range_blue_left()[1])//2, (range_white_left()[2] + range_blue_left()[2])//2]

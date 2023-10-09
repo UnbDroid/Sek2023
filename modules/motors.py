@@ -119,7 +119,7 @@ def turn_left_pid(x, vel=360):
     global axle_track
     kp = 1.0
     ki = 0.0156
-    setpoint = axle_track * (x / 360) 
+    setpoint = axle_track * (x / 360) #! CUIDADO
       
     setpoint = round(setpoint)
     
@@ -137,11 +137,13 @@ def turn_right_pid(x, vel=360):
     global axle_track  
     kp = 1.0
     ki = 0.0156
-    setpoint = axle_track * (x / 360)
+    setpoint = axle_track * (x / 360) #! CUIDADO
     
+    print(setpoint)
     setpoint = round(setpoint)
     brake_motors()
-      
+    
+    print(setpoint) 
     while not abs(calculate_error(setpoint)) < 176:
         current_angle = left_motor.angle()
         current_angle += calcule(current_angle, setpoint, kp, ki)
@@ -267,24 +269,45 @@ def ajust_color(cor_vista):
                     right_motor.run(-40)
                     left_motor.run(5)         
                 brake_motors()
+                
+    if cor_vista == "Funciona ai":
+        
+        while not is_yellow() or not is_black_left() or not is_black_right():
+            andar_reto()
+            
+            if is_yellow():
+                break
+            elif is_black_left():
+                brake_motors()
+                print("vou virar")
+                turn_left_pid(70) #! Ajustar o valor
+                print("Virei")
+                move_backward(5)
+                turn_right_pid(70)
+            
 
 # Entrada --------------------------------------------------------------------------------------------
 
-    if cor_vista == "ALINHAR_AMARELO"
-
-        while (not is_yellow_right() or not is_yellow_left()) or (not is_black_right() or not is_black_left() ):
-            andar_reto(150) #! Ajustar o valor 
-        brake_motors()
+    # if cor_vista == "ALINHAR_AMARELO":
+    #     turn_left_pid(90)
+        # while (not is_black_left() or not is_yellow_left()) and (not is_black_right() or not is_yellow_right()):
+        #     andar_reto(150) #! Ajustar o valor
+        #     if is_yellow_right() or is_yellow_left() or is_black_left() or is_black_right():
+        #         break
+        # brake_motors()
         
-        
-        if not is_yellow():
-            while (not is_yellow_right() or not is_yellow_left()):
-                andar_reto(150) #! Ajustar o valor (baixo pra kct)
+        # print("Entrei")
+        # if not is_yellow():
+        #     while not is_yellow():
+        #         andar_reto(150) #! Ajustar o valor (baixo pra kct)
                 
-                if is_yellow_right() and not is_yellow_left():
-                    turn_left_pid(20) #! Ajustar o valor
-                    move_backward(8)
-                    turn_right_pid(20)
+        #         if is_yellow_right() and not is_yellow_left():
+        #             brake_motors()
+        #             print("vou virar")
+        #             turn_left_pid(90) #! Ajustar o valor
+        #             print("Virei")
+        #             move_backward(6)
+        #             turn_right_pid(90)
 
     brake_motors()
     print("Cor ajustada!")   

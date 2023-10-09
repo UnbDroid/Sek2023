@@ -7,23 +7,23 @@ from pybricks.tools import StopWatch
 
 dar_pra_tras = False
 
-# ev3 = EV3Brick()
-# cronometer = StopWatch()
-# size_of_tube = 0
-# color_of_tube = ""
-# quanto_andou_pra_frente = [0, 0]
+ev3 = EV3Brick()
+cronometer = StopWatch()
+size_of_tube = 0
+color_of_tube = ""
+quanto_andou_pra_frente = [0, 0]
 
-# # server 
-# from pybricks.messaging import BluetoothMailboxServer, TextMailbox
-# server = BluetoothMailboxServer()
-# mbox = TextMailbox('greeting', server)
+# server 
+from pybricks.messaging import BluetoothMailboxServer, TextMailbox
+server = BluetoothMailboxServer()
+mbox = TextMailbox('greeting', server)
 
-# # The server must be started before the client!
+# The server must be started before the client!
 
-# ev3.speaker.beep(444, 1000)
-# print('waiting for connection...')
-# server.wait_for_connection()
-# print('connected!')
+ev3.speaker.beep(444, 1000)
+print('waiting for connection...')
+server.wait_for_connection()
+print('connected!')
 
 
 # Se alinhando no azul para iniciar o scan ---------------------------------------------------------------------------------
@@ -182,8 +182,9 @@ def scan_de_ladinho_papai():
     move_backward(2)
     turn_right_pid(90)
     # move_forward(3)
-    while red_left() < range_meio_left():
+    while red_left() < range_meio_blue_left()[0]:
         andar_reto(-150)
+    move_backward(2.5)
     turn_right_pid(90)
 
     azul = 12 #! VALORES DO AUXILIAR !! MUDAR NO DIA

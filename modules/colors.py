@@ -72,21 +72,21 @@ range_min_red_right = get_range_colors(range_red_right(), 'min')
 
 # -----------------------------------------------
 
-range_max_meio_left = get_range_colors(range_meio_left(), 'max')
-range_min_meio_left = get_range_colors(range_meio_left(), 'min')
+range_max_meio_blue_left = get_range_colors(range_meio_blue_left(), 'max')
+range_min_meio_blue_left = get_range_colors(range_meio_blue_left(), 'min')
 
-range_max_meio_right = get_range_colors(range_meio_right(), 'max')
-range_min_meio_right = get_range_colors(range_meio_right(), 'min')
+range_max_meio_blue_right = get_range_colors(range_meio_blue_right(), 'max')
+range_min_meio_blue_right = get_range_colors(range_meio_blue_right(), 'min')
 
 # Range das cores ------------------------------------------------------------------------
  
 ## MEIO ##
 
 def is_meio_left():
-    return range_min_meio_left[0] <= red_left() <= range_max_meio_left[0] and range_min_meio_left[1] <= green_left() <= range_max_meio_left[1] and range_min_meio_left[2] <= blue_left() <= range_max_meio_left[2]
+    return range_min_meio_blue_left[0] <= red_left() <= range_max_meio_blue_left[0] and range_min_meio_blue_left[1] <= green_left() <= range_max_meio_blue_left[1] and range_min_meio_blue_left[2] <= blue_left() <= range_max_meio_blue_left[2]
 
 def is_meio_right():
-    return range_min_meio_right[0] <= red_right() <= range_max_meio_right[0] and range_min_meio_right[1] <= green_right() <= range_max_meio_right[1] and range_min_meio_right[2] <= blue_right() <= range_max_meio_right[2]
+    return range_min_meio_blue_right[0] <= red_right() <= range_max_meio_blue_right[0] and range_min_meio_blue_right[1] <= green_right() <= range_max_meio_blue_right[1] and range_min_meio_blue_right[2] <= blue_right() <= range_max_meio_blue_right[2]
 
 def is_meio():
     return is_meio_left() and is_meio_right() 
