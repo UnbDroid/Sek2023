@@ -28,8 +28,6 @@ while True:
     mbox.wait()
     msg = mbox.read()
     
-    wait(10)
-    
     if msg == 'alinhar':
         mbox.send(alinhar_azul())
         
