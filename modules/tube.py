@@ -5,7 +5,7 @@ from pybricks.ev3devices import UltrasonicSensor
 tube_sensor_verification = ColorSensor(Port.S3)
 tube_presence_verificator = ColorSensor(Port.S4)
 
-ultrasound = UltrasonicSensor(Port.S2)
+# ultrasound = UltrasonicSensor(Port.S2)
 
 
 
@@ -39,11 +39,11 @@ def alinhar_azul():
     # azul = cor[2]
     # azul = int(azul)
     
-def scan_de_ladinho():
-    if ultrasound.distance() <= 200:
-        return True
-    else:
-        return False
+# def scan_de_ladinho():
+#     if ultrasound.distance() <= 200:
+#         return True
+#     else:
+#         return False
     
     
 def color_tube():
