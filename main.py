@@ -59,13 +59,20 @@ from pybricks.hubs import EV3Brick
     
 # ---------------------------------------------------------
 
-while ultrasound_sensor.distance() < 200:
+valores_lidos = []
+while len(valores_lidos) < 10:
+    valores_lidos.append(ultrasound_sensor.distance())
+
+while (sum(valores_lidos)/len(valores_lidos)) < 200:
     andar_reto(-150)
+    valores_lidos.pop(0)
+    valores_lidos.append(ultrasound_sensor.distance())
 brake_motors()
-while ultrasound_sensor.distance() > 200:
-    andar_reto(150)
-    
-move_backward(5)
+while (sum(valores_lidos)/len(valores_lidos)) < 200:
+    andar_reto(-150)
+    valores_lidos.pop(0)
+    valores_lidos.append(ultrasound_sensor.distance())
+brake_motors()
 brake_motors()
 turn_right_pid(90)
 
