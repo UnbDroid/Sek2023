@@ -8,55 +8,42 @@ from modules.claw import *
 
 from pybricks.hubs import EV3Brick
 
-'''
-! Range do azul no brick aux 
-! Range do ultrassom no aux
-! Ida pra bakery - Teoricamente feito!
-! Ida pro park - Teoricamente feito!
-! Alinhar com azul (deixar mais no azul)
-! Regular a entrada no azul
-'''
-    
+# Ajustar axle_track ---------------------------------------------------------------------------
+
+# for i in range(5):                                       # 1212
+#     motors.turn(330)                                     # 1212
+#     while not is_black():                                # 1216
+#         motors.drive(0,5)
+#     motors.stop()
+#     print(left_motor.angle(), right_motor.angle())
+#     brake_motors()
+
+#-----------------------------------------------------------------------------------------------
 
 #* Codigo paraa dar inicio a guerra deth com 😡🤬😶‍🌫️👀🔑 ---------------------------------------------------------------------------------------
 
 # find_blue_line(0)
-# ev3.speaker.beep(444, 1000)
-# while True:
-    
+# while True:   
 #     align_to_begin_scan()
-#     ev3.speaker.beep(444, 1000)
 #     scan()
-#     ev3.speaker.beep(444, 1000)
 #     go_to_check_point()
-#     ev3.speaker.beep(444, 1000)
-
-
 #     set_path()
-#     ev3.speaker.beep(444, 1000)
-
-
-#! Pega o valor de uma ponta até outra subtrai do total para andar até ter essa dinstncia se for maior do que o valor que precisa, exmp começa
-#! no 200 e andar decrementando até o 60.
-#! E se o valor for menor? ele gira pro outro lado e anda até completar!
-   
 
 #* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -------------------------------------------------------------------------------------
 
 find_blue_line(0)
-ev3.speaker.beep(444, 1000)
+
 while True:
     
     align_to_be_ladinho()
     
-    ev3.speaker.beep(444, 1000)
+
     scan_de_ladinho_papai()
-    ev3.speaker.beep(444, 1000)
+
     
 
     set_path()
-    ev3.speaker.beep(444, 1000)
-    
+
 # ---------------------------------------------------------
 
 # valores_lidos = []
@@ -151,17 +138,6 @@ while True:
 
 #-----------------------------------------------------------------------------------------------
 
-# Ajustar axle_track ---------------------------------------------------------------------------
-
-# for i in range(5):                                       # 1212
-#     motors.turn(330)                                     # 1212
-#     while not is_black():                                # 1216
-#         motors.drive(0,5)
-#     motors.stop()
-#     print(left_motor.angle(), right_motor.angle())
-#     brake_motors()
-
-#-----------------------------------------------------------------------------------------------
 
 
 

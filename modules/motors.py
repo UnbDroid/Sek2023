@@ -16,10 +16,10 @@ right_motor = Motor(Port.D)
 cronometer = StopWatch()
 
 estabilizou = False
-motors = DriveBase(left_motor, right_motor, 42.1, 150) # 140.88
+motors = DriveBase(left_motor, right_motor, 42.1, 150) # 150.88
 
 #! MUDAR LOGO APÓS LIGAR O ROBÔ
-axle_track = 1254 #? 1244
+axle_track = 1256 #? 1244
 
 # CONTROLE -----------------------------------------------------------------------------------------------
 
@@ -89,7 +89,7 @@ def brake_motors_para_drive_base():
     right_motor.reset_angle(0)
 
 
-def move_forward(distancia, vel=500):
+def move_forward(distancia, vel=800):
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     motors.stop()
@@ -102,7 +102,7 @@ def move_forward(distancia, vel=500):
  
 
     
-def move_backward(distancia, vel=500):
+def move_backward(distancia, vel=800):
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     motors.stop()
@@ -133,7 +133,7 @@ def turn_left_pid(x, vel=360):
         
     brake_motors()
     
-def turn_right_pid(x, vel=360):
+def turn_right_pid(x, vel=360): #360
     global axle_track  
     kp = 1.0
     ki = 0.0156
@@ -155,7 +155,7 @@ def turn_right_pid(x, vel=360):
          
     brake_motors()
     
-def turn_180():
+def turn_180(vel = 360):
     global axle_track
     kp = 1.0
     ki = 0.0156
@@ -169,8 +169,8 @@ def turn_180():
         current_angle = left_motor.angle()
         current_angle += calcule(current_angle, setpoint, kp, ki)
         
-        left_motor.run_angle(360, current_angle, wait = False)
-        right_motor.run_angle(360, -current_angle, wait = True)
+        left_motor.run_angle(vel, current_angle, wait = False)
+        right_motor.run_angle(vel, -current_angle, wait = True)
             
     brake_motors()
 
@@ -191,24 +191,25 @@ def ajust_color(cor_vista):
             while red_left() not in (get_treshold_left_black()) :
                 
                 while red_left() > (max(get_treshold_left_black())) : #white
-                    left_motor.run(40)
-                    right_motor.run(-5)
+                    left_motor.run(50)#40
+                    right_motor.run(-5)#-5
+                    
                 brake_motors()
                 
                 while red_left() < min(get_treshold_left_black()) : #black
-                    left_motor.run(-40)
+                    left_motor.run(-50)
                     right_motor.run(5)
                 brake_motors()   
 
             while red_right() not in (get_treshold_right_black()) :
                 
                 while red_right() > (max(get_treshold_right_black())) : #white
-                    right_motor.run(40)
+                    right_motor.run(50)
                     left_motor.run(-5)
                 brake_motors()
                     
                 while red_right() < (min(get_treshold_right_black())) : #black
-                    right_motor.run(-40)
+                    right_motor.run(-50)
                     left_motor.run(5)
                 brake_motors()
 
@@ -221,24 +222,24 @@ def ajust_color(cor_vista):
             while green_left() not in get_treshold_left_red() :
                 
                 while green_left() > max(get_treshold_left_red()) : #white
-                    left_motor.run(40)
+                    left_motor.run(50)
                     right_motor.run(-5)
                 brake_motors()
                 
                 while green_left() < min(get_treshold_left_red()) : #black
-                    left_motor.run(-40)
+                    left_motor.run(-50)
                     right_motor.run(5)
                 brake_motors()
 
             while green_right() not in get_treshold_right_red() :
                 
                 while green_right() > max(get_treshold_right_red()) : #white
-                    right_motor.run(40)
+                    right_motor.run(50)
                     left_motor.run(-5)
                 brake_motors()
                     
                 while green_right() < min(get_treshold_right_red()) : #black
-                    right_motor.run(-40)
+                    right_motor.run(-50)
                     left_motor.run(5)
                 brake_motors()
     
@@ -251,24 +252,24 @@ def ajust_color(cor_vista):
             while blue_left() not in get_treshold_left_yellow() :
                 
                 while blue_left() > max(get_treshold_left_yellow()) : 
-                    left_motor.run(40)
+                    left_motor.run(50)
                     right_motor.run(-5)
                 brake_motors()
                 
                 while blue_left() < min(get_treshold_left_yellow()) : 
-                    left_motor.run(-40)
+                    left_motor.run(-50)
                     right_motor.run(5)
                 brake_motors()
 
             while blue_right() not in get_treshold_right_yellow():
                 
                 while blue_right() > max(get_treshold_right_yellow()): 
-                    right_motor.run(40)
+                    right_motor.run(50)
                     left_motor.run(-5)
                 brake_motors()
                     
                 while blue_right() < min(get_treshold_right_yellow()): 
-                    right_motor.run(-40)
+                    right_motor.run(-50)
                     left_motor.run(5)         
                 brake_motors()
                 

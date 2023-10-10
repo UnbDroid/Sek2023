@@ -107,7 +107,7 @@ def get_treshold_left(pos,color,white = range_white_left()):
         color_formula = color[0]
 
         treshold = (color_formula + color_white_formula)//2
-        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+        return [treshold-6,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+6]
     
     elif pos == "green":
         
@@ -115,7 +115,7 @@ def get_treshold_left(pos,color,white = range_white_left()):
         color_formula = color[1]
         
         treshold = ( color_formula + color_white_formula )//2
-        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+        return [treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6]
     
     elif pos == "blue":
         
@@ -123,7 +123,7 @@ def get_treshold_left(pos,color,white = range_white_left()):
         color_formula = color[2]
         
         treshold = ( color_formula + color_white_formula )//2
-        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+        return [treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6]
     
 
 def get_treshold_right(pos,color,white = range_white_right()):
@@ -133,7 +133,7 @@ def get_treshold_right(pos,color,white = range_white_right()):
         color_formula = color[0]
 
         treshold = (color_formula + color_white_formula)//2
-        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+        return [treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6]
     
     elif pos == "green":
         
@@ -141,7 +141,7 @@ def get_treshold_right(pos,color,white = range_white_right()):
         color_formula = color[1]
         
         treshold = ( color_formula + color_white_formula )//2
-        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+        return [treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6]
     
     elif pos == "blue":
         
@@ -149,4 +149,4 @@ def get_treshold_right(pos,color,white = range_white_right()):
         color_formula = color[2]
         
         treshold = ( color_formula + color_white_formula )//2
-        return [treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3]
+        return [treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6]

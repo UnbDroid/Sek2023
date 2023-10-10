@@ -19,26 +19,25 @@ def brake_motors():
 
 def found_door():
     brake_motors()
-    ev3.speaker.beep(100, 1000)
+    ev3.speaker.beep(100, 100)
+    print("oi")
     
 def found_wall():
     brake_motors()
-    ev3.speaker.beep(1000, 500)
-    wait(250)
-    ev3.speaker.beep(1000, 500)
-    # Teste
+    ev3.speaker.beep(1000, 100)
+    ev3.speaker.beep(100, 100)
+    print("oi")
     
 def not_found_wall():
     brake_motors()
-    ev3.speaker.beep(100, 1000)
-    
+    ev3.speaker.beep(100, 100)
+    print("oi")
 def alined_to_wall():
     brake_motors()
-    ev3.speaker.beep(100, 1000)
-    
+    ev3.speaker.beep(100, 100)
+    print("oi")
 def deu_bom_familia():
-    ev3.speaker.beep(1000, 500)
-    wait(250)
-    ev3.speaker.beep(1000, 500)
-
+    ev3.speaker.beep(1000, 100)
+    ev3.speaker.beep(1000, 100)
+    print("oi")
     

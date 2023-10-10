@@ -42,6 +42,29 @@ def alinhar_com_obstaculo():
         valores_lidos.append(ultrasound_sensor.distance())
     brake_motors()
     
+def entregar_tubos():
+    while True:
+        andar_reto(300)
+        if is_yellow():
+            brake_motors()
+            Open()
+            move_forward(5,200)
+            break
+        elif is_black_left() or is_yellow_right():
+            brake_motors()
+            move_backward(3,800)
+            print("vou virar")
+            turn_left_pid(90,360) #! Ajustar o valor
+            print("Virei")
+            move_backward(3,800)
+            turn_right_pid(90,360)
+        elif is_black_right or  is_yellow_left():
+            brake_motors()
+            move_backward(3,800)
+            turn_right_pid(90,360)
+            move_backward(3,800)
+            turn_left_pid(70,360)
+    
 #! Localizações ----------------------------------------------------
 
 #* Essas funções são sobre, ir do checkpoint e caminhar até o obstáculo
@@ -504,8 +527,7 @@ def tube_library():
     move_forward(3)
     
     move_forward(20)
-    Open(time = 500)
-    move_forward(12, 200) 
+    entregar_tubos()
     
     move_backward(32)
     
@@ -549,8 +571,8 @@ def tube_city_hall():
         move_backward(3)
         wait(500)
         move_forward(3)
-        Open(time=500)
-        move_forward(20, 200)
+        
+        entregar_tubos()
 
         move_backward(20)
         turn_left_pid(90)
@@ -564,8 +586,8 @@ def tube_city_hall():
         move_backward(3)
         wait(500)
         move_forward(3)
-        Open(time=500)
-        move_forward(20,200)
+        
+        entregar_tubos()
         
         move_backward(20)
         turn_right_pid(90)
@@ -644,8 +666,8 @@ def tube_school():
             move_backward(3)
             wait(500)
             move_forward(3)
-            Open(time=500)
-            move_forward(15, 200)
+            
+            entregar_tubos()
             move_backward(15)
             turn_right_pid(90)
             
@@ -683,8 +705,8 @@ def tube_school():
             move_backward(3)
             wait(500)
             move_forward(3)
-            Open(time=500)
-            move_forward(15,200)
+            
+            entregar_tubos()
             
             
             move_backward(15)
@@ -710,8 +732,8 @@ def tube_school():
         move_backward(3)
         wait(500)
         move_forward(3)
-        Open(time=500)
-        move_forward(20,200)
+        
+        entregar_tubos()
         move_backward(20)
         turn_right_pid(90)
         find_blue_line(0)
@@ -770,8 +792,8 @@ def tube_museum():
             move_backward(3)
             wait(500)
             move_forward(3)
-            Open(time=500)
-            move_forward(15,200)
+            
+            entregar_tubos()
             
             move_backward(15)
             turn_right_pid(90)
@@ -807,8 +829,8 @@ def tube_museum():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(15,200)
+                
+                entregar_tubos()
                 
                 move_backward(15)
                 turn_left_pid(90)
@@ -836,8 +858,8 @@ def tube_museum():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(20,200)
+                
+                entregar_tubos()
                 
                 move_backward(20)
                 turn_right_pid(90)
@@ -876,8 +898,8 @@ def tube_museum():
             move_backward(3)
             wait(500)
             move_forward(3)
-            Open(time=500)
-            move_forward(20,200)
+            
+            entregar_tubos()
             #abre e retorna
             move_backward(20)
             turn_left_pid(90)
@@ -900,8 +922,8 @@ def tube_museum():
             move_backward(3)
             wait(500)
             move_forward(3)
-            Open(time = 500)
-            move_forward(17,200)
+            
+            entregar_tubos()
             
             move_backward(17)
             turn_left_pid(90)
@@ -957,13 +979,12 @@ def tube_drugstore():
             move_backward(7)
             
             turn_left_pid(90)
-            move_forward(28)
+            move_forward(35)
             turn_left_pid(90)
             move_backward(3)
-            wait(500)
+            
             move_forward(3)
-            Open(time=500)
-            move_forward(22,200)
+            entregar_tubos()
             
             move_backward(22)
             turn_left_pid(90)
@@ -983,8 +1004,8 @@ def tube_drugstore():
             move_backward(3)
             wait(500)
             move_forward(3)
-            Open(time=500)
-            move_forward(15,200)
+            
+            entregar_tubos()
             
             move_backward(10)
             turn_right_pid(90)
@@ -1044,8 +1065,8 @@ def tube_drugstore():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(20,200)
+                
+                entregar_tubos()
                 
                 move_backward(20)
                 turn_left_pid(90)
@@ -1067,13 +1088,13 @@ def tube_drugstore():
                 ajust_color(cor_vista)
                 move_backward(7)
                 turn_right_pid(90)
-                move_forward(32)
+                move_forward(34)
                 turn_right_pid(90)
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(20,200)
+                
+                entregar_tubos()
                 move_backward(20)
                 turn_right_pid(90)
                 
@@ -1099,10 +1120,10 @@ def tube_drugstore():
             move_backward(3)
             wait(500)
             move_forward(3)
-            Open(time=500) 
-            move_forward(20,200)
             
-            # Open(time=500) 
+            entregar_tubos()
+            
+            # Open() 
             move_backward(20)
             turn_right_pid(90)
             while not has_obstacle() and not is_red_left() and not is_red_right():
@@ -1180,8 +1201,8 @@ def tube_bakery():
             move_backward(3)
             wait(500)
             move_forward(3)
-            Open(time=500)
-            move_forward(20,200)
+            
+            entregar_tubos()
             move_backward(20)
             turn_right_pid(90)
             while not is_red_left() and not is_red_right():
@@ -1233,8 +1254,8 @@ def tube_bakery():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(20,200)
+                
+                entregar_tubos()
                 move_backward(20)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
@@ -1253,8 +1274,8 @@ def tube_bakery():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(15,200)
+                
+                entregar_tubos()
                 move_backward(15)
                 turn_right_pid(90)
                 while ultrasound_sensor.distance() > 145:
@@ -1322,8 +1343,8 @@ def tube_bakery():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(15,200)
+                
+                entregar_tubos()
                 move_backward(15)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
@@ -1357,8 +1378,8 @@ def tube_bakery():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(15,200)
+                
+                entregar_tubos()
                 move_backward(15)
                 turn_right_pid(90)
                 while not has_obstacle() and not is_red_left() and not is_red_right():
@@ -1383,8 +1404,8 @@ def tube_bakery():
             move_backward(3)
             wait(500)
             move_forward(3)
-            Open(time=500)
-            move_forward(20,200)
+            
+            entregar_tubos()
             move_backward(20)
             turn_right_pid(90)
             find_blue_line(0)
@@ -1442,8 +1463,8 @@ def tube_park():
             move_backward(3)
             wait(500)
             move_forward(3)
-            Open(time = 500)
-            move_forward(13,200)
+            
+            entregar_tubos()
             move_backward(13)
             turn_left_pid(90)
             
@@ -1497,8 +1518,8 @@ def tube_park():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(13,200)
+                
+                entregar_tubos()
                 move_backward(13)
                 turn_right_pid(90)
                 while ultrasound_sensor.distance() > 145:
@@ -1521,8 +1542,8 @@ def tube_park():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(13,200)
+                
+                entregar_tubos()
                 
                 
                 move_backward(13)
@@ -1578,8 +1599,8 @@ def tube_park():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(13,200)
+                
+                entregar_tubos()
                 move_backward(13)
                 turn_right_pid(90)
                 move_backward(29)
@@ -1610,8 +1631,8 @@ def tube_park():
                     move_backward(3)
                     wait(500)
                     move_forward(3)
-                    Open(time=500)
-                    move_forward(13,200)
+                    
+                    entregar_tubos()
                     move_backward(13)
                     turn_right_pid(90)
                     while ultrasound_sensor.distance() > 145:
@@ -1633,8 +1654,8 @@ def tube_park():
                     move_backward(3)
                     wait(500)
                     move_forward(3)
-                    Open(time=500)
-                    move_forward(13,200)
+                    
+                    entregar_tubos()
                     move_backward(13)
                     turn_right_pid(90)
                     move_backward(29)
@@ -1672,8 +1693,8 @@ def tube_park():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(13,200)
+                
+                entregar_tubos()
                 move_backward(13)
                 turn_left_pid(90)
                 move_backward(29)
@@ -1687,8 +1708,8 @@ def tube_park():
                 move_backward(3)
                 wait(500)
                 move_forward(3)
-                Open(time=500)
-                move_forward(13.5,200)
+                
+                entregar_tubos()
                 move_backward(13.5)
                 turn_left_pid(90)
                 while not has_obstacle() and not is_red_left() and not is_red_right():

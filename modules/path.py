@@ -256,18 +256,18 @@ def scan_de_ladinho_papai():
             # manobras -----------------
             #? Teste
             
+            Close(esperar = False)
             while tube_is_detected():
                 andar_reto(-40)
             quanto_andou_pra_frente += (left_motor.angle() + right_motor.angle()) // 2
             brake_motors()
             move_backward(3,60)
-            #? move_backward(4.5, 60) #Aqui
-            Close()
+            
+            Open(esperar=False, time = 2000)
             turn_left_pid(90)
             move_backward(3,100)
-            Open()
-            #? move_forward(3,100)
-            Close(esperar=False, time = 600) 
+            
+            Close(esperar=False, time = 1000) 
 
             move_forward(9, 380)
             while claw_motor.speed() != 0:
