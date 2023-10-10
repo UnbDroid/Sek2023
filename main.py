@@ -43,38 +43,41 @@ from pybricks.hubs import EV3Brick
 
 #* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -------------------------------------------------------------------------------------
 
-# find_blue_line(0)
-# ev3.speaker.beep(444, 1000)
-# while True:
+find_blue_line(0)
+ev3.speaker.beep(444, 1000)
+while True:
     
-#     align_to_be_ladinho()
+    align_to_be_ladinho()
     
-#     ev3.speaker.beep(444, 1000)
-#     scan_de_ladinho_papai()
-#     ev3.speaker.beep(444, 1000)
+    ev3.speaker.beep(444, 1000)
+    scan_de_ladinho_papai()
+    ev3.speaker.beep(444, 1000)
     
 
-#     set_path()
-#     ev3.speaker.beep(444, 1000)
+    set_path()
+    ev3.speaker.beep(444, 1000)
     
 # ---------------------------------------------------------
 
-valores_lidos = []
-while len(valores_lidos) < 10:
-    valores_lidos.append(ultrasound_sensor.distance())
+# valores_lidos = []
+# while len(valores_lidos) < 10:
+#     valores_lidos.append(ultrasound_sensor.distance())
 
-while (sum(valores_lidos)/len(valores_lidos)) < 200:
-    andar_reto(-150)
-    valores_lidos.pop(0)
-    valores_lidos.append(ultrasound_sensor.distance())
-brake_motors()
-while (sum(valores_lidos)/len(valores_lidos)) < 200:
-    andar_reto(-150)
-    valores_lidos.pop(0)
-    valores_lidos.append(ultrasound_sensor.distance())
-brake_motors()
-brake_motors()
-turn_right_pid(90)
+# while (sum(valores_lidos)/len(valores_lidos)) < 135:
+#     andar_reto(-500)
+#     valores_lidos.pop(0)
+#     valores_lidos.append(ultrasound_sensor.distance())
+# brake_motors()
+# valores_lidos = []
+# while len(valores_lidos) < 10:
+#     valores_lidos.append(ultrasound_sensor.distance())
+# while (sum(valores_lidos)/len(valores_lidos)) < 135:
+#     andar_reto(150)
+#     valores_lidos.pop(0)
+#     valores_lidos.append(ultrasound_sensor.distance())
+# brake_motors()
+# brake_motors()
+# turn_right_pid(90)
 
 # Teste <3
 

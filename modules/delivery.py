@@ -23,11 +23,30 @@ def cm_to_angle(distancia_em_cm):
 
 #! -----------------------------------------------------------------
 
+def alinhar_com_obstaculo():
+    valores_lidos = []
+    while len(valores_lidos) < 10:
+        valores_lidos.append(ultrasound_sensor.distance())
+    while (sum(valores_lidos)/len(valores_lidos)) < 135:
+        andar_reto(-500)
+        valores_lidos.pop(0)
+        valores_lidos.append(ultrasound_sensor.distance())
+    brake_motors()
+    
+    valores_lidos = []
+    while len(valores_lidos) < 10:
+        valores_lidos.append(ultrasound_sensor.distance())
+    while (sum(valores_lidos)/len(valores_lidos)) < 135:
+        andar_reto(150)
+        valores_lidos.pop(0)
+        valores_lidos.append(ultrasound_sensor.distance())
+    brake_motors()
+    
 #! Localizações ----------------------------------------------------
 
 #* Essas funções são sobre, ir do checkpoint e caminhar até o obstáculo
 
-def go_to_i(angulo_que_ja_andou, velocidade = 300): #! 35 CM
+def go_to_i(angulo_que_ja_andou, velocidade = 200): #! 35 CM
     move_forward(3,250)
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
@@ -37,14 +56,27 @@ def go_to_i(angulo_que_ja_andou, velocidade = 300): #! 35 CM
             delta = red_left() - threshold
             kp = -0.5
             erro = delta * kp
+            if (cm_to_angle(35) - angulo_que_ja_andou) < 400 and (cm_to_angle(35) - angulo_que_ja_andou) > -400:
+                velocidade = 100
             motors.drive(velocidade, erro)
+        brake_motors_para_drive_base()
+        brake_motors()#!
+        turn_right_pid(90)
     else:
-        while left_motor.angle() > (cm_to_angle(35) - angulo_que_ja_andou) and right_motor.angle() > (cm_to_angle(35) - angulo_que_ja_andou):
-            andar_reto(-300)
-        brake_motors()
+        turn_180()
+        while left_motor.angle() < -(cm_to_angle(35) - angulo_que_ja_andou) and right_motor.angle() < -(cm_to_angle(35) - angulo_que_ja_andou):
+            delta = threshold - red_right()
+            kp = -0.5
+            erro = delta * kp
+            if (cm_to_angle(35) - angulo_que_ja_andou) < 400 and (cm_to_angle(35) - angulo_que_ja_andou) > -400:
+                velocidade = 100
+            motors.drive(velocidade, erro)
+        brake_motors_para_drive_base()
+        brake_motors()#!
+        turn_left_pid(90)
 
-def go_to_j(angulo_que_ja_andou, velocidade = 300): #! 95 CM
-    move_forward(3.5,250)
+def go_to_j(angulo_que_ja_andou, velocidade = 200): #! 95 CM
+    move_forward(3,250)
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2 
@@ -53,11 +85,22 @@ def go_to_j(angulo_que_ja_andou, velocidade = 300): #! 95 CM
             delta = red_left() - threshold
             kp = -0.5
             erro = delta * kp
+            if (cm_to_angle(95) - angulo_que_ja_andou) < 400 and (cm_to_angle(95) - angulo_que_ja_andou) > -400:
+                velocidade = 100
             motors.drive(velocidade, erro)
+        brake_motors_para_drive_base()#!
+        turn_right_pid(90)
     else:
-        while left_motor.angle() > (cm_to_angle(95) - angulo_que_ja_andou) and right_motor.angle() > (cm_to_angle(95) - angulo_que_ja_andou):
-            andar_reto(-500)
-        brake_motors()
+        turn_180()
+        while left_motor.angle() < -(cm_to_angle(95) - angulo_que_ja_andou) and right_motor.angle() < -(cm_to_angle(95) - angulo_que_ja_andou):
+            delta = red_right() - threshold
+            kp = 0.5
+            erro = delta * kp
+            if (cm_to_angle(95) - angulo_que_ja_andou) < 400 and (cm_to_angle(95) - angulo_que_ja_andou) > -400:
+                velocidade = 100
+            motors.drive(velocidade, erro)
+        brake_motors_para_drive_base()#!
+        turn_left_pid(90)
 
 #* Teve obstáculo essa função faz voltar na linha azul até a área de encontro
 
@@ -85,10 +128,7 @@ def i_to_j(velocidade = 150):
 
 #* Funções para avançar até o obstáculo
 
-def move_to_i_or_j(distancia = 19): # Colado no azul indo pro obstáculo
-    brake_motors_para_drive_base()#!
-    brake_motors()#!
-    turn_right_pid(90)
+def move_to_i_or_j(distancia = 20): # Colado no azul indo pro obstáculo
     while left_motor.angle() < cm_to_angle(distancia) and right_motor.angle() < cm_to_angle(distancia) and not has_obstacle():
         andar_reto(500)
     brake_motors()
@@ -159,11 +199,7 @@ def find_blue_line(numero_de_paredes):
                 elif has_obstacle():
                     found_wall()
                     brake_motors()
-                    while ultrasound_sensor.distance() < 145:
-                        andar_reto(-500)
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(150)
-                    brake_motors()
+                    alinhar_com_obstaculo()
                     if esquerda_direita[0] == "ESQUERDA":
                         turn_left_pid(90)
                         if esquerda_direita[1] == 2:
@@ -224,11 +260,7 @@ def find_blue_line(numero_de_paredes):
                             find_blue_line(0)
                         elif ultrasound_sensor.distance() < 145:
                             brake_motors()
-                            while ultrasound_sensor.distance() < 145:
-                                andar_reto(-500)
-                            while ultrasound_sensor.distance() > 145:
-                                andar_reto(150)
-                            brake_motors()
+                            alinhar_com_obstaculo()
                             if esquerda_direita[0] == "ESQUERDA":
                                 turn_left_pid(90)
                                 if esquerda_direita[1] == 2:
@@ -263,9 +295,7 @@ def find_blue_line(numero_de_paredes):
                                 elif has_obstacle():
                                     found_wall()
                                     brake_motors()
-                                    while ultrasound_sensor.distance() < 145:
-                                        andar_reto(-500)
-                                    brake_motors()
+                                    alinhar_com_obstaculo()
                                     if esquerda_direita[0] == "ESQUERDA":
                                         turn_left_pid(90)
                                         if esquerda_direita[1] == 2:
@@ -342,11 +372,7 @@ def find_blue_line(numero_de_paredes):
                             find_blue_line(0)
                         elif ultrasound_sensor.distance() < 145:
                             brake_motors()
-                            while ultrasound_sensor.distance() < 145:
-                                andar_reto(-500)
-                            while ultrasound_sensor.distance() > 145:
-                                andar_reto(150)
-                            brake_motors()
+                            alinhar_com_obstaculo()
                             if esquerda_direita[0] == "ESQUERDA":
                                 turn_left_pid(90)
                                 if esquerda_direita[1] == 2:
@@ -381,9 +407,7 @@ def find_blue_line(numero_de_paredes):
                                 elif has_obstacle():
                                     found_wall()
                                     brake_motors()
-                                    while ultrasound_sensor.distance() < 145:
-                                        andar_reto(-500)
-                                    brake_motors()
+                                    alinhar_com_obstaculo()
                                     if esquerda_direita[0] == "ESQUERDA":
                                         turn_left_pid(90)
                                         if esquerda_direita[1] == 2:
@@ -427,11 +451,7 @@ def find_blue_line(numero_de_paredes):
                 brake_motors()
             elif has_obstacle():
                 found_wall()
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(150)
-                brake_motors()
+                alinhar_com_obstaculo()
             turn_right_pid(90)
             print("Vai somar mais um no numero_de_paredes")
             print(numero_de_paredes)
@@ -588,12 +608,7 @@ def tube_school():
         
         if has_obstacle(): #"G"
             found_wall()
-            while ultrasound_sensor.distance() < 145:
-                andar_reto(-500)
-            brake_motors()
-            while ultrasound_sensor.distance() > 145:
-                andar_reto(150)
-            brake_motors()
+            alinhar_com_obstaculo()
             turn_left_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
@@ -613,12 +628,7 @@ def tube_school():
             while not has_obstacle():
                 andar_reto(500)
             brake_motors()
-            while ultrasound_sensor.distance() < 145:
-                andar_reto(-500)
-            brake_motors()
-            while ultrasound_sensor.distance() > 145:
-                andar_reto(150)
-            brake_motors()
+            alinhar_com_obstaculo()
             turn_left_pid(90)
             
             
@@ -683,11 +693,7 @@ def tube_school():
                 andar_reto(500)
             brake_motors()
             if ultrasound_sensor.distance() < 145:
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(150)
-                brake_motors()
+                alinhar_com_obstaculo()
                 turn_left_pid(90)
                 find_blue_line(0)
             else:
@@ -719,12 +725,7 @@ def tube_museum():
     
     if has_obstacle(): 
         found_wall()
-        while ultrasound_sensor.distance() < 145:
-            andar_reto(-500)
-        brake_motors()
-        while ultrasound_sensor.distance() > 145:
-            andar_reto(150)
-        brake_motors()
+        alinhar_com_obstaculo()
         turn_180()
         while not is_blue_left() and not is_blue_right():
             andar_reto(300)
@@ -747,12 +748,7 @@ def tube_museum():
         if has_obstacle():
 
             found_wall()
-            while ultrasound_sensor.distance() < 145:
-                andar_reto(-500)
-            brake_motors()
-            while ultrasound_sensor.distance() > 145:
-                andar_reto(150)
-            brake_motors()
+            alinhar_com_obstaculo()
             turn_right_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
@@ -803,12 +799,7 @@ def tube_museum():
             brake_motors()
             if has_obstacle():
                 found_wall()
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                brake_motors()
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(150)
-                brake_motors()
+                alinhar_com_obstaculo()
                 
                 turn_right_pid(90)
                 move_forward(30)
@@ -855,12 +846,7 @@ def tube_museum():
                 brake_motors()
                 if has_obstacle():
                     found_wall()
-                    while ultrasound_sensor.distance() < 145:
-                        andar_reto(-500)
-                    brake_motors()
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(150)
-                    brake_motors()
+                    alinhar_com_obstaculo()
                     turn_right_pid()
                     find_blue_line(0)
                 else:
@@ -883,12 +869,7 @@ def tube_museum():
     
         if has_obstacle(): 
             found_wall()
-            while ultrasound_sensor.distance() < 145:
-                andar_reto(-500)
-            brake_motors()
-            while ultrasound_sensor.distance() > 145:
-                andar_reto(150)
-            brake_motors()
+            alinhar_com_obstaculo()
             turn_right_pid(90)
             move_forward(30)
             turn_left_pid(90)
@@ -923,9 +904,14 @@ def tube_museum():
             move_forward(17,200)
             
             move_backward(17)
-            turn_right_pid(90)
-            move_forward(29)
-            turn_right_pid(90)
+            turn_left_pid(90)
+            while not is_red_left() and not is_red_right():
+                andar_reto(500)
+            brake_motors()
+            cor_vista = "RED"
+            ajust_color(cor_vista)
+            move_backward(35)
+            turn_left_pid(90)
             find_blue_line(0)
                 
 def tube_drugstore():
@@ -957,12 +943,7 @@ def tube_drugstore():
         
         if has_obstacle(): 
             found_wall()
-            while ultrasound_sensor.distance() < 145:
-                andar_reto(-500)
-            brake_motors()
-            while ultrasound_sensor.distance() > 145:
-                andar_reto(150)
-            brake_motors()
+            alinhar_com_obstaculo()
             turn_right_pid(90)
             
             while not is_black_left() or not is_black_right():
@@ -1012,12 +993,7 @@ def tube_drugstore():
             brake_motors()
             if has_obstacle():
                 found_wall()
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                brake_motors()
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(150)
-                brake_motors()
+                alinhar_com_obstaculo()
                 turn_right_pid(90)
                 find_blue_line(0)
             else:
@@ -1035,23 +1011,13 @@ def tube_drugstore():
         middle_to_obstacle()
         if has_obstacle(): 
             found_wall()
-            while ultrasound_sensor.distance() < 145:
-                andar_reto(-500)
-            brake_motors()
-            while ultrasound_sensor.distance() > 145:
-                andar_reto(150)
-            brake_motors()
+            alinhar_com_obstaculo()
             turn_left_pid(90)
             middle_to_obstacle()
             if has_obstacle(): 
 
                 found_wall()
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                brake_motors()
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(150)
-                brake_motors()
+                alinhar_com_obstaculo()
                 turn_180()
                 while not is_blue_left() and not is_blue_right():
                     andar_reto(300)
@@ -1116,12 +1082,7 @@ def tube_drugstore():
                 brake_motors()
                 if has_obstacle():
                     found_wall()
-                    while ultrasound_sensor.distance() < 145:
-                        andar_reto(-500)
-                    brake_motors()
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(150)
-                    brake_motors()
+                    alinhar_com_obstaculo()
                     turn_left_pid(90)
                     find_blue_line(0)
                 else:
@@ -1149,12 +1110,7 @@ def tube_drugstore():
             brake_motors()
             if has_obstacle():
                 found_wall()
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                brake_motors()
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(150)
-                brake_motors()
+                alinhar_com_obstaculo()
                 turn_right_pid(90)
                 find_blue_line(0)
             else:
@@ -1204,12 +1160,7 @@ def tube_bakery():
         
         if has_obstacle():
             found_wall()
-            while ultrasound_sensor.distance() < 145:
-                andar_reto(-500)
-            brake_motors()
-            while ultrasound_sensor.distance() > 145:
-                andar_reto(150)
-            brake_motors()
+            alinhar_com_obstaculo()
             turn_left_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
@@ -1249,12 +1200,7 @@ def tube_bakery():
             brake_motors()
             if has_obstacle():
                 found_wall()
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                brake_motors()
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(150)
-                brake_motors()
+                alinhar_com_obstaculo()
             else:
                 not_found_wall()
                 cor_vista = "RED"
@@ -1265,12 +1211,7 @@ def tube_bakery():
             
             if has_obstacle(): 
                 found_wall()
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                brake_motors()
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(150)
-                brake_motors()
+                alinhar_com_obstaculo()
                 turn_left_pid(90)
                 move_forward(55)
                 turn_right_pid(90)
@@ -1325,12 +1266,7 @@ def tube_bakery():
                 brake_motors()
                 if has_obstacle():
                     found_wall()
-                    while ultrasound_sensor.distance() < 145:
-                        andar_reto(-500)
-                    brake_motors()
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(150)
-                    brake_motors()
+                    alinhar_com_obstaculo()
                     turn_left_pid(90)
                     find_blue_line(0)
                 else:
@@ -1347,13 +1283,7 @@ def tube_bakery():
         
         if has_obstacle():
             found_wall()
-            while ultrasound_sensor.distance() < 145:
-                andar_reto(-500)
-            brake_motors()
-            
-            while ultrasound_sensor.distance() > 145:
-                andar_reto(150)
-            brake_motors()
+            alinhar_com_obstaculo()
                 
             turn_left_pid(90)
             middle_to_obstacle()
@@ -1436,12 +1366,7 @@ def tube_bakery():
                 brake_motors()
                 if has_obstacle():
                     found_wall()
-                    while ultrasound_sensor.distance() < 145:
-                        andar_reto(-500)
-                    brake_motors()
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(150)
-                    brake_motors()
+                    alinhar_com_obstaculo()
                     turn_left_pid(90)
                     find_blue_line(0)
                 else:
@@ -1495,12 +1420,7 @@ def tube_park():
         if has_obstacle(): 
             print("Tem objeto no D")
             found_wall()
-            while ultrasound_sensor.distance() < 145:
-                andar_reto(-500)
-            brake_motors()
-            while ultrasound_sensor.distance() > 145:
-                andar_reto(150)
-            brake_motors()
+            alinhar_com_obstaculo()
             turn_left_pid(90)
             
             # Distancia até o meio e virar pro Obstáculo E
@@ -1540,12 +1460,7 @@ def tube_park():
             turn_left_pid(90) 
             
             
-            while ultrasound_sensor.distance() > 145:
-                andar_reto(500)
-            brake_motors()
-            while ultrasound_sensor.distance() < 145:
-                andar_reto(-150)
-            brake_motors()
+            alinhar_com_obstaculo()
             
             turn_left_pid(90)
             
@@ -1575,12 +1490,7 @@ def tube_park():
             
             if has_obstacle(): 
                 found_wall()
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                brake_motors()
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(150)
-                brake_motors()
+                alinhar_com_obstaculo()
                 turn_180()
                 move_forward(28)
                 turn_right_pid(90)
@@ -1594,9 +1504,7 @@ def tube_park():
                 while ultrasound_sensor.distance() > 145:
                     andar_reto(500)
                 brake_motors()
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-200)
-                brake_motors()
+                alinhar_com_obstaculo()
                 turn_right_pid(90)
                 find_blue_line(0)
                 brake_motors()
@@ -1631,23 +1539,13 @@ def tube_park():
         
         if has_obstacle(): 
             found_wall()
-            while ultrasound_sensor.distance() < 145:
-                andar_reto(-500)
-            brake_motors()
-            while ultrasound_sensor.distance() > 145:
-                andar_reto(150)
-            brake_motors()
+            alinhar_com_obstaculo()
             turn_right_pid(90)
             middle_to_obstacle()
             
             if has_obstacle(): 
                 found_wall()
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                brake_motors()
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(150)
-                brake_motors()
+                alinhar_com_obstaculo()
                 turn_right_pid(90)
                 while not is_blue_left() and not is_blue_right():
                     andar_reto(300)
@@ -1705,12 +1603,7 @@ def tube_park():
                 
                 if has_obstacle():
                     found_wall()
-                    while ultrasound_sensor.distance() < 145:
-                        andar_reto(-500)
-                    brake_motors()
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(150)
-                    brake_motors()
+                    alinhar_com_obstaculo()
                     turn_180()
                     move_forward(28)
                     turn_right_pid(90)
@@ -1751,12 +1644,7 @@ def tube_park():
                     brake_motors()
                     if has_obstacle():
                         found_wall()
-                        while ultrasound_sensor.distance() < 145:
-                            andar_reto(-500)
-                        brake_motors()
-                        while ultrasound_sensor.distance() > 145:
-                            andar_reto(150)
-                        brake_motors()
+                        alinhar_com_obstaculo()
                         turn_right_pid(90)
                         find_blue_line(0)
                     
@@ -1772,12 +1660,7 @@ def tube_park():
             middle_to_obstacle()
             if has_obstacle():
                 found_wall() 
-                while ultrasound_sensor.distance() < 145:
-                    andar_reto(-500)
-                brake_motors()
-                while ultrasound_sensor.distance() > 145:
-                    andar_reto(150)
-                brake_motors()
+                alinhar_com_obstaculo()
                 turn_180()
                 while not is_red_left() and not is_red_right():
                     andar_reto(500)
@@ -1813,12 +1696,7 @@ def tube_park():
                 brake_motors()
                 if has_obstacle():
                     found_wall()
-                    while ultrasound_sensor.distance() < 145:
-                        andar_reto(-500)
-                    brake_motors()
-                    while ultrasound_sensor.distance() > 145:
-                        andar_reto(150)
-                    brake_motors()
+                    alinhar_com_obstaculo()
                     turn_left_pid(90)
                     find_blue_line(0)
                 else:

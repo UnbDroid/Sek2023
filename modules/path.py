@@ -149,6 +149,8 @@ def scan_de_ladinho_papai():
     global size_of_tube
     global quanto_andou_pra_frente
 
+    quanto_andou_pra_frente = 0
+
 #! Seção teste ----------------------------------------------
     #! 
         #! RANGES DESCOBERTOS
@@ -224,7 +226,7 @@ def scan_de_ladinho_papai():
     #     brake_motors_para_drive_base()
     #     brake_motors()
 
-    while not tube_is_detected():
+    while True:
         erro = (red_left() - threshold) * -0.45
         motors.drive(150, erro)
         if is_red_right():
@@ -245,69 +247,62 @@ def scan_de_ladinho_papai():
             brake_motors_para_drive_base()
             move_backward(5)
             turn_180()
-                
-        
-        
-    
-    quanto_andou_pra_frente = (left_motor.angle() + right_motor.angle()) // 2
-    brake_motors_para_drive_base()
-    brake_motors()
-    deu_bom_familia()
-
-    
-    # manobras -----------------
-    #? Teste
-    
-    while tube_is_detected():
-        andar_reto(-40)
-    brake_motors()
-    move_backward(3,60)
-    #? move_backward(4.5, 60) #Aqui
-    Close()
-    turn_left_pid(90)
-    move_backward(3,100)
-    Open()
-    #? move_forward(3,100)
-    Close(esperar=False, time = 600) 
-
-    move_forward(9, 380)
-    while claw_motor.speed() != 0:
-        wait(1)
-
-    #com o tubo
-
-    move_backward(6)
-    
-    mbox.send("tem tubo?")
-    mbox.wait()
-    tem_tubo = mbox.read()
-    
-    if tem_tubo == "tem tubo":
-    
-        turn_right_pid(90)
-        
-
-        mbox.send('chave')
-        mbox.wait()
-        size_of_tube = mbox.read()
-        size_of_tube = int(size_of_tube)
-
-        mbox.send('cor do tubo')
-        mbox.wait()
-        
-        color_of_tube = mbox.read()
+        if tube_is_detected():
+            quanto_andou_pra_frente += (left_motor.angle() + right_motor.angle()) // 2
+            brake_motors_para_drive_base()
+            brake_motors()
+            deu_bom_familia()
             
-        print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
-        
-    else:
-        move_backward(5)
-        Open()
-        while not is_blue_left() and not is_blue_right():
-            andar_reto(360) 
-        brake_motors()
-        turn_left_pid(90)
-        move_backward(1)
-        scan_de_ladinho_papai()
+            # manobras -----------------
+            #? Teste
+            
+            while tube_is_detected():
+                andar_reto(-40)
+            quanto_andou_pra_frente += (left_motor.angle() + right_motor.angle()) // 2
+            brake_motors()
+            move_backward(3,60)
+            #? move_backward(4.5, 60) #Aqui
+            Close()
+            turn_left_pid(90)
+            move_backward(3,100)
+            Open()
+            #? move_forward(3,100)
+            Close(esperar=False, time = 600) 
+
+            move_forward(9, 380)
+            while claw_motor.speed() != 0:
+                wait(1)
+
+            #com o tubo
+
+            move_backward(6)
+            
+            mbox.send("tem tubo?")
+            mbox.wait()
+            tem_tubo = mbox.read()
+            
+            if tem_tubo == "tem tubo":
+            
+                turn_right_pid(90)
+                
+
+                mbox.send('chave')
+                mbox.wait()
+                size_of_tube = mbox.read()
+                size_of_tube = int(size_of_tube)
+
+                mbox.send('cor do tubo')
+                mbox.wait()
+                
+                color_of_tube = mbox.read()
+                    
+                print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
+                break
+            
+            else:
+                Open()
+                turn_right_pid(90)
+                move_forward(3,100)
 
 def set_path():
     global color_of_tube
