@@ -285,30 +285,7 @@ def scan_de_ladinho_papai():
     if tem_tubo == "tem tubo":
     
         turn_right_pid(90)
-
-        azul = range_blue_left()[0]
-        branco = range_white_left()[0]
-        threshold = (azul + branco) / 2
         
-        chegou_no_fim = False
-
-        while not chegou_no_fim:
-            
-            delta = threshold - red_left()
-            kp = 0.5
-            erro = delta * kp
-            motors.drive(135, erro) #! VELOCIDADE ARRUMANDO
-            
-            if is_red_right():
-                chegou_no_fim = True
-                brake_motors_para_drive_base()
-                brake_motors()
-
-
-        move_backward(2) 
-
-        while left_motor.speed() != 0 or right_motor.speed() != 0:
-            wait(1)
 
         mbox.send('chave')
         mbox.wait()
@@ -322,8 +299,6 @@ def scan_de_ladinho_papai():
             
         print("Tubo encontrado:", size_of_tube, "de cor", color_of_tube)
         
-        print("Manobra")
-        turn_180()
     else:
         move_backward(5)
         Open()

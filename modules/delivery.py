@@ -28,26 +28,36 @@ def cm_to_angle(distancia_em_cm):
 #* Essas funções são sobre, ir do checkpoint e caminhar até o obstáculo
 
 def go_to_i(angulo_que_ja_andou, velocidade = 300): #! 35 CM
-    move_forward(4)
+    move_forward(3,250)
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
-    threshold = (branco + azul) / 2 
-    while left_motor.angle() < (cm_to_angle(35) - angulo_que_ja_andou) and right_motor.angle() < (cm_to_angle(35) - angulo_que_ja_andou):
-        delta = red_left() - threshold
-        kp = 0.5
-        erro = delta * kp
-        motors.drive(velocidade, erro)
+    threshold = (branco + azul) / 2
+    if (cm_to_angle(35) - angulo_que_ja_andou) > 0:
+        while left_motor.angle() < (cm_to_angle(35) - angulo_que_ja_andou) and right_motor.angle() < (cm_to_angle(35) - angulo_que_ja_andou):
+            delta = red_left() - threshold
+            kp = -0.5
+            erro = delta * kp
+            motors.drive(velocidade, erro)
+    else:
+        while left_motor.angle() > (cm_to_angle(35) - angulo_que_ja_andou) and right_motor.angle() > (cm_to_angle(35) - angulo_que_ja_andou):
+            andar_reto(-300)
+        brake_motors()
 
 def go_to_j(angulo_que_ja_andou, velocidade = 300): #! 95 CM
-    move_forward(4)
+    move_forward(3.5,250)
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2 
-    while left_motor.angle() < (cm_to_angle(95) - angulo_que_ja_andou) and right_motor.angle() < (cm_to_angle(95) - angulo_que_ja_andou):
-        delta = red_left() - threshold
-        kp = 0.5
-        erro = delta * kp
-        motors.drive(velocidade, erro)
+    if (cm_to_angle(95) - angulo_que_ja_andou) > 0:
+        while left_motor.angle() < (cm_to_angle(95) - angulo_que_ja_andou) and right_motor.angle() < (cm_to_angle(95) - angulo_que_ja_andou):
+            delta = red_left() - threshold
+            kp = -0.5
+            erro = delta * kp
+            motors.drive(velocidade, erro)
+    else:
+        while left_motor.angle() > (cm_to_angle(95) - angulo_que_ja_andou) and right_motor.angle() > (cm_to_angle(95) - angulo_que_ja_andou):
+            andar_reto(-500)
+        brake_motors()
 
 #* Teve obstáculo essa função faz voltar na linha azul até a área de encontro
 
@@ -572,7 +582,7 @@ def tube_school():
         
         turn_right_pid(90)
     
-        while left_angle.angle() < cm_to_angle(12) and right_angle.angle() < cm_to_angle(12) and not has_obstacle():
+        while left_motor.angle() < cm_to_angle(12) and right_motor.angle() < cm_to_angle(12) and not has_obstacle():
             andar_reto(500)
         brake_motors()
         

@@ -43,21 +43,31 @@ from pybricks.hubs import EV3Brick
 
 #* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -------------------------------------------------------------------------------------
 
-find_blue_line(0)
-ev3.speaker.beep(444, 1000)
-while True:
+# find_blue_line(0)
+# ev3.speaker.beep(444, 1000)
+# while True:
     
-    align_to_be_ladinho()
+#     align_to_be_ladinho()
     
-    ev3.speaker.beep(444, 1000)
-    scan_de_ladinho_papai()
-    ev3.speaker.beep(444, 1000)
+#     ev3.speaker.beep(444, 1000)
+#     scan_de_ladinho_papai()
+#     ev3.speaker.beep(444, 1000)
     
 
-    set_path()
-    ev3.speaker.beep(444, 1000)
+#     set_path()
+#     ev3.speaker.beep(444, 1000)
     
 # ---------------------------------------------------------
+
+while ultrasound_sensor.distance() < 200:
+    andar_reto(-150)
+brake_motors()
+while ultrasound_sensor.distance() > 200:
+    andar_reto(150)
+    
+move_backward(5)
+brake_motors()
+turn_right_pid(90)
 
 # Teste <3
 
