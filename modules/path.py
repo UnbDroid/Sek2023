@@ -11,7 +11,7 @@ ev3 = EV3Brick()
 cronometer = StopWatch()
 size_of_tube = 0
 color_of_tube = ""
-quanto_andou_pra_frente = [0, 0]
+quanto_andou_pra_frente = 0
 
 # server 
 from pybricks.messaging import BluetoothMailboxServer, TextMailbox
@@ -249,8 +249,7 @@ def scan_de_ladinho_papai():
         
         
     
-    # quanto_andou_pra_frente[0] += left_motor.angle()
-    # quanto_andou_pra_frente[1] += right_motor.angle() 
+    quanto_andou_pra_frente = (left_motor.angle() + right_motor.angle()) // 2
     brake_motors_para_drive_base()
     brake_motors()
     deu_bom_familia()
@@ -277,7 +276,7 @@ def scan_de_ladinho_papai():
 
     #com o tubo
 
-    move_backward(7)
+    move_backward(6)
     
     mbox.send("tem tubo?")
     mbox.wait()
@@ -338,26 +337,32 @@ def scan_de_ladinho_papai():
 def set_path():
     global color_of_tube
     global size_of_tube
+    global quanto_andou_pra_frente
     
     print("Entrei")
     if size_of_tube == 15:
-        
         print("Tem 15 cm")
         if color_of_tube == "RED": #Farmacia
+            go_to_j(quanto_andou_pra_frente)
             tube_drugstore()
         if color_of_tube == "GREEN": #Prefeitura
+            go_to_j(quanto_andou_pra_frente)
             tube_city_hall()
         if color_of_tube == "BLUE": #Museu
+            go_to_j(quanto_andou_pra_frente)
             tube_museum()
         if color_of_tube == "BROWN": #Padaria
             tube_bakery()
     else:
-
         if color_of_tube == "GREEN": #Parque
+            go_to_j(quanto_andou_pra_frente)
             tube_park()
         if color_of_tube == "BLUE": #Escola
+            go_to_i(quanto_andou_pra_frente)
             tube_school()
         if color_of_tube == "BROWN": #Biblioteca
+            go_to_i(quanto_andou_pra_frente)
             tube_library()
         if color_of_tube == "RED":
+            go_to_j(quanto_andou_pra_frente)
             tube_drugstore()
