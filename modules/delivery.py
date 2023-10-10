@@ -48,7 +48,7 @@ def j_to_i(velocidade = 150):
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2  
     
-    while left_motor.angle() < ((largura_arena/2)+80) or right_motor.angle() < ((largura_arena/2)+80):
+    while left_motor.angle() < 1640 or right_motor.angle() < 1640:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -59,7 +59,7 @@ def i_to_j(velocidade = 150):
     azul = range_blue_left()[0]
     threshold = (branco + azul) / 2  
     
-    while left_motor.angle() < (largura_arena/2) or right_motor.angle() < (largura_arena/2):
+    while left_motor.angle() < 1640 or right_motor.angle() < 1640:
         delta = threshold - red_left()
         kp = 0.5
         erro = delta * kp
