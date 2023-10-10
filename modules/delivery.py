@@ -9,7 +9,6 @@ crono = StopWatch()
  
 #! Mudar isso na competição :D
 
-
 #! ESSA POHA AQUI #FALSE é pro ALIGN
 # TO BE ladinho e TRUE para entrar
 
@@ -20,10 +19,11 @@ dar_pra_tras = False
 #* Essas funções são sobre, ir do checkpoint e caminhar até o obstáculo
 
 def go_to_i(velocidade = 150):
+    global largura_arena
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2 
-    while left_motor.angle() < 2000 or right_motor.angle() < 2000:
+    while left_motor.angle() < 2604 and right_motor.angle() < 2604:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -33,11 +33,10 @@ def go_to_j(velocidade = 150):
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2  
-    while left_motor.angle() < 400 or right_motor.angle() < 400:
+    while left_motor.angle() < 960 and right_motor.angle() < 960:
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
-        
         motors.drive(velocidade, erro)
 
 #* Teve obstáculo essa função faz voltar na linha azul até a área de encontro
@@ -49,7 +48,7 @@ def j_to_i(velocidade = 150):
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2  
     
-    while left_motor.angle() < 1588 or right_motor.angle() < 1580:
+    while left_motor.angle() < ((largura_arena/2)+80) or right_motor.angle() < ((largura_arena/2)+80):
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
@@ -60,7 +59,7 @@ def i_to_j(velocidade = 150):
     azul = range_blue_left()[0]
     threshold = (branco + azul) / 2  
     
-    while left_motor.angle() < 1580 or right_motor.angle() < 1588:
+    while left_motor.angle() < (largura_arena/2) or right_motor.angle() < (largura_arena/2):
         delta = threshold - red_left()
         kp = 0.5
         erro = delta * kp

@@ -67,6 +67,10 @@ def align_to_begin_scan(velocidade = 150):
 
 
 def align_to_be_ladinho(): 
+#! Código teste
+    # turn_right_pid(90)    
+
+#! Código correto normal
     global dar_pra_tras
     set_dar_pra_tras(False)
     dar_pra_tras = get_dar_pra_tras
@@ -145,6 +149,25 @@ def scan_de_ladinho_papai():
     global size_of_tube
     global quanto_andou_pra_frente
 
+#! Seção teste ----------------------------------------------
+    #! 
+        #! RANGES DESCOBERTOS
+    #! ESQUERDA: 4264
+    #! DIREITA: 3000
+
+    # azul = range_blue_left()[0]
+    # branco = range_white_left()[0]
+    # threshold = (azul + branco) / 2
+
+    # while not is_red_right():
+    #     erro = (red_left() - threshold) * -0.45
+    #     motors.drive(80, erro)
+    # brake_motors_para_drive_base()
+    # move_backward(2)
+    # turn_180()
+
+#! ----------------------------------------------------------
+
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2
@@ -160,6 +183,7 @@ def scan_de_ladinho_papai():
     while not chegou_no_fim:
         if is_red_left() and red_left() >= range_meio_blue_left()[0]:
             chegou_no_fim = True
+            print(left_motor.angle(), right_motor.angle())
             brake_motors_para_drive_base()
             brake_motors()
             break
@@ -171,6 +195,7 @@ def scan_de_ladinho_papai():
         
         if is_red_left() and red_left() >= range_meio_blue_left()[0]:
             chegou_no_fim = True
+            print(left_motor.angle(), right_motor.angle())
             brake_motors_para_drive_base()
             brake_motors()
             break
@@ -181,7 +206,7 @@ def scan_de_ladinho_papai():
     # brake_motors()
 
     
-    move_backward(5)
+    move_backward(2)
     turn_180()
 
     azul = range_blue_left()[0]

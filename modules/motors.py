@@ -171,6 +171,8 @@ def turn_180():
         
         left_motor.run_angle(360, current_angle, wait = False)
         right_motor.run_angle(360, -current_angle, wait = True)
+            
+    brake_motors()
 
 
 # ALINHAMENTO NAS CORES--------------------------------------------------------------------------------------------

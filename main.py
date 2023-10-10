@@ -34,6 +34,11 @@ from pybricks.hubs import EV3Brick
 
 #     set_path()
 #     ev3.speaker.beep(444, 1000)
+
+
+#! Pega o valor de uma ponta até outra subtrai do total para andar até ter essa dinstncia se for maior do que o valor que precisa, exmp começa
+#! no 200 e andar decrementando até o 60.
+#! E se o valor for menor? ele gira pro outro lado e anda até completar!
    
 
 #* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -------------------------------------------------------------------------------------
@@ -55,6 +60,17 @@ while True:
 # ---------------------------------------------------------
 
 # Teste <3
+
+# while not is_red():
+#     andar_reto(300)
+# brake_motors()
+# move_backward(2)
+# turn_180()
+# while not is_red_left() and not is_red_right():
+#     andar_reto(500)
+# print(left_motor.angle(), right_motor.angle())
+# brake_motors()
+
 
 # while not is_yellow() or not is_black_left() or not is_black_right():
 #     andar_reto(100)
