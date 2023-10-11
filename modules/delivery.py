@@ -6,6 +6,8 @@ from modules.path import *
 from pybricks.tools import StopWatch
 
 crono = StopWatch()
+
+obstaculos_lidos = []
  
 #! Mudar isso na competição :D
 
@@ -517,26 +519,23 @@ def tube_library():
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2  
-    while left_motor.angle() < 462 or right_motor.angle() < 467: 
-        delta = red_right() - threshold
+    while True: 
+        delta = threshold - red_left()
         kp = 0.5
         erro = delta * kp
-        
         motors.drive(150, erro)
+        if is_red_right():
+            brake_motors_para_drive_base()
+            break
         
     brake_motors_para_drive_base()
     brake_motors()
     
-    move_backward(15)
-    turn_left_pid(90)
-    move_backward(3)
-    wait(500)
-    move_forward(3)
+    move_backward(7)
+    turn_right_pid(90)
     
-    move_forward(20)
+    move_forward(5)
     entregar_tubos()
-    
-    move_backward(32)
     
     
 
@@ -551,28 +550,31 @@ def tube_library():
         
     
 def tube_city_hall():
-    
+    global obstaculos_lidos
     
     move_to_i_or_j()
     
-    if has_obstacle(): 
-        found_wall()
-        turn_180()
-        while not is_blue_left() and not is_blue_right():
-            andar_reto(250) 
-        brake_motors()
-        while is_blue():
-            andar_reto(-500)
-        brake_motors()
-        turn_left_pid(90)
-        
-        
-        j_to_i()
-        
-        
-        brake_motors_para_drive_base()
-        brake_motors()
-        turn_left_pid(90)
+    if has_obstacle() or "J" in obstaculos_lidos:
+        if "J" not in obstaculos_lidos:
+            obstaculos_lidos.append("J") 
+            found_wall()
+            turn_180()
+            while not is_blue_left() and not is_blue_right():
+                andar_reto(250) 
+            brake_motors()
+            while is_blue():
+                andar_reto(-500)
+            brake_motors()
+            turn_left_pid(90)
+            
+            
+            j_to_i()
+            
+            
+            brake_motors_para_drive_base()
+            brake_motors()
+            turn_left_pid(90)
+
         move_forward(40)
         turn_left_pid(90)
         move_backward(3)
@@ -580,8 +582,6 @@ def tube_city_hall():
         move_forward(3)
         
         entregar_tubos()
-
-        move_backward(20)
         turn_left_pid(90)
         find_blue_line(0)
         brake_motors()
@@ -596,7 +596,6 @@ def tube_city_hall():
         
         entregar_tubos()
         
-        move_backward(20)
         turn_right_pid(90)
         
         find_blue_line(0)
@@ -605,40 +604,43 @@ def tube_city_hall():
 
     
 def tube_school():
-    
-    
 
     move_to_i_or_j()
     
-    if has_obstacle(): 
-        found_wall()
-        turn_180()
-        while not is_blue_left() and not is_blue_right():
-            andar_reto(300)
-        brake_motors()
-        while is_blue():
-            andar_reto(-500)
-        brake_motors()
-        turn_right_pid(90)
-            
-        i_to_j()
-            
-        brake_motors_para_drive_base()
-        brake_motors()
-        turn_right_pid(90)
+    if has_obstacle() or "I" in obstaculos_lidos: 
+        if "I" not in obstaculos_lidos:
+            obstaculos_lidos.append("I")
+            found_wall()
+            turn_180()
+            while not is_blue_left() and not is_blue_right():
+                andar_reto(300)
+            brake_motors()
+            while is_blue():
+                andar_reto(-500)
+            brake_motors()
+            turn_right_pid(90)
+                
+            i_to_j()
+                
+            brake_motors_para_drive_base()
+            brake_motors()
+            turn_right_pid(90)
         
         move_to_middle()
         
-        turn_right_pid(90)
-    
-        while left_motor.angle() < cm_to_angle(12) and right_motor.angle() < cm_to_angle(12) and not has_obstacle():
-            andar_reto(500)
-        brake_motors()
+        if "G" not in obstaculos_lidos:
+            turn_right_pid(90)
         
-        if has_obstacle(): #"G"
-            found_wall()
-            alinhar_com_obstaculo()
-            turn_left_pid(90)
+            while left_motor.angle() < cm_to_angle(12) and right_motor.angle() < cm_to_angle(12) and not has_obstacle():
+                andar_reto(500)
+            brake_motors()
+        
+        if has_obstacle() or "G" in obstaculos_lidos: #"G"
+            if "G" not in obstaculos_lidos:
+                obstaculos_lidos.append("G")
+                found_wall()
+                alinhar_com_obstaculo()
+                turn_left_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
             brake_motors()
@@ -675,7 +677,6 @@ def tube_school():
             move_forward(3)
             
             entregar_tubos()
-            move_backward(15)
             turn_right_pid(90)
             
             
@@ -716,7 +717,6 @@ def tube_school():
             entregar_tubos()
             
             
-            move_backward(15)
             turn_right_pid(90)
             while not is_red_left() and not is_red_right() and ultrasound_sensor.distance() > 145:
                 andar_reto(500)
@@ -741,7 +741,6 @@ def tube_school():
         move_forward(3)
         
         entregar_tubos()
-        move_backward(20)
         turn_right_pid(90)
         find_blue_line(0)
         
@@ -752,33 +751,37 @@ def tube_museum():
     move_to_i_or_j() 
     
     
-    if has_obstacle(): 
-        found_wall()
-        alinhar_com_obstaculo()
-        turn_180()
-        while not is_blue_left() and not is_blue_right():
-            andar_reto(300)
-        brake_motors()
-        while is_blue():
-            andar_reto(-500)
-        turn_left_pid(90)
-        
-        j_to_i()
-        
-        brake_motors_para_drive_base()
-        brake_motors()
-        turn_left_pid(90)
+    if has_obstacle() or "J" in obstaculos_lidos: 
+        if "J" not in obstaculos_lidos:
+            obstaculos_lidos.append("J")
+            found_wall()
+            alinhar_com_obstaculo()
+            turn_180()
+            while not is_blue_left() and not is_blue_right():
+                andar_reto(300)
+            brake_motors()
+            while is_blue():
+                andar_reto(-500)
+            turn_left_pid(90)
+            
+            j_to_i()
+            
+            brake_motors_para_drive_base()
+            brake_motors()
+            turn_left_pid(90)
         
         move_to_middle()
         
-        turn_left_pid(90)
-        middle_to_obstacle()
+        if "G" not in obstaculos_lidos:
+            turn_left_pid(90)
+            middle_to_obstacle()
         
-        if has_obstacle():
-
-            found_wall()
-            alinhar_com_obstaculo()
-            turn_right_pid(90)
+        if has_obstacle() or "G" in obstaculos_lidos: #"G"
+            if "G" not in obstaculos_lidos:
+                obstaculos_lidos.append("G")
+                found_wall()
+                alinhar_com_obstaculo()
+                turn_right_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
             brake_motors()
@@ -801,8 +804,6 @@ def tube_museum():
             move_forward(3)
             
             entregar_tubos()
-            
-            move_backward(15)
             turn_right_pid(90)
             while not is_black_left() and not is_black_right():
                 andar_reto(500)
@@ -838,8 +839,6 @@ def tube_museum():
                 move_forward(3)
                 
                 entregar_tubos()
-                
-                move_backward(15)
                 turn_left_pid(90)
                 while ultrasound_sensor.distance() > 145:
                     andar_reto(500)
@@ -867,8 +866,6 @@ def tube_museum():
                 move_forward(3)
                 
                 entregar_tubos()
-                
-                move_backward(20)
                 turn_right_pid(90)
                 while not has_obstacle() and not is_red_left() and not is_red_right():
                     andar_reto(500)
@@ -908,7 +905,6 @@ def tube_museum():
             
             entregar_tubos()
             #abre e retorna
-            move_backward(20)
             turn_left_pid(90)
             find_blue_line(0)
             
@@ -931,8 +927,6 @@ def tube_museum():
             move_forward(3)
             
             entregar_tubos()
-            
-            move_backward(17)
             turn_left_pid(90)
             while not is_red_left() and not is_red_right():
                 andar_reto(500)
@@ -949,31 +943,37 @@ def tube_drugstore():
 
     move_to_i_or_j()
     
-    if has_obstacle(): 
-        found_wall()
-        turn_180()
-        while not is_blue_left() and not is_blue_right():
-            andar_reto(300)
-        brake_motors()
-        
-        while is_blue():
-            andar_reto(-500)
-        brake_motors()
-        turn_left_pid(90)
-        
-        j_to_i()
-        
-        brake_motors_para_drive_base()
-        brake_motors()
-        turn_left_pid(90)
-        move_to_middle()
-        turn_left_pid(90)
-        middle_to_obstacle()
-        
-        if has_obstacle(): 
+    if has_obstacle() or "J" in obstaculos_lidos or ("G" in obstaculos_lidos and "E" in obstaculos_lidos): 
+        if "J" not in obstaculos_lidos and ("G" not in obstaculos_lidos or "E" not in obstaculos_lidos):
+            obstaculos_lidos.append("J")
             found_wall()
-            alinhar_com_obstaculo()
-            turn_right_pid(90)
+            turn_180()
+            while not is_blue_left() and not is_blue_right():
+                andar_reto(300)
+            brake_motors()
+            
+            while is_blue():
+                andar_reto(-500)
+            brake_motors()
+            turn_left_pid(90)
+            
+            j_to_i()
+            
+            brake_motors_para_drive_base()
+            brake_motors()
+            turn_left_pid(90)
+        
+        move_to_middle()
+        if "G" not in obstaculos_lidos:
+            turn_left_pid(90)
+            middle_to_obstacle()
+        
+        if has_obstacle() or "G" in obstaculos_lidos: #"G"
+            if "G" not in obstaculos_lidos:
+                obstaculos_lidos.append("G")
+                found_wall()
+                alinhar_com_obstaculo()
+                turn_right_pid(90)
             
             while not is_black_left() or not is_black_right():
                 andar_reto(500)
@@ -993,7 +993,6 @@ def tube_drugstore():
             move_forward(3)
             entregar_tubos()
             
-            move_backward(22)
             turn_left_pid(90)
             while not is_red_left() or not is_red_right():
                 andar_reto(500)
@@ -1014,7 +1013,6 @@ def tube_drugstore():
             
             entregar_tubos()
             
-            move_backward(10)
             turn_right_pid(90)
             while not has_obstacle() and not is_red_left() and not is_red_right():
                 andar_reto(500)
@@ -1035,15 +1033,19 @@ def tube_drugstore():
     else:
         not_found_wall()
         i_or_j_to_middle() 
-        turn_right_pid(90)
-        middle_to_obstacle()
-        if has_obstacle(): 
-            found_wall()
-            alinhar_com_obstaculo()
-            turn_left_pid(90)
+        if "G" not in obstaculos_lidos:
+            turn_right_pid(90)
             middle_to_obstacle()
-            if has_obstacle(): 
-
+        if has_obstacle() or "G" in obstaculos_lidos: #"G" 
+            if "G" not in obstaculos_lidos:
+                obstaculos_lidos.append("G")
+                found_wall()
+                alinhar_com_obstaculo()
+                turn_left_pid(90)
+            middle_to_obstacle()
+            if has_obstacle() or "E" in obstaculos_lidos: #"E"
+                if "E" not in obstaculos_lidos:
+                    obstaculos_lidos.append("E")
                 found_wall()
                 alinhar_com_obstaculo()
                 turn_180()
@@ -1075,7 +1077,6 @@ def tube_drugstore():
                 
                 entregar_tubos()
                 
-                move_backward(20)
                 turn_left_pid(90)
                 while not is_red_left() and not is_red_right():
                     andar_reto(500)
@@ -1133,7 +1134,6 @@ def tube_drugstore():
             entregar_tubos()
             
             # Open() 
-            move_backward(20)
             turn_right_pid(90)
             while not has_obstacle() and not is_red_left() and not is_red_right():
                 andar_reto(500)
@@ -1153,42 +1153,42 @@ def tube_drugstore():
         
 def tube_bakery():
     
-    
-
     move_to_i_or_j()
     
-    if has_obstacle(): 
-        
-        found_wall()
-        move_backward(10)
-        turn_180()
-        while not is_blue_left() and not is_blue_right():
-            andar_reto(300)
-        brake_motors()
-        
-        
-        while is_blue():
-            andar_reto(-500)
-        brake_motors()
-        turn_right_pid(90)
-        
-        
-        i_to_j()
-        
-        
-        
-        
-        brake_motors_para_drive_base()
-        brake_motors()
-        turn_right_pid(90)
+    if has_obstacle() or "I" in obstaculos_lidos: 
+        if "I" not in obstaculos_lidos:
+            obstaculos_lidos.append("I")
+            found_wall()
+            move_backward(10)
+            turn_180()
+            while not is_blue_left() and not is_blue_right():
+                andar_reto(300)
+            brake_motors()
+            
+            
+            while is_blue():
+                andar_reto(-500)
+            brake_motors()
+            turn_right_pid(90)
+            
+            
+            i_to_j()
+            
+            
+            
+            
+            brake_motors_para_drive_base()
+            brake_motors()
+            turn_right_pid(90)
         
         move_to_middle()
         
-        turn_right_pid(90)
+        if "G" not in obstaculos_lidos:
+            turn_right_pid(90)
+            
+            middle_to_obstacle()
         
-        middle_to_obstacle()
-        
-        if has_obstacle():
+        if has_obstacle() or "G" in obstaculos_lidos: #"G"
             found_wall()
             alinhar_com_obstaculo()
             turn_left_pid(90)
@@ -1212,7 +1212,6 @@ def tube_bakery():
             move_forward(3)
             
             entregar_tubos()
-            move_backward(20)
             turn_right_pid(90)
             while not is_red_left() and not is_red_right():
                 andar_reto(500)
@@ -1265,7 +1264,6 @@ def tube_bakery():
                 move_forward(3)
                 
                 entregar_tubos()
-                move_backward(20)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
                     andar_reto(500)
@@ -1285,7 +1283,6 @@ def tube_bakery():
                 move_forward(3)
                 
                 entregar_tubos()
-                move_backward(15)
                 turn_right_pid(90)
                 while ultrasound_sensor.distance() > 145:
                     andar_reto(500)
@@ -1354,7 +1351,6 @@ def tube_bakery():
                 move_forward(3)
                 
                 entregar_tubos()
-                move_backward(15)
                 turn_right_pid(90)
                 while not is_red_left() and not is_red_right():
                     andar_reto(500)
@@ -1389,7 +1385,6 @@ def tube_bakery():
                 move_forward(3)
                 
                 entregar_tubos()
-                move_backward(15)
                 turn_right_pid(90)
                 while not has_obstacle() and not is_red_left() and not is_red_right():
                     andar_reto(500)
@@ -1415,7 +1410,6 @@ def tube_bakery():
             move_forward(3)
             
             entregar_tubos()
-            move_backward(20)
             turn_right_pid(90)
             find_blue_line(0)
     
@@ -1529,7 +1523,6 @@ def tube_park():
                 move_forward(3)
                 
                 entregar_tubos()
-                move_backward(13)
                 turn_right_pid(90)
                 while ultrasound_sensor.distance() > 145:
                     andar_reto(500)
@@ -1553,9 +1546,6 @@ def tube_park():
                 move_forward(3)
                 
                 entregar_tubos()
-                
-                
-                move_backward(13)
                 turn_left_pid(90)
                 move_forward(29) 
                 
@@ -1610,7 +1600,6 @@ def tube_park():
                 move_forward(3)
                 
                 entregar_tubos()
-                move_backward(13)
                 turn_right_pid(90)
                 move_backward(29)
                 turn_right_pid(90)
@@ -1642,7 +1631,6 @@ def tube_park():
                     move_forward(3)
                     
                     entregar_tubos()
-                    move_backward(13)
                     turn_right_pid(90)
                     while ultrasound_sensor.distance() > 145:
                         andar_reto(500)
@@ -1665,7 +1653,6 @@ def tube_park():
                     move_forward(3)
                     
                     entregar_tubos()
-                    move_backward(13)
                     turn_right_pid(90)
                     move_backward(29)
                     turn_right_pid(90)
@@ -1704,7 +1691,6 @@ def tube_park():
                 move_forward(3)
                 
                 entregar_tubos()
-                move_backward(13)
                 turn_left_pid(90)
                 move_backward(29)
                 turn_left_pid(90)
@@ -1719,7 +1705,6 @@ def tube_park():
                 move_forward(3)
                 
                 entregar_tubos()
-                move_backward(13.5)
                 turn_left_pid(90)
                 while not has_obstacle() and not is_red_left() and not is_red_right():
                     andar_reto(500)

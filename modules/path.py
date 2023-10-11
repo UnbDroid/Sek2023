@@ -277,19 +277,31 @@ def set_path():
     if size_of_tube == 15:
         print("Tem 15 cm")
         if color_of_tube == "RED": #Farmacia
-            go_to_j(quanto_andou_pra_frente)
+            if "J" not in obstaculos_lidos:
+                go_to_j(quanto_andou_pra_frente)
+            else:
+                go_to_i(quanto_andou_pra_frente)
             tube_drugstore()
         if color_of_tube == "GREEN": #Prefeitura
-            go_to_j(quanto_andou_pra_frente)
+            if "J" not in obstaculos_lidos:
+                go_to_j(quanto_andou_pra_frente)
+            else:
+                go_to_i(quanto_andou_pra_frente)
             tube_city_hall()
         if color_of_tube == "BLUE": #Museu
-            go_to_j(quanto_andou_pra_frente)
+            if "J" not in obstaculos_lidos:
+                go_to_j(quanto_andou_pra_frente)
+            else:
+                go_to_i(quanto_andou_pra_frente)
             tube_museum()
         if color_of_tube == "BROWN": #Padaria
             tube_bakery()
     else:
         if color_of_tube == "GREEN": #Parque
-            go_to_j(quanto_andou_pra_frente)
+            if "J" not in obstaculos_lidos:
+                go_to_j(quanto_andou_pra_frente)
+            else:
+                go_to_i(quanto_andou_pra_frente)
             tube_park()
         if color_of_tube == "BLUE": #Escola
             go_to_i(quanto_andou_pra_frente)
@@ -298,5 +310,8 @@ def set_path():
             go_to_i(quanto_andou_pra_frente)
             tube_library()
         if color_of_tube == "RED":
-            go_to_j(quanto_andou_pra_frente)
+            if "J" not in obstaculos_lidos:
+                go_to_j(quanto_andou_pra_frente)
+            else:
+                go_to_i(quanto_andou_pra_frente)
             tube_drugstore()
