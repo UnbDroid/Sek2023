@@ -1155,7 +1155,7 @@ def tube_bakery():
     
     move_to_i_or_j()
     
-    if has_obstacle() or "I" in obstaculos_lidos: 
+    if has_obstacle() or "I" in obstaculos_lidos or ("G" in obstaculos_lidos and "D" in obstaculos_lidos): 
         if "I" not in obstaculos_lidos:
             obstaculos_lidos.append("I")
             found_wall()
@@ -1235,13 +1235,18 @@ def tube_bakery():
                 cor_vista = "RED"
                 ajust_color(cor_vista)
                 move_backward(36)
-            turn_left_pid(90)
-            middle_to_obstacle() # de frente pro D
-            
-            if has_obstacle(): 
-                found_wall()
-                alinhar_com_obstaculo()
+            if "D" not in obstaculos_lidos:
                 turn_left_pid(90)
+                middle_to_obstacle() # de frente pro D
+            
+            if has_obstacle() or "D" in obstaculos_lidos: #"D"
+                if "D" not in obstaculos_lidos:
+                    obstaculos_lidos.append("D")
+                    found_wall()
+                    alinhar_com_obstaculo()
+                    turn_left_pid(90)
+                else:
+                    turn_180()
                 move_forward(55)
                 turn_right_pid(90)
                 while not is_black_left() and not is_black_right():
@@ -1306,15 +1311,20 @@ def tube_bakery():
     else:
         not_found_wall()
         move_forward(53)
-        middle_to_obstacle()
+        if "D" not in obstaculos_lidos:
+            middle_to_obstacle()
         
-        if has_obstacle():
-            found_wall()
-            alinhar_com_obstaculo()
+        if has_obstacle() or "D" in obstaculos_lidos: #"D"
+            if "D" not in obstaculos_lidos:
+                obstaculos_lidos.append("D")
+                found_wall()
+                alinhar_com_obstaculo()
                 
             turn_left_pid(90)
             middle_to_obstacle()
             if has_obstacle():
+                if "G" not in obstaculos_lidos:
+                    obstaculos_lidos.append("G")
                 found_wall()
                 move_backward(10)
                 turn_left_pid(90)
