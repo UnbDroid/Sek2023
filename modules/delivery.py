@@ -625,9 +625,10 @@ def tube_school():
             brake_motors_para_drive_base()
             brake_motors()
             turn_right_pid(90)
-        
-        move_to_middle()
-        
+            move_to_middle()
+        else:
+            i_or_j_to_middle()
+            
         if "G" not in obstaculos_lidos:
             turn_right_pid(90)
         
@@ -769,8 +770,9 @@ def tube_museum():
             brake_motors_para_drive_base()
             brake_motors()
             turn_left_pid(90)
-        
-        move_to_middle()
+            move_to_middle()
+        else:
+            i_or_j_to_middle()
         
         if "G" not in obstaculos_lidos:
             turn_left_pid(90)
@@ -962,8 +964,9 @@ def tube_drugstore():
             brake_motors_para_drive_base()
             brake_motors()
             turn_left_pid(90)
-        
-        move_to_middle()
+            move_to_middle()
+        else:
+            i_or_j_to_middle()
         if "G" not in obstaculos_lidos:
             turn_left_pid(90)
             middle_to_obstacle()
@@ -1180,8 +1183,9 @@ def tube_bakery():
             brake_motors_para_drive_base()
             brake_motors()
             turn_right_pid(90)
-        
-        move_to_middle()
+            move_to_middle()
+        else:
+            i_or_j_to_middle()
         
         if "G" not in obstaculos_lidos:
             turn_right_pid(90)
@@ -1429,26 +1433,30 @@ def tube_park():
     
     move_to_i_or_j()
     
-    if has_obstacle(): 
-        found_wall()
-        print("Tem um objeto no J indo pro Park")
-        
-        turn_180()
-        while not is_blue_left() and not is_blue_right():
-            andar_reto(300)
-        brake_motors()
-        
-        while is_blue():
-            andar_reto(-500)
-        brake_motors()
-        turn_left_pid(90)
-        
-        j_to_i()
+    if has_obstacle() or "J" in obstaculos_vistos: 
+        if "J" not in obstaculos_vistos:
+            obstaculos_vistos.append("J")
+            found_wall()
+            print("Tem um objeto no J indo pro Park")
             
-        brake_motors_para_drive_base()
-        brake_motors()
-        turn_left_pid(90)
-        move_to_middle()
+            turn_180()
+            while not is_blue_left() and not is_blue_right():
+                andar_reto(300)
+            brake_motors()
+            
+            while is_blue():
+                andar_reto(-500)
+            brake_motors()
+            turn_left_pid(90)
+            
+            j_to_i()
+                
+            brake_motors_para_drive_base()
+            brake_motors()
+            turn_left_pid(90)
+            move_to_middle()
+        else:
+            i_or_j_to_middle()
         middle_to_obstacle()
         
         if has_obstacle(): 
