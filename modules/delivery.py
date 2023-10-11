@@ -574,8 +574,9 @@ def tube_city_hall():
             brake_motors_para_drive_base()
             brake_motors()
             turn_left_pid(90)
-
-        move_forward(40)
+            move_forward(40)
+        else:
+            move_forward(20)
         turn_left_pid(90)
         move_backward(3)
         wait(500)
@@ -604,6 +605,7 @@ def tube_city_hall():
 
     
 def tube_school():
+    global obstaculos_lidos
 
     move_to_i_or_j()
     
@@ -746,7 +748,7 @@ def tube_school():
         find_blue_line(0)
         
 def tube_museum():
-    
+    global obstaculos_lidos
     
 
     move_to_i_or_j() 
@@ -940,7 +942,7 @@ def tube_museum():
             find_blue_line(0)
                 
 def tube_drugstore():
-    
+    global obstaculos_lidos
     
 
     move_to_i_or_j()
@@ -1155,6 +1157,7 @@ def tube_drugstore():
                 find_blue_line(0)
         
 def tube_bakery():
+    global obstaculos_lidos
     
     move_to_i_or_j()
     
