@@ -47,27 +47,26 @@ def alinhar_com_obstaculo():
 def entregar_tubos():
     while not is_yellow():
         andar_reto(200)
-        print("Teste 1")
-        elif (is_black_left() and is_yellow_right()) or (is_yellow_right() and is_black_left()):
+        if (is_black_left() and is_yellow_right()) or (is_yellow_right() and is_black_left()):
             brake_motors()
-            move_backward(1,800)
+            move_backward(4,800)
             print("vou virar")
             turn_left_pid(90,360) #! Ajustar o valor
             print("Virei")
-            move_backward(1,800)
+            move_backward(3,800)
             turn_right_pid(90,360)
         elif (is_black_right() and is_yellow_left()) or (is_yellow_left() and is_black_right()):
             brake_motors()
-            move_backward(1,800)
+            move_backward(4,800)
             turn_right_pid(90,360)
-            move_backward(1,800)
+            move_backward(3,800)
             turn_left_pid(90,360)
         
-        print("Teste 2")
-        brake_motors()
-        Open()
-        move_forward(5,80)
-        # Volta
+    print("Teste 2")
+    brake_motors()
+    Open()
+    move_forward(5,80)
+    # Volta
     while not is_yellow_left() and not is_yellow_right():
         andar_reto(-300)
     brake_motors()
@@ -1431,7 +1430,7 @@ def tube_bakery():
             find_blue_line(0)
     
 def tube_park():
-    
+    global obstaculos_vistos
     
     
     move_to_i_or_j()
@@ -1582,13 +1581,17 @@ def tube_park():
         if "E" not in obstaculos_lidos:
             middle_to_obstacle()
         
-        if has_obstacle(): 
-            found_wall()
-            alinhar_com_obstaculo()
+        if has_obstacle() or "E" in obstaculos_lidos:
+            if "E" in obstaculos_lidos: 
+                found_wall()
+                alinhar_com_obstaculo()
             turn_right_pid(90)
-            middle_to_obstacle()
+            if "G" not in obstaculos_lidos:
+                middle_to_obstacle()
             
-            if has_obstacle(): 
+            if has_obstacle():
+                if "G" not in obstaculos_lidos: 
+                    obstaculos_lidos.append("G")
                 found_wall()
                 alinhar_com_obstaculo()
                 turn_right_pid(90)
