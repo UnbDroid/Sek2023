@@ -151,35 +151,13 @@ def scan_de_ladinho_papai():
 
     quanto_andou_pra_frente = 0
 
-#! Seção teste ----------------------------------------------
-    #! 
-        #! RANGES DESCOBERTOS
-    #! ESQUERDA: 4264
-    #! DIREITA: 3000
 
-    # azul = range_blue_left()[0]
-    # branco = range_white_left()[0]
-    # threshold = (azul + branco) / 2
-
-    # while not is_red_right():
-    #     erro = (red_left() - threshold) * -0.45
-    #     motors.drive(80, erro)
-    # brake_motors_para_drive_base()
-    # move_backward(2)
-    # turn_180()
-
-#! ----------------------------------------------------------
 
     branco = range_white_right()[0] 
     azul = range_blue_right()[0] 
     threshold = (branco + azul) / 2
 
-    # while not is_red_left() and red_left() >= 50:
-    #     delta = red_right() - threshold
-    #     kp = 0.5
-    #     erro = delta * kp
-    #     motors.drive(150, erro) #! VELOCIDADE ARRUMANDO
-        
+
     chegou_no_fim = False
 
     while not chegou_no_fim:
@@ -215,17 +193,6 @@ def scan_de_ladinho_papai():
     branco = range_white_left()[0]
     threshold = (azul + branco) / 2
 
-    # if quanto_andou_pra_frente != [0, 0]:
-    #     while left_motor.angle() < quanto_andou_pra_frente[0] or right_motor.angle() < quanto_andou_pra_frente[1]:
-    #         erro = (red_left() - threshold) * -0.45
-    #         if tube_is_detected():
-    #             brake_motors_para_drive_base()
-    #             brake_motors()
-    #             break
-    #         motors.drive(180, erro) #! VELOCIDADE ARRUMANDO
-    #     brake_motors_para_drive_base()
-    #     brake_motors()
-
     while True:
         erro = (red_left() - threshold) * -0.45
         motors.drive(150, erro)
@@ -253,12 +220,9 @@ def scan_de_ladinho_papai():
             brake_motors()
             deu_bom_familia()
             
-            # manobras -----------------
-            #? Teste
-            
             Close(esperar = False)
             while tube_is_detected():
-                andar_reto(-40)
+                andar_reto(-80)#50
             quanto_andou_pra_frente += (left_motor.angle() + right_motor.angle()) // 2
             brake_motors()
             move_backward(3,60)

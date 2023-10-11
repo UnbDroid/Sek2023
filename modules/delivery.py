@@ -50,21 +50,28 @@ def entregar_tubos():
             Open()
             move_forward(5,200)
             break
-        elif is_black_left() or is_yellow_right():
+        elif (is_black_left() and is_yellow_right()) or (is_yellow_right() and is_black_left()):
             brake_motors()
-            move_backward(3,800)
+            move_backward(1,800)
             print("vou virar")
             turn_left_pid(90,360) #! Ajustar o valor
             print("Virei")
-            move_backward(3,800)
+            move_backward(1,800)
             turn_right_pid(90,360)
-        elif is_black_right or  is_yellow_left():
+        elif (is_black_right() and is_yellow_left()) or (is_yellow_left() and is_black_right()):
             brake_motors()
-            move_backward(3,800)
+            move_backward(1,800)
             turn_right_pid(90,360)
-            move_backward(3,800)
-            turn_left_pid(70,360)
+            move_backward(1,800)
+            turn_left_pid(90,360)
+        
+        # Volta
+    while not is_yellow():
+        andar_reto(-500)
+    brake_motors
+    ajust_color("YELLOW")    
     
+    move_backward(5)
 #! Localizações ----------------------------------------------------
 
 #* Essas funções são sobre, ir do checkpoint e caminhar até o obstáculo
@@ -1088,14 +1095,16 @@ def tube_drugstore():
                 ajust_color(cor_vista)
                 move_backward(7)
                 turn_right_pid(90)
-                move_forward(34)
+                move_forward(31)
                 turn_right_pid(90)
-                move_backward(3)
-                wait(500)
-                move_forward(3)
                 
-                entregar_tubos()
-                move_backward(20)
+                
+                # move_backward(3)
+                # wait(500)
+                # move_forward(3)
+                
+                entregar_tubos()#!
+                # move_backward(20)
                 turn_right_pid(90)
                 
                 while not has_obstacle() and not is_red_left() and not is_red_right():
