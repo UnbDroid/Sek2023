@@ -32,16 +32,9 @@ from pybricks.hubs import EV3Brick
 #* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -------------------------------------------------------------------------------------
 
 find_blue_line(0)
-
 while True:
-    
     align_to_be_ladinho()
-    
-
     scan_de_ladinho_papai()
-
-    
-
     set_path()
 
 # ---------------------------------------------------------
@@ -194,10 +187,10 @@ while True:
 
 # Ajustar o ajust color ------------------------------------------------------------------------
 
-# while not is_black_left() and not is_black_right():
+# while not is_yellow_left() and not is_yellow_right():
 #     andar_reto(500)
     
-# cor_vista = "BLACK"
+# cor_vista = "YELLOW"
 # brake_motors()
 # ajust_color(cor_vista)
 # move_backward(10)

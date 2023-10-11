@@ -4,27 +4,27 @@ from modules.colors import *
 #! Range das cores 
 def range_black_left():
     # return [8, 9, 5] #! RANGES DA ARENA OFICIAL
-    return [7, 9, 9]
+    return [8, 9, 10]
 
 def range_black_right():
     # return [11, 10, 36] #! RANGES DA ARENA OFICIAL
-    return [13, 14, 33]
+    return [15, 14, 38]
 
 def range_yellow_left():
     # return [56, 66, 17] #! RANGES DA ARENA OFICIAL
-    return [54, 65, 14]
+    return [53, 62, 110]
 
 def range_yellow_right():
     # return [72, 75, 45] #! RANGES DA ARENA OFICIAL
-    return [81, 81, 55]
+    return [73, 72, 30]
 
 def range_blue_left():
     # return [13, 17, 40] #! RANGES DA ARENA OFICIAL
-    return [9, 15, 36]
+    return [7, 14, 35]
 
 def range_blue_right():
     # return [20, 22, 100] #! RANGES DA ARENA OFICIAL
-    return [17, 22, 100]
+    return [12, 20, 100]
 
 def range_meio_blue_left():
     return [(range_white_left()[0] + range_blue_left()[0])//2, (range_white_left()[1] + range_blue_left()[1])//2, (range_white_left()[2] + range_blue_left()[2])//2]
@@ -34,19 +34,19 @@ def range_meio_blue_right():
 
 def range_red_left():
     # return [69, 9, 11] #! RANGES DA ARENA OFICIAL
-    return [65, 8, 9]
+    return [68, 7, 5]
 
 def range_red_right():
     # return [87, 16, 47] #! RANGES DA ARENA OFICIAL
-    return [92, 18, 45]
+    return [87, 11, 30]
 
 def range_white_left():
     # return [68, 83, 100] #! RANGES DA ARENA OFICIAL
-    return [67, 82, 98]
+    return [67, 82, 100]
 
 def range_white_right():
     # return [82, 89, 100] #! RANGES DA ARENA OFICIAL
-    return [92, 97, 100]
+    return [88, 94, 100]
 
 def get_dar_pra_tras(value):
     return value
@@ -107,7 +107,7 @@ def get_treshold_left(pos,color,white = range_white_left()):
         color_formula = color[0]
 
         treshold = (color_formula + color_white_formula)//2
-        return [treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9]
+        return [treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8]
     
     elif pos == "green":
         
@@ -115,7 +115,7 @@ def get_treshold_left(pos,color,white = range_white_left()):
         color_formula = color[1]
         
         treshold = ( color_formula + color_white_formula )//2
-        return [treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9]
+        return [treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8]
     
     elif pos == "blue":
         
@@ -123,7 +123,7 @@ def get_treshold_left(pos,color,white = range_white_left()):
         color_formula = color[2]
         
         treshold = ( color_formula + color_white_formula )//2
-        return [treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9]
+        return [treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8]
     
 
 def get_treshold_right(pos,color,white = range_white_right()):
@@ -133,15 +133,15 @@ def get_treshold_right(pos,color,white = range_white_right()):
         color_formula = color[0]
 
         treshold = (color_formula + color_white_formula)//2
-        return [treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9]
-    #[treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9]
+        return [treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8]
+    #[treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8]
     elif pos == "green":
         
         color_white_formula = white[1]
         color_formula = color[1]
         
         treshold = ( color_formula + color_white_formula )//2
-        return [treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9]
+        return [treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8]
     
     elif pos == "blue":
         
@@ -149,4 +149,4 @@ def get_treshold_right(pos,color,white = range_white_right()):
         color_formula = color[2]
         
         treshold = ( color_formula + color_white_formula )//2
-        return [treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9]
+        return [treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8]

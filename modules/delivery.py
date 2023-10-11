@@ -45,13 +45,9 @@ def alinhar_com_obstaculo():
     brake_motors()
     
 def entregar_tubos():
-    while True:
-        andar_reto(300)
-        if is_yellow():
-            brake_motors()
-            Open()
-            move_forward(5,200)
-            break
+    while not is_yellow():
+        andar_reto(200)
+        print("Teste 1")
         elif (is_black_left() and is_yellow_right()) or (is_yellow_right() and is_black_left()):
             brake_motors()
             move_backward(1,800)
@@ -67,10 +63,14 @@ def entregar_tubos():
             move_backward(1,800)
             turn_left_pid(90,360)
         
+        print("Teste 2")
+        brake_motors()
+        Open()
+        move_forward(5,80)
         # Volta
-    while not is_yellow():
-        andar_reto(-500)
-    brake_motors
+    while not is_yellow_left() and not is_yellow_right():
+        andar_reto(-300)
+    brake_motors()
     ajust_color("YELLOW")    
     
     move_backward(5)
@@ -1460,14 +1460,17 @@ def tube_park():
             move_to_middle()
         else:
             i_or_j_to_middle()
-        middle_to_obstacle()
         
-        if has_obstacle(): 
-            print("Tem objeto no D")
-            found_wall()
-            alinhar_com_obstaculo()
+        if "D" not in obstaculos_lidos:
+            middle_to_obstacle()
+        
+        if has_obstacle() or "D" in obstaculos_lidos:
+            if "D" not in obstaculos_lidos:
+                obstaculos_lidos.append("D") 
+                print("Tem objeto no D")
+                found_wall()
+                alinhar_com_obstaculo()
             turn_left_pid(90)
-            
             # Distancia até o meio e virar pro Obstáculo E
             move_forward(53)
             
@@ -1576,7 +1579,8 @@ def tube_park():
         not_found_wall()
         i_or_j_to_middle()
         wait(1000)
-        middle_to_obstacle()
+        if "E" not in obstaculos_lidos:
+            middle_to_obstacle()
         
         if has_obstacle(): 
             found_wall()
