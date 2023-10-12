@@ -3,8 +3,8 @@ from pybricks.parameters import Port
 
 from modules.variables import *
 
-color_sensor_floor_left = ColorSensor(Port.S2)
-color_sensor_floor_right = ColorSensor(Port.S1)
+color_sensor_floor_left = ColorSensor(Port.S1)
+color_sensor_floor_right = ColorSensor(Port.S2)
 # color_sensor_floor_aux = ColorSensor(Port.S4) #!!!!!!!!!!!!
 
 cor_vista = ""
@@ -29,14 +29,6 @@ def green_right():
 def blue_right():
     return color_sensor_floor_right.rgb()[2]
 
-# def red_aux():
-#     return color_sensor_floor_aux.rgb()[0]
-
-# def green_aux():
-#     return color_sensor_floor_aux.rgb()[1]
-
-# def blue_aux():
-#     return color_sensor_floor_aux.rgb()[2]
 
 # Atomação thamires.13 ------------------------------------------------------------------
 

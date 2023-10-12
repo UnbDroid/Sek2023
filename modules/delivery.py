@@ -77,7 +77,7 @@ def entregar_tubos():
 # ! teste de entregar tubos HILARIO E BIANCA (INSPIRED BY MEXICANS)
 
 def reposition():
-    break_motors()
+    brake_motors()
     left = True
     right = True
     count_l = 0
@@ -86,7 +86,7 @@ def reposition():
     while is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
         move_backward(1)
         
-    break_motors()
+    brake_motors()
     while not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
         andar_reto(100)
         #print("COUNT LL ", count_l, "    COUNT RRR   ", count_r)
@@ -121,7 +121,7 @@ def reposition():
         if right and left:
             move_forward(100)
         if not right and not left:
-            break_motors()
+            brake_motors()
             #print("PORRAAAAAA")
             return 0
 
@@ -135,30 +135,31 @@ def entregar_tubos2():
             brake_motors()
             move_backward(6,800)
             print("vou virar")
-            turn_right_pid(20,360) #! Ajustar o valor
+            motors.turn(20)  #! Ajustar o valor
             print("Virei")
             while not is_black_right() and not is_yellow_right():
                 andar_reto(200)
-            break_motors()
+            brake_motors()
             reposition()
         elif is_black_right() and is_yellow_left():
             brake_motors()
             move_backward(6,800)
-            turn_left_pid(20,360) #! Ajustar o valor
+            motors.turn(-20)
             print("Virei")
             while not is_black_left() and not is_yellow_left():
                 andar_reto(200)
-            break_motors()
-            reposition()        
+            brake_motors()
+            reposition()
     print("Teste 2")
     brake_motors()
-    Open()
+    # Open()
     move_forward(5,80)
     # Volta
     while not is_yellow_left() and not is_yellow_right():
         andar_reto(-300)
     brake_motors()
-    ajust_color("YELLOW")
+    reposition()   
+    
     move_backward(5)
     
 #! Localizações ----------------------------------------------------
@@ -166,7 +167,7 @@ def entregar_tubos2():
 #* Essas funções são sobre, ir do checkpoint e caminhar até o obstáculo
 
 def go_to_i(angulo_que_ja_andou, velocidade = 200): #! 35 CM
-    move_forward(3,250)
+    move_forward(7,250) #FAZER
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2
@@ -198,7 +199,7 @@ def go_to_i(angulo_que_ja_andou, velocidade = 200): #! 35 CM
         turn_left_pid(90)
 
 def go_to_j(angulo_que_ja_andou, velocidade = 200): #! 95 CM
-    move_forward(3,250)
+    move_forward(7,250) #FAZER
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2 

@@ -20,7 +20,7 @@ mbox = TextMailbox('greeting', server)
 
 # The server must be started before the client!
 
-ev3.speaker.beep(444, 1000)
+ev3.speaker.beep(100, 1000)
 print('waiting for connection...')
 server.wait_for_connection()
 print('connected!')
@@ -145,6 +145,7 @@ def scan():
 
 
 def scan_de_ladinho_papai(): 
+    
     global color_of_tube
     global size_of_tube
     global quanto_andou_pra_frente
@@ -194,11 +195,8 @@ def scan_de_ladinho_papai():
     threshold = (azul +5+ branco) / 2 #!*&
 
     while True:
-        erro = (red_left() - threshold) * -0.75
-        if left_motor.angle() < 2500 or right_motor.angle() < 2500:
-            motors.drive(500, erro)
-        else:
-            motors.drive(150, erro)
+        erro = (red_left() - threshold) * -0.45
+        motors.drive(260, erro)
         if is_red_right():
             brake_motors_para_drive_base()
             move_backward(4)
@@ -228,7 +226,7 @@ def scan_de_ladinho_papai():
                 andar_reto(-80)#50
             quanto_andou_pra_frente += (left_motor.angle() + right_motor.angle()) // 2
             brake_motors()
-            move_backward(3,60)
+            move_backward(7,60) #FAZER : TESTE, caldinho talvez vc tenha que subtrair esses 3 cm pai :D
             
             Open(esperar=False, time = 600)
             turn_left_pid(90)

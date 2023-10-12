@@ -12,6 +12,7 @@ from modules.beeps import *
 
 left_motor = Motor(Port.C) 
 right_motor = Motor(Port.D)
+claw_limited = Motor(Port.B)
 
 cronometer = StopWatch()
 
@@ -19,7 +20,7 @@ estabilizou = False
 motors = DriveBase(left_motor, right_motor, 42.1, 150) # 150.88
 
 #! MUDAR LOGO APÓS LIGAR O ROBÔ
-axle_track = 1248 #? 1244
+axle_track = 1248 #? 1248
 
 # CONTROLE -----------------------------------------------------------------------------------------------
 
@@ -114,56 +115,45 @@ def move_backward(distancia, vel=500):
     brake_motors()
 
 
+def block(quantidade = 500,time = 500, block = True):
+    if block == True:
+        claw_limited.run_angle(time, quantidade )
+        claw_limited.hold()
+    elif block == False:
+        claw_limited.run_angle(time, -quantidade)
+        claw_limited.hold()
 
 
-def turn_left(angle):
-    kp_left = 0.87 # Crecendo vai pra direita Diminuindo vai pra esquerda 0.953
-    ki_left = 0 #0.001 #0.00006 #sempre olhar isso
-    kp_right = 0.98 # Crecendo vai mais Diminuindo vai menos
-    ki_right = 0 #sempre olhar isso
-    # wait(500)
-    set_point = 784*(angle/360)
-    set_point = round(set_point)
-    
-    current_angle_left = left_motor.angle()
-    current_angle_right = right_motor.angle()
-    current_angle_left  += calculate_pid(kp_left, ki_left, set_point, current_angle_left)
-    current_angle_right  += calculate_pid(kp_right, ki_right, set_point, current_angle_right)
-    
-    left_motor.run_angle(200, -current_angle_left  - (set_point - left_motor.angle())*0.1, wait=False)
-    right_motor.run_angle(200, current_angle_right  + (set_point - right_motor.angle())*0.1, wait=True)
-    #print(" motor left :",left_motor.angle())
-    #regular sempre
-    print("difference", abs(set_point - left_motor.angle()))
-    #print(set_point)
-    # print(current_angle)
-    print("leftou")
+# def turn_left(angle, vel=360):
 
 
 
-def turn_right(angle): #check
-    kp_left = 0.94 
-    ki_left = 0 
-    kp_right = 0.89 
-    ki_right = 0.001
-    # wait(500)
-    set_point = 784*(angle/360)
-    set_point = round(set_point)
-    
-    current_angle_left = left_motor.angle()
-    current_angle_right = right_motor.angle()
-    current_angle_left  += calculate_pid(kp_left, ki_left, set_point, current_angle_left)
-    current_angle_right  += calculate_pid(kp_right, ki_right, set_point, current_angle_right)
-    
-    left_motor.run_angle(200, current_angle_left  + (set_point - right_motor.angle())*0.1, wait=False)
-    right_motor.run_angle(200, -current_angle_right  -(set_point - right_motor.angle())*0.1, wait=True)
-    #print(" motor left :",left_motor.angle())
-    #regular sempre
-    #print("difference", abs(set_point - left_motor.angle()))
-    #print("rightou")
-    stop()
+# def turn_right(angle, vel=360): #check
 
 def turn_left_pid(x, vel=360):  
+    # global axle_track
+    # kp_left = 0.87 # Crecendo vai pra direita Diminuindo vai pra esquerda 0.953
+    # ki_left = 0 #0.001 #0.00006 #sempre olhar isso
+    # kp_right = 0.98 # Crecendo vai mais Diminuindo vai menos
+    # ki_right = 0 #sempre olhar isso
+    # # wait(500)
+    # set_point = axle_track*(x/360)
+    # set_point = round(set_point)
+    
+    # current_angle_left = left_motor.angle()
+    # current_angle_right = right_motor.angle()
+    # current_angle_left  += calcule(kp_left, ki_left, set_point, current_angle_left)
+    # current_angle_right  += calcule(kp_right, ki_right, set_point, current_angle_right)
+    
+    # left_motor.run_angle(vel, -current_angle_left  - (set_point - left_motor.angle())*0.1, wait=False)
+    # right_motor.run_angle(vel, current_angle_right  + (set_point - right_motor.angle())*0.1, wait=True)
+    # #print(" motor left :",left_motor.angle())
+    # #regular sempre
+    # print("difference", abs(set_point - left_motor.angle()))
+    # #print(set_point)
+    # # print(current_angle)
+    # print("leftou")
+    
     global axle_track
     kp = 1.006 #1.0458
     ki = 0.0000000001 # 0.0156
@@ -180,8 +170,31 @@ def turn_left_pid(x, vel=360):
         right_motor.run_angle(vel, current_angle, wait = True)
         
     brake_motors()
+    #784
     
-def turn_right_pid(x, vel=360): #360
+def turn_right_pid(x, vel=290): #360
+    # global axle_track
+    # kp_left = 1.20
+    # ki_left = 0 
+    # kp_right = 1
+    # ki_right = 0 # 0.001
+    # # wait(500)
+    # set_point = axle_track*(x/360)
+    # set_point = round(set_point)
+    
+    # current_angle_left = left_motor.angle()
+    # current_angle_right = right_motor.angle()
+    # current_angle_left  += calcule(kp_left, ki_left, set_point, current_angle_left)
+    # current_angle_right  += calcule(kp_right, ki_right, set_point, current_angle_right)
+    
+    # left_motor.run_angle(vel, current_angle_left  + (set_point - right_motor.angle())*0.1, wait=False)
+    # right_motor.run_angle(vel, -current_angle_right  -(set_point - right_motor.angle())*0.1, wait=True)
+    # #print(" motor left :",left_motor.angle())
+    # #regular sempre
+    # #print("difference", abs(set_point - left_motor.angle()))
+    # #print("rightou")
+    # brake_motors()
+    
     global axle_track  
     kp = 1.006 #1.0458
     ki = 0.0000000001 # 0.0156
@@ -207,19 +220,18 @@ def turn_180(vel = 360):
     global axle_track
     kp = 1.006 #1.0458
     ki = 0.0000000001 # 0.0156
-    setpoint = axle_track/2
+    setpoint = axle_track/2 #! CUIDADO
+      
     setpoint = round(setpoint)
-      
-      
+    
     brake_motors()
-      
-    while not abs(calculate_error(setpoint)) < 176:
-        current_angle = left_motor.angle()
+    
+    while not (abs(calculate_error_right(setpoint)) < 177):
+        current_angle = right_motor.angle()
         current_angle += calcule(current_angle, setpoint, kp, ki)
+        left_motor.run_angle(vel, -current_angle, wait = False)
+        right_motor.run_angle(vel, current_angle, wait = True)
         
-        left_motor.run_angle(vel, current_angle, wait = False)
-        right_motor.run_angle(vel, -current_angle, wait = True)
-            
     brake_motors()
 
 
