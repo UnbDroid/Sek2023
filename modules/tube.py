@@ -46,16 +46,16 @@ def alinhar_azul():
 #         return False
     
 def red_tube():
-    return [26, 5, 4]
+    return [24, 2, 3]
 
 def blue_tube():
-    return [55, 68, 76]
+    return [7, 30, 58]
 
 def green_tube():
-    return [49, 76, 57]
+    return [6, 45, 26]
 
 def brown_tube():
-    return [47, 27, 19]
+    return [5, 6, 4]
     
 def color_tube():
     if tube_presence_verificator.rgb()[0] >= (red_tube()[0] - 15) and tube_presence_verificator.rgb()[0] <= (red_tube()[0] + 15) and tube_presence_verificator.rgb()[1] >= (red_tube()[1] - 15) and tube_presence_verificator.rgb()[1] <= (red_tube()[1] + 15) and tube_presence_verificator.rgb()[2] >= (red_tube()[2] - 15) and tube_presence_verificator.rgb()[2] <= (red_tube()[2] + 15):
