@@ -1,4 +1,4 @@
-from pybricks.nxtdevices import ColorSensor                                
+from pybricks.ev3devices import ColorSensor                                
 from pybricks.parameters import Port, Color
 from pybricks.ev3devices import UltrasonicSensor
 
@@ -46,7 +46,7 @@ def alinhar_azul():
 #         return False
     
 def red_tube():
-    return [85, 21, 20]
+    return [26, 5, 4]
 
 def blue_tube():
     return [55, 68, 76]

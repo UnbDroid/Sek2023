@@ -60,7 +60,7 @@ while True:
     
 # while True:
 #     print(color_tube())
-# while True:
+# # while True:
 #     print(scan_de_ladinho())
 
 # while True:
