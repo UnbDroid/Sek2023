@@ -19,7 +19,7 @@ estabilizou = False
 motors = DriveBase(left_motor, right_motor, 42.1, 150) # 150.88
 
 #! MUDAR LOGO APÓS LIGAR O ROBÔ
-axle_track = 1240 #? 1244
+axle_track = 1248 #? 1244
 
 # CONTROLE -----------------------------------------------------------------------------------------------
 
@@ -89,7 +89,7 @@ def brake_motors_para_drive_base():
     right_motor.reset_angle(0)
 
 
-def move_forward(distancia, vel=800):
+def move_forward(distancia, vel=500):
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     motors.stop()
@@ -102,7 +102,7 @@ def move_forward(distancia, vel=800):
  
 
     
-def move_backward(distancia, vel=800):
+def move_backward(distancia, vel=500):
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
     motors.stop()
@@ -117,8 +117,8 @@ def move_backward(distancia, vel=800):
             
 def turn_left_pid(x, vel=360):  
     global axle_track
-    kp = 1.0
-    ki = 0.0156
+    kp = 1.006 #1.0458
+    ki = 0.0000000001 # 0.0156
     setpoint = axle_track * (x / 360) #! CUIDADO
       
     setpoint = round(setpoint)
@@ -135,8 +135,8 @@ def turn_left_pid(x, vel=360):
     
 def turn_right_pid(x, vel=360): #360
     global axle_track  
-    kp = 1.0
-    ki = 0.0156
+    kp = 1.006 #1.0458
+    ki = 0.0000000001 # 0.0156
     setpoint = axle_track * (x / 360) #! CUIDADO
     
     print(setpoint)
@@ -157,8 +157,8 @@ def turn_right_pid(x, vel=360): #360
     
 def turn_180(vel = 360):
     global axle_track
-    kp = 1.0
-    ki = 0.0156
+    kp = 1.006 #1.0458
+    ki = 0.0000000001 # 0.0156
     setpoint = axle_track/2
     setpoint = round(setpoint)
       

@@ -49,7 +49,7 @@ def entregar_tubos():
         andar_reto(200)
         if (is_black_left() and is_yellow_right()) or (is_yellow_right() and is_black_left()):
             brake_motors()
-            move_backward(4,800)
+            move_backward(6,800)
             print("vou virar")
             turn_left_pid(90,360) #! Ajustar o valor
             print("Virei")
@@ -57,7 +57,7 @@ def entregar_tubos():
             turn_right_pid(90,360)
         elif (is_black_right() and is_yellow_left()) or (is_yellow_left() and is_black_right()):
             brake_motors()
-            move_backward(4,800)
+            move_backward(6,800)
             turn_right_pid(90,360)
             move_backward(3,800)
             turn_left_pid(90,360)
@@ -82,10 +82,13 @@ def go_to_i(angulo_que_ja_andou, velocidade = 200): #! 35 CM
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2
+    if (cm_to_angle(35) - angulo_que_ja_andou) < 400 and (cm_to_angle(35) - angulo_que_ja_andou) > -400:
+        move_backward(13)
+        angulo_que_ja_andou -= cm_to_angle(13)
     if (cm_to_angle(35) - angulo_que_ja_andou) > 0:
         while left_motor.angle() < (cm_to_angle(35) - angulo_que_ja_andou) and right_motor.angle() < (cm_to_angle(35) - angulo_que_ja_andou):
             delta = red_left() - threshold
-            kp = -0.5
+            kp = -0.75
             erro = delta * kp
             if (cm_to_angle(35) - angulo_que_ja_andou) < 400 and (cm_to_angle(35) - angulo_que_ja_andou) > -400:
                 velocidade = 100
@@ -97,7 +100,7 @@ def go_to_i(angulo_que_ja_andou, velocidade = 200): #! 35 CM
         turn_180()
         while left_motor.angle() < -(cm_to_angle(35) - angulo_que_ja_andou) and right_motor.angle() < -(cm_to_angle(35) - angulo_que_ja_andou):
             delta = threshold - red_right()
-            kp = -0.5
+            kp = -0.75
             erro = delta * kp
             if (cm_to_angle(35) - angulo_que_ja_andou) < 400 and (cm_to_angle(35) - angulo_que_ja_andou) > -400:
                 velocidade = 100
@@ -111,10 +114,13 @@ def go_to_j(angulo_que_ja_andou, velocidade = 200): #! 95 CM
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2 
+    if (cm_to_angle(95) - angulo_que_ja_andou) < 400 and (cm_to_angle(95) - angulo_que_ja_andou) > -400:
+        move_backward(13)
+        angulo_que_ja_andou -= cm_to_angle(13)
     if (cm_to_angle(95) - angulo_que_ja_andou) > 0:
         while left_motor.angle() < (cm_to_angle(95) - angulo_que_ja_andou) and right_motor.angle() < (cm_to_angle(95) - angulo_que_ja_andou):
             delta = red_left() - threshold
-            kp = -0.5
+            kp = -0.75
             erro = delta * kp
             if (cm_to_angle(95) - angulo_que_ja_andou) < 400 and (cm_to_angle(95) - angulo_que_ja_andou) > -400:
                 velocidade = 100
@@ -125,7 +131,7 @@ def go_to_j(angulo_que_ja_andou, velocidade = 200): #! 95 CM
         turn_180()
         while left_motor.angle() < -(cm_to_angle(95) - angulo_que_ja_andou) and right_motor.angle() < -(cm_to_angle(95) - angulo_que_ja_andou):
             delta = red_right() - threshold
-            kp = 0.5
+            kp = 0.75
             erro = delta * kp
             if (cm_to_angle(95) - angulo_que_ja_andou) < 400 and (cm_to_angle(95) - angulo_que_ja_andou) > -400:
                 velocidade = 100
@@ -475,8 +481,10 @@ def find_blue_line(numero_de_paredes):
                 ajust_color(cor_vista) 
             print("Achou parede")
             print("Voltando...")
+            move_forward(1,100)
             if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
                 brake_motors()
+                move_backward(1,100)
                 while left_motor.angle() > (-time_forward[0] + 10) or right_motor.angle() > (-time_forward[1] + 10):
                     andar_reto(-500)
                 brake_motors()
@@ -530,7 +538,7 @@ def tube_library():
     brake_motors_para_drive_base()
     brake_motors()
     
-    move_backward(7)
+    move_backward(8)
     turn_right_pid(90)
     
     move_forward(5)
@@ -542,10 +550,11 @@ def tube_library():
         turn_left_pid(90)
         move_backward(13)
         turn_left_pid(90)
+        find_blue_line(0)
         
     if dar_pra_tras == False:
         turn_180()
-        
+        find_blue_line(0)
         
     
 def tube_city_hall():
@@ -578,8 +587,7 @@ def tube_city_hall():
             move_forward(20)
         turn_left_pid(90)
         move_backward(3)
-        wait(500)
-        move_forward(3)
+        
         
         entregar_tubos()
         turn_left_pid(90)
@@ -591,8 +599,8 @@ def tube_city_hall():
         move_forward(20)
         turn_right_pid(90)
         move_backward(3)
-        wait(500)
-        move_forward(3)
+        # wait(500)
+        # move_forward(3)
         
         entregar_tubos()
         
@@ -675,9 +683,7 @@ def tube_school():
             move_backward(7)
             turn_right_pid(90)
             move_backward(3)
-            wait(500)
-            move_forward(3)
-            
+
             entregar_tubos()
             turn_right_pid(90)
             
@@ -713,8 +719,6 @@ def tube_school():
             move_backward(7)
             turn_right_pid(90)
             move_backward(3)
-            wait(500)
-            move_forward(3)
             
             entregar_tubos()
             
@@ -739,8 +743,7 @@ def tube_school():
         move_forward(21)
         turn_right_pid(90)
         move_backward(3)
-        wait(500)
-        move_forward(3)
+
         
         entregar_tubos()
         turn_right_pid(90)
@@ -803,8 +806,7 @@ def tube_museum():
             move_forward(32.5)
             turn_right_pid(90)
             move_backward(3)
-            wait(500)
-            move_forward(3)
+
             
             entregar_tubos()
             turn_right_pid(90)
@@ -903,8 +905,7 @@ def tube_museum():
             move_forward(30)
             turn_left_pid(90)
             move_backward(3)
-            wait(500)
-            move_forward(3)
+
             
             entregar_tubos()
             #abre e retorna
@@ -926,8 +927,7 @@ def tube_museum():
             
             turn_right_pid(90)
             move_backward(3)
-            wait(500)
-            move_forward(3)
+           
             
             entregar_tubos()
             turn_left_pid(90)
@@ -994,7 +994,6 @@ def tube_drugstore():
             turn_left_pid(90)
             move_backward(3)
             
-            move_forward(3)
             entregar_tubos()
             
             turn_left_pid(90)
@@ -1012,8 +1011,7 @@ def tube_drugstore():
             move_forward(18)
             turn_right_pid(90)
             move_backward(3)
-            wait(500)
-            move_forward(3)
+
             
             entregar_tubos()
             
@@ -1075,10 +1073,7 @@ def tube_drugstore():
                 turn_left_pid(90)
                 move_forward(28)
                 turn_left_pid(90)
-                move_backward(3)
-                #wait(500)
-                #move_forward(3)
-                
+                move_backward(3)                
                 entregar_tubos()
                 
                 turn_left_pid(90)
@@ -1104,10 +1099,7 @@ def tube_drugstore():
                 turn_right_pid(90)
                 
                 
-                # move_backward(3)
-                # wait(500)
-                # move_forward(3)
-                
+
                 entregar_tubos()#!
                 # move_backward(20)
                 turn_right_pid(90)
@@ -1132,8 +1124,7 @@ def tube_drugstore():
             move_forward(20)
             turn_left_pid(90)
             move_backward(3)
-            wait(500)
-            move_forward(3)
+
             
             entregar_tubos()
             
@@ -1214,9 +1205,7 @@ def tube_bakery():
             move_backward(7)
             turn_right_pid(90)
             move_backward(3)
-            wait(500)
-            move_forward(3)
-            
+
             entregar_tubos()
             turn_right_pid(90)
             while not is_red_left() and not is_red_right():
@@ -1422,22 +1411,21 @@ def tube_bakery():
             move_forward(20) 
             turn_right_pid(90)
             move_backward(3)
-            wait(500)
-            move_forward(3)
+
             
             entregar_tubos()
             turn_right_pid(90)
             find_blue_line(0)
     
 def tube_park():
-    global obstaculos_vistos
+    global obstaculos_lidos
     
     
     move_to_i_or_j()
     
-    if has_obstacle() or "J" in obstaculos_vistos: 
-        if "J" not in obstaculos_vistos:
-            obstaculos_vistos.append("J")
+    if has_obstacle() or "J" in obstaculos_lidos: 
+        if "J" not in obstaculos_lidos:
+            obstaculos_lidos.append("J")
             found_wall()
             print("Tem um objeto no J indo pro Park")
             
@@ -1487,8 +1475,7 @@ def tube_park():
             move_forward(32.5)
             turn_left_pid(90)
             move_backward(3)
-            wait(500)
-            move_forward(3)
+
             
             entregar_tubos()
             move_backward(13)
@@ -1677,8 +1664,7 @@ def tube_park():
                     
                     turn_left_pid(90)
                     move_backward(3)
-                    wait(500)
-                    move_forward(3)
+                   
                     
                     entregar_tubos()
                     turn_right_pid(90)

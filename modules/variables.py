@@ -12,11 +12,11 @@ def range_black_right():
 
 def range_yellow_left():
     # return [56, 66, 17] #! RANGES DA ARENA OFICIAL
-    return [54, 72, 14]
+    return [55, 63, 11]
 
 def range_yellow_right():
     # return [72, 75, 45] #! RANGES DA ARENA OFICIAL
-    return [78, 79, 50]
+    return [75, 75, 37]
 
 def range_blue_left():
     # return [13, 17, 40] #! RANGES DA ARENA OFICIAL
@@ -157,5 +157,5 @@ def get_treshold_right(pos,color,white = range_white_right(),teste = False):
             #!?##*
             return [treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9]
         elif teste == True :
-            return [treshold-12,treshold-11,treshold-10,treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9,treshold+10,treshold+11,treshold+12]
+            return [treshold-15,treshold-14,treshold-13,treshold-12,treshold-11,treshold-10,treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9,treshold+10,treshold+11,treshold+12,treshold+13,treshold+14,treshold+15]
 

@@ -135,11 +135,13 @@ while True:
 
 
 # Testar curvas PID ----------------------------------------------------------------------------
+
 # i = 0
-# while i < 6:
-#     turn_left_pid(90)
+# while i < 8 :
+#     turn_right_pid(90)
 #     wait(500)
 #     i+=1
+# move_forward(5)
 
 #-----------------------------------------------------------------------------------------------
 
@@ -178,7 +180,8 @@ while True:
 # Ajustar andar reto ---------------------------------------------------------------------------
 
 # while not is_red_left() and not is_red_right():
-#     andar_reto(500)
+#     andar_reto(-500)
+# brake_motors()
 # wait(3000)
 # move_backward(100)
 # move_forward(100)
