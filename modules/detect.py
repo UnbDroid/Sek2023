@@ -21,7 +21,7 @@ def has_obstacle():
         return False
     
 def tube_is_detected():
-    if tube_sensor.distance() <= 7: 
+    if tube_sensor.distance() <= 12: 
         return True
     else:
         return False
