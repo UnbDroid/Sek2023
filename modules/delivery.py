@@ -88,44 +88,38 @@ def reposition():
         
     brake_motors()
     while not is_black_left() and not is_black_right() and not is_yellow_left() and not is_yellow_right():
-        andar_reto(100)
         #print("COUNT LL ", count_l, "    COUNT RRR   ", count_r)
         if left and not right :
             count_l += 1
         if right and not left :
             count_r += 1
-        print("SHIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIT")
-        if (is_black_left() or is_yellow_left()) and left:
-            left_motor.hold()
-            left_motor.stop()
-            right_motor.run(60)
-            print(1)
-            left_motor.run(-3)
+        if (not is_white_left()) and left:
+            while is_white_right():
+                left_motor.hold()
+                left_motor.stop()
+                right_motor.run(60)
+                left_motor.run(-3)
             left = False
-        if (is_black_right() or is_yellow_right()) and right:
-            right_motor.hold()
-            right_motor.stop()
-            print(2)
-            left_motor.run(60)
-            right_motor.run(-3)
+            brake_motors()
+            break
+        if (not is_white_right()) and right:
+            while is_white_left():
+                right_motor.hold()
+                right_motor.stop()
+                left_motor.run(60)
+                right_motor.run(-3)
             right = False
-        # if count_l >= 100 or count_r >= 100:
-        #     right = False
-        #     left = False
-        #     for i in range(count_l):
-        #         right_motor.run(1)
-        #         left_motor.run(-60)
-        #     for i in range( count_r):
-        #         right_motor.run(-60)
-        #         left_motor.run(1)
-        #         move_backward_cm(8)
-        #         reposition()
+            brake_motors()
+            break
+
         if right and left:
-            move_forward(100)
+            andar_reto(100)
         if not right and not left:
             brake_motors()
             #print("PORRAAAAAA")
+            
             return 0
+        
 
 
 
@@ -162,9 +156,10 @@ def entregar_tubos2():
     while not is_yellow_left() and not is_yellow_right():
         andar_reto(-300)
     brake_motors()
-    reposition()   
+    ajust_color("YELLOW")  
     
-    move_backward(5)
+    move_backward(5)   
+
     
 #! Localizações ----------------------------------------------------
 
@@ -292,6 +287,7 @@ def find_blue_line(numero_de_paredes):
     esquerda_direita = ["ESQUERDA", 1]
     if numero_de_paredes == 0:
         se_alinhou = False
+        vai_se_alinhar = False
     if numero_de_paredes < 4:
         brake_motors()
         
@@ -579,13 +575,15 @@ def find_blue_line(numero_de_paredes):
             move_forward(1,100)
             if is_black_left() or is_black_right() or is_yellow_left() or is_yellow_right():
                 brake_motors()
+                if ((is_black_left() or is_yellow_left()) and is_white_right()) or (is_white_left() and (is_black_right() or is_yellow_right())):
+                    vai_se_alinhar = True
                 move_backward(1,100)
                 while left_motor.angle() > (-time_forward[0] + 10) or right_motor.angle() > (-time_forward[1] + 10):
                     andar_reto(-500)
                 brake_motors()
-                if se_alinhou == False:
+                if se_alinhou == False and vai_se_alinhar == True:
                     turn_left_pid(45)
-                    se_alinhou = True
+                se_alinhou = True
             elif has_obstacle():
                 found_wall()
                 alinhar_com_obstaculo()

@@ -70,6 +70,15 @@ range_min_meio_blue_left = get_range_colors(range_meio_blue_left(), 'min')
 range_max_meio_blue_right = get_range_colors(range_meio_blue_right(), 'max')
 range_min_meio_blue_right = get_range_colors(range_meio_blue_right(), 'min')
 
+
+
+range_max_white_left = get_range_colors(range_white_left(), 'max')
+range_min_white_left = get_range_colors(range_white_left(), 'min')
+
+
+range_max_white_right = get_range_colors(range_white_left(), 'max')
+range_min_white_right = get_range_colors(range_white_left(), 'min')
+
 # Range das cores ------------------------------------------------------------------------
  
 ## MEIO ##
@@ -157,3 +166,16 @@ def is_brown():
 
 def is_wall():
     return (is_black_left() and is_yellow_right()) or (is_yellow_left() and is_black_right())
+
+
+
+
+
+def is_white_left():
+    return range_min_white_left[0] <= red_left() <= range_max_white_left[0] and range_min_white_left[1] <= green_left() <= range_max_white_left[1] and range_min_white_left[2] <= blue_left() <= range_max_white_left[2]
+
+def is_white_right():
+    return range_min_white_right[0] <= red_right() <= range_max_white_right[0] and range_min_white_right[1] <= green_right() <= range_max_white_right[1] and range_min_white_right[2] <= blue_right() <= range_max_white_right[2]
+
+def is_white():
+    return is_white_left() and is_white_right()
