@@ -194,8 +194,11 @@ def scan_de_ladinho_papai():
     threshold = (azul +5+ branco) / 2 #!*&
 
     while True:
-        erro = (red_left() - threshold) * -0.45
-        motors.drive(150, erro)
+        erro = (red_left() - threshold) * -0.75
+        if left_motor.angle() < 2500 or right_motor.angle() < 2500:
+            motors.drive(500, erro)
+        else:
+            motors.drive(150, erro)
         if is_red_right():
             brake_motors_para_drive_base()
             move_backward(4)
@@ -291,20 +294,20 @@ def set_path():
                 go_to_i(quanto_andou_pra_frente)
             tube_city_hall()
         if color_of_tube == "BLUE": #Museu
-            if "J" not in obstaculos_lidos:
+            if "J" not in obstaculos_lidos and not ("E" in obstaculos_lidos and "G" in obstaculos_lidos):
                 go_to_j(quanto_andou_pra_frente)
             else:
                 go_to_i(quanto_andou_pra_frente)
             tube_museum()
         if color_of_tube == "BROWN": #Padaria
-            if "I" not in obstaculos_lidos:
+            if "I" not in obstaculos_lidos and not ("D" in obstaculos_lidos and "G" in obstaculos_lidos):
                 go_to_i(quanto_andou_pra_frente)
             else:
                 go_to_j(quanto_andou_pra_frente)
             tube_bakery()
     else:
         if color_of_tube == "GREEN": #Parque
-            if "J" not in obstaculos_lidos:
+            if "J" not in obstaculos_lidos and not ("E" in obstaculos_lidos and "G" in obstaculos_lidos):
                 go_to_j(quanto_andou_pra_frente)
             else:
                 go_to_i(quanto_andou_pra_frente)

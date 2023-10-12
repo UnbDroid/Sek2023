@@ -113,8 +113,56 @@ def move_backward(distancia, vel=500):
     
     brake_motors()
 
+
+
+
+def turn_left(angle):
+    kp_left = 0.87 # Crecendo vai pra direita Diminuindo vai pra esquerda 0.953
+    ki_left = 0 #0.001 #0.00006 #sempre olhar isso
+    kp_right = 0.98 # Crecendo vai mais Diminuindo vai menos
+    ki_right = 0 #sempre olhar isso
+    # wait(500)
+    set_point = 784*(angle/360)
+    set_point = round(set_point)
     
-            
+    current_angle_left = left_motor.angle()
+    current_angle_right = right_motor.angle()
+    current_angle_left  += calculate_pid(kp_left, ki_left, set_point, current_angle_left)
+    current_angle_right  += calculate_pid(kp_right, ki_right, set_point, current_angle_right)
+    
+    left_motor.run_angle(200, -current_angle_left  - (set_point - left_motor.angle())*0.1, wait=False)
+    right_motor.run_angle(200, current_angle_right  + (set_point - right_motor.angle())*0.1, wait=True)
+    #print(" motor left :",left_motor.angle())
+    #regular sempre
+    print("difference", abs(set_point - left_motor.angle()))
+    #print(set_point)
+    # print(current_angle)
+    print("leftou")
+
+
+
+def turn_right(angle): #check
+    kp_left = 0.94 
+    ki_left = 0 
+    kp_right = 0.89 
+    ki_right = 0.001
+    # wait(500)
+    set_point = 784*(angle/360)
+    set_point = round(set_point)
+    
+    current_angle_left = left_motor.angle()
+    current_angle_right = right_motor.angle()
+    current_angle_left  += calculate_pid(kp_left, ki_left, set_point, current_angle_left)
+    current_angle_right  += calculate_pid(kp_right, ki_right, set_point, current_angle_right)
+    
+    left_motor.run_angle(200, current_angle_left  + (set_point - right_motor.angle())*0.1, wait=False)
+    right_motor.run_angle(200, -current_angle_right  -(set_point - right_motor.angle())*0.1, wait=True)
+    #print(" motor left :",left_motor.angle())
+    #regular sempre
+    #print("difference", abs(set_point - left_motor.angle()))
+    #print("rightou")
+    stop()
+
 def turn_left_pid(x, vel=360):  
     global axle_track
     kp = 1.006 #1.0458
