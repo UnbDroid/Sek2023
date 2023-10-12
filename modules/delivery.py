@@ -94,30 +94,32 @@ def reposition():
             count_l += 1
         if right and not left :
             count_r += 1
-
+        print("SHIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIT")
         if (is_black_left() or is_yellow_left()) and left:
             left_motor.hold()
             left_motor.stop()
             right_motor.run(60)
+            print(1)
             left_motor.run(-3)
             left = False
         if (is_black_right() or is_yellow_right()) and right:
             right_motor.hold()
             right_motor.stop()
+            print(2)
             left_motor.run(60)
             right_motor.run(-3)
             right = False
-        if count_l >= 100 or count_r >= 100:
-            right = False
-            left = False
-            for i in range(count_l):
-                right_motor.run(1)
-                left_motor.run(-60)
-            for i in range( count_r):
-                right_motor.run(-60)
-                left_motor.run(1)
-                move_backward_cm(8)
-                reposition()
+        # if count_l >= 100 or count_r >= 100:
+        #     right = False
+        #     left = False
+        #     for i in range(count_l):
+        #         right_motor.run(1)
+        #         left_motor.run(-60)
+        #     for i in range( count_r):
+        #         right_motor.run(-60)
+        #         left_motor.run(1)
+        #         move_backward_cm(8)
+        #         reposition()
         if right and left:
             move_forward(100)
         if not right and not left:
@@ -135,19 +137,21 @@ def entregar_tubos2():
             brake_motors()
             move_backward(6,800)
             print("vou virar")
-            motors.turn(20)  #! Ajustar o valor
+            motors.turn(20)
+            brake_motors_para_drive_base()#! Ajustar o valor
             print("Virei")
-            while not is_black_right() and not is_yellow_right():
-                andar_reto(200)
+            while not is_black_left() and not is_yellow_left():
+                andar_reto(100)
             brake_motors()
             reposition()
         elif is_black_right() and is_yellow_left():
             brake_motors()
             move_backward(6,800)
             motors.turn(-20)
+            brake_motors_para_drive_base()
             print("Virei")
-            while not is_black_left() and not is_yellow_left():
-                andar_reto(200)
+            while not is_black_right() and not is_yellow_right():
+                andar_reto(100)
             brake_motors()
             reposition()
     print("Teste 2")
