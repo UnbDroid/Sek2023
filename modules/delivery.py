@@ -29,7 +29,7 @@ def alinhar_com_obstaculo():
     valores_lidos = []
     while len(valores_lidos) < 10:
         valores_lidos.append(ultrasound_sensor.distance())
-    while (sum(valores_lidos)/len(valores_lidos)) < 135:
+    while (sum(valores_lidos)/len(valores_lidos)) < 120:
         andar_reto(-500)
         valores_lidos.pop(0)
         valores_lidos.append(ultrasound_sensor.distance())
@@ -38,7 +38,7 @@ def alinhar_com_obstaculo():
     valores_lidos = []
     while len(valores_lidos) < 10:
         valores_lidos.append(ultrasound_sensor.distance())
-    while (sum(valores_lidos)/len(valores_lidos)) < 135:
+    while (sum(valores_lidos)/len(valores_lidos)) < 120:
         andar_reto(150)
         valores_lidos.pop(0)
         valores_lidos.append(ultrasound_sensor.distance())
@@ -91,7 +91,7 @@ def reposition():
             return 0
 
 def entregar_tubos():
-    while not is_yellow():
+    while not is_yellow() or inside():
         andar_reto(200)
         if is_black_left() and is_yellow_right():
             brake_motors()
@@ -172,7 +172,7 @@ def entregar_tubos():
 #* Essas funções são sobre, ir do checkpoint e caminhar até o obstáculo
 
 def go_to_i(angulo_que_ja_andou, velocidade = 200): #! 35 CM
-    move_forward(6,250) #FAZER
+    move_backward(2,250) #FAZER
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2
@@ -204,7 +204,7 @@ def go_to_i(angulo_que_ja_andou, velocidade = 200): #! 35 CM
         turn_left_pid(90)
 
 def go_to_j(angulo_que_ja_andou, velocidade = 200): #! 95 CM
-    move_forward(6,250) #FAZER
+    move_backward(2,250) #FAZER
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2 
@@ -289,11 +289,13 @@ def middle_to_obstacle(distancia = 10): #!          No meio da arena para andar 
 
 # Função recursiva para achar a linha azul (ida ou volta) ----------------------------------------
 
+se_alinhou = False
+vai_se_alinhar = False
+
 def find_blue_line(numero_de_paredes):
     esquerda_direita = ["ESQUERDA", 1]
-    if numero_de_paredes == 0:
-        se_alinhou = False
-        vai_se_alinhar = False
+    global se_alinhou
+    global vai_se_alinhar
     if numero_de_paredes < 4:
         brake_motors()
         
@@ -317,12 +319,40 @@ def find_blue_line(numero_de_paredes):
             brake_motors()
             
         if (is_red_left() or is_red_right()):
-            ajust_color(cor_vista) 
-            print("Achou vermelho")
-            brake_motors()
-            move_backward(36)
-            turn_left_pid(90)
-            brake_motors()
+            if se_alinhou:
+                ajust_color(cor_vista) 
+                print("Achou vermelho")
+                brake_motors()
+                move_backward(36)
+                turn_left_pid(90)
+                brake_motors()
+            else:
+                move_forward(1,100)
+                if is_red_left() and is_red_right():
+                    se_alinhou = True
+                else:
+                    if is_red_left():
+                        move_backward(5)
+                        turn_left_pid(45)
+                        while not is_red_left() and not is_red_right():
+                            andar_reto(300)
+                        brake_motors()
+                        move_forward(1,100)    
+                    if is_red_right():
+                        move_backward(5)
+                        turn_right_pid(45)
+                        while not is_red_left() and not is_red_right():
+                            andar_reto(300)
+                        brake_motors()
+                        move_forward(1,100)
+                    se_alinhou = True
+                move_backward(1,100)
+                ajust_color(cor_vista) 
+                print("Achou vermelho")
+                brake_motors()
+                move_backward(36)
+                turn_left_pid(90)
+                brake_motors()    
             while not is_blue_left() and not is_blue_right():
                 andar_reto(500)
                 if (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall():
@@ -574,7 +604,7 @@ def find_blue_line(numero_de_paredes):
             brake_motors()
             
         elif (is_black_left() or is_black_right()) or (is_yellow_left() or is_yellow_right()) or is_wall() or has_obstacle():
-            if cor_vista != "" and (((is_red_left() or is_black_left() or is_yellow_left()) and (not is_red_right() and not is_black_right() and not is_yellow_right())) or ((not is_red_left() and not is_black_left() and not is_yellow_left()) and (is_red_right() or is_black_right() or is_yellow_right()))):
+            if se_alinhou == True and cor_vista != "" and (((is_red_left() or is_black_left() or is_yellow_left()) and (not is_red_right() and not is_black_right() and not is_yellow_right())) or ((not is_red_left() and not is_black_left() and not is_yellow_left()) and (is_red_right() or is_black_right() or is_yellow_right()))):
                 ajust_color(cor_vista) 
             print("Achou parede")
             print("Voltando...")
@@ -1525,7 +1555,7 @@ def tube_park():
     
     move_to_i_or_j()
     
-    if has_obstacle() or "J" in obstaculos_lidos: 
+    if has_obstacle() or "J" in obstaculos_lidos or ("G" in obstaculos_lidos and "E" in obstaculos_lidos): 
         if "J" not in obstaculos_lidos:
             obstaculos_lidos.append("J")
             found_wall()

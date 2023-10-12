@@ -38,6 +38,18 @@ range_min_black_left = get_range_colors(range_black_left(), 'min')
 range_max_black_right = get_range_colors(range_black_right(), 'max')
 range_min_black_right = get_range_colors(range_black_right(), 'min')
 
+range_max_green_left = get_range_colors(range_green_left(), 'max')
+range_min_green_left = get_range_colors(range_green_left(), 'min')
+
+range_max_green_right = get_range_colors(range_green_right(), 'max')
+range_min_green_right = get_range_colors(range_green_right(), 'min')
+
+range_max_brown_left = get_range_colors(range_brown_left(), 'max')
+range_min_brown_left = get_range_colors(range_brown_left(), 'min')
+
+range_max_brown_right = get_range_colors(range_brown_right(), 'max')
+range_min_brown_right = get_range_colors(range_brown_right(), 'min')
+
 # -----------------------------------------------
 
 range_max_yellow_left = get_range_colors(range_yellow_left(), 'max')
@@ -94,6 +106,27 @@ def is_meio():
  
  
 ## BLACK ##
+
+
+
+
+def is_brown_left():
+    return range_min_brown_left[0] <= red_left() <= range_max_brown_left[0] and range_min_brown_left[1] <= green_left() <= range_max_brown_left[1] and range_min_brown_left[2] <= blue_left() <= range_max_brown_left[2]
+
+def is_brown_right():
+    return range_min_brown_right[0] <= red_right() <= range_max_brown_right[0] and range_min_brown_right[1] <= green_right() <= range_max_brown_right[1] and range_min_brown_right[2] <= blue_right() <= range_max_brown_right[2]
+
+def is_green_left():
+    return range_min_green_left[0] <= red_left() <= range_max_green_left[0] and range_min_green_left[1] <= green_left() <= range_max_green_left[1] and range_min_green_left[2] <= blue_left() <= range_max_green_left[2]
+
+def is_green_right():
+    return range_min_green_right[0] <= red_right() <= range_max_green_right[0] and range_min_green_right[1] <= green_right() <= range_max_green_right[1] and range_min_green_right[2] <= blue_right() <= range_max_green_right[2]
+
+def is_brown():
+    return is_brown_left() and is_brown_right()
+
+def is_green():
+    return is_green_left() and is_green_right()
 
 
 def is_black_left():
@@ -179,3 +212,6 @@ def is_white_right():
 
 def is_white():
     return is_white_left() and is_white_right()
+
+def inside():
+    return is_red() or is_blue() or is_brown() or is_green()

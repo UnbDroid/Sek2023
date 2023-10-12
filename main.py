@@ -40,6 +40,9 @@ while True:
 
 #* ---------------------------------------------------------
 
+# while True:
+#     print(inside())
+
 # valores_lidos = []
 # while len(valores_lidos) < 10:
 #     valores_lidos.append(ultrasound_sensor.distance())
@@ -141,7 +144,7 @@ while True:
 # while i < 8 :
 #     turn_right_pid(90)
 #     wait(500)
-#    # brake_motors()
+   # brake_motors()
     # i+=1
 # move_forward(5)
 

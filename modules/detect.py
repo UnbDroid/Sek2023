@@ -13,7 +13,7 @@ def has_obstacle():
     else:
         valores_lidos.pop(0)
         valores_lidos.append(ultrasound_sensor.distance())
-    if sum(valores_lidos) / len(valores_lidos) <= 100:
+    if sum(valores_lidos) / len(valores_lidos) <= 120:
         print("Obstáculo detectado")
         found_wall()
         return True

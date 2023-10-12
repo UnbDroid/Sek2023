@@ -172,7 +172,7 @@ def scan_de_ladinho_papai():
         delta = red_right() - threshold
         kp = 0.5
         erro = delta * kp
-        motors.drive(150, erro) #! VELOCIDADE ARRUMANDO
+        motors.drive(140, erro) #! VELOCIDADE ARRUMANDO
         
         if is_red_left() and red_left() >= range_meio_blue_left()[0]:
             chegou_no_fim = True
@@ -196,7 +196,7 @@ def scan_de_ladinho_papai():
 
     while True:
         erro = (red_left() - threshold) * -0.45
-        motors.drive(260, erro)
+        motors.drive(160, erro)
         if is_red_right():
             brake_motors_para_drive_base()
             move_backward(4)
@@ -226,7 +226,7 @@ def scan_de_ladinho_papai():
                 andar_reto(-80)#50
             quanto_andou_pra_frente += (left_motor.angle() + right_motor.angle()) // 2
             brake_motors()
-            move_backward(6,60) #FAZER : TESTE, caldinho talvez vc tenha que subtrair esses 3 cm pai :D
+            move_forward(2,60) #FAZER : TESTE, caldinho talvez vc tenha que subtrair esses 3 cm pai :D
             
             Open(esperar=False, time = 600)
             turn_left_pid(90)
@@ -280,7 +280,7 @@ def set_path():
     if size_of_tube == 15:
         print("Tem 15 cm")
         if color_of_tube == "RED": #Farmacia
-            if "J" not in obstaculos_lidos:
+            if "J" not in obstaculos_lidos and not ("E" in obstaculos_lidos and "G" in obstaculos_lidos):
                 go_to_j(quanto_andou_pra_frente)
             else:
                 go_to_i(quanto_andou_pra_frente)
@@ -292,7 +292,7 @@ def set_path():
                 go_to_i(quanto_andou_pra_frente)
             tube_city_hall()
         if color_of_tube == "BLUE": #Museu
-            if "J" not in obstaculos_lidos and not ("E" in obstaculos_lidos and "G" in obstaculos_lidos):
+            if "J" not in obstaculos_lidos:
                 go_to_j(quanto_andou_pra_frente)
             else:
                 go_to_i(quanto_andou_pra_frente)
@@ -319,7 +319,7 @@ def set_path():
         if color_of_tube == "BROWN": #Biblioteca
             tube_library()
         if color_of_tube == "RED":
-            if "J" not in obstaculos_lidos:
+            if "J" not in obstaculos_lidos and not ("E" in obstaculos_lidos and "G" in obstaculos_lidos):
                 go_to_j(quanto_andou_pra_frente)
             else:
                 go_to_i(quanto_andou_pra_frente)

@@ -155,7 +155,7 @@ def turn_left_pid(x, vel=360):
     # print("leftou")
     
     global axle_track
-    kp = 1.006 #1.0458
+    kp = 1.007 #1.0458
     ki = 0.0000000001 # 0.0156
     setpoint = axle_track * (x / 360) #! CUIDADO
       
@@ -196,7 +196,7 @@ def turn_right_pid(x, vel=290): #360
     # brake_motors()
     
     global axle_track  
-    kp = 1.006 #1.0458
+    kp = 1.007 #1.0458
     ki = 0.0000000001 # 0.0156
     setpoint = axle_track * (x / 360) #! CUIDADO
     

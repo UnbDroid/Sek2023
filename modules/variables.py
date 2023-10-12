@@ -48,6 +48,18 @@ def range_white_right():
     # return [82, 89, 100] #! RANGES DA ARENA OFICIAL
     return [95, 98, 100]
 
+def range_brown_left():
+    return [22, 10, 10]
+
+def range_brown_right():
+    return [27, 15, 29]
+
+def range_green_left():
+    return [10, 31, 18]
+
+def range_green_right():
+    return [15, 37, 45]
+
 def get_dar_pra_tras(value):
     return value
 
@@ -127,7 +139,7 @@ def get_treshold_left(pos,color,white = range_white_left(),teste = False):
             #!?##*
             return [treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9]
         elif teste == True :
-            return [treshold-13,treshold-12,treshold-11,treshold-10,treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9,treshold+10,treshold+11,treshold+12,treshold+13]
+            return [treshold-16,treshold-15,treshold-14,treshold-13,treshold-12,treshold-11,treshold-10,treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9,treshold+10,treshold+11,treshold+12,treshold+13,treshold+14,treshold+15,treshold+16]
 
 
 def get_treshold_right(pos,color,white = range_white_right(),teste = False):
@@ -157,5 +169,5 @@ def get_treshold_right(pos,color,white = range_white_right(),teste = False):
             #!?##*
             return [treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9]
         elif teste == True :
-            return [treshold-15,treshold-14,treshold-13,treshold-12,treshold-11,treshold-10,treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9,treshold+10,treshold+11,treshold+12,treshold+13,treshold+14,treshold+15]
+            return [treshold-16,treshold-15,treshold-14,treshold-13,treshold-12,treshold-11,treshold-10,treshold-9,treshold-8,treshold-7,treshold-6,treshold-5,treshold-4,treshold-3,treshold-2,treshold-1,treshold,treshold+1,treshold+2,treshold+3,treshold+4,treshold+5,treshold+6,treshold+7,treshold+8,treshold+9,treshold+10,treshold+11,treshold+12,treshold+13,treshold+14,treshold+15,treshold+16]
 
