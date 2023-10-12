@@ -21,7 +21,7 @@ from pybricks.hubs import EV3Brick
 #-----------------------------------------------------------------------------------------------
 
 #* Codigo paraa dar inicio a guerra deth com 😡🤬😶‍🌫️👀🔑 ---------------------------------------------------------------------------------------
-entregar_tubos2()
+
 # find_blue_line(0)
 # while True:   
 #     align_to_begin_scan()
@@ -31,11 +31,11 @@ entregar_tubos2()
 
 #* Codigo para pegar de ladinho The Ladinho 😎🫡🤠 -------------------------------------------------------------------------------------
 # block()
-'''find_blue_line(0)
+find_blue_line(0)
 while True:
     align_to_be_ladinho()
     scan_de_ladinho_papai()
-    set_path()'''
+    set_path()
 
 
 #* ---------------------------------------------------------

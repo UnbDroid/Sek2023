@@ -226,7 +226,7 @@ def scan_de_ladinho_papai():
                 andar_reto(-80)#50
             quanto_andou_pra_frente += (left_motor.angle() + right_motor.angle()) // 2
             brake_motors()
-            move_backward(7,60) #FAZER : TESTE, caldinho talvez vc tenha que subtrair esses 3 cm pai :D
+            move_backward(6,60) #FAZER : TESTE, caldinho talvez vc tenha que subtrair esses 3 cm pai :D
             
             Open(esperar=False, time = 600)
             turn_left_pid(90)

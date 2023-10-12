@@ -44,36 +44,6 @@ def alinhar_com_obstaculo():
         valores_lidos.append(ultrasound_sensor.distance())
     brake_motors()
     
-def entregar_tubos():
-    while not is_yellow():
-        andar_reto(200)
-        if (is_black_left() and is_yellow_right()) or (is_yellow_right() and is_black_left()):
-            brake_motors()
-            move_backward(6,800)
-            print("vou virar")
-            turn_left_pid(90,360) #! Ajustar o valor
-            print("Virei")
-            move_backward(3,800)
-            turn_right_pid(90,360)
-        elif (is_black_right() and is_yellow_left()) or (is_yellow_left() and is_black_right()):
-            brake_motors()
-            move_backward(6,800)
-            turn_right_pid(90,360)
-            move_backward(3,800)
-            turn_left_pid(90,360)
-        
-    print("Teste 2")
-    brake_motors()
-    Open()
-    move_forward(5,80)
-    # Volta
-    while not is_yellow_left() and not is_yellow_right():
-        andar_reto(-300)
-    brake_motors()
-    ajust_color("YELLOW")    
-    
-    move_backward(5)
-
 # ! teste de entregar tubos HILARIO E BIANCA (INSPIRED BY MEXICANS)
 
 def reposition():
@@ -119,12 +89,8 @@ def reposition():
             #print("PORRAAAAAA")
             
             return 0
-        
 
-
-
-
-def entregar_tubos2():
+def entregar_tubos():
     while not is_yellow():
         andar_reto(200)
         if is_black_left() and is_yellow_right():
@@ -150,7 +116,7 @@ def entregar_tubos2():
             reposition()
     print("Teste 2")
     brake_motors()
-    # Open()
+    Open()
     move_forward(5,80)
     # Volta
     while not is_yellow_left() and not is_yellow_right():
@@ -159,6 +125,46 @@ def entregar_tubos2():
     ajust_color("YELLOW")  
     
     move_backward(5)   
+        
+
+
+
+
+# def entregar_tubos2():
+#     while not is_yellow():
+#         andar_reto(200)
+#         if is_black_left() and is_yellow_right():
+#             brake_motors()
+#             move_backward(6,800)
+#             print("vou virar")
+#             motors.turn(20)
+#             brake_motors_para_drive_base()#! Ajustar o valor
+#             print("Virei")
+#             while not is_black_left() and not is_yellow_left():
+#                 andar_reto(100)
+#             brake_motors()
+#             reposition()
+#         elif is_black_right() and is_yellow_left():
+#             brake_motors()
+#             move_backward(6,800)
+#             motors.turn(-20)
+#             brake_motors_para_drive_base()
+#             print("Virei")
+#             while not is_black_right() and not is_yellow_right():
+#                 andar_reto(100)
+#             brake_motors()
+#             reposition()
+#     print("Teste 2")
+#     brake_motors()
+#     # Open()
+#     move_forward(5,80)
+#     # Volta
+#     while not is_yellow_left() and not is_yellow_right():
+#         andar_reto(-300)
+#     brake_motors()
+#     ajust_color("YELLOW")  
+    
+#     move_backward(5)   
 
     
 #! Localizações ----------------------------------------------------
@@ -166,7 +172,7 @@ def entregar_tubos2():
 #* Essas funções são sobre, ir do checkpoint e caminhar até o obstáculo
 
 def go_to_i(angulo_que_ja_andou, velocidade = 200): #! 35 CM
-    move_forward(7,250) #FAZER
+    move_forward(6,250) #FAZER
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2
@@ -198,7 +204,7 @@ def go_to_i(angulo_que_ja_andou, velocidade = 200): #! 35 CM
         turn_left_pid(90)
 
 def go_to_j(angulo_que_ja_andou, velocidade = 200): #! 95 CM
-    move_forward(7,250) #FAZER
+    move_forward(6,250) #FAZER
     branco = range_white_left()[0] 
     azul = range_blue_left()[0] 
     threshold = (branco + azul) / 2 
