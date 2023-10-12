@@ -64,4 +64,4 @@ while True:
 #     print(scan_de_ladinho())
 
 # while True:
-#     print(tube_is_detected())
+#     print(tube())
